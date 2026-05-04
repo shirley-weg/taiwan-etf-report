@@ -22,6 +22,12 @@ jobs:
     env:
       TOP_N_STOCKS: "10"
       MIN_TWSE_ETF_MASTER_ROWS: "50"
+
+      # 初期先用 10% 確認 crawler 可以解析真實 PCF。
+      # 補齊 data/pcf_source_registry.json 後，再改成 0.80 或 0.90。
+      MIN_PCF_COVERAGE_RATIO: "0.10"
+      STRICT_PCF_COVERAGE: "0"
+
       HTTP_TIMEOUT: "30"
       HTTP_SLEEP_SECONDS: "0.35"
       LOG_LEVEL: "INFO"
@@ -45,10 +51,10 @@ jobs:
           python scripts/generate_report.py
 
       - name: Commit and push report
-        if: success()
+        if: always()
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add data/ history/ raw/ || true
-          git diff --cached --quiet && echo "No changes to commit" || git commit -m "Update TWSE ETF master"
+          git diff --cached --quiet && echo "No changes to commit" || git commit -m "Update ETF PCF holdings report"
           git push
