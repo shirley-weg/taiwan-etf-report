@@ -10,7 +10,8 @@ from collections import defaultdict
 from datetime import date, datetime, timedelta
 from io import StringIO
 from pathlib import Path
-from typing import Any, Dict, Iterable, List, Optional
+from typing import Any, Dict, Iterable, List, Optional, Tuple
+from urllib.parse import urljoin
 
 import pandas as pd
 import requests
@@ -19,64 +20,78 @@ from zoneinfo import ZoneInfo
 
 
 # ============================================================
-# Taiwan ETF Chip Report - Official TWSE ETF Master
+# Taiwan ETF Chip Report - Official TWSE Master + Real PCF Crawler
 # ------------------------------------------------------------
-# 正式資料策略：
-#   主來源：TWSE 證券編碼系統 ISIN / 分類查詢
-#          這是比 TWSE 網站前端商品頁更穩定的官方 master source。
-#
-#   來源 1：
-#     https://isin.twse.com.tw/isin/class_main.jsp
-#     以 market=1、issuetype=ETF 篩出上市 ETF。
-#
-#   來源 2 fallback：
-#     https://isin.twse.com.tw/isin/C_public.jsp?strMode=2
-#     解析「本國上市證券國際證券辨識號碼一覽表」中的 ETF 區段。
-#
-#   輔助來源：
-#     TWSE ETF 商品資訊 / e添富頁面只作 enrichment，不作唯一主來源，
-#     因為這些頁面在 GitHub Actions runner 中可能只回傳殼頁或前端渲染結果。
+# 正式資料來源分層：
+#   1. TWSE ISIN：抓 ETF master universe，不用 sample。
+#   2. TWSE ETF 商品頁：自動探索各 ETF 的「申購買回清單 PCF」連結。
+#   3. 各投信 PCF 網頁：抓真實 PCF / 每日持股揭露。
+#   4. raw/holdings/YYYY-MM-DD/{etf_code}.json：標準化每日持股快照。
+#   5. 今日快照 - 前一交易日快照：計算 top_stock_changes / participating_etfs。
 #
 # 嚴格原則：
-#   - 不使用 sample ETF。
-#   - 不產生假的 ETF rows。
-#   - 抓不到可信 TWSE ETF master 就讓 workflow 失敗。
+#   - 不產生 sample ETF。
+#   - 不產生假的 holdings。
+#   - 抓不到某 ETF 的 PCF 會記錄在 data/pcf_fetch_status.json。
+#   - 只有真實解析到 holdings 的 ETF 才會進入 raw/holdings。
 #
-# 輸出：
-#   data/etf_master_latest.json
-#   raw/etf_master/YYYY-MM-DD/twse_etf_master.json
-#   data/latest_report.json
-#   history/YYYY-MM-DD.json
+# 重要限制：
+#   - 各投信網站格式不同，本版以「TWSE 商品頁 PCF 連結探索 + 通用 HTML table parser」為主。
+#   - 對主流投信提供 URL fallback pattern：元大、富邦、國泰、群益、復華、永豐。
+#   - 若某家投信網站改版，請在 data/pcf_source_registry.json 補手動 URL。
 # ============================================================
 
 
+# ----------------------------
+# Paths
+# ----------------------------
 ROOT = Path(__file__).resolve().parents[1]
-
 DATA_DIR = ROOT / "data"
 HISTORY_DIR = ROOT / "history"
 RAW_MASTER_DIR = ROOT / "raw" / "etf_master"
 RAW_HOLDINGS_DIR = ROOT / "raw" / "holdings"
+RAW_PCF_DIR = ROOT / "raw" / "pcf"
 RAW_DEBUG_DIR = ROOT / "raw" / "debug"
 
-for folder in [DATA_DIR, HISTORY_DIR, RAW_MASTER_DIR, RAW_HOLDINGS_DIR, RAW_DEBUG_DIR]:
+for folder in [DATA_DIR, HISTORY_DIR, RAW_MASTER_DIR, RAW_HOLDINGS_DIR, RAW_PCF_DIR, RAW_DEBUG_DIR]:
     folder.mkdir(parents=True, exist_ok=True)
 
+
+# ----------------------------
+# Config
+# ----------------------------
 TAIPEI_TZ = ZoneInfo("Asia/Taipei")
 
 TOP_N_STOCKS = int(os.getenv("TOP_N_STOCKS", "10"))
 MIN_TWSE_ETF_MASTER_ROWS = int(os.getenv("MIN_TWSE_ETF_MASTER_ROWS", "50"))
+
+# PCF 覆蓋率門檻。
+# 初期接真實來源時，建議先設 0.10 或 0.20，確認主流投信可解析。
+# 等你補齊 source registry 後，再提高至 0.80 / 0.90。
+MIN_PCF_COVERAGE_RATIO = float(os.getenv("MIN_PCF_COVERAGE_RATIO", "0.10"))
+STRICT_PCF_COVERAGE = os.getenv("STRICT_PCF_COVERAGE", "0").strip() == "1"
+
 HTTP_TIMEOUT = int(os.getenv("HTTP_TIMEOUT", "30"))
 HTTP_SLEEP_SECONDS = float(os.getenv("HTTP_SLEEP_SECONDS", "0.35"))
 LOG_LEVEL = os.getenv("LOG_LEVEL", "INFO").upper()
 
 logging.basicConfig(level=LOG_LEVEL, format="%(asctime)s | %(levelname)s | %(message)s")
-logger = logging.getLogger("twse-etf-master")
+logger = logging.getLogger("etf-pcf-report")
 
 
+# ----------------------------
+# Official / issuer source URLs
+# ----------------------------
 TWSE_ISIN_CLASS_URL = "https://isin.twse.com.tw/isin/class_main.jsp"
 TWSE_ISIN_PUBLIC_LIST_URL = "https://isin.twse.com.tw/isin/C_public.jsp?strMode=2"
 
-# Optional enrichment sources. The report will not rely on them as the primary source.
+# TWSE ETF product detail page. This page usually provides a PCF link.
+TWSE_PRODUCT_CONTENT_URLS = [
+    "https://wwwc.twse.com.tw/zh/products/securities/etf/products/content.html?{code}=",
+    "https://www.twse.com.tw/zh/products/securities/etf/products/content.html?{code}=",
+]
+
+# Optional ETF master enrichment sources.
 TWSE_ETF_PRODUCT_LIST_URLS = [
     "https://www.twse.com.tw/zh/products/securities/etf/products/list.html",
     "https://www.twse.com.tw/en/products/securities/etf/products/list.html",
@@ -89,7 +104,7 @@ REQUEST_HEADERS = {
         "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 "
         "(KHTML, like Gecko) Chrome/120.0 Safari/537.36"
     ),
-    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8,application/json",
     "Accept-Language": "zh-TW,zh;q=0.9,en;q=0.8",
     "Cache-Control": "no-cache",
     "Pragma": "no-cache",
@@ -120,7 +135,9 @@ def normalize_code(value: Any) -> str:
 
 def safe_float(value: Any, default: float = 0.0) -> float:
     try:
-        text = clean_text(value).replace(",", "").replace("%", "")
+        text = clean_text(value)
+        text = text.replace(",", "").replace("%", "").replace("NT$", "").replace("$", "")
+        text = re.sub(r"[^0-9.\-]", "", text)
         if text in {"", "-", "--", "N/A", "nan", "None"}:
             return default
         return float(text)
@@ -130,18 +147,18 @@ def safe_float(value: Any, default: float = 0.0) -> float:
 
 def safe_int(value: Any, default: int = 0) -> int:
     try:
-        text = clean_text(value).replace(",", "")
-        if text in {"", "-", "--", "N/A", "nan", "None"}:
-            return default
-        return int(float(text))
+        return int(round(safe_float(value, default)))
     except Exception:
         return default
 
 
 def is_etf_code(value: Any) -> bool:
-    code = normalize_code(value)
-    # Taiwan ETF examples: 0050, 00631L, 00632R, 00980A, 00981D
-    return bool(re.fullmatch(r"\d{4,6}[A-Z]?", code))
+    return bool(re.fullmatch(r"\d{4,6}[A-Z]?", normalize_code(value)))
+
+
+def is_stock_code(value: Any) -> bool:
+    # 只把台股普通股/上市櫃股票納入個股籌碼統計；ETF、債券、期貨、外股先排除。
+    return bool(re.fullmatch(r"\d{4}", clean_text(value)))
 
 
 def is_isin(value: Any) -> bool:
@@ -177,44 +194,37 @@ def read_json(path: Path) -> Any:
 
 def http_get(url: str, params: Optional[Dict[str, Any]] = None) -> str:
     logger.info("GET %s params=%s", url, params)
-    response = requests.get(
-        url,
-        params=params,
-        headers=REQUEST_HEADERS,
-        timeout=HTTP_TIMEOUT,
-    )
+    response = requests.get(url, params=params, headers=REQUEST_HEADERS, timeout=HTTP_TIMEOUT)
     response.raise_for_status()
-    # TWSE ISIN pages are usually Big5 / CP950; apparent_encoding handles this.
     response.encoding = response.apparent_encoding or "utf-8"
     time.sleep(HTTP_SLEEP_SECONDS)
     return response.text
 
 
-def debug_save(report_date: str, name: str, content: str) -> None:
-    safe = re.sub(r"[^A-Za-z0-9_-]+", "_", name)[:80]
-    path = RAW_DEBUG_DIR / report_date / f"{safe}.html"
+def debug_save(report_date: str, name: str, content: str, suffix: str = "html") -> None:
+    safe = re.sub(r"[^A-Za-z0-9_-]+", "_", name)[:90]
+    path = RAW_DEBUG_DIR / report_date / f"{safe}.{suffix}"
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(content, encoding="utf-8", errors="ignore")
 
 
+def looks_like_date(text: Any) -> bool:
+    return bool(re.fullmatch(r"\d{4}[./-]\d{1,2}[./-]\d{1,2}", clean_text(text)))
+
+
+def normalize_date(text: Any) -> str:
+    text = clean_text(text)
+    return text.replace("/", ".").replace("-", ".")
+
+
+def looks_like_number(text: Any) -> bool:
+    return bool(re.fullmatch(r"[-+]?\d[\d,]*(?:\.\d+)?%?", clean_text(text)))
+
+
 # ============================================================
-# Official TWSE ETF master
+# TWSE ETF master
 # ============================================================
 def fetch_twse_etf_master(report_date: str) -> List[Dict[str, Any]]:
-    """
-    Fetch true TWSE listed ETF master.
-
-    Primary path:
-      class_main.jsp classification search with market=1 and ETF type.
-
-    Fallback path:
-      C_public.jsp?strMode=2; parse ETF section.
-
-    Enrichment:
-      Try TWSE ETF product/e添富 pages only to fill issuer/benchmark/AUM
-      when available. They are not allowed to create the master universe by
-      themselves.
-    """
     errors: List[str] = []
 
     try:
@@ -241,11 +251,9 @@ def fetch_twse_etf_master(report_date: str) -> List[Dict[str, Any]]:
         raise RuntimeError(
             "TWSE ETF master validation failed. "
             f"rows={len(master)}, has_0050={contains_0050(master)}, "
-            f"min_required={MIN_TWSE_ETF_MASTER_ROWS}, errors={errors}. "
-            f"Debug files saved under raw/debug/{report_date}/."
+            f"min_required={MIN_TWSE_ETF_MASTER_ROWS}, errors={errors}."
         )
 
-    # Optional enrichment. If this fails, master remains valid because ISIN source passed.
     try:
         enrichments = fetch_twse_product_enrichment(report_date)
         master = merge_enrichment(master, enrichments)
@@ -256,12 +264,6 @@ def fetch_twse_etf_master(report_date: str) -> List[Dict[str, Any]]:
 
 
 def fetch_from_isin_class_main(report_date: str) -> List[Dict[str, Any]]:
-    """
-    Official source:
-      https://isin.twse.com.tw/isin/class_main.jsp
-
-    We intentionally query pages and filter 有價證券別=ETF, 市場別=上市.
-    """
     rows: List[Dict[str, Any]] = []
     seen_codes: set[str] = set()
     empty_pages = 0
@@ -270,14 +272,13 @@ def fetch_from_isin_class_main(report_date: str) -> List[Dict[str, Any]]:
         params = {
             "Page": page,
             "chklike": "Y",
-            "market": "1",       # 1 = 上市
-            "issuetype": "",     # empty then filter 有價證券別 = ETF
+            "market": "1",
+            "issuetype": "",
             "industry_code": "",
             "isincode": "",
             "owncode": "",
             "stockname": "",
         }
-
         html = http_get(TWSE_ISIN_CLASS_URL, params=params)
         debug_save(report_date, f"isin_class_main_page_{page}", html)
 
@@ -297,19 +298,12 @@ def fetch_from_isin_class_main(report_date: str) -> List[Dict[str, Any]]:
         else:
             empty_pages = 0
 
-        # Stop early when page returned no table or repeated rows.
-        if len(rows) >= MIN_TWSE_ETF_MASTER_ROWS and page >= 3:
-            # There are usually enough rows by this point, but continue one more
-            # page in case pagination is short.
-            pass
-
     return dedupe_master_rows(rows)
 
 
 def parse_isin_class_main_html(html: str) -> List[Dict[str, Any]]:
     rows: List[Dict[str, Any]] = []
 
-    # Preferred parser: pandas tables.
     try:
         tables = pd.read_html(StringIO(html), displayed_only=False)
         for df in tables:
@@ -317,13 +311,10 @@ def parse_isin_class_main_html(html: str) -> List[Dict[str, Any]]:
     except Exception:
         pass
 
-    # Fallback parser: tr/td.
     if not rows:
         soup = BeautifulSoup(html, "html.parser")
         for tr in soup.find_all("tr"):
             cells = [clean_text(td.get_text(" ", strip=True)) for td in tr.find_all("td")]
-            if len(cells) < 7:
-                continue
             parsed = parse_isin_class_cells(cells)
             if parsed:
                 rows.append(parsed)
@@ -336,14 +327,10 @@ def parse_isin_class_dataframe(df: pd.DataFrame) -> List[Dict[str, Any]]:
     df = df.copy()
 
     if isinstance(df.columns, pd.MultiIndex):
-        df.columns = [
-            clean_text(" ".join(str(x) for x in col if str(x) != "nan"))
-            for col in df.columns
-        ]
+        df.columns = [clean_text(" ".join(str(x) for x in col if str(x) != "nan")) for col in df.columns]
     else:
         df.columns = [clean_text(c) for c in df.columns]
 
-    # Some ISIN tables use first row as header.
     if len(df) > 0:
         first_row = [clean_text(x) for x in df.iloc[0].tolist()]
         if any("有價證券代號" in x for x in first_row) or any("ISIN" in x for x in first_row):
@@ -360,24 +347,10 @@ def parse_isin_class_dataframe(df: pd.DataFrame) -> List[Dict[str, Any]]:
 
 
 def parse_isin_class_cells(cells: List[str]) -> Optional[Dict[str, Any]]:
-    """
-    Expected cells for class_main:
-      0: row number
-      1: ISIN
-      2: 有價證券代號
-      3: 有價證券名稱
-      4: 市場別
-      5: 有價證券別
-      6: 產業別
-      7: 公開發行/上市(櫃)/發行日
-      8: CFICode
-      9: 備註
-    """
     cells = [clean_text(x) for x in cells if clean_text(x)]
     if len(cells) < 7:
         return None
 
-    # Find code and ISIN flexibly.
     code = ""
     isin = ""
     for cell in cells:
@@ -389,20 +362,16 @@ def parse_isin_class_cells(cells: List[str]) -> Optional[Dict[str, Any]]:
     if not code:
         return None
 
-    # Find likely positions.
     code_idx = next((i for i, x in enumerate(cells) if normalize_code(x) == code), -1)
-    isin_idx = next((i for i, x in enumerate(cells) if clean_text(x) == isin), -1)
-
     name = cells[code_idx + 1] if 0 <= code_idx + 1 < len(cells) else ""
+
     market = ""
     security_type = ""
     listing_date = ""
     cfi_code = ""
     remark = ""
 
-    # If class_main exact order is present.
-    if code_idx >= 2 and len(cells) >= code_idx + 6:
-        # ... ISIN, code, name, market, type, industry, listing_date, CFI, remark
+    if code_idx >= 0:
         maybe_market = cells[code_idx + 2] if code_idx + 2 < len(cells) else ""
         maybe_type = cells[code_idx + 3] if code_idx + 3 < len(cells) else ""
         if "上市" in maybe_market or "上櫃" in maybe_market:
@@ -412,7 +381,6 @@ def parse_isin_class_cells(cells: List[str]) -> Optional[Dict[str, Any]]:
             cfi_code = cells[code_idx + 6] if code_idx + 6 < len(cells) else ""
             remark = cells[code_idx + 7] if code_idx + 7 < len(cells) else ""
 
-    # Only TWSE listed ETF.
     joined = " ".join(cells)
     if "ETF" not in joined:
         return None
@@ -420,7 +388,6 @@ def parse_isin_class_cells(cells: List[str]) -> Optional[Dict[str, Any]]:
         return None
     if security_type and "ETF" not in security_type:
         return None
-
     if not name or name in {"ETF", "上市"}:
         return None
 
@@ -441,12 +408,6 @@ def parse_isin_class_cells(cells: List[str]) -> Optional[Dict[str, Any]]:
 
 
 def fetch_from_isin_public_list(report_date: str) -> List[Dict[str, Any]]:
-    """
-    Official fallback:
-      https://isin.twse.com.tw/isin/C_public.jsp?strMode=2
-
-    The table is grouped by security type. We parse rows after the ETF header.
-    """
     html = http_get(TWSE_ISIN_PUBLIC_LIST_URL)
     debug_save(report_date, "isin_C_public_strMode_2", html)
 
@@ -457,7 +418,6 @@ def fetch_from_isin_public_list(report_date: str) -> List[Dict[str, Any]]:
     for tr in soup.find_all("tr"):
         cells = [clean_text(td.get_text(" ", strip=True)) for td in tr.find_all("td")]
         cells = [x for x in cells if x]
-
         if not cells:
             continue
 
@@ -465,14 +425,10 @@ def fetch_from_isin_public_list(report_date: str) -> List[Dict[str, Any]]:
             current_section = cells[0]
             continue
 
-        # C_public expected:
-        # 有價證券代號及名稱, ISIN Code, 上市日, 市場別, 產業別, CFICode, 備註
         if len(cells) < 3:
             continue
 
-        first = cells[0]
-        code, name = split_code_name(first)
-
+        code, name = split_code_name(cells[0])
         if not code or not name:
             continue
 
@@ -505,24 +461,14 @@ def fetch_from_isin_public_list(report_date: str) -> List[Dict[str, Any]]:
     return dedupe_master_rows(rows)
 
 
-def split_code_name(text: str) -> tuple[str, str]:
+def split_code_name(text: str) -> Tuple[str, str]:
     text = clean_text(text)
     match = re.match(r"^(\d{4,6}[A-Z]?)\s+(.+)$", text)
     if not match:
         return "", ""
     code = normalize_code(match.group(1))
     name = clean_text(match.group(2))
-    if not is_etf_code(code):
-        return "", ""
-    return code, name
-
-
-def normalize_date(text: str) -> str:
-    text = clean_text(text)
-    if not text:
-        return ""
-    text = text.replace("/", ".").replace("-", ".")
-    return text
+    return (code, name) if is_etf_code(code) else ("", "")
 
 
 def make_master_row(
@@ -573,22 +519,22 @@ def dedupe_master_rows(rows: Iterable[Dict[str, Any]]) -> List[Dict[str, Any]]:
     best: Dict[str, Dict[str, Any]] = {}
 
     for row in rows:
+        row = dict(row)
         code = normalize_code(row.get("etf_code"))
         if not is_etf_code(code):
             continue
 
-        row = dict(row)
         row["etf_code"] = code
         row["etf_name"] = clean_text(row.get("etf_name", ""))
-
         if not row["etf_name"]:
             continue
 
         if code not in best:
             best[code] = row
-        elif row_quality_score(row) > row_quality_score(best[code]):
+            continue
+
+        if row_quality_score(row) > row_quality_score(best[code]):
             merged = {**best[code], **row}
-            # Preserve useful old values if new value is blank.
             for key in best[code]:
                 if not merged.get(key) and best[code].get(key):
                     merged[key] = best[code][key]
@@ -669,7 +615,7 @@ def infer_issuer_from_name(etf_name: str) -> str:
 
 
 # ============================================================
-# Optional enrichment from TWSE ETF product / ETFortune pages
+# Optional master enrichment
 # ============================================================
 def fetch_twse_product_enrichment(report_date: str) -> Dict[str, Dict[str, Any]]:
     enrich: Dict[str, Dict[str, Any]] = {}
@@ -678,13 +624,11 @@ def fetch_twse_product_enrichment(report_date: str) -> Dict[str, Dict[str, Any]]
         try:
             html = http_get(url)
             debug_save(report_date, f"enrich_{url_to_name(url)}", html)
-
             rows = parse_product_or_etfortune_enrichment(html, url)
             for row in rows:
                 code = row["etf_code"]
                 if code not in enrich or row_quality_score(row) > row_quality_score(enrich[code]):
                     enrich[code] = row
-
             logger.info("Enrichment %s parsed %s rows.", url, len(rows))
         except Exception as exc:
             logger.warning("Enrichment source failed %s: %s", url, exc)
@@ -699,7 +643,6 @@ def url_to_name(url: str) -> str:
 def parse_product_or_etfortune_enrichment(html: str, source_url: str) -> List[Dict[str, Any]]:
     rows: List[Dict[str, Any]] = []
 
-    # Try pandas tables first.
     try:
         tables = pd.read_html(StringIO(html), displayed_only=False)
         for df in tables:
@@ -707,43 +650,23 @@ def parse_product_or_etfortune_enrichment(html: str, source_url: str) -> List[Di
     except Exception:
         pass
 
-    # Token parser for server-rendered ETFortune pages.
-    if not rows:
-        rows.extend(parse_enrichment_tokens(html, source_url))
-
     return dedupe_master_rows(rows)
 
 
 def parse_enrichment_dataframe(df: pd.DataFrame, source_url: str) -> List[Dict[str, Any]]:
     rows: List[Dict[str, Any]] = []
+    df = flatten_df_columns(df)
 
-    df = df.copy()
-    if isinstance(df.columns, pd.MultiIndex):
-        df.columns = [
-            clean_text(" ".join(str(x) for x in col if str(x) != "nan"))
-            for col in df.columns
-        ]
-    else:
-        df.columns = [clean_text(c) for c in df.columns]
-
-    def find_col(names: List[str]) -> Optional[str]:
-        for col in df.columns:
-            col_l = clean_text(col).lower()
-            for name in names:
-                if name.lower() in col_l:
-                    return col
-        return None
-
-    code_col = find_col(["股票代號", "ETF Code", "證券代號"])
-    name_col = find_col(["ETF名稱", "ETF Name", "證券簡稱", "名稱"])
-    listing_col = find_col(["上市日期", "Listing Date"])
-    benchmark_col = find_col(["標的指數", "Benchmark"])
-    issuer_col = find_col(["發行人", "Issuer"])
-    aum_col = find_col(["資產規模", "AUM"])
-    close_col = find_col(["收盤價", "Closing Price"])
-    value_col = find_col(["成交值", "Trading Value"])
-    volume_col = find_col(["成交量", "Trading Volume"])
-    beneficiary_col = find_col(["受益人", "Beneficiary"])
+    code_col = find_col(df, ["股票代號", "ETF Code", "證券代號"])
+    name_col = find_col(df, ["ETF名稱", "ETF Name", "證券簡稱", "名稱"])
+    listing_col = find_col(df, ["上市日期", "Listing Date"])
+    benchmark_col = find_col(df, ["標的指數", "Benchmark"])
+    issuer_col = find_col(df, ["發行人", "Issuer"])
+    aum_col = find_col(df, ["資產規模", "AUM"])
+    close_col = find_col(df, ["收盤價", "Closing Price"])
+    value_col = find_col(df, ["成交值", "Trading Value"])
+    volume_col = find_col(df, ["成交量", "Trading Volume"])
+    beneficiary_col = find_col(df, ["受益人", "Beneficiary"])
 
     if not code_col or not name_col:
         return []
@@ -775,87 +698,9 @@ def parse_enrichment_dataframe(df: pd.DataFrame, source_url: str) -> List[Dict[s
     return rows
 
 
-def parse_enrichment_tokens(html: str, source_url: str) -> List[Dict[str, Any]]:
-    soup = BeautifulSoup(html, "html.parser")
-    tokens = [clean_text(x) for x in soup.get_text("\n", strip=True).splitlines()]
-    tokens = [x for x in tokens if x]
-
-    rows: List[Dict[str, Any]] = []
-    for i, token in enumerate(tokens):
-        # Token may be "00400A" or "00400A, 主動國泰..."
-        match = re.match(r"^(\d{4,6}[A-Z]?)(?:\s*[,，]\s*(.*))?$", token)
-        if not match:
-            continue
-
-        code = normalize_code(match.group(1))
-        if not is_etf_code(code):
-            continue
-
-        inline_rest = clean_text(match.group(2) or "")
-        name = inline_rest or (tokens[i + 1] if i + 1 < len(tokens) else "")
-        if not name or is_etf_code(name) or looks_like_number(name):
-            continue
-
-        listing_date = ""
-        benchmark = ""
-        issuer = infer_issuer_from_name(name)
-        aum = 0.0
-        close = 0.0
-        trading_value = 0.0
-        trading_volume = 0
-        beneficiaries = 0
-
-        # Scan next 12 tokens for known fields.
-        ahead = tokens[i + 1:i + 14]
-        date_idx = next((j for j, x in enumerate(ahead) if looks_like_date(x)), None)
-        if date_idx is not None:
-            listing_date = normalize_date(ahead[date_idx])
-            if date_idx + 1 < len(ahead):
-                benchmark = ahead[date_idx + 1]
-            numeric_after = [x for x in ahead[date_idx + 2:] if looks_like_number(x)]
-            if len(numeric_after) >= 1:
-                aum = safe_float(numeric_after[0])
-            if len(numeric_after) >= 2:
-                close = safe_float(numeric_after[1])
-            if len(numeric_after) >= 3:
-                trading_value = safe_float(numeric_after[2])
-            if len(numeric_after) >= 4:
-                trading_volume = safe_int(numeric_after[3])
-            if len(numeric_after) >= 5:
-                beneficiaries = safe_int(numeric_after[4])
-
-            non_numeric_after = [
-                x for x in ahead[date_idx + 2:]
-                if not looks_like_number(x) and not is_etf_code(x)
-            ]
-            if non_numeric_after:
-                possible_issuer = non_numeric_after[-1]
-                if possible_issuer != benchmark:
-                    issuer = possible_issuer or issuer
-
-        rows.append(
-            make_master_row(
-                etf_code=code,
-                etf_name=name,
-                listing_date=listing_date,
-                issuer=issuer,
-                benchmark=benchmark,
-                market="TWSE",
-                source="TWSE product token enrichment",
-                source_url=source_url,
-                aum_yi=aum,
-                close=close,
-                beneficiaries=beneficiaries,
-                avg_daily_trading_value_ytd_million=trading_value,
-                avg_daily_trading_volume_ytd_shares=trading_volume,
-            )
-        )
-
-    return rows
-
-
 def merge_enrichment(master: List[Dict[str, Any]], enrich: Dict[str, Dict[str, Any]]) -> List[Dict[str, Any]]:
     output = []
+
     for row in master:
         code = row["etf_code"]
         extra = enrich.get(code)
@@ -882,26 +727,505 @@ def merge_enrichment(master: List[Dict[str, Any]], enrich: Dict[str, Dict[str, A
                 if safe_float(merged.get(key)) == 0 and safe_float(extra.get(key)) != 0:
                     merged[key] = extra[key]
         output.append(merged)
+
     return dedupe_master_rows(output)
 
 
-def looks_like_date(text: Any) -> bool:
-    return bool(re.fullmatch(r"\d{4}[./-]\d{1,2}[./-]\d{1,2}", clean_text(text)))
+# ============================================================
+# PCF source discovery
+# ============================================================
+def load_manual_pcf_registry() -> Dict[str, str]:
+    """
+    Optional file:
+      data/pcf_source_registry.json
+
+    Format:
+      {
+        "0050": "https://www.yuantaetfs.com/tradeInfo/pcf/0050",
+        "006208": "https://websys.fsit.com.tw/FubonETF/Trade/Pcf.aspx?lan=TW&stkId=006208"
+      }
+
+    手動 registry 的優先權最高。若某家投信網站需要特殊 URL，直接補這個檔案。
+    """
+    path = DATA_DIR / "pcf_source_registry.json"
+    if not path.exists():
+        return {}
+
+    data = read_json(path)
+    if not isinstance(data, dict):
+        return {}
+
+    return {normalize_code(k): clean_text(v) for k, v in data.items() if clean_text(v)}
 
 
-def looks_like_number(text: Any) -> bool:
-    return bool(re.fullmatch(r"[-+]?\d[\d,]*(?:\.\d+)?%?", clean_text(text)))
+def discover_pcf_url_from_twse_product_page(etf_code: str, report_date: str) -> Optional[str]:
+    for template in TWSE_PRODUCT_CONTENT_URLS:
+        url = template.format(code=etf_code)
+        try:
+            html = http_get(url)
+            debug_save(report_date, f"twse_product_{etf_code}", html)
+            found = extract_pcf_link_from_html(html, base_url=url)
+            if found:
+                logger.info("TWSE product page discovered PCF url for %s: %s", etf_code, found)
+                return found
+        except Exception as exc:
+            logger.warning("TWSE product page discovery failed for %s url=%s: %s", etf_code, url, exc)
+    return None
+
+
+def extract_pcf_link_from_html(html: str, base_url: str) -> Optional[str]:
+    soup = BeautifulSoup(html, "html.parser")
+
+    candidates: List[str] = []
+    keywords = [
+        "申購買回清單",
+        "申購買回清單PCF",
+        "PCF",
+        "pcf",
+        "buyback",
+        "purchase",
+        "Pcf.aspx",
+        "tradeInfo/pcf",
+        "trade_list",
+        "purchase?code",
+    ]
+
+    for a in soup.find_all("a", href=True):
+        href = clean_text(a.get("href", ""))
+        text = clean_text(a.get_text(" ", strip=True))
+        joined = f"{href} {text}"
+        if any(k in joined for k in keywords):
+            candidates.append(urljoin(base_url, href))
+
+    # Also parse onclick / data-url.
+    for tag in soup.find_all(True):
+        for attr in ["onclick", "data-url", "data-href", "data-link"]:
+            val = clean_text(tag.get(attr, ""))
+            if not val:
+                continue
+            if any(k in val for k in keywords):
+                urls = re.findall(r"https?://[^'\"\s)]+", val)
+                candidates.extend(urls)
+
+    cleaned = []
+    for c in candidates:
+        if c and c not in cleaned:
+            cleaned.append(c)
+
+    # Prefer real issuer URLs over TWSE anchor.
+    for c in cleaned:
+        if not any(domain in c for domain in ["twse.com.tw", "wwwc.twse.com.tw"]):
+            return c
+
+    return cleaned[0] if cleaned else None
+
+
+def issuer_fallback_urls(etf: Dict[str, Any]) -> List[str]:
+    """
+    Known issuer URL patterns. These are real issuer websites, not sample.
+    Not every issuer uses a code-only URL; for those, TWSE product page discovery or
+    data/pcf_source_registry.json is required.
+    """
+    code = etf["etf_code"]
+    issuer_name = f"{etf.get('issuer','')} {etf.get('etf_name','')}"
+    urls: List[str] = []
+
+    if contains_any(issuer_name, ["元大", "Yuanta"]):
+        urls.append(f"https://www.yuantaetfs.com/tradeInfo/pcf/{code}")
+
+    if contains_any(issuer_name, ["富邦", "Fubon"]):
+        urls.append(f"https://websys.fsit.com.tw/FubonETF/Trade/Pcf.aspx?lan=TW&stkId={code}")
+
+    if contains_any(issuer_name, ["國泰", "Cathay"]):
+        # 國泰網站常用 internal code；若 TWSE product page 找不到，base purchase page 仍可解析預設 ETF。
+        urls.append("https://www.cathaysite.com.tw/ETF/purchase")
+
+    if contains_any(issuer_name, ["群益", "Capital"]):
+        # 群益常用 /etf/product/detail/{id}/buyback；id 需靠 TWSE page 或手動 registry 發現。
+        urls.append("https://www.capitalfund.com.tw/etf/transaction/buyback")
+
+    if contains_any(issuer_name, ["復華", "Fuh Hwa"]):
+        urls.append("https://www.fhtrust.com.tw/ETF/trade_list")
+
+    if contains_any(issuer_name, ["永豐", "SinoPac"]):
+        urls.append("https://sitc.sinopac.com/SinopacEtfs/Etfs/Pcf")
+
+    return urls
+
+
+def contains_any(text: str, needles: List[str]) -> bool:
+    low = text.lower()
+    return any(n.lower() in low for n in needles)
+
+
+def resolve_pcf_url(etf: Dict[str, Any], manual_registry: Dict[str, str], report_date: str) -> Optional[str]:
+    code = etf["etf_code"]
+
+    if manual_registry.get(code):
+        return manual_registry[code]
+
+    discovered = discover_pcf_url_from_twse_product_page(code, report_date)
+    if discovered:
+        return discovered
+
+    fallbacks = issuer_fallback_urls(etf)
+    return fallbacks[0] if fallbacks else None
 
 
 # ============================================================
-# Holdings snapshot and diff
+# PCF parsing
 # ============================================================
-def holdings_folder(trade_date: str) -> Path:
-    return RAW_HOLDINGS_DIR / trade_date
+def fetch_all_pcf_holdings(master: List[Dict[str, Any]], report_date: str) -> Tuple[Dict[str, Dict[str, Any]], List[Dict[str, Any]]]:
+    manual_registry = load_manual_pcf_registry()
+    today_holdings: Dict[str, Dict[str, Any]] = {}
+    statuses: List[Dict[str, Any]] = []
+
+    for idx, etf in enumerate(master, 1):
+        code = etf["etf_code"]
+        name = etf.get("etf_name", "")
+        issuer = etf.get("issuer", "")
+
+        logger.info("[%s/%s] Fetch PCF for %s %s", idx, len(master), code, name)
+
+        pcf_url = resolve_pcf_url(etf, manual_registry, report_date)
+        if not pcf_url:
+            statuses.append(
+                {
+                    "etf_code": code,
+                    "etf_name": name,
+                    "issuer": issuer,
+                    "status": "no_pcf_url",
+                    "pcf_url": "",
+                    "holdings_count": 0,
+                    "error": "No PCF URL discovered. Add data/pcf_source_registry.json entry.",
+                }
+            )
+            continue
+
+        try:
+            payload = fetch_one_pcf(etf, pcf_url, report_date)
+            holdings = payload.get("holdings", [])
+
+            if not holdings:
+                statuses.append(
+                    {
+                        "etf_code": code,
+                        "etf_name": name,
+                        "issuer": issuer,
+                        "status": "parsed_zero_holdings",
+                        "pcf_url": pcf_url,
+                        "holdings_count": 0,
+                        "error": "PCF page fetched but no Taiwan stock holdings parsed.",
+                    }
+                )
+                continue
+
+            save_holding_snapshot(report_date, code, payload)
+            today_holdings[code] = payload
+
+            statuses.append(
+                {
+                    "etf_code": code,
+                    "etf_name": name,
+                    "issuer": issuer,
+                    "status": "ok",
+                    "pcf_url": pcf_url,
+                    "holdings_count": len(holdings),
+                    "error": "",
+                }
+            )
+
+        except Exception as exc:
+            logger.warning("PCF fetch failed for %s %s: %s", code, pcf_url, exc)
+            statuses.append(
+                {
+                    "etf_code": code,
+                    "etf_name": name,
+                    "issuer": issuer,
+                    "status": "error",
+                    "pcf_url": pcf_url,
+                    "holdings_count": 0,
+                    "error": str(exc),
+                }
+            )
+
+    atomic_write_json(DATA_DIR / "pcf_fetch_status.json", statuses)
+    atomic_write_json(RAW_PCF_DIR / report_date / "pcf_fetch_status.json", statuses)
+
+    return today_holdings, statuses
 
 
+def fetch_one_pcf(etf: Dict[str, Any], pcf_url: str, report_date: str) -> Dict[str, Any]:
+    code = etf["etf_code"]
+    html = http_get(pcf_url)
+
+    debug_save(report_date, f"pcf_{code}_{url_to_name(pcf_url)}", html)
+
+    holdings = parse_holdings_from_pcf_html(html, pcf_url)
+    meta = parse_pcf_meta_from_html(html)
+
+    return {
+        "trade_date": meta.get("trade_date") or report_date,
+        "etf_code": code,
+        "etf_name": etf.get("etf_name", ""),
+        "issuer": etf.get("issuer", ""),
+        "market": etf.get("market", "TWSE"),
+        "source": "issuer_pcf",
+        "source_url": pcf_url,
+        "pcf_meta": meta,
+        "holdings": holdings,
+    }
+
+
+def parse_pcf_meta_from_html(html: str) -> Dict[str, Any]:
+    soup = BeautifulSoup(html, "html.parser")
+    text = soup.get_text("\n", strip=True)
+
+    dates = re.findall(r"\d{4}[/-]\d{1,2}[/-]\d{1,2}", text)
+    trade_date = normalize_date(dates[0]) if dates else ""
+
+    def find_number_after(label_patterns: List[str]) -> float:
+        for label in label_patterns:
+            pattern = label + r".{0,40}?([-+]?\$?NT\$?\s*[\d,]+(?:\.\d+)?)"
+            m = re.search(pattern, text)
+            if m:
+                return safe_float(m.group(1))
+        return 0.0
+
+    return {
+        "trade_date": trade_date,
+        "fund_nav": find_number_after(["基金淨資產價值", "Fund Net Asset Value"]),
+        "outstanding_units": find_number_after(["已發行受益權單位總數", "Total Outstanding Shares"]),
+        "unit_diff": find_number_after(["與前日已發行單位差異數", "Net Change in Outstanding Shares"]),
+        "nav_per_unit": find_number_after(["每受益權單位淨資產價值", "NAV Per Share"]),
+        "creation_unit": find_number_after(["每.*?申購.*?基數之受益權單位數", "Creation/Redemption Units"]),
+    }
+
+
+def parse_holdings_from_pcf_html(html: str, source_url: str) -> List[Dict[str, Any]]:
+    holdings: List[Dict[str, Any]] = []
+
+    # 1) HTML tables
+    try:
+        tables = pd.read_html(StringIO(html), displayed_only=False)
+        for idx, df in enumerate(tables):
+            parsed = parse_holdings_dataframe(df, source_url, f"table_{idx}")
+            holdings.extend(parsed)
+    except Exception as exc:
+        logger.info("No parseable PCF tables from %s: %s", source_url, exc)
+
+    # 2) Text fallback
+    if not holdings:
+        holdings.extend(parse_holdings_text_fallback(html, source_url))
+
+    return dedupe_holdings(holdings)
+
+
+def flatten_df_columns(df: pd.DataFrame) -> pd.DataFrame:
+    df = df.copy()
+    if isinstance(df.columns, pd.MultiIndex):
+        df.columns = [clean_text(" ".join(str(x) for x in col if str(x) != "nan")) for col in df.columns]
+    else:
+        df.columns = [clean_text(c) for c in df.columns]
+
+    if len(df) > 0:
+        first_row = [clean_text(x) for x in df.iloc[0].tolist()]
+        if any("股票代號" in x for x in first_row) or any("股數" in x for x in first_row) or any("持股權重" in x for x in first_row):
+            df.columns = first_row
+            df = df.iloc[1:].copy()
+
+    return df
+
+
+def find_col(df: pd.DataFrame, names: List[str]) -> Optional[str]:
+    for col in df.columns:
+        col_l = clean_text(col).lower()
+        for name in names:
+            if name.lower() in col_l:
+                return col
+    return None
+
+
+def parse_holdings_dataframe(df: pd.DataFrame, source_url: str, table_name: str) -> List[Dict[str, Any]]:
+    df = flatten_df_columns(df)
+    rows: List[Dict[str, Any]] = []
+
+    code_col = find_col(df, ["股票代號", "證券代號", "成分股代號", "Stock Code", "代號"])
+    name_col = find_col(df, ["股票名稱", "證券名稱", "成分股名稱", "Stock Name", "名稱"])
+    weight_col = find_col(df, ["持股權重", "權重", "比重", "Weight"])
+    shares_col = find_col(df, ["股數", "持有股數", "數量", "Shares", "Units"])
+    price_col = find_col(df, ["收盤價", "價格", "Price", "Close"])
+    value_col = find_col(df, ["市值", "金額", "Market Value", "Value"])
+
+    # Named columns path
+    if code_col:
+        for _, row in df.iterrows():
+            code = clean_text(row.get(code_col))
+            if not is_stock_code(code):
+                continue
+
+            stock_name = clean_text(row.get(name_col)) if name_col else infer_stock_name_from_row(row)
+            shares = safe_float(row.get(shares_col)) if shares_col else infer_shares_from_row(row)
+            weight = safe_float(row.get(weight_col)) if weight_col else infer_weight_from_row(row)
+            price = safe_float(row.get(price_col)) if price_col else 0.0
+            market_value = safe_float(row.get(value_col)) if value_col else 0.0
+
+            if shares <= 0 and market_value <= 0:
+                continue
+
+            if price <= 0 and shares > 0 and market_value > 0:
+                price = market_value / shares
+
+            rows.append(
+                {
+                    "stock_code": code,
+                    "stock_name": stock_name,
+                    "shares": round(shares, 4),
+                    "weight_pct": round(weight, 6),
+                    "close": round(price, 6),
+                    "market_value": round(market_value, 4),
+                    "source_table": table_name,
+                }
+            )
+
+        if rows:
+            return rows
+
+    # Loose row scan path
+    for _, row in df.iterrows():
+        cells = [clean_text(x) for x in row.tolist()]
+        cells = [x for x in cells if x and x.lower() != "nan"]
+        if not cells:
+            continue
+
+        code_idx = next((i for i, x in enumerate(cells) if is_stock_code(x)), None)
+        if code_idx is None:
+            continue
+
+        code = cells[code_idx]
+        stock_name = cells[code_idx + 1] if code_idx + 1 < len(cells) else ""
+
+        numeric_after = [safe_float(x) for x in cells[code_idx + 2:] if looks_like_number(x)]
+        pct_candidates = [safe_float(x) for x in cells[code_idx + 2:] if "%" in x or 0 < safe_float(x) <= 100]
+
+        weight = pct_candidates[0] if pct_candidates else 0.0
+        shares = max(numeric_after) if numeric_after else 0.0
+
+        # Avoid treating market value as shares when both appear. If a table gives huge numbers,
+        # this may still require issuer-specific adjustment. The named-column path handles most cases.
+        if shares <= 0:
+            continue
+
+        rows.append(
+            {
+                "stock_code": code,
+                "stock_name": stock_name,
+                "shares": round(shares, 4),
+                "weight_pct": round(weight, 6),
+                "close": 0.0,
+                "market_value": 0.0,
+                "source_table": table_name,
+            }
+        )
+
+    return rows
+
+
+def infer_stock_name_from_row(row: pd.Series) -> str:
+    for value in row.tolist():
+        text = clean_text(value)
+        if text and not is_stock_code(text) and not looks_like_number(text) and "股票" not in text and "權重" not in text:
+            return text
+    return ""
+
+
+def infer_shares_from_row(row: pd.Series) -> float:
+    nums = [safe_float(x) for x in row.tolist() if looks_like_number(x)]
+    nums = [x for x in nums if x > 1000]
+    return max(nums) if nums else 0.0
+
+
+def infer_weight_from_row(row: pd.Series) -> float:
+    for x in row.tolist():
+        text = clean_text(x)
+        val = safe_float(text)
+        if "%" in text and 0 <= val <= 100:
+            return val
+    return 0.0
+
+
+def parse_holdings_text_fallback(html: str, source_url: str) -> List[Dict[str, Any]]:
+    soup = BeautifulSoup(html, "html.parser")
+    lines = [clean_text(x) for x in soup.get_text("\n", strip=True).splitlines()]
+    lines = [x for x in lines if x]
+
+    rows = []
+    for i, line in enumerate(lines):
+        if not is_stock_code(line):
+            continue
+
+        code = line
+        stock_name = lines[i + 1] if i + 1 < len(lines) else ""
+        numeric_next = [safe_float(x) for x in lines[i + 2:i + 10] if looks_like_number(x)]
+        if not numeric_next:
+            continue
+
+        shares = max([x for x in numeric_next if x > 1000] or [0])
+        weight_candidates = [x for x in numeric_next if 0 < x <= 100]
+        weight = weight_candidates[0] if weight_candidates else 0.0
+
+        if shares <= 0:
+            continue
+
+        rows.append(
+            {
+                "stock_code": code,
+                "stock_name": stock_name,
+                "shares": round(shares, 4),
+                "weight_pct": round(weight, 6),
+                "close": 0.0,
+                "market_value": 0.0,
+                "source_table": "text_fallback",
+            }
+        )
+
+    return rows
+
+
+def dedupe_holdings(rows: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+    grouped: Dict[str, List[Dict[str, Any]]] = defaultdict(list)
+    for row in rows:
+        code = clean_text(row.get("stock_code"))
+        if is_stock_code(code):
+            grouped[code].append(row)
+
+    output = []
+    for code, items in grouped.items():
+        # Choose row with best data quality.
+        def score(x: Dict[str, Any]) -> float:
+            return (
+                (1 if x.get("stock_name") else 0)
+                + (2 if safe_float(x.get("shares")) > 0 else 0)
+                + (2 if safe_float(x.get("market_value")) > 0 else 0)
+                + (1 if safe_float(x.get("weight_pct")) > 0 else 0)
+                + (1 if safe_float(x.get("close")) > 0 else 0)
+            )
+
+        best = max(items, key=score)
+        output.append(best)
+
+    return sorted(output, key=lambda x: x["stock_code"])
+
+
+def save_holding_snapshot(report_date: str, etf_code: str, payload: Dict[str, Any]) -> None:
+    atomic_write_json(RAW_HOLDINGS_DIR / report_date / f"{etf_code}.json", payload)
+
+
+# ============================================================
+# Existing holdings snapshots and diffs
+# ============================================================
 def load_holdings_snapshot(trade_date: str) -> Dict[str, Dict[str, Any]]:
-    folder = holdings_folder(trade_date)
+    folder = RAW_HOLDINGS_DIR / trade_date
     if not folder.exists():
         return {}
 
@@ -919,8 +1243,8 @@ def load_holdings_snapshot(trade_date: str) -> Dict[str, Dict[str, Any]]:
 def previous_available_holding_date(report_date: str, max_lookback_days: int = 10) -> Optional[str]:
     current = datetime.strptime(report_date, "%Y-%m-%d").date()
     for i in range(1, max_lookback_days + 1):
-        candidate = date_str(current - timedelta(days=i))
-        folder = holdings_folder(candidate)
+        candidate = (current - timedelta(days=i)).strftime("%Y-%m-%d")
+        folder = RAW_HOLDINGS_DIR / candidate
         if folder.exists() and any(folder.glob("*.json")):
             return candidate
     return None
@@ -967,7 +1291,15 @@ def calculate_etf_stock_diffs(
             if abs(delta_shares) < 1:
                 continue
 
+            today_mv = safe_float(today_row.get("market_value", 0))
+            prev_mv = safe_float(prev_row.get("market_value", 0))
             price = safe_float(today_row.get("close", 0)) or safe_float(prev_row.get("close", 0))
+
+            if today_mv and prev_mv:
+                delta_value_yi = (today_mv - prev_mv) / 100_000_000
+            else:
+                delta_value_yi = delta_shares * price / 100_000_000
+
             today_weight = safe_float(today_row.get("weight_pct", 0))
             prev_weight = safe_float(prev_row.get("weight_pct", 0))
 
@@ -979,7 +1311,7 @@ def calculate_etf_stock_diffs(
                     "stock_name": stock_name,
                     "delta_shares": round(delta_shares, 0),
                     "delta_lot": round(delta_shares / 1000, 1),
-                    "delta_value_yi": round(delta_shares * price / 100_000_000, 4),
+                    "delta_value_yi": round(delta_value_yi, 4),
                     "weight_delta_pct": round(today_weight - prev_weight, 4),
                 }
             )
@@ -988,7 +1320,7 @@ def calculate_etf_stock_diffs(
 
 
 # ============================================================
-# Report sections
+# Aggregation and report sections
 # ============================================================
 def make_stock_signal(stock_name: str, direction: str, etf_count: int, value_yi: float) -> str:
     abs_value = abs(value_yi)
@@ -1009,6 +1341,7 @@ def aggregate_stock_changes(diffs: List[Dict[str, Any]], top_n: Optional[int] = 
         grouped[row["stock_code"]].append(row)
 
     output: List[Dict[str, Any]] = []
+
     for stock_code, rows in grouped.items():
         stock_name = rows[0]["stock_name"]
         total_lot = sum(safe_float(x["delta_lot"]) for x in rows)
@@ -1147,11 +1480,12 @@ def holdings_quality(master_count: int, today_holdings_count: int) -> Dict[str, 
         "tracked_etfs": master_count,
         "covered_etfs": today_holdings_count,
         "coverage_ratio": round(ratio, 4),
-        "is_ready": ratio >= 0.85,
+        "min_required_coverage_ratio": MIN_PCF_COVERAGE_RATIO,
+        "is_ready": ratio >= MIN_PCF_COVERAGE_RATIO,
     }
 
 
-def build_events(top_changes: List[Dict[str, Any]], quality: Dict[str, Any], master_count: int) -> List[Dict[str, Any]]:
+def build_events(top_changes: List[Dict[str, Any]], quality: Dict[str, Any], master_count: int, pcf_statuses: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
     events = []
 
     buys = [x for x in top_changes if safe_float(x["delta_value_yi"]) > 0]
@@ -1177,6 +1511,7 @@ def build_events(top_changes: List[Dict[str, Any]], quality: Dict[str, Any], mas
             }
         )
 
+    ok_count = sum(1 for x in pcf_statuses if x.get("status") == "ok")
     events.append(
         {
             "time": "資料檢查",
@@ -1187,24 +1522,24 @@ def build_events(top_changes: List[Dict[str, Any]], quality: Dict[str, Any], mas
     events.append(
         {
             "time": "資料檢查",
-            "title": "ETF 持股快照覆蓋率",
-            "desc": f"今日已覆蓋 {quality['covered_etfs']}/{quality['tracked_etfs']} 檔 ETF，覆蓋率 {quality['coverage_ratio']:.1%}。",
+            "title": "PCF 持股快照覆蓋率",
+            "desc": f"今日已成功解析 {ok_count}/{quality['tracked_etfs']} 檔 ETF PCF，覆蓋率 {quality['coverage_ratio']:.1%}。",
         }
     )
     return events
 
 
-def build_ai_report(top_changes: List[Dict[str, Any]], kpis: Dict[str, Any], master_count: int) -> Dict[str, Any]:
+def build_ai_report(top_changes: List[Dict[str, Any]], kpis: Dict[str, Any], master_count: int, quality: Dict[str, Any]) -> Dict[str, Any]:
     if not top_changes:
         return {
-            "headline": f"TWSE ETF master 已成功更新，本次追蹤 {master_count} 檔上市 ETF。",
+            "headline": f"TWSE ETF master 已更新，今日成功解析 PCF 覆蓋率 {quality['coverage_ratio']:.1%}。",
             "summary": (
-                "目前已接上正式 TWSE ISIN ETF master，不再使用 sample ETF 清單。"
-                "此階段會提供 ETF 代號、名稱、ISIN、上市日期、CFI Code 等 master data。"
-                "每日個股層級 ETF 加減碼需要下一步接上各投信 PCF / 每日持股揭露後才會產生。"
+                "目前系統已接上真實 PCF crawler，不再使用 sample holdings。"
+                "若前十大個股變動仍為空，常見原因是：第一天尚無前一交易日 raw/holdings 快照可比較，"
+                "或目前成功解析的 PCF ETF 數量不足。請等下一個交易日或補齊 data/pcf_source_registry.json。"
             ),
             "watchlist": [],
-            "risk": "目前個股籌碼變化尚未接上正式持股快照，請勿將空白的 top_stock_changes 解讀為沒有 ETF 調倉。",
+            "risk": "PCF 來自各投信網站，格式可能調整；請查看 data/pcf_fetch_status.json 確認覆蓋率與錯誤原因。",
         }
 
     net = safe_float(kpis["net_change_value_yi"])
@@ -1217,9 +1552,13 @@ def build_ai_report(top_changes: List[Dict[str, Any]], kpis: Dict[str, Any], mas
 
     return {
         "headline": f"今日全市場 ETF 籌碼{bias}，前十大變動淨額 {net:.1f} 億元。",
-        "summary": f"本報告以 TWSE ETF master 與 raw/holdings 快照計算，前十大變動集中度為 {kpis['concentration_score']}%。",
+        "summary": (
+            f"本報告以 TWSE ETF master 與各投信 PCF 持股快照計算。"
+            f"今日 PCF 覆蓋率為 {quality['coverage_ratio']:.1%}，"
+            f"前十大變動集中度為 {kpis['concentration_score']}%。"
+        ),
         "watchlist": watchlist,
-        "risk": "若持股快照覆蓋率未達 100%，請避免將報告視為完整市場結論。",
+        "risk": "若 PCF 覆蓋率未達 100%，請避免將報告視為完整市場結論。",
     }
 
 
@@ -1233,25 +1572,25 @@ def build_data_sources() -> List[Dict[str, Any]]:
             "fields": ["isin", "etf_code", "etf_name", "market", "security_type", "listing_date", "cfi_code"],
         },
         {
-            "name": "TWSE ISIN 本國上市證券國際證券辨識號碼一覽表",
-            "type": "ETF master fallback",
-            "update_freq": "依 TWSE 官方資料更新",
-            "status": "ready",
-            "fields": ["etf_code", "etf_name", "isin", "listing_date", "market", "cfi_code"],
-        },
-        {
-            "name": "TWSE ETF 商品資訊 / e添富",
-            "type": "ETF enrichment",
+            "name": "TWSE ETF 商品資訊頁",
+            "type": "PCF link discovery",
             "update_freq": "依 TWSE 官方頁面更新",
-            "status": "watch",
-            "fields": ["issuer", "benchmark", "aum_yi", "close", "beneficiaries"],
+            "status": "ready",
+            "fields": ["etf_code", "issuer_pcf_url"],
         },
         {
             "name": "各投信 PCF / 每日持股揭露",
             "type": "每日持股核心資料",
             "update_freq": "每日盤前或盤後",
-            "status": "watch",
-            "fields": ["stock_code", "shares", "weight", "cash_component", "creation_unit"],
+            "status": "ready",
+            "fields": ["stock_code", "stock_name", "shares", "weight_pct", "market_value"],
+        },
+        {
+            "name": "raw/holdings snapshot",
+            "type": "本系統標準化後持股快照",
+            "update_freq": "每日",
+            "status": "ready",
+            "fields": ["trade_date", "etf_code", "stock_code", "shares", "weight_pct", "close", "market_value"],
         },
     ]
 
@@ -1271,7 +1610,16 @@ def build_report() -> Dict[str, Any]:
     master = fetch_twse_etf_master(report_date)
     save_master(report_date, master)
 
-    today_holdings = load_holdings_snapshot(report_date)
+    today_holdings, pcf_statuses = fetch_all_pcf_holdings(master, report_date)
+
+    quality = holdings_quality(len(master), len(today_holdings))
+    if STRICT_PCF_COVERAGE and not quality["is_ready"]:
+        raise RuntimeError(
+            f"PCF coverage too low: {quality['coverage_ratio']:.1%}, "
+            f"min_required={MIN_PCF_COVERAGE_RATIO:.1%}. "
+            "See data/pcf_fetch_status.json."
+        )
+
     prev_date = previous_available_holding_date(report_date)
     prev_holdings = load_holdings_snapshot(prev_date) if prev_date else {}
 
@@ -1279,13 +1627,12 @@ def build_report() -> Dict[str, Any]:
     all_stock_changes = aggregate_stock_changes(diffs, top_n=None)
     top_stock_changes = all_stock_changes[:TOP_N_STOCKS]
     kpis = build_kpis(all_stock_changes, top_stock_changes)
-    quality = holdings_quality(len(master), len(today_holdings))
 
     net = safe_float(kpis["net_change_value_yi"])
     if top_stock_changes:
         market_bias = "偏多" if net > 0 else "偏空" if net < 0 else "中性"
     else:
-        market_bias = "Master 已更新"
+        market_bias = "PCF 已更新"
 
     return {
         "meta": {
@@ -1297,7 +1644,7 @@ def build_report() -> Dict[str, Any]:
             "coverage_ratio": quality["coverage_ratio"],
             "universe": "TWSE listed ETFs",
             "market_bias": market_bias,
-            "snapshot_mode": "production_twse_isin_master",
+            "snapshot_mode": "production_issuer_pcf",
             "previous_snapshot_date": prev_date or "",
             "sample_mode": False,
         },
@@ -1306,9 +1653,9 @@ def build_report() -> Dict[str, Any]:
         "top_stock_changes": top_stock_changes,
         "stock_radar": build_stock_radar(top_stock_changes),
         "etf_rankings": build_etf_rankings(master, diffs),
-        "events": build_events(top_stock_changes, quality, len(master)),
+        "events": build_events(top_stock_changes, quality, len(master), pcf_statuses),
         "data_sources": build_data_sources(),
-        "ai_report": build_ai_report(top_stock_changes, kpis, len(master)),
+        "ai_report": build_ai_report(top_stock_changes, kpis, len(master), quality),
     }
 
 
