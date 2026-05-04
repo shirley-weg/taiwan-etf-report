@@ -1,0 +1,64 @@
+{
+  "trade_date": "2026.05.04",
+  "etf_code": "00713",
+  "etf_name": "元大台灣高息低波",
+  "issuer": "元大投信",
+  "market": "TWSE",
+  "source": "issuer_pcf",
+  "source_url": "https://www.yuantaetfs.com/tradeInfo/pcf/00713",
+  "pcf_meta": {
+    "trade_date": "2026.05.04",
+    "fund_nav": 0.0,
+    "outstanding_units": 0.0,
+    "unit_diff": 0.0,
+    "nav_per_unit": 0.0,
+    "creation_unit": 0.0
+  },
+  "holdings": [
+    {
+      "stock_code": "1216",
+      "stock_name": "商品名稱",
+      "shares": 124637000.0,
+      "weight_pct": 7.94,
+      "close": 0.0,
+      "market_value": 0.0,
+      "source_table": "text_fallback"
+    },
+    {
+      "stock_code": "2880",
+      "stock_name": "商品名稱",
+      "shares": 229392000.0,
+      "weight_pct": 6.73,
+      "close": 0.0,
+      "market_value": 0.0,
+      "source_table": "text_fallback"
+    },
+    {
+      "stock_code": "2884",
+      "stock_name": "商品名稱",
+      "shares": 212766567.0,
+      "weight_pct": 6.09,
+      "close": 0.0,
+      "market_value": 0.0,
+      "source_table": "text_fallback"
+    },
+    {
+      "stock_code": "3045",
+      "stock_name": "商品名稱",
+      "shares": 87419000.0,
+      "weight_pct": 8.84,
+      "close": 0.0,
+      "market_value": 0.0,
+      "source_table": "text_fallback"
+    },
+    {
+      "stock_code": "4904",
+      "stock_name": "商品名稱",
+      "shares": 111073000.0,
+      "weight_pct": 9.59,
+      "close": 0.0,
+      "market_value": 0.0,
+      "source_table": "text_fallback"
+    }
+  ]
+}

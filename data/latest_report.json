@@ -1,32 +1,300 @@
 {
   "meta": {
     "report_date": "2026-05-05",
-    "updated_at": "2026-05-05 00:25:16",
+    "updated_at": "2026-05-05 00:42:08",
     "timezone": "Asia/Taipei",
     "tracked_etfs": 224,
-    "covered_etfs": 0,
-    "coverage_ratio": 0.0,
+    "covered_etfs": 27,
+    "coverage_ratio": 0.1205,
     "universe": "TWSE listed ETFs",
-    "market_bias": "Master 已更新",
-    "snapshot_mode": "production_twse_isin_master",
+    "market_bias": "偏空",
+    "snapshot_mode": "production_issuer_pcf",
     "previous_snapshot_date": "2026-05-04",
     "sample_mode": false
   },
   "data_quality": {
     "tracked_etfs": 224,
-    "covered_etfs": 0,
-    "coverage_ratio": 0.0,
-    "is_ready": false
+    "covered_etfs": 27,
+    "coverage_ratio": 0.1205,
+    "min_required_coverage_ratio": 0.1,
+    "is_ready": true
   },
   "kpis": {
-    "net_change_value_yi": 0,
+    "net_change_value_yi": -97.5,
     "consensus_buy_count": 0,
     "consensus_sell_count": 0,
-    "concentration_score": 0
+    "concentration_score": 95
   },
-  "top_stock_changes": [],
-  "stock_radar": [],
+  "top_stock_changes": [
+    {
+      "stock_code": "2330",
+      "stock_name": "台積電",
+      "direction": "sell",
+      "delta_lot": -7100.0,
+      "delta_value_yi": -67.45,
+      "etf_count": 1,
+      "weight_delta_pct": -45.262,
+      "signal": "台積電 今日 ETF 籌碼變化有限，暫列觀察。",
+      "participating_etfs": [
+        {
+          "etf_code": "0050",
+          "etf_name": "元大台灣50",
+          "direction": "sell",
+          "delta_lot": -7100.0,
+          "delta_value_yi": -67.45,
+          "weight_delta_pct": -45.262
+        }
+      ]
+    },
+    {
+      "stock_code": "2454",
+      "stock_name": "聯發科",
+      "direction": "sell",
+      "delta_lot": -1320.0,
+      "delta_value_yi": -15.58,
+      "etf_count": 1,
+      "weight_delta_pct": -5.612,
+      "signal": "聯發科 今日 ETF 籌碼變化有限，暫列觀察。",
+      "participating_etfs": [
+        {
+          "etf_code": "0050",
+          "etf_name": "元大台灣50",
+          "direction": "sell",
+          "delta_lot": -1320.0,
+          "delta_value_yi": -15.576,
+          "weight_delta_pct": -5.612
+        }
+      ]
+    },
+    {
+      "stock_code": "2317",
+      "stock_name": "鴻海",
+      "direction": "sell",
+      "delta_lot": -5700.0,
+      "delta_value_yi": -9.69,
+      "etf_count": 1,
+      "weight_delta_pct": -4.852,
+      "signal": "鴻海 今日 ETF 籌碼變化有限，暫列觀察。",
+      "participating_etfs": [
+        {
+          "etf_code": "0050",
+          "etf_name": "元大台灣50",
+          "direction": "sell",
+          "delta_lot": -5700.0,
+          "delta_value_yi": -9.69,
+          "weight_delta_pct": -4.852
+        }
+      ]
+    },
+    {
+      "stock_code": "3711",
+      "stock_name": "日月光投控",
+      "direction": "sell",
+      "delta_lot": -2600.0,
+      "delta_value_yi": -4.03,
+      "etf_count": 1,
+      "weight_delta_pct": -0.026,
+      "signal": "日月光投控 今日 ETF 籌碼變化有限，暫列觀察。",
+      "participating_etfs": [
+        {
+          "etf_code": "0050",
+          "etf_name": "元大台灣50",
+          "direction": "sell",
+          "delta_lot": -2600.0,
+          "delta_value_yi": -4.03,
+          "weight_delta_pct": -0.026
+        }
+      ]
+    },
+    {
+      "stock_code": "2881",
+      "stock_name": "富邦金",
+      "direction": "sell",
+      "delta_lot": -950.0,
+      "delta_value_yi": -0.74,
+      "etf_count": 1,
+      "weight_delta_pct": -1.3065,
+      "signal": "富邦金 今日 ETF 籌碼變化有限，暫列觀察。",
+      "participating_etfs": [
+        {
+          "etf_code": "0050",
+          "etf_name": "元大台灣50",
+          "direction": "sell",
+          "delta_lot": -950.0,
+          "delta_value_yi": -0.741,
+          "weight_delta_pct": -1.3065
+        }
+      ]
+    },
+    {
+      "stock_code": "1216",
+      "stock_name": "股票名稱",
+      "direction": "neutral",
+      "delta_lot": 2.6,
+      "delta_value_yi": 0.0,
+      "etf_count": 0,
+      "weight_delta_pct": 0.0,
+      "signal": "股票名稱 今日 ETF 籌碼變化有限，暫列觀察。",
+      "participating_etfs": []
+    },
+    {
+      "stock_code": "1301",
+      "stock_name": "股票名稱",
+      "direction": "neutral",
+      "delta_lot": 2.2,
+      "delta_value_yi": 0.0,
+      "etf_count": 0,
+      "weight_delta_pct": 0.0,
+      "signal": "股票名稱 今日 ETF 籌碼變化有限，暫列觀察。",
+      "participating_etfs": []
+    },
+    {
+      "stock_code": "1303",
+      "stock_name": "股票名稱",
+      "direction": "neutral",
+      "delta_lot": 2.6,
+      "delta_value_yi": 0.0,
+      "etf_count": 0,
+      "weight_delta_pct": 0.0,
+      "signal": "股票名稱 今日 ETF 籌碼變化有限，暫列觀察。",
+      "participating_etfs": []
+    },
+    {
+      "stock_code": "2002",
+      "stock_name": "股票名稱",
+      "direction": "neutral",
+      "delta_lot": 5.9,
+      "delta_value_yi": 0.0,
+      "etf_count": 0,
+      "weight_delta_pct": 0.0,
+      "signal": "股票名稱 今日 ETF 籌碼變化有限，暫列觀察。",
+      "participating_etfs": []
+    },
+    {
+      "stock_code": "2207",
+      "stock_name": "股票代碼",
+      "direction": "neutral",
+      "delta_lot": 1.3,
+      "delta_value_yi": 0.0,
+      "etf_count": 0,
+      "weight_delta_pct": 0.0,
+      "signal": "股票代碼 今日 ETF 籌碼變化有限，暫列觀察。",
+      "participating_etfs": []
+    }
+  ],
+  "stock_radar": [
+    {
+      "stock_code": "2330",
+      "stock_name": "台積電",
+      "buy_etfs": 0,
+      "sell_etfs": 1,
+      "net_value_yi": -67.45,
+      "streak_days": 1,
+      "event_type": "共識減碼",
+      "note": "台積電 今日 ETF 籌碼變化有限，暫列觀察。"
+    },
+    {
+      "stock_code": "2454",
+      "stock_name": "聯發科",
+      "buy_etfs": 0,
+      "sell_etfs": 1,
+      "net_value_yi": -15.58,
+      "streak_days": 1,
+      "event_type": "共識減碼",
+      "note": "聯發科 今日 ETF 籌碼變化有限，暫列觀察。"
+    },
+    {
+      "stock_code": "2317",
+      "stock_name": "鴻海",
+      "buy_etfs": 0,
+      "sell_etfs": 1,
+      "net_value_yi": -9.69,
+      "streak_days": 1,
+      "event_type": "共識減碼",
+      "note": "鴻海 今日 ETF 籌碼變化有限，暫列觀察。"
+    },
+    {
+      "stock_code": "3711",
+      "stock_name": "日月光投控",
+      "buy_etfs": 0,
+      "sell_etfs": 1,
+      "net_value_yi": -4.03,
+      "streak_days": 1,
+      "event_type": "共識減碼",
+      "note": "日月光投控 今日 ETF 籌碼變化有限，暫列觀察。"
+    },
+    {
+      "stock_code": "2881",
+      "stock_name": "富邦金",
+      "buy_etfs": 0,
+      "sell_etfs": 1,
+      "net_value_yi": -0.74,
+      "streak_days": 1,
+      "event_type": "共識減碼",
+      "note": "富邦金 今日 ETF 籌碼變化有限，暫列觀察。"
+    },
+    {
+      "stock_code": "1216",
+      "stock_name": "股票名稱",
+      "buy_etfs": 0,
+      "sell_etfs": 0,
+      "net_value_yi": 0.0,
+      "streak_days": 1,
+      "event_type": "觀察",
+      "note": "股票名稱 今日 ETF 籌碼變化有限，暫列觀察。"
+    },
+    {
+      "stock_code": "1301",
+      "stock_name": "股票名稱",
+      "buy_etfs": 0,
+      "sell_etfs": 0,
+      "net_value_yi": 0.0,
+      "streak_days": 1,
+      "event_type": "觀察",
+      "note": "股票名稱 今日 ETF 籌碼變化有限，暫列觀察。"
+    },
+    {
+      "stock_code": "1303",
+      "stock_name": "股票名稱",
+      "buy_etfs": 0,
+      "sell_etfs": 0,
+      "net_value_yi": 0.0,
+      "streak_days": 1,
+      "event_type": "觀察",
+      "note": "股票名稱 今日 ETF 籌碼變化有限，暫列觀察。"
+    },
+    {
+      "stock_code": "2002",
+      "stock_name": "股票名稱",
+      "buy_etfs": 0,
+      "sell_etfs": 0,
+      "net_value_yi": 0.0,
+      "streak_days": 1,
+      "event_type": "觀察",
+      "note": "股票名稱 今日 ETF 籌碼變化有限，暫列觀察。"
+    },
+    {
+      "stock_code": "2207",
+      "stock_name": "股票代碼",
+      "buy_etfs": 0,
+      "sell_etfs": 0,
+      "net_value_yi": 0.0,
+      "streak_days": 1,
+      "event_type": "觀察",
+      "note": "股票代碼 今日 ETF 籌碼變化有限，暫列觀察。"
+    }
+  ],
   "etf_rankings": [
+    {
+      "etf_code": "0050",
+      "etf_name": "元大台灣50",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0.0,
+      "sell_value_yi": 97.49,
+      "net_flow_yi": -97.49,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
     {
       "etf_code": "00999A",
       "etf_name": "主動野村臺灣高息",
@@ -2238,16 +2506,6 @@
       "top10_weight_pct": 0.0
     },
     {
-      "etf_code": "0050",
-      "etf_name": "元大台灣50",
-      "aum_yi": 0.0,
-      "buy_value_yi": 0,
-      "sell_value_yi": 0,
-      "net_flow_yi": 0,
-      "turnover_pct": 0.0,
-      "top10_weight_pct": 0.0
-    },
-    {
       "etf_code": "00401A",
       "etf_name": "主動摩根台灣鑫收",
       "aum_yi": 0.0,
@@ -2270,14 +2528,19 @@
   ],
   "events": [
     {
+      "time": "盤後",
+      "title": "台積電 出現 ETF 共識減碼",
+      "desc": "估算減碼 67.45 億元，參與 ETF 1 檔。"
+    },
+    {
       "time": "資料檢查",
       "title": "TWSE ETF Master 已成功更新",
       "desc": "本次從 TWSE ISIN 官方資料解析並驗證 224 檔上市 ETF master。"
     },
     {
       "time": "資料檢查",
-      "title": "ETF 持股快照覆蓋率",
-      "desc": "今日已覆蓋 0/224 檔 ETF，覆蓋率 0.0%。"
+      "title": "PCF 持股快照覆蓋率",
+      "desc": "今日已成功解析 27/224 檔 ETF PCF，覆蓋率 12.0%。"
     }
   ],
   "data_sources": [
@@ -2297,50 +2560,54 @@
       ]
     },
     {
-      "name": "TWSE ISIN 本國上市證券國際證券辨識號碼一覽表",
-      "type": "ETF master fallback",
-      "update_freq": "依 TWSE 官方資料更新",
+      "name": "TWSE ETF 商品資訊頁",
+      "type": "PCF link discovery",
+      "update_freq": "依 TWSE 官方頁面更新",
       "status": "ready",
       "fields": [
         "etf_code",
-        "etf_name",
-        "isin",
-        "listing_date",
-        "market",
-        "cfi_code"
-      ]
-    },
-    {
-      "name": "TWSE ETF 商品資訊 / e添富",
-      "type": "ETF enrichment",
-      "update_freq": "依 TWSE 官方頁面更新",
-      "status": "watch",
-      "fields": [
-        "issuer",
-        "benchmark",
-        "aum_yi",
-        "close",
-        "beneficiaries"
+        "issuer_pcf_url"
       ]
     },
     {
       "name": "各投信 PCF / 每日持股揭露",
       "type": "每日持股核心資料",
       "update_freq": "每日盤前或盤後",
-      "status": "watch",
+      "status": "ready",
       "fields": [
         "stock_code",
+        "stock_name",
         "shares",
-        "weight",
-        "cash_component",
-        "creation_unit"
+        "weight_pct",
+        "market_value"
+      ]
+    },
+    {
+      "name": "raw/holdings snapshot",
+      "type": "本系統標準化後持股快照",
+      "update_freq": "每日",
+      "status": "ready",
+      "fields": [
+        "trade_date",
+        "etf_code",
+        "stock_code",
+        "shares",
+        "weight_pct",
+        "close",
+        "market_value"
       ]
     }
   ],
   "ai_report": {
-    "headline": "TWSE ETF master 已成功更新，本次追蹤 224 檔上市 ETF。",
-    "summary": "目前已接上正式 TWSE ISIN ETF master，不再使用 sample ETF 清單。此階段會提供 ETF 代號、名稱、ISIN、上市日期、CFI Code 等 master data。每日個股層級 ETF 加減碼需要下一步接上各投信 PCF / 每日持股揭露後才會產生。",
-    "watchlist": [],
-    "risk": "目前個股籌碼變化尚未接上正式持股快照，請勿將空白的 top_stock_changes 解讀為沒有 ETF 調倉。"
+    "headline": "今日全市場 ETF 籌碼偏空，前十大變動淨額 -97.5 億元。",
+    "summary": "本報告以 TWSE ETF master 與各投信 PCF 持股快照計算。今日 PCF 覆蓋率為 12.0%，前十大變動集中度為 95%。",
+    "watchlist": [
+      "2330 台積電：ETF 減碼 67.45 億，參與 ETF 1 檔",
+      "2454 聯發科：ETF 減碼 15.58 億，參與 ETF 1 檔",
+      "2317 鴻海：ETF 減碼 9.69 億，參與 ETF 1 檔",
+      "3711 日月光投控：ETF 減碼 4.03 億，參與 ETF 1 檔",
+      "2881 富邦金：ETF 減碼 0.74 億，參與 ETF 1 檔"
+    ],
+    "risk": "若 PCF 覆蓋率未達 100%，請避免將報告視為完整市場結論。"
   }
 }

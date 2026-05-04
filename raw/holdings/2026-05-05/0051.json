@@ -1,0 +1,82 @@
+{
+  "trade_date": "2026.05.04",
+  "etf_code": "0051",
+  "etf_name": "元大中型100",
+  "issuer": "元大投信",
+  "market": "TWSE",
+  "source": "issuer_pcf",
+  "source_url": "https://www.yuantaetfs.com/tradeInfo/pcf/0051",
+  "pcf_meta": {
+    "trade_date": "2026.05.04",
+    "fund_nav": 0.0,
+    "outstanding_units": 0.0,
+    "unit_diff": 0.0,
+    "nav_per_unit": 0.0,
+    "creation_unit": 0.0
+  },
+  "holdings": [
+    {
+      "stock_code": "1101",
+      "stock_name": "股票名稱",
+      "shares": 41037.0,
+      "weight_pct": 0.0,
+      "close": 0.0,
+      "market_value": 0.0,
+      "source_table": "text_fallback"
+    },
+    {
+      "stock_code": "1102",
+      "stock_name": "股票名稱",
+      "shares": 14239.0,
+      "weight_pct": 0.0,
+      "close": 0.0,
+      "market_value": 0.0,
+      "source_table": "text_fallback"
+    },
+    {
+      "stock_code": "1229",
+      "stock_name": "股票名稱",
+      "shares": 5900.0,
+      "weight_pct": 0.0,
+      "close": 0.0,
+      "market_value": 0.0,
+      "source_table": "text_fallback"
+    },
+    {
+      "stock_code": "1319",
+      "stock_name": "股票名稱",
+      "shares": 2274.0,
+      "weight_pct": 0.0,
+      "close": 0.0,
+      "market_value": 0.0,
+      "source_table": "text_fallback"
+    },
+    {
+      "stock_code": "1326",
+      "stock_name": "股票名稱",
+      "shares": 20586.0,
+      "weight_pct": 0.0,
+      "close": 0.0,
+      "market_value": 0.0,
+      "source_table": "text_fallback"
+    },
+    {
+      "stock_code": "2274",
+      "stock_name": "股票代碼",
+      "shares": 1326.0,
+      "weight_pct": 0.0,
+      "close": 0.0,
+      "market_value": 0.0,
+      "source_table": "text_fallback"
+    },
+    {
+      "stock_code": "5900",
+      "stock_name": "股票代碼",
+      "shares": 1319.0,
+      "weight_pct": 0.0,
+      "close": 0.0,
+      "market_value": 0.0,
+      "source_table": "text_fallback"
+    }
+  ]
+}

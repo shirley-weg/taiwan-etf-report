@@ -1,0 +1,73 @@
+{
+  "trade_date": "2026.05.04",
+  "etf_code": "0053",
+  "etf_name": "元大電子",
+  "issuer": "元大投信",
+  "market": "TWSE",
+  "source": "issuer_pcf",
+  "source_url": "https://www.yuantaetfs.com/tradeInfo/pcf/0053",
+  "pcf_meta": {
+    "trade_date": "2026.05.04",
+    "fund_nav": 0.0,
+    "outstanding_units": 0.0,
+    "unit_diff": 0.0,
+    "nav_per_unit": 0.0,
+    "creation_unit": 0.0
+  },
+  "holdings": [
+    {
+      "stock_code": "2301",
+      "stock_name": "股票名稱",
+      "shares": 3093.0,
+      "weight_pct": 0.0,
+      "close": 0.0,
+      "market_value": 0.0,
+      "source_table": "text_fallback"
+    },
+    {
+      "stock_code": "2303",
+      "stock_name": "股票名稱",
+      "shares": 16793.0,
+      "weight_pct": 0.0,
+      "close": 0.0,
+      "market_value": 0.0,
+      "source_table": "text_fallback"
+    },
+    {
+      "stock_code": "2308",
+      "stock_name": "股票名稱",
+      "shares": 4161.0,
+      "weight_pct": 0.0,
+      "close": 0.0,
+      "market_value": 0.0,
+      "source_table": "text_fallback"
+    },
+    {
+      "stock_code": "2313",
+      "stock_name": "股票名稱",
+      "shares": 1591.0,
+      "weight_pct": 0.0,
+      "close": 0.0,
+      "market_value": 0.0,
+      "source_table": "text_fallback"
+    },
+    {
+      "stock_code": "3093",
+      "stock_name": "股票代碼",
+      "shares": 2303.0,
+      "weight_pct": 0.0,
+      "close": 0.0,
+      "market_value": 0.0,
+      "source_table": "text_fallback"
+    },
+    {
+      "stock_code": "4161",
+      "stock_name": "股票代碼",
+      "shares": 2313.0,
+      "weight_pct": 0.0,
+      "close": 0.0,
+      "market_value": 0.0,
+      "source_table": "text_fallback"
+    }
+  ]
+}

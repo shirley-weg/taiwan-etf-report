@@ -1,0 +1,64 @@
+{
+  "trade_date": "2026.05.04",
+  "etf_code": "00850",
+  "etf_name": "元大臺灣ESG永續",
+  "issuer": "元大投信",
+  "market": "TWSE",
+  "source": "issuer_pcf",
+  "source_url": "https://www.yuantaetfs.com/tradeInfo/pcf/00850",
+  "pcf_meta": {
+    "trade_date": "2026.05.04",
+    "fund_nav": 0.0,
+    "outstanding_units": 0.0,
+    "unit_diff": 0.0,
+    "nav_per_unit": 0.0,
+    "creation_unit": 0.0
+  },
+  "holdings": [
+    {
+      "stock_code": "2308",
+      "stock_name": "商品名稱",
+      "shares": 1125000.0,
+      "weight_pct": 7.46,
+      "close": 0.0,
+      "market_value": 0.0,
+      "source_table": "text_fallback"
+    },
+    {
+      "stock_code": "2317",
+      "stock_name": "商品名稱",
+      "shares": 7090000.0,
+      "weight_pct": 4.82,
+      "close": 0.0,
+      "market_value": 0.0,
+      "source_table": "text_fallback"
+    },
+    {
+      "stock_code": "2330",
+      "stock_name": "商品名稱",
+      "shares": 4528000.0,
+      "weight_pct": 30.76,
+      "close": 0.0,
+      "market_value": 0.0,
+      "source_table": "text_fallback"
+    },
+    {
+      "stock_code": "2454",
+      "stock_name": "商品名稱",
+      "shares": 858000.0,
+      "weight_pct": 7.35,
+      "close": 0.0,
+      "market_value": 0.0,
+      "source_table": "text_fallback"
+    },
+    {
+      "stock_code": "3711",
+      "stock_name": "商品名稱",
+      "shares": 1913000.0,
+      "weight_pct": 3.0,
+      "close": 0.0,
+      "market_value": 0.0,
+      "source_table": "text_fallback"
+    }
+  ]
+}
