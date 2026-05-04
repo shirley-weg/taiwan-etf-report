@@ -26,6 +26,15 @@ jobs:
   generate-report:
     runs-on: ubuntu-latest
 
+    env:
+      # 目前先用正式 schema + 範例資料驗證網站。
+      # 等你完成 TWSE / TPEx / 投信 PCF adapters 後，改成 "0"。
+      USE_SAMPLE_DATA: "1"
+      MIN_COVERAGE_RATIO: "0.85"
+      ALLOW_PARTIAL_REPORT: "0"
+      TOP_N_STOCKS: "10"
+      LOG_LEVEL: "INFO"
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
