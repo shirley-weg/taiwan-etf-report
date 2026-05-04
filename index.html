@@ -1,0 +1,1513 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ETF ChipEdge Taiwan｜台灣 ETF 籌碼變化 AI 日報</title>
+  <meta name="description" content="追蹤台灣 ETF 每日持股變化、共識加減碼、資金流與 AI 交易員摘要的 GitHub Pages 靜態儀表板。" />
+  <meta name="theme-color" content="#0f172a" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <style>
+    :root {
+      --bg: #0b1020;
+      --panel: rgba(15, 23, 42, 0.86);
+      --panel-2: rgba(30, 41, 59, 0.7);
+      --card: rgba(15, 23, 42, 0.72);
+      --border: rgba(148, 163, 184, 0.18);
+      --muted: #94a3b8;
+      --text: #e5e7eb;
+      --strong: #f8fafc;
+      --up: #fb7185;
+      --down: #22c55e;
+      --neutral: #38bdf8;
+      --warn: #f59e0b;
+      --violet: #a78bfa;
+      --shadow: 0 24px 80px rgba(0, 0, 0, 0.35);
+      --radius: 24px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      --sans: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans TC", "Microsoft JhengHei", sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--text);
+      font-family: var(--sans);
+      background:
+        radial-gradient(circle at 18% 0%, rgba(56, 189, 248, 0.22), transparent 32rem),
+        radial-gradient(circle at 88% 8%, rgba(167, 139, 250, 0.2), transparent 36rem),
+        radial-gradient(circle at 45% 82%, rgba(244, 63, 94, 0.12), transparent 28rem),
+        var(--bg);
+      line-height: 1.6;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    .shell {
+      width: min(1440px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 28px 0 52px;
+    }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      border-radius: 32px;
+      padding: 28px;
+      background: linear-gradient(135deg, rgba(15, 23, 42, 0.9), rgba(30, 41, 59, 0.64));
+      box-shadow: var(--shadow);
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      pointer-events: none;
+      background: linear-gradient(110deg, transparent 0%, rgba(255,255,255,0.08) 35%, transparent 54%);
+      transform: translateX(-60%);
+      animation: sheen 9s ease-in-out infinite;
+    }
+
+    @keyframes sheen {
+      0%, 55% { transform: translateX(-65%); }
+      80%, 100% { transform: translateX(110%); }
+    }
+
+    .topbar {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      position: relative;
+      z-index: 1;
+    }
+
+    .brand {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .logo {
+      width: 48px;
+      height: 48px;
+      border-radius: 16px;
+      display: grid;
+      place-items: center;
+      font-weight: 900;
+      background: linear-gradient(135deg, #38bdf8, #a78bfa 52%, #fb7185);
+      color: white;
+      box-shadow: 0 12px 40px rgba(56, 189, 248, 0.25);
+    }
+
+    .brand-title {
+      font-size: 18px;
+      font-weight: 800;
+      letter-spacing: 0.02em;
+      color: var(--strong);
+    }
+
+    .brand-subtitle {
+      font-size: 13px;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    .controls {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: flex-end;
+    }
+
+    .select, .input, .button {
+      height: 42px;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      background: rgba(15, 23, 42, 0.72);
+      color: var(--text);
+      padding: 0 13px;
+      outline: none;
+      font: inherit;
+    }
+
+    .input { width: min(280px, 74vw); }
+
+    .button {
+      display: inline-flex;
+      gap: 8px;
+      align-items: center;
+      cursor: pointer;
+      font-weight: 700;
+      transition: 160ms transform ease, 160ms border-color ease, 160ms background ease;
+    }
+
+    .button:hover {
+      transform: translateY(-1px);
+      border-color: rgba(56, 189, 248, 0.5);
+      background: rgba(30, 41, 59, 0.92);
+    }
+
+    .hero-grid {
+      position: relative;
+      z-index: 1;
+      margin-top: 34px;
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 24px;
+      align-items: stretch;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(34px, 6vw, 76px);
+      line-height: 1.02;
+      letter-spacing: -0.06em;
+      color: var(--strong);
+    }
+
+    .gradient-text {
+      background: linear-gradient(90deg, #f8fafc, #7dd3fc 38%, #c4b5fd 68%, #fda4af);
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .hero-copy {
+      max-width: 780px;
+      margin: 18px 0 0;
+      color: #cbd5e1;
+      font-size: 16px;
+    }
+
+    .source-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 22px;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 7px 11px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: rgba(15, 23, 42, 0.52);
+      color: #cbd5e1;
+      font-size: 12px;
+      white-space: nowrap;
+    }
+
+    .hero-card {
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+      background: rgba(2, 6, 23, 0.38);
+      min-height: 260px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .status-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: var(--down);
+      box-shadow: 0 0 0 6px rgba(34, 197, 94, 0.16);
+    }
+
+    .status-line {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .big-number {
+      font-size: clamp(36px, 5vw, 58px);
+      line-height: 1;
+      font-weight: 900;
+      letter-spacing: -0.06em;
+      color: var(--strong);
+      margin: 22px 0 4px;
+    }
+
+    .number-label { color: var(--muted); font-size: 13px; }
+
+    .mini-list {
+      display: grid;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .mini-item {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 10px 0;
+      border-top: 1px solid var(--border);
+      font-size: 13px;
+    }
+
+    .layout {
+      margin-top: 24px;
+      display: grid;
+      grid-template-columns: 1.5fr 0.75fr;
+      gap: 24px;
+      align-items: start;
+    }
+
+    .section {
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--panel);
+      box-shadow: 0 18px 60px rgba(0, 0, 0, 0.22);
+      overflow: hidden;
+    }
+
+    .section-header {
+      padding: 20px 22px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .section-title {
+      margin: 0;
+      font-size: 18px;
+      letter-spacing: -0.02em;
+      color: var(--strong);
+    }
+
+    .section-caption {
+      color: var(--muted);
+      font-size: 13px;
+      margin-top: 3px;
+    }
+
+    .section-body { padding: 22px; }
+
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+    }
+
+    .kpi {
+      padding: 18px;
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      background: var(--card);
+      min-height: 118px;
+    }
+
+    .kpi-label {
+      font-size: 12px;
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .kpi-value {
+      font-size: 30px;
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      margin: 12px 0 4px;
+      color: var(--strong);
+    }
+
+    .kpi-note { font-size: 12px; color: var(--muted); }
+
+    .tabs {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .tab {
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.62);
+      color: #cbd5e1;
+      padding: 8px 12px;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .tab.active {
+      color: #fff;
+      border-color: rgba(56, 189, 248, 0.5);
+      background: linear-gradient(135deg, rgba(56, 189, 248, 0.28), rgba(167, 139, 250, 0.22));
+    }
+
+    .panel-stack { display: grid; gap: 24px; }
+
+    .table-wrap {
+      width: 100%;
+      overflow-x: auto;
+      border: 1px solid var(--border);
+      border-radius: 20px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 820px;
+      background: rgba(2, 6, 23, 0.2);
+    }
+
+    th, td {
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--border);
+      text-align: left;
+      white-space: nowrap;
+      vertical-align: middle;
+      font-size: 13px;
+    }
+
+    th {
+      color: #cbd5e1;
+      background: rgba(15, 23, 42, 0.72);
+      font-size: 12px;
+      letter-spacing: 0.02em;
+      position: sticky;
+      top: 0;
+      z-index: 1;
+    }
+
+    tr:hover td { background: rgba(30, 41, 59, 0.32); }
+    tr:last-child td { border-bottom: none; }
+
+    .rank {
+      display: inline-grid;
+      place-items: center;
+      width: 26px;
+      height: 26px;
+      border-radius: 9px;
+      background: rgba(148, 163, 184, 0.15);
+      color: #e2e8f0;
+      font-family: var(--mono);
+      font-size: 12px;
+    }
+
+    .code { font-family: var(--mono); letter-spacing: -0.02em; }
+    .muted { color: var(--muted); }
+    .strong { color: var(--strong); font-weight: 800; }
+    .up { color: var(--up); }
+    .down { color: var(--down); }
+    .neutral { color: var(--neutral); }
+    .warn { color: var(--warn); }
+
+    .bar-cell {
+      min-width: 190px;
+    }
+
+    .bar-track {
+      height: 8px;
+      border-radius: 999px;
+      background: rgba(148, 163, 184, 0.14);
+      overflow: hidden;
+      margin-top: 5px;
+    }
+
+    .bar-fill {
+      height: 100%;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #38bdf8, #a78bfa);
+    }
+
+    .chart-box {
+      height: 360px;
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 18px;
+      background: rgba(2, 6, 23, 0.22);
+    }
+
+    .ai-report {
+      display: grid;
+      gap: 14px;
+    }
+
+    .report-card {
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 16px;
+      background: rgba(2, 6, 23, 0.22);
+    }
+
+    .report-card h3 {
+      margin: 0 0 8px;
+      color: var(--strong);
+      font-size: 15px;
+    }
+
+    .report-card p, .report-card li {
+      margin: 0;
+      color: #cbd5e1;
+      font-size: 13px;
+    }
+
+    .report-card ul {
+      margin: 8px 0 0;
+      padding-left: 18px;
+    }
+
+    .signal-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+
+    .signal {
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 14px;
+      background: rgba(15, 23, 42, 0.42);
+    }
+
+    .signal-label { color: var(--muted); font-size: 12px; }
+    .signal-value { margin-top: 6px; font-size: 20px; font-weight: 900; color: var(--strong); }
+
+    .timeline {
+      display: grid;
+      gap: 12px;
+      position: relative;
+    }
+
+    .timeline-item {
+      display: grid;
+      grid-template-columns: 24px 1fr;
+      gap: 10px;
+    }
+
+    .timeline-dot {
+      width: 11px;
+      height: 11px;
+      margin-top: 5px;
+      border-radius: 999px;
+      background: var(--neutral);
+      box-shadow: 0 0 0 5px rgba(56, 189, 248, 0.12);
+    }
+
+    .timeline-title { color: var(--strong); font-weight: 800; font-size: 13px; }
+    .timeline-desc { color: var(--muted); font-size: 12px; margin-top: 3px; }
+
+    .source-cards {
+      display: grid;
+      gap: 12px;
+    }
+
+    .source-card {
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 14px;
+      background: rgba(2, 6, 23, 0.22);
+    }
+
+    .source-card-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .source-name {
+      color: var(--strong);
+      font-weight: 900;
+      font-size: 13px;
+    }
+
+    .source-meta {
+      margin-top: 4px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .source-badge {
+      display: inline-flex;
+      align-items: center;
+      border-radius: 999px;
+      padding: 4px 8px;
+      border: 1px solid var(--border);
+      font-size: 11px;
+      white-space: nowrap;
+    }
+
+    .source-badge.ready { color: var(--down); background: rgba(34, 197, 94, 0.08); }
+    .source-badge.watch { color: var(--warn); background: rgba(245, 158, 11, 0.08); }
+    .source-badge.manual { color: var(--neutral); background: rgba(56, 189, 248, 0.08); }
+
+    .source-fields {
+      margin-top: 9px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .source-field {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: #cbd5e1;
+      border: 1px solid rgba(148, 163, 184, 0.16);
+      background: rgba(15, 23, 42, 0.52);
+      padding: 4px 7px;
+      border-radius: 999px;
+    }
+
+    .pipeline {
+      display: grid;
+      gap: 10px;
+    }
+
+    .pipeline-step {
+      display: grid;
+      grid-template-columns: 30px 1fr;
+      gap: 10px;
+      align-items: start;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 12px;
+      background: rgba(2, 6, 23, 0.22);
+    }
+
+    .pipeline-num {
+      width: 30px;
+      height: 30px;
+      display: grid;
+      place-items: center;
+      border-radius: 11px;
+      font-family: var(--mono);
+      font-size: 12px;
+      font-weight: 900;
+      background: linear-gradient(135deg, rgba(56, 189, 248, 0.25), rgba(167, 139, 250, 0.22));
+      color: var(--strong);
+    }
+
+    .footer {
+      margin-top: 24px;
+      color: var(--muted);
+      font-size: 12px;
+      text-align: center;
+    }
+
+    .empty {
+      border: 1px dashed rgba(148, 163, 184, 0.35);
+      border-radius: 20px;
+      padding: 24px;
+      color: var(--muted);
+      text-align: center;
+      background: rgba(2, 6, 23, 0.22);
+    }
+
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      display: none;
+      place-items: center;
+      padding: 20px;
+      background: rgba(2, 6, 23, 0.74);
+      z-index: 50;
+    }
+
+    .modal-backdrop.open { display: grid; }
+
+    .modal {
+      width: min(940px, 100%);
+      max-height: 88vh;
+      overflow: auto;
+      border: 1px solid var(--border);
+      border-radius: 28px;
+      background: #0f172a;
+      box-shadow: var(--shadow);
+    }
+
+    .modal-header {
+      position: sticky;
+      top: 0;
+      background: rgba(15, 23, 42, 0.96);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 18px 20px;
+      border-bottom: 1px solid var(--border);
+      z-index: 2;
+    }
+
+    .modal-body { padding: 20px; }
+
+    pre {
+      white-space: pre-wrap;
+      word-break: break-word;
+      color: #dbeafe;
+      background: rgba(2, 6, 23, 0.44);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 16px;
+      font-family: var(--mono);
+      font-size: 12px;
+    }
+
+    @media (max-width: 1080px) {
+      .hero-grid, .layout { grid-template-columns: 1fr; }
+      .kpi-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 640px) {
+      .shell { width: min(100% - 20px, 1440px); padding-top: 12px; }
+      .hero { padding: 20px; border-radius: 24px; }
+      .section-header, .section-body { padding: 16px; }
+      .kpi-grid, .signal-grid { grid-template-columns: 1fr; }
+      .controls { justify-content: stretch; width: 100%; }
+      .input, .select, .button { width: 100%; }
+      .chart-box { height: 300px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <header class="hero">
+      <div class="topbar">
+        <a class="brand" href="#">
+          <div class="logo">ETF</div>
+          <div>
+            <div class="brand-title">ETF ChipEdge Taiwan</div>
+            <div class="brand-subtitle">台灣 ETF 持股變化 × AI 交易員日報</div>
+          </div>
+        </a>
+        <div class="controls">
+          <input id="searchInput" class="input" type="search" placeholder="搜尋 ETF / 股票代號 / 名稱" />
+          <select id="etfFilter" class="select" title="ETF 篩選">
+            <option value="all">全部 ETF</option>
+          </select>
+          <button id="refreshBtn" class="button" type="button">重新載入</button>
+          <button id="schemaBtn" class="button" type="button">資料格式</button>
+        </div>
+      </div>
+
+      <div class="hero-grid">
+        <div>
+          <h1><span class="gradient-text">每日 ETF 籌碼變化</span><br />讓 AI 先幫交易員讀完。</h1>
+          <p class="hero-copy">
+            追蹤台灣 ETF 每日持股股數、權重、估算市值、共識加減碼與資金流，將市場前 10 大變動整理成盤前/盤後研究報告。
+            前端可直接部署在 GitHub Pages；每日資料建議由 GitHub Actions 產生 JSON 後自動更新。
+          </p>
+          <div class="source-row">
+            <span class="pill">TWSE / TPEx ETF 商品與交易資料</span>
+            <span class="pill">SITCA / MOPS 基金揭露</span>
+            <span class="pill">發行投信 PCF / 持股揭露</span>
+            <span class="pill">AI Daily Report JSON</span>
+          </div>
+        </div>
+
+        <aside class="hero-card">
+          <div>
+            <div class="status-line">
+              <span style="display:flex;align-items:center;gap:10px"><span class="status-dot"></span>資料狀態</span>
+              <span id="dataStatus">讀取中</span>
+            </div>
+            <div id="reportDate" class="big-number">--</div>
+            <div class="number-label">最新報告日期</div>
+          </div>
+          <div class="mini-list">
+            <div class="mini-item"><span>資料更新時間</span><strong id="updatedAt">--</strong></div>
+            <div class="mini-item"><span>追蹤 ETF 數</span><strong id="trackedEtfs">--</strong></div>
+            <div class="mini-item"><span>今日核心結論</span><strong id="marketBias">--</strong></div>
+          </div>
+        </aside>
+      </div>
+    </header>
+
+    <main class="layout">
+      <div class="panel-stack">
+        <section class="section">
+          <div class="section-header">
+            <div>
+              <h2 class="section-title">市場儀表板</h2>
+              <div class="section-caption">以 ETF 持股差分估算資金與籌碼方向，適合盤前快讀與盤後複盤。</div>
+            </div>
+            <div class="tabs" role="tablist">
+              <button class="tab active" data-tab="overview">總覽</button>
+              <button class="tab" data-tab="stocks">個股變動</button>
+              <button class="tab" data-tab="etfs">ETF 排行</button>
+              <button class="tab" data-tab="events">進出場事件</button>
+            </div>
+          </div>
+          <div class="section-body">
+            <div class="kpi-grid">
+              <div class="kpi">
+                <div class="kpi-label">總持股變動市值 <span>億元</span></div>
+                <div id="kpiNetValue" class="kpi-value">--</div>
+                <div id="kpiNetValueNote" class="kpi-note">買進 - 賣出</div>
+              </div>
+              <div class="kpi">
+                <div class="kpi-label">共識加碼股票 <span>檔</span></div>
+                <div id="kpiConsensusBuy" class="kpi-value">--</div>
+                <div class="kpi-note">至少 2 檔 ETF 同向買進</div>
+              </div>
+              <div class="kpi">
+                <div class="kpi-label">共識減碼股票 <span>檔</span></div>
+                <div id="kpiConsensusSell" class="kpi-value">--</div>
+                <div class="kpi-note">至少 2 檔 ETF 同向賣出</div>
+              </div>
+              <div class="kpi">
+                <div class="kpi-label">集中度警示 <span>0-100</span></div>
+                <div id="kpiConcentration" class="kpi-value">--</div>
+                <div id="kpiConcentrationNote" class="kpi-note">前 10 大變動占比</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="overviewPanel" class="section tab-panel">
+          <div class="section-header">
+            <div>
+              <h2 class="section-title">前 10 大個股持股變動</h2>
+              <div class="section-caption">跨 ETF 彙總同一股票的股數變化、估算市值與參與 ETF 家數。</div>
+            </div>
+            <button id="exportCsvBtn" class="button" type="button">匯出 CSV</button>
+          </div>
+          <div class="section-body">
+            <div class="chart-box"><canvas id="topStocksChart"></canvas></div>
+            <div style="height:16px"></div>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>股票</th>
+                    <th>名稱</th>
+                    <th>方向</th>
+                    <th>變動張數</th>
+                    <th>估算市值</th>
+                    <th>參與 ETF</th>
+                    <th>權重變化</th>
+                    <th>訊號</th>
+                  </tr>
+                </thead>
+                <tbody id="topStocksBody"></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <section id="stocksPanel" class="section tab-panel" hidden>
+          <div class="section-header">
+            <div>
+              <h2 class="section-title">個股籌碼雷達</h2>
+              <div class="section-caption">找出被多檔 ETF 同時買進或賣出的股票，並區分初次建倉、連續加碼與出清。</div>
+            </div>
+          </div>
+          <div class="section-body">
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>股票</th>
+                    <th>名稱</th>
+                    <th>加碼 ETF</th>
+                    <th>減碼 ETF</th>
+                    <th>淨變動市值</th>
+                    <th>連續天數</th>
+                    <th>事件類型</th>
+                    <th>交易員觀察</th>
+                  </tr>
+                </thead>
+                <tbody id="stockRadarBody"></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <section id="etfsPanel" class="section tab-panel" hidden>
+          <div class="section-header">
+            <div>
+              <h2 class="section-title">ETF 今日調倉排行</h2>
+              <div class="section-caption">依每檔 ETF 的買進、賣出、換手率與 Top holding concentration 排序。</div>
+            </div>
+          </div>
+          <div class="section-body">
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>ETF</th>
+                    <th>名稱</th>
+                    <th>AUM</th>
+                    <th>買進市值</th>
+                    <th>賣出市值</th>
+                    <th>淨流向</th>
+                    <th>換手率</th>
+                    <th>前十大持股集中度</th>
+                  </tr>
+                </thead>
+                <tbody id="etfRankingBody"></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <section id="eventsPanel" class="section tab-panel" hidden>
+          <div class="section-header">
+            <div>
+              <h2 class="section-title">進出場事件流</h2>
+              <div class="section-caption">偵測新進持股、完全出清、連續加碼、連續減碼、權重突破等事件。</div>
+            </div>
+          </div>
+          <div class="section-body">
+            <div id="eventTimeline" class="timeline"></div>
+          </div>
+        </section>
+      </div>
+
+      <aside class="panel-stack">
+        <section class="section">
+          <div class="section-header">
+            <div>
+              <h2 class="section-title">AI 交易員日報</h2>
+              <div class="section-caption">由每日資料 JSON 內的 ai_report 渲染；缺資料時會用規則式摘要代替。</div>
+            </div>
+          </div>
+          <div class="section-body">
+            <div id="aiReport" class="ai-report"></div>
+          </div>
+        </section>
+
+        <section class="section">
+          <div class="section-header">
+            <div>
+              <h2 class="section-title">今日訊號</h2>
+              <div class="section-caption">把籌碼變化轉成交易員會看的方向性指標。</div>
+            </div>
+          </div>
+          <div class="section-body">
+            <div class="signal-grid">
+              <div class="signal">
+                <div class="signal-label">最強共識買盤</div>
+                <div id="signalBuy" class="signal-value">--</div>
+              </div>
+              <div class="signal">
+                <div class="signal-label">最強共識賣壓</div>
+                <div id="signalSell" class="signal-value">--</div>
+              </div>
+              <div class="signal">
+                <div class="signal-label">最活躍 ETF</div>
+                <div id="signalActiveEtf" class="signal-value">--</div>
+              </div>
+              <div class="signal">
+                <div class="signal-label">風險提示</div>
+                <div id="signalRisk" class="signal-value">--</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="section">
+          <div class="section-header">
+            <div>
+              <h2 class="section-title">正式資料來源監控</h2>
+              <div class="section-caption">把官方與投信資料源分層，前端只顯示已清洗後的結果。</div>
+            </div>
+          </div>
+          <div class="section-body">
+            <div id="dataSources" class="source-cards"></div>
+          </div>
+        </section>
+
+        <section class="section">
+          <div class="section-header">
+            <div>
+              <h2 class="section-title">正式版資料流程</h2>
+              <div class="section-caption">適合每天盤後自動產生報告；不把 API key 放在瀏覽器。</div>
+            </div>
+          </div>
+          <div class="section-body">
+            <div class="pipeline">
+              <div class="pipeline-step"><div class="pipeline-num">1</div><div><div class="timeline-title">抓取資料</div><div class="timeline-desc">TWSE / TPEx / SITCA / MOPS / 集保 / 投信 PCF，統一存 raw parquet 或 JSON。</div></div></div>
+              <div class="pipeline-step"><div class="pipeline-num">2</div><div><div class="timeline-title">清洗與比對</div><div class="timeline-desc">建立 ETF master、持股快照、價格表、AUM 表，計算每日 diff、連續加減碼與事件。</div></div></div>
+              <div class="pipeline-step"><div class="pipeline-num">3</div><div><div class="timeline-title">AI 摘要</div><div class="timeline-desc">只把統計後的前 10 / 前 30 訊號送入 LLM，產生交易員日報與風險提示。</div></div></div>
+              <div class="pipeline-step"><div class="pipeline-num">4</div><div><div class="timeline-title">發布網站</div><div class="timeline-desc">輸出 data/latest_report.json、history/YYYY-MM-DD.json 與 index.html，由 GitHub Pages 或 Cloudflare Pages 呈現。</div></div></div>
+            </div>
+          </div>
+        </section>
+
+        <section class="section">
+          <div class="section-header">
+            <div>
+              <h2 class="section-title">功能藍圖</h2>
+              <div class="section-caption">後續可擴充成付費版或研究終端。</div>
+            </div>
+          </div>
+          <div class="section-body">
+            <div class="report-card">
+              <h3>交易員最可能有興趣</h3>
+              <ul>
+                <li>跨 ETF 共識買進 / 賣出排行</li>
+                <li>新進持股與完全出清事件</li>
+                <li>連續 3/5/10 日加碼趨勢</li>
+                <li>ETF 大戶風格：高股息、AI、金融、傳產輪動</li>
+                <li>ETF 申購買回與持股調整落差</li>
+                <li>台積電或單一權重上限監控</li>
+                <li>個股被納入多檔 ETF 後的短期報酬追蹤</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+      </aside>
+    </main>
+
+    <footer class="footer">
+      本頁為研究工具範本，不構成投資建議。請自行確認資料來源、更新時間與法規授權。
+    </footer>
+  </div>
+
+  <div id="modalBackdrop" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal">
+      <div class="modal-header">
+        <div>
+          <div id="modalTitle" class="section-title">每日 JSON 資料格式</div>
+          <div class="section-caption">將此檔案放在 repository 的 data/latest_report.json，GitHub Pages 前端會自動讀取。</div>
+        </div>
+        <button id="closeModalBtn" class="button" type="button">關閉</button>
+      </div>
+      <div class="modal-body">
+        <pre id="schemaPre"></pre>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const DATA_URL = "data/latest_report.json";
+
+    const fallbackData = {
+      meta: {
+        report_date: "2026-05-04",
+        updated_at: "2026-05-04 18:30:00",
+        tracked_etfs: 118,
+        universe: "Taiwan listed ETF sample",
+        market_bias: "偏多但集中"
+      },
+      kpis: {
+        net_change_value_yi: 42.8,
+        consensus_buy_count: 16,
+        consensus_sell_count: 9,
+        concentration_score: 72
+      },
+      top_stock_changes: [
+        { stock_code: "2330", stock_name: "台積電", direction: "buy", delta_lot: 18250, delta_value_yi: 18.7, etf_count: 9, weight_delta_pct: 0.84, signal: "多檔 ETF 同步加碼，注意權重上限與追價風險" },
+        { stock_code: "2317", stock_name: "鴻海", direction: "buy", delta_lot: 15210, delta_value_yi: 10.3, etf_count: 7, weight_delta_pct: 0.51, signal: "AI 伺服器題材擴散，量能確認較重要" },
+        { stock_code: "2454", stock_name: "聯發科", direction: "buy", delta_lot: 3210, delta_value_yi: 6.9, etf_count: 5, weight_delta_pct: 0.38, signal: "高價股加碼，偏大型電子權值配置" },
+        { stock_code: "2881", stock_name: "富邦金", direction: "buy", delta_lot: 8850, delta_value_yi: 5.4, etf_count: 6, weight_delta_pct: 0.24, signal: "金融股防禦性資金進場" },
+        { stock_code: "2308", stock_name: "台達電", direction: "buy", delta_lot: 4170, delta_value_yi: 4.7, etf_count: 4, weight_delta_pct: 0.19, signal: "電源與資料中心概念續強" },
+        { stock_code: "2603", stock_name: "長榮", direction: "sell", delta_lot: -11600, delta_value_yi: -7.6, etf_count: 5, weight_delta_pct: -0.35, signal: "航運遭調節，留意短線籌碼退潮" },
+        { stock_code: "2382", stock_name: "廣達", direction: "sell", delta_lot: -6090, delta_value_yi: -6.8, etf_count: 4, weight_delta_pct: -0.31, signal: "前波強勢股獲利了結" },
+        { stock_code: "2891", stock_name: "中信金", direction: "buy", delta_lot: 17020, delta_value_yi: 5.8, etf_count: 5, weight_delta_pct: 0.22, signal: "高股息與金融配置需求增加" },
+        { stock_code: "3037", stock_name: "欣興", direction: "sell", delta_lot: -4300, delta_value_yi: -3.1, etf_count: 3, weight_delta_pct: -0.18, signal: "PCB 族群分歧，需觀察是否連續減碼" },
+        { stock_code: "3711", stock_name: "日月光投控", direction: "buy", delta_lot: 5380, delta_value_yi: 3.0, etf_count: 3, weight_delta_pct: 0.13, signal: "半導體封測補漲配置" }
+      ],
+      stock_radar: [
+        { stock_code: "2330", stock_name: "台積電", buy_etfs: 9, sell_etfs: 1, net_value_yi: 18.7, streak_days: 4, event_type: "連續加碼", note: "權值股吸金，若加碼集中於少數 ETF，隔日追蹤延續性。" },
+        { stock_code: "2317", stock_name: "鴻海", buy_etfs: 7, sell_etfs: 0, net_value_yi: 10.3, streak_days: 3, event_type: "共識加碼", note: "多檔 ETF 同向配置，可能反映主題輪動。" },
+        { stock_code: "2603", stock_name: "長榮", buy_etfs: 0, sell_etfs: 5, net_value_yi: -7.6, streak_days: 2, event_type: "共識減碼", note: "若隔日繼續減碼，短線籌碼轉弱。" },
+        { stock_code: "2382", stock_name: "廣達", buy_etfs: 1, sell_etfs: 4, net_value_yi: -6.8, streak_days: 1, event_type: "獲利了結", note: "強勢股降溫訊號，需搭配價格是否跌破均線。" },
+        { stock_code: "2881", stock_name: "富邦金", buy_etfs: 6, sell_etfs: 0, net_value_yi: 5.4, streak_days: 5, event_type: "連續加碼", note: "金融防禦性配置升溫。" }
+      ],
+      etf_rankings: [
+        { etf_code: "00980A", etf_name: "主動台股成長A", aum_yi: 162.5, buy_value_yi: 18.6, sell_value_yi: 8.1, net_flow_yi: 10.5, turnover_pct: 3.2, top10_weight_pct: 58.4 },
+        { etf_code: "00981A", etf_name: "主動台灣科技A", aum_yi: 138.1, buy_value_yi: 15.2, sell_value_yi: 10.4, net_flow_yi: 4.8, turnover_pct: 4.1, top10_weight_pct: 64.2 },
+        { etf_code: "0050", etf_name: "元大台灣50", aum_yi: 4050.3, buy_value_yi: 11.1, sell_value_yi: 9.9, net_flow_yi: 1.2, turnover_pct: 0.4, top10_weight_pct: 72.8 },
+        { etf_code: "00878", etf_name: "國泰永續高股息", aum_yi: 3210.8, buy_value_yi: 8.4, sell_value_yi: 6.2, net_flow_yi: 2.2, turnover_pct: 0.8, top10_weight_pct: 46.1 },
+        { etf_code: "00919", etf_name: "群益台灣精選高息", aum_yi: 2789.0, buy_value_yi: 7.9, sell_value_yi: 11.8, net_flow_yi: -3.9, turnover_pct: 1.1, top10_weight_pct: 42.7 }
+      ],
+      events: [
+        { time: "盤後", title: "台積電連 4 日被主動 ETF 加碼", desc: "今日新增 18.7 億估算持股市值，參與 ETF 家數 9 檔。" },
+        { time: "盤後", title: "航運族群出現共識減碼", desc: "長榮遭 5 檔 ETF 調節，留意是否擴散至陽明、萬海。" },
+        { time: "盤後", title: "金融股防禦配置升溫", desc: "富邦金與中信金同步進入前十大買盤。" },
+        { time: "盤後", title: "AI 伺服器強勢股分歧", desc: "鴻海加碼、廣達調節，資金可能由高漲幅標的轉向低基期權值。" }
+      ],
+      ai_report: {
+        headline: "ETF 籌碼偏多，但買盤高度集中於大型電子與金融。",
+        summary: "今日跨 ETF 持股變動顯示，資金主要流向台積電、鴻海、聯發科等大型電子權值股，同時金融股也有防禦性配置。賣壓集中在航運與部分前波 AI 強勢股，代表資金並非全面進攻，而是偏向權值與低波動配置。",
+        watchlist: ["2330 台積電：連續加碼但需監控集中度", "2317 鴻海：共識買盤明確", "2603 長榮：共識減碼，短線弱勢觀察", "2382 廣達：AI 題材內部輪動"],
+        risk: "若隔日 ETF 買盤無法延續，今日集中加碼的權值股可能轉為短線追價風險。"
+      },
+      data_sources: [
+        { name: "TWSE ETF e添富", type: "ETF master / AUM / ranking", update_freq: "每日或盤中依官方更新", status: "ready", fields: ["etf_code", "etf_name", "aum", "close", "issuer", "beneficiaries"] },
+        { name: "TWSE / TPEx ETF 交易資料", type: "成交價量 / 折溢價輔助", update_freq: "交易日", status: "ready", fields: ["close", "volume", "turnover", "premium_discount"] },
+        { name: "SITCA ETF 專區", type: "產業統計 / 明細資料入口", update_freq: "月 / 季 / 不定期", status: "ready", fields: ["fund_type", "issuer", "monthly_top5", "quarter_holdings"] },
+        { name: "MOPS 公開資訊觀測站", type: "公開說明書 / 財報 / 基金資訊", update_freq: "依公告", status: "manual", fields: ["prospectus", "financial_report", "fund_nav", "holdings"] },
+        { name: "集保 ETF 觀測站", type: "預估淨值 / 折溢價 / 成分證券資訊", update_freq: "盤中 / 每日", status: "watch", fields: ["iNAV", "premium_discount", "constituents"] },
+        { name: "各投信 PCF / 每日持股揭露", type: "每日持股核心資料", update_freq: "每日盤前或盤後", status: "watch", fields: ["stock_code", "shares", "weight", "cash_component", "creation_unit"] }
+      ]
+    };
+
+    const schemaExample = {
+      meta: {
+        report_date: "YYYY-MM-DD",
+        updated_at: "YYYY-MM-DD HH:mm:ss",
+        tracked_etfs: 0,
+        universe: "Taiwan all ETFs",
+        market_bias: "偏多 / 偏空 / 中性 / 分歧"
+      },
+      kpis: {
+        net_change_value_yi: 0,
+        consensus_buy_count: 0,
+        consensus_sell_count: 0,
+        concentration_score: 0
+      },
+      top_stock_changes: [
+        {
+          stock_code: "2330",
+          stock_name: "台積電",
+          direction: "buy | sell",
+          delta_lot: 0,
+          delta_value_yi: 0,
+          etf_count: 0,
+          weight_delta_pct: 0,
+          signal: "AI 或規則式訊號文字"
+        }
+      ],
+      stock_radar: [
+        {
+          stock_code: "2330",
+          stock_name: "台積電",
+          buy_etfs: 0,
+          sell_etfs: 0,
+          net_value_yi: 0,
+          streak_days: 0,
+          event_type: "新進 / 出清 / 連續加碼 / 共識減碼",
+          note: "交易員觀察"
+        }
+      ],
+      etf_rankings: [
+        {
+          etf_code: "0050",
+          etf_name: "元大台灣50",
+          aum_yi: 0,
+          buy_value_yi: 0,
+          sell_value_yi: 0,
+          net_flow_yi: 0,
+          turnover_pct: 0,
+          top10_weight_pct: 0
+        }
+      ],
+      events: [
+        { time: "盤後", title: "事件標題", desc: "事件說明" }
+      ],
+      data_sources: [
+        {
+          name: "TWSE ETF e添富",
+          type: "ETF master / AUM / ranking",
+          update_freq: "每日或盤中依官方更新",
+          status: "ready | watch | manual",
+          fields: ["etf_code", "etf_name", "aum", "close"]
+        }
+      ],
+      ai_report: {
+        headline: "一句話結論",
+        summary: "完整日報摘要",
+        watchlist: ["觀察標的一", "觀察標的二"],
+        risk: "風險提示"
+      }
+    };
+
+    let state = {
+      data: fallbackData,
+      filtered: fallbackData,
+      chart: null,
+      activeTab: "overview"
+    };
+
+    const $ = (selector) => document.querySelector(selector);
+    const $$ = (selector) => [...document.querySelectorAll(selector)];
+
+    function formatNumber(value, digits = 1) {
+      if (value === null || value === undefined || Number.isNaN(Number(value))) return "--";
+      return Number(value).toLocaleString("zh-TW", { maximumFractionDigits: digits, minimumFractionDigits: digits });
+    }
+
+    function formatSigned(value, suffix = "") {
+      const n = Number(value || 0);
+      const sign = n > 0 ? "+" : "";
+      return `${sign}${formatNumber(n)}${suffix}`;
+    }
+
+    function directionClass(direction, value) {
+      if (direction === "buy" || Number(value) > 0) return "up";
+      if (direction === "sell" || Number(value) < 0) return "down";
+      return "neutral";
+    }
+
+    function directionText(direction, value) {
+      if (direction === "buy" || Number(value) > 0) return "加碼";
+      if (direction === "sell" || Number(value) < 0) return "減碼";
+      return "持平";
+    }
+
+    async function loadData() {
+      setStatus("讀取中", false);
+      try {
+        const res = await fetch(`${DATA_URL}?v=${Date.now()}`, { cache: "no-store" });
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const json = await res.json();
+        state.data = normalizeData(json);
+        setStatus("已載入正式資料", true);
+      } catch (error) {
+        console.warn("Failed to load data/latest_report.json. Using fallback sample data.", error);
+        state.data = fallbackData;
+        setStatus("示範資料", false);
+      }
+      populateEtfFilter();
+      applyFilters();
+    }
+
+    function normalizeData(data) {
+      return {
+        meta: { ...fallbackData.meta, ...(data.meta || {}) },
+        kpis: { ...fallbackData.kpis, ...(data.kpis || {}) },
+        top_stock_changes: Array.isArray(data.top_stock_changes) ? data.top_stock_changes : [],
+        stock_radar: Array.isArray(data.stock_radar) ? data.stock_radar : [],
+        etf_rankings: Array.isArray(data.etf_rankings) ? data.etf_rankings : [],
+        events: Array.isArray(data.events) ? data.events : [],
+        data_sources: Array.isArray(data.data_sources) ? data.data_sources : fallbackData.data_sources,
+        ai_report: { ...fallbackData.ai_report, ...(data.ai_report || {}) }
+      };
+    }
+
+    function setStatus(text, live) {
+      $("#dataStatus").textContent = text;
+      const dot = document.querySelector(".status-dot");
+      dot.style.background = live ? "var(--down)" : "var(--warn)";
+      dot.style.boxShadow = live ? "0 0 0 6px rgba(34, 197, 94, 0.16)" : "0 0 0 6px rgba(245, 158, 11, 0.16)";
+    }
+
+    function populateEtfFilter() {
+      const select = $("#etfFilter");
+      const current = select.value;
+      const etfs = state.data.etf_rankings || [];
+      select.innerHTML = `<option value="all">全部 ETF</option>` + etfs
+        .map(etf => `<option value="${escapeHtml(etf.etf_code)}">${escapeHtml(etf.etf_code)} ${escapeHtml(etf.etf_name || "")}</option>`)
+        .join("");
+      select.value = [...select.options].some(opt => opt.value === current) ? current : "all";
+    }
+
+    function applyFilters() {
+      const keyword = $("#searchInput").value.trim().toLowerCase();
+      const etfCode = $("#etfFilter").value;
+      const data = structuredClone(state.data);
+
+      if (keyword) {
+        const match = (obj, fields) => fields.some(field => String(obj[field] || "").toLowerCase().includes(keyword));
+        data.top_stock_changes = data.top_stock_changes.filter(x => match(x, ["stock_code", "stock_name", "signal"]));
+        data.stock_radar = data.stock_radar.filter(x => match(x, ["stock_code", "stock_name", "event_type", "note"]));
+        data.etf_rankings = data.etf_rankings.filter(x => match(x, ["etf_code", "etf_name"]));
+        data.events = data.events.filter(x => match(x, ["title", "desc"]));
+      }
+
+      if (etfCode !== "all") {
+        data.etf_rankings = data.etf_rankings.filter(x => x.etf_code === etfCode);
+      }
+
+      state.filtered = data;
+      renderAll();
+    }
+
+    function renderAll() {
+      renderMeta();
+      renderKpis();
+      renderTopStocks();
+      renderStockRadar();
+      renderEtfRankings();
+      renderEvents();
+      renderDataSources();
+      renderAiReport();
+      renderSignals();
+      renderChart();
+    }
+
+    function renderMeta() {
+      const meta = state.data.meta;
+      $("#reportDate").textContent = meta.report_date || "--";
+      $("#updatedAt").textContent = meta.updated_at || "--";
+      $("#trackedEtfs").textContent = formatNumber(meta.tracked_etfs, 0);
+      $("#marketBias").textContent = meta.market_bias || "--";
+    }
+
+    function renderKpis() {
+      const k = state.data.kpis;
+      $("#kpiNetValue").textContent = formatSigned(k.net_change_value_yi, "");
+      $("#kpiNetValue").className = `kpi-value ${directionClass(null, k.net_change_value_yi)}`;
+      $("#kpiConsensusBuy").textContent = formatNumber(k.consensus_buy_count, 0);
+      $("#kpiConsensusSell").textContent = formatNumber(k.consensus_sell_count, 0);
+      $("#kpiConcentration").textContent = formatNumber(k.concentration_score, 0);
+      $("#kpiConcentration").className = `kpi-value ${Number(k.concentration_score) >= 70 ? "warn" : "neutral"}`;
+      $("#kpiConcentrationNote").textContent = Number(k.concentration_score) >= 70 ? "高度集中，避免只看單一題材" : "分散度尚可";
+    }
+
+    function renderTopStocks() {
+      const rows = state.filtered.top_stock_changes || [];
+      const max = Math.max(...rows.map(x => Math.abs(Number(x.delta_value_yi || 0))), 1);
+      $("#topStocksBody").innerHTML = rows.length ? rows.slice(0, 10).map((x, i) => `
+        <tr>
+          <td><span class="rank">${i + 1}</span></td>
+          <td class="code strong">${escapeHtml(x.stock_code)}</td>
+          <td>${escapeHtml(x.stock_name)}</td>
+          <td class="${directionClass(x.direction, x.delta_value_yi)}">${directionText(x.direction, x.delta_value_yi)}</td>
+          <td class="${directionClass(x.direction, x.delta_lot)}">${formatSigned(x.delta_lot, " 張")}</td>
+          <td class="${directionClass(x.direction, x.delta_value_yi)}">${formatSigned(x.delta_value_yi, " 億")}</td>
+          <td>${formatNumber(x.etf_count, 0)} 檔</td>
+          <td class="bar-cell">
+            ${formatSigned(x.weight_delta_pct, "%")}
+            <div class="bar-track"><div class="bar-fill" style="width:${Math.min(100, Math.abs(Number(x.delta_value_yi || 0)) / max * 100)}%"></div></div>
+          </td>
+          <td class="muted">${escapeHtml(x.signal || "--")}</td>
+        </tr>
+      `).join("") : `<tr><td colspan="9"><div class="empty">沒有符合篩選條件的個股變動。</div></td></tr>`;
+    }
+
+    function renderStockRadar() {
+      const rows = state.filtered.stock_radar || [];
+      $("#stockRadarBody").innerHTML = rows.length ? rows.map(x => `
+        <tr>
+          <td class="code strong">${escapeHtml(x.stock_code)}</td>
+          <td>${escapeHtml(x.stock_name)}</td>
+          <td class="up">${formatNumber(x.buy_etfs, 0)} 檔</td>
+          <td class="down">${formatNumber(x.sell_etfs, 0)} 檔</td>
+          <td class="${directionClass(null, x.net_value_yi)}">${formatSigned(x.net_value_yi, " 億")}</td>
+          <td>${formatNumber(x.streak_days, 0)} 日</td>
+          <td><span class="pill">${escapeHtml(x.event_type || "--")}</span></td>
+          <td class="muted">${escapeHtml(x.note || "--")}</td>
+        </tr>
+      `).join("") : `<tr><td colspan="8"><div class="empty">沒有符合篩選條件的個股雷達資料。</div></td></tr>`;
+    }
+
+    function renderEtfRankings() {
+      const rows = state.filtered.etf_rankings || [];
+      $("#etfRankingBody").innerHTML = rows.length ? rows.map(x => `
+        <tr>
+          <td class="code strong">${escapeHtml(x.etf_code)}</td>
+          <td>${escapeHtml(x.etf_name)}</td>
+          <td>${formatNumber(x.aum_yi)} 億</td>
+          <td class="up">${formatNumber(x.buy_value_yi)} 億</td>
+          <td class="down">${formatNumber(x.sell_value_yi)} 億</td>
+          <td class="${directionClass(null, x.net_flow_yi)}">${formatSigned(x.net_flow_yi, " 億")}</td>
+          <td>${formatNumber(x.turnover_pct)}%</td>
+          <td>${formatNumber(x.top10_weight_pct)}%</td>
+        </tr>
+      `).join("") : `<tr><td colspan="8"><div class="empty">沒有符合篩選條件的 ETF 排行資料。</div></td></tr>`;
+    }
+
+    function renderEvents() {
+      const rows = state.filtered.events || [];
+      $("#eventTimeline").innerHTML = rows.length ? rows.map(event => `
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div>
+            <div class="timeline-title">${escapeHtml(event.time || "--")}｜${escapeHtml(event.title || "--")}</div>
+            <div class="timeline-desc">${escapeHtml(event.desc || "--")}</div>
+          </div>
+        </div>
+      `).join("") : `<div class="empty">沒有符合篩選條件的事件。</div>`;
+    }
+
+    function renderDataSources() {
+      const rows = state.data.data_sources || [];
+      const statusText = { ready: "可自動化", watch: "需驗證", manual: "半自動" };
+      $("#dataSources").innerHTML = rows.length ? rows.map(source => `
+        <div class="source-card">
+          <div class="source-card-top">
+            <div>
+              <div class="source-name">${escapeHtml(source.name || "--")}</div>
+              <div class="source-meta">${escapeHtml(source.type || "--")}｜${escapeHtml(source.update_freq || "--")}</div>
+            </div>
+            <span class="source-badge ${escapeHtml(source.status || "manual")}">${escapeHtml(statusText[source.status] || source.status || "待確認")}</span>
+          </div>
+          <div class="source-fields">
+            ${(source.fields || []).slice(0, 8).map(field => `<span class="source-field">${escapeHtml(field)}</span>`).join("")}
+          </div>
+        </div>
+      `).join("") : `<div class="empty">尚未設定資料來源。</div>`;
+    }
+
+    function renderAiReport() {
+      const report = state.data.ai_report || {};
+      const watchlist = Array.isArray(report.watchlist) ? report.watchlist : [];
+      $("#aiReport").innerHTML = `
+        <div class="report-card">
+          <h3>一句話結論</h3>
+          <p>${escapeHtml(report.headline || inferHeadline())}</p>
+        </div>
+        <div class="report-card">
+          <h3>市場解讀</h3>
+          <p>${escapeHtml(report.summary || inferSummary())}</p>
+        </div>
+        <div class="report-card">
+          <h3>觀察名單</h3>
+          <ul>${watchlist.length ? watchlist.map(x => `<li>${escapeHtml(x)}</li>`).join("") : inferWatchlist().map(x => `<li>${escapeHtml(x)}</li>`).join("")}</ul>
+        </div>
+        <div class="report-card">
+          <h3>風險提示</h3>
+          <p>${escapeHtml(report.risk || "資料不足，請搭配成交量、價格型態與公告確認。")}</p>
+        </div>
+      `;
+    }
+
+    function renderSignals() {
+      const stocks = state.data.top_stock_changes || [];
+      const etfs = state.data.etf_rankings || [];
+      const buys = [...stocks].filter(x => Number(x.delta_value_yi) > 0).sort((a, b) => b.delta_value_yi - a.delta_value_yi);
+      const sells = [...stocks].filter(x => Number(x.delta_value_yi) < 0).sort((a, b) => a.delta_value_yi - b.delta_value_yi);
+      const activeEtf = [...etfs].sort((a, b) => Math.abs(b.buy_value_yi || 0) + Math.abs(b.sell_value_yi || 0) - Math.abs(a.buy_value_yi || 0) - Math.abs(a.sell_value_yi || 0))[0];
+
+      $("#signalBuy").textContent = buys[0] ? `${buys[0].stock_code} ${buys[0].stock_name}` : "--";
+      $("#signalSell").textContent = sells[0] ? `${sells[0].stock_code} ${sells[0].stock_name}` : "--";
+      $("#signalActiveEtf").textContent = activeEtf ? `${activeEtf.etf_code}` : "--";
+      $("#signalRisk").textContent = Number(state.data.kpis.concentration_score) >= 70 ? "集中" : "正常";
+      $("#signalRisk").className = `signal-value ${Number(state.data.kpis.concentration_score) >= 70 ? "warn" : "neutral"}`;
+    }
+
+    function renderChart() {
+      const ctx = $("#topStocksChart");
+      const rows = (state.filtered.top_stock_changes || []).slice(0, 10);
+      const labels = rows.map(x => `${x.stock_code} ${x.stock_name}`);
+      const values = rows.map(x => Number(x.delta_value_yi || 0));
+      const colors = values.map(v => v >= 0 ? "rgba(251, 113, 133, 0.72)" : "rgba(34, 197, 94, 0.72)");
+
+      if (state.chart) state.chart.destroy();
+      state.chart = new Chart(ctx, {
+        type: "bar",
+        data: {
+          labels,
+          datasets: [{
+            label: "估算變動市值（億元）",
+            data: values,
+            borderWidth: 1,
+            backgroundColor: colors,
+            borderColor: colors.map(c => c.replace("0.72", "1")),
+            borderRadius: 10
+          }]
+        },
+        options: {
+          indexAxis: "y",
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: { labels: { color: "#cbd5e1" } },
+            tooltip: {
+              callbacks: {
+                label: context => `${formatSigned(context.raw, " 億")}`
+              }
+            }
+          },
+          scales: {
+            x: { ticks: { color: "#94a3b8" }, grid: { color: "rgba(148, 163, 184, 0.12)" } },
+            y: { ticks: { color: "#cbd5e1" }, grid: { display: false } }
+          }
+        }
+      });
+    }
+
+    function inferHeadline() {
+      const stocks = state.data.top_stock_changes || [];
+      const top = stocks[0];
+      if (!top) return "今日資料不足，尚無明確籌碼方向。";
+      return `今日最大籌碼變化集中在 ${top.stock_code} ${top.stock_name}，方向為${directionText(top.direction, top.delta_value_yi)}。`;
+    }
+
+    function inferSummary() {
+      const k = state.data.kpis || {};
+      const bias = Number(k.net_change_value_yi) >= 0 ? "淨加碼" : "淨減碼";
+      return `今日 ETF 持股差分顯示市場呈現${bias}，前十大變動集中度為 ${formatNumber(k.concentration_score, 0)}。建議優先觀察共識加碼是否連續，以及減碼族群是否擴散。`;
+    }
+
+    function inferWatchlist() {
+      return (state.data.top_stock_changes || []).slice(0, 4).map(x => `${x.stock_code} ${x.stock_name}：${directionText(x.direction, x.delta_value_yi)} ${formatSigned(x.delta_value_yi, " 億")}`);
+    }
+
+    function exportCsv() {
+      const rows = state.filtered.top_stock_changes || [];
+      const header = ["rank", "stock_code", "stock_name", "direction", "delta_lot", "delta_value_yi", "etf_count", "weight_delta_pct", "signal"];
+      const csv = [header.join(",")].concat(rows.map((x, i) => header.map(key => {
+        const value = key === "rank" ? i + 1 : x[key];
+        return `"${String(value ?? "").replaceAll('"', '""')}"`;
+      }).join(","))).join("\n");
+      const blob = new Blob(["\ufeff" + csv], { type: "text/csv;charset=utf-8;" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `top_stock_changes_${state.data.meta.report_date || "latest"}.csv`;
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+
+    function escapeHtml(value) {
+      return String(value ?? "")
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+    }
+
+    function switchTab(tab) {
+      state.activeTab = tab;
+      $$(".tab").forEach(btn => btn.classList.toggle("active", btn.dataset.tab === tab));
+      const panelMap = {
+        overview: "#overviewPanel",
+        stocks: "#stocksPanel",
+        etfs: "#etfsPanel",
+        events: "#eventsPanel"
+      };
+      Object.entries(panelMap).forEach(([name, selector]) => {
+        const panel = $(selector);
+        panel.hidden = name !== tab;
+      });
+      if (tab === "overview") setTimeout(renderChart, 0);
+    }
+
+    function openSchemaModal() {
+      $("#schemaPre").textContent = JSON.stringify(schemaExample, null, 2);
+      $("#modalBackdrop").classList.add("open");
+    }
+
+    function closeSchemaModal() {
+      $("#modalBackdrop").classList.remove("open");
+    }
+
+    function bindEvents() {
+      $("#searchInput").addEventListener("input", applyFilters);
+      $("#etfFilter").addEventListener("change", applyFilters);
+      $("#refreshBtn").addEventListener("click", loadData);
+      $("#exportCsvBtn").addEventListener("click", exportCsv);
+      $("#schemaBtn").addEventListener("click", openSchemaModal);
+      $("#closeModalBtn").addEventListener("click", closeSchemaModal);
+      $("#modalBackdrop").addEventListener("click", event => {
+        if (event.target.id === "modalBackdrop") closeSchemaModal();
+      });
+      $$(".tab").forEach(btn => btn.addEventListener("click", () => switchTab(btn.dataset.tab)));
+      window.addEventListener("keydown", event => {
+        if (event.key === "Escape") closeSchemaModal();
+      });
+    }
+
+    bindEvents();
+    loadData();
+  </script>
+</body>
+</html>
