@@ -3,9 +3,21 @@ name: Generate Daily ETF Report
 on:
   workflow_dispatch:
   schedule:
-    # 台灣時間 18:30 = UTC 10:30
-    # 週一到週五執行
-    - cron: "30 10 * * 1-5"
+    # 台灣時間 14:45：第一次嘗試，通常是最早合理產出時間
+    - cron: "45 14 * * 1-5"
+      timezone: "Asia/Taipei"
+
+    # 台灣時間 15:15：資料未齊時的第二次嘗試
+    - cron: "15 15 * * 1-5"
+      timezone: "Asia/Taipei"
+
+    # 台灣時間 15:45：第三次嘗試
+    - cron: "45 15 * * 1-5"
+      timezone: "Asia/Taipei"
+
+    # 台灣時間 16:15：最後備援
+    - cron: "15 16 * * 1-5"
+      timezone: "Asia/Taipei"
 
 permissions:
   contents: write
