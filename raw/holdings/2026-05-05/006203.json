@@ -1,5 +1,5 @@
 {
-  "trade_date": "2026.05.04",
+  "trade_date": "2026.05.05",
   "etf_code": "006203",
   "etf_name": "元大MSCI台灣",
   "issuer": "元大投信",
@@ -7,7 +7,7 @@
   "source": "issuer_pcf",
   "source_url": "https://www.yuantaetfs.com/tradeInfo/pcf/006203",
   "pcf_meta": {
-    "trade_date": "2026.05.04",
+    "trade_date": "2026.05.05",
     "fund_nav": 0.0,
     "outstanding_units": 0.0,
     "unit_diff": 0.0,
@@ -45,7 +45,7 @@
     {
       "stock_code": "1301",
       "stock_name": "股票名稱",
-      "shares": 3404.0,
+      "shares": 3403.0,
       "weight_pct": 0.0,
       "close": 0.0,
       "market_value": 0.0,
@@ -70,7 +70,7 @@
       "source_table": "text_fallback"
     },
     {
-      "stock_code": "3404",
+      "stock_code": "3403",
       "stock_name": "股票代碼",
       "shares": 1303.0,
       "weight_pct": 0.0,

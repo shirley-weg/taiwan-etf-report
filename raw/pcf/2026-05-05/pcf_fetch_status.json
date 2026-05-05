@@ -264,10 +264,10 @@
     "etf_code": "00642U",
     "etf_name": "期元大S&P石油",
     "issuer": "元大投信",
-    "status": "ok",
+    "status": "parsed_zero_holdings",
     "pcf_url": "https://www.yuantaetfs.com/tradeInfo/pcf/00642U",
-    "holdings_count": 1,
-    "error": ""
+    "holdings_count": 0,
+    "error": "PCF page fetched but no Taiwan stock holdings parsed."
   },
   {
     "etf_code": "00643",
@@ -1031,7 +1031,7 @@
     "issuer": "元大投信",
     "status": "ok",
     "pcf_url": "https://www.yuantaetfs.com/tradeInfo/pcf/00876",
-    "holdings_count": 3,
+    "holdings_count": 2,
     "error": ""
   },
   {
@@ -1940,7 +1940,7 @@
     "issuer": "元大投信",
     "status": "ok",
     "pcf_url": "https://www.yuantaetfs.com/tradeInfo/pcf/00990A",
-    "holdings_count": 1,
+    "holdings_count": 2,
     "error": ""
   },
   {

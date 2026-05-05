@@ -1,5 +1,5 @@
 {
-  "trade_date": "2026.05.04",
+  "trade_date": "2026.05.05",
   "etf_code": "00660",
   "etf_name": "元大歐洲50",
   "issuer": "元大投信",
@@ -7,7 +7,7 @@
   "source": "issuer_pcf",
   "source_url": "https://www.yuantaetfs.com/tradeInfo/pcf/00660",
   "pcf_meta": {
-    "trade_date": "2026.05.04",
+    "trade_date": "2026.05.05",
     "fund_nav": 0.0,
     "outstanding_units": 0.0,
     "unit_diff": 0.0,
@@ -16,19 +16,19 @@
   },
   "holdings": [
     {
-      "stock_code": "1205",
+      "stock_code": "1570",
       "stock_name": "商品權重",
-      "shares": 30676.0,
-      "weight_pct": 3.45,
+      "shares": 4570.0,
+      "weight_pct": 4.27,
       "close": 0.0,
       "market_value": 0.0,
       "source_table": "text_fallback"
     },
     {
-      "stock_code": "1570",
+      "stock_code": "2133",
       "stock_name": "商品權重",
-      "shares": 4570.0,
-      "weight_pct": 4.23,
+      "shares": 1205.0,
+      "weight_pct": 3.44,
       "close": 0.0,
       "market_value": 0.0,
       "source_table": "text_fallback"
@@ -36,8 +36,8 @@
     {
       "stock_code": "4570",
       "stock_name": "商品權重",
-      "shares": 1205.0,
-      "weight_pct": 3.86,
+      "shares": 2133.0,
+      "weight_pct": 3.92,
       "close": 0.0,
       "market_value": 0.0,
       "source_table": "text_fallback"

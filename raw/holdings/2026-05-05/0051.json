@@ -1,5 +1,5 @@
 {
-  "trade_date": "2026.05.04",
+  "trade_date": "2026.05.05",
   "etf_code": "0051",
   "etf_name": "元大中型100",
   "issuer": "元大投信",
@@ -7,7 +7,7 @@
   "source": "issuer_pcf",
   "source_url": "https://www.yuantaetfs.com/tradeInfo/pcf/0051",
   "pcf_meta": {
-    "trade_date": "2026.05.04",
+    "trade_date": "2026.05.05",
     "fund_nav": 0.0,
     "outstanding_units": 0.0,
     "unit_diff": 0.0,
@@ -18,7 +18,7 @@
     {
       "stock_code": "1101",
       "stock_name": "股票名稱",
-      "shares": 41037.0,
+      "shares": 41027.0,
       "weight_pct": 0.0,
       "close": 0.0,
       "market_value": 0.0,
@@ -27,7 +27,7 @@
     {
       "stock_code": "1102",
       "stock_name": "股票名稱",
-      "shares": 14239.0,
+      "shares": 14235.0,
       "weight_pct": 0.0,
       "close": 0.0,
       "market_value": 0.0,
@@ -36,7 +36,7 @@
     {
       "stock_code": "1229",
       "stock_name": "股票名稱",
-      "shares": 5900.0,
+      "shares": 5898.0,
       "weight_pct": 0.0,
       "close": 0.0,
       "market_value": 0.0,
@@ -45,7 +45,7 @@
     {
       "stock_code": "1319",
       "stock_name": "股票名稱",
-      "shares": 2274.0,
+      "shares": 2273.0,
       "weight_pct": 0.0,
       "close": 0.0,
       "market_value": 0.0,
@@ -54,14 +54,14 @@
     {
       "stock_code": "1326",
       "stock_name": "股票名稱",
-      "shares": 20586.0,
+      "shares": 20581.0,
       "weight_pct": 0.0,
       "close": 0.0,
       "market_value": 0.0,
       "source_table": "text_fallback"
     },
     {
-      "stock_code": "2274",
+      "stock_code": "2273",
       "stock_name": "股票代碼",
       "shares": 1326.0,
       "weight_pct": 0.0,
@@ -70,7 +70,7 @@
       "source_table": "text_fallback"
     },
     {
-      "stock_code": "5900",
+      "stock_code": "5898",
       "stock_name": "股票代碼",
       "shares": 1319.0,
       "weight_pct": 0.0,
