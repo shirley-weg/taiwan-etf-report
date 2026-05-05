@@ -3,14 +3,8 @@ name: Generate Daily ETF Report
 on:
   workflow_dispatch:
   schedule:
-    # 台灣 14:45 = UTC 06:45
-    - cron: "45 6 * * 1-5"
-    # 台灣 15:15 = UTC 07:15
-    - cron: "15 7 * * 1-5"
-    # 台灣 15:45 = UTC 07:45
-    - cron: "45 7 * * 1-5"
-    # 台灣 16:15 = UTC 08:15
-    - cron: "15 8 * * 1-5"
+    # 台灣每天 18:30 = UTC 10:30
+    - cron: "30 10 * * *"
 
 permissions:
   contents: write
@@ -24,7 +18,7 @@ jobs:
       MIN_TWSE_ETF_MASTER_ROWS: "50"
 
       # 初期先用 10% 確認 crawler 可以解析真實 PCF。
-      # 補齊 data/pcf_source_registry.json 後，再改成 0.80 或 0.90。
+      # 補齊 data/pcf_source_registry.json 與投信 parser 後，可改成 0.80 或 0.90。
       MIN_PCF_COVERAGE_RATIO: "0.10"
       STRICT_PCF_COVERAGE: "0"
 
