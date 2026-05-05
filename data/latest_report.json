@@ -1,11 +1,11 @@
 {
   "meta": {
     "report_date": "2026-05-05",
-    "updated_at": "2026-05-05 20:25:47",
+    "updated_at": "2026-05-05 20:47:27",
     "timezone": "Asia/Taipei",
     "tracked_etfs": 224,
-    "covered_etfs": 36,
-    "coverage_ratio": 0.1607,
+    "covered_etfs": 29,
+    "coverage_ratio": 0.1295,
     "universe": "TWSE listed ETFs",
     "market_bias": "偏空",
     "snapshot_mode": "production_issuer_pcf",
@@ -14,8 +14,8 @@
   },
   "data_quality": {
     "tracked_etfs": 224,
-    "covered_etfs": 36,
-    "coverage_ratio": 0.1607,
+    "covered_etfs": 29,
+    "coverage_ratio": 0.1295,
     "min_required_coverage_ratio": 0.1,
     "is_ready": true
   },
@@ -2540,7 +2540,7 @@
     {
       "time": "資料檢查",
       "title": "PCF 持股快照覆蓋率",
-      "desc": "今日已成功解析 36/224 檔 ETF PCF，覆蓋率 16.1%。"
+      "desc": "今日已成功解析 29/224 檔 ETF PCF，覆蓋率 13.0%。"
     }
   ],
   "data_sources": [
@@ -2561,7 +2561,7 @@
     },
     {
       "name": "TWSE ETF 商品資訊頁",
-      "type": "PCF link discovery",
+      "type": "PCF link discovery + identity guard",
       "update_freq": "依 TWSE 官方頁面更新",
       "status": "ready",
       "fields": [
@@ -2600,7 +2600,7 @@
   ],
   "ai_report": {
     "headline": "今日全市場 ETF 籌碼偏空，前十大變動淨額 -97.5 億元。",
-    "summary": "本報告以 TWSE ETF master 與各投信 PCF 持股快照計算。今日 PCF 覆蓋率為 16.1%，前十大變動集中度為 95%。",
+    "summary": "本報告以 TWSE ETF master 與各投信 PCF 持股快照計算。今日 PCF 覆蓋率為 13.0%，前十大變動集中度為 95%。",
     "watchlist": [
       "2330 台積電：ETF 減碼 67.45 億，參與 ETF 1 檔",
       "2454 聯發科：ETF 減碼 15.58 億，參與 ETF 1 檔",

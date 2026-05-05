@@ -6,6 +6,14 @@
   "market": "TWSE",
   "source": "issuer_pcf",
   "source_url": "https://sitc.sinopac.com/SinopacEtfs/Etfs/Pcf",
+  "pcf_identity": {
+    "ok": true,
+    "method": "visible_context_match",
+    "target_etf_code": "00907",
+    "target_etf_name": "永豐優息存股",
+    "matched_context": "基金： 永豐ESG低碳高息 永豐優息存股 永豐智能車供應鏈 永豐台灣ESG 永豐中國科技50大 永豐美國科技 永豐美國500大 永豐臺灣加權 永豐ESG銀行債15+ 永豐20年美公債 永豐1-3年美公債 永豐10年A公司債 日期： 資料下載",
+    "reason": "Page title/header/selected option visibly matches target ETF."
+  },
   "pcf_meta": {
     "trade_date": "2026.05.06",
     "fund_nav": 0.0,

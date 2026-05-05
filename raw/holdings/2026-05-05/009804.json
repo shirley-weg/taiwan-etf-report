@@ -6,6 +6,14 @@
   "market": "TWSE",
   "source": "issuer_pcf",
   "source_url": "https://www.usitc.com.tw/CustCenter/BuyBackList",
+  "pcf_identity": {
+    "ok": true,
+    "method": "visible_context_match",
+    "target_etf_code": "009804",
+    "target_etf_name": "聯邦台精彩50",
+    "matched_context": "聯邦台灣精彩50ETF基金 ( 009804 )",
+    "reason": "Page title/header/selected option visibly matches target ETF."
+  },
   "pcf_meta": {
     "trade_date": "2026.05.06",
     "fund_nav": 0.0,

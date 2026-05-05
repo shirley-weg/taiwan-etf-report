@@ -6,6 +6,14 @@
   "market": "TWSE",
   "source": "issuer_pcf",
   "source_url": "https://www.yuantaetfs.com/tradeInfo/pcf/00660",
+  "pcf_identity": {
+    "ok": true,
+    "method": "visible_context_match",
+    "target_etf_code": "00660",
+    "target_etf_name": "元大歐洲50",
+    "matched_context": "(00660)元大已開發國家傘型證券投資信託基金之元大歐洲50證券投資信託基金 - 元大申購買回清單 | 元大投信 YuantaETFs",
+    "reason": "Page title/header/selected option visibly matches target ETF."
+  },
   "pcf_meta": {
     "trade_date": "2026.05.05",
     "fund_nav": 0.0,
