@@ -872,6 +872,163 @@ def resolve_pcf_url(etf: Dict[str, Any], manual_registry: Dict[str, str], report
     return fallbacks[0] if fallbacks else None
 
 
+
+# ============================================================
+# PCF identity guard
+# ============================================================
+class PCFIdentityMismatch(Exception):
+    """Raised when a PCF page does not visibly identify the target ETF."""
+
+
+def compact_identity_text(value: Any) -> str:
+    """Normalize text for ETF code/name identity matching."""
+    text = clean_text(value).upper()
+    # Keep Chinese, digits and letters; remove punctuation/spaces.
+    text = re.sub(r"[^0-9A-Z\u4e00-\u9fff]+", "", text)
+    return text
+
+
+def etf_name_aliases(etf_name: str) -> List[str]:
+    raw = compact_identity_text(etf_name)
+    aliases = {raw}
+
+    removable_words = [
+        "ETF", "基金", "證券投資信託基金", "證券投資信託", "指數股票型", "指數股票型基金",
+        "受益憑證", "主動式", "期貨信託", "期貨ETF",
+    ]
+    cleaned = raw
+    for word in removable_words:
+        cleaned = cleaned.replace(compact_identity_text(word), "")
+    if cleaned:
+        aliases.add(cleaned)
+
+    # Very short aliases are too risky. Keep only useful names.
+    return sorted([x for x in aliases if len(x) >= 4], key=len, reverse=True)
+
+
+def text_mentions_target_etf(text: str, etf: Dict[str, Any]) -> bool:
+    compact = compact_identity_text(text)
+    code = normalize_code(etf.get("etf_code", ""))
+    if code and code in compact:
+        return True
+
+    for alias in etf_name_aliases(etf.get("etf_name", "")):
+        if alias and alias in compact:
+            return True
+    return False
+
+
+def selected_or_header_contexts(html: str) -> List[str]:
+    """
+    Extract high-confidence page identity contexts.
+
+    This intentionally avoids accepting the entire page body, because many issuer
+    PCF pages are generic dropdown pages containing all ETF codes. A code merely
+    appearing somewhere in a dropdown is not enough evidence that the page is
+    currently showing that ETF's PCF.
+    """
+    soup = BeautifulSoup(html, "html.parser")
+    contexts: List[str] = []
+
+    # Page title and major headers are usually where the currently selected ETF appears.
+    for tag in soup.find_all(["title", "h1", "h2", "h3", "h4"]):
+        text = clean_text(tag.get_text(" ", strip=True))
+        if text:
+            contexts.append(text)
+
+    # Explicit selected/current dropdown option.
+    for tag in soup.select("option[selected], [aria-selected='true'], [aria-current='true'], input[checked]"):
+        text = clean_text(tag.get_text(" ", strip=True) or tag.get("value", "") or tag.get("title", ""))
+        if text:
+            contexts.append(text)
+
+    # Common current/active/fund-name components. Keep only short components to avoid full-page containers.
+    identity_keywords = ["selected", "current", "active", "fund", "etf", "product", "title", "name"]
+    for tag in soup.find_all(True):
+        attrs = " ".join([
+            clean_text(tag.get("id", "")),
+            " ".join(tag.get("class", []) if isinstance(tag.get("class", []), list) else [clean_text(tag.get("class", ""))]),
+        ]).lower()
+        if attrs and any(k in attrs for k in identity_keywords):
+            text = clean_text(tag.get_text(" ", strip=True) or tag.get("value", "") or tag.get("title", ""))
+            if 0 < len(text) <= 160:
+                contexts.append(text)
+
+    # Lines around explicit labels are acceptable identity contexts.
+    full_lines = [clean_text(x) for x in soup.get_text("\n", strip=True).splitlines()]
+    full_lines = [x for x in full_lines if x]
+    label_patterns = ["ETF代號", "基金代號", "證券代號", "ETF名稱", "基金名稱", "商品名稱", "申購買回清單", "PCF"]
+    for i, line in enumerate(full_lines):
+        if any(label in line for label in label_patterns):
+            window = " ".join(full_lines[max(0, i - 2): i + 3])
+            if window and len(window) <= 320:
+                contexts.append(window)
+
+    # Remove duplicates while preserving order.
+    seen = set()
+    unique = []
+    for c in contexts:
+        c = clean_text(c)
+        if c and c not in seen:
+            seen.add(c)
+            unique.append(c)
+    return unique
+
+
+def validate_pcf_page_identity(etf: Dict[str, Any], pcf_url: str, html: str) -> Dict[str, Any]:
+    """
+    Confirm that the fetched PCF page visibly corresponds to the ETF being fetched.
+
+    Why this is necessary:
+      Some issuer PCF URLs are generic pages with a dropdown. If we save those pages
+      without checking the visible/selected ETF code, we may accidentally save the
+      default ETF's PCF as another ETF's snapshot.
+    """
+    code = normalize_code(etf.get("etf_code", ""))
+    etf_name = clean_text(etf.get("etf_name", ""))
+    contexts = selected_or_header_contexts(html)
+
+    matched_contexts = [c for c in contexts if text_mentions_target_etf(c, etf)]
+    if matched_contexts:
+        return {
+            "ok": True,
+            "method": "visible_context_match",
+            "target_etf_code": code,
+            "target_etf_name": etf_name,
+            "matched_context": matched_contexts[0][:220],
+            "reason": "Page title/header/selected option visibly matches target ETF.",
+        }
+
+    # Safer fallback for direct per-ETF endpoints only: URL contains the ETF code and
+    # the page text also mentions the target. Generic shared URLs without the code do
+    # not pass here.
+    soup = BeautifulSoup(html, "html.parser")
+    full_text = clean_text(soup.get_text(" ", strip=True))
+    if code and code in pcf_url.upper() and text_mentions_target_etf(full_text, etf):
+        return {
+            "ok": True,
+            "method": "url_code_and_page_text_match",
+            "target_etf_code": code,
+            "target_etf_name": etf_name,
+            "matched_context": code,
+            "reason": "Direct PCF URL contains ETF code and fetched page text mentions target ETF.",
+        }
+
+    return {
+        "ok": False,
+        "method": "identity_not_confirmed",
+        "target_etf_code": code,
+        "target_etf_name": etf_name,
+        "matched_context": "",
+        "reason": (
+            "PCF page does not visibly confirm the target ETF code/name in title, header, "
+            "selected option, or direct ETF-specific URL context. Not saving this snapshot "
+            "to avoid default-ETF misclassification."
+        ),
+        "sample_contexts": contexts[:6],
+    }
+
+
 # ============================================================
 # PCF parsing
 # ============================================================
@@ -915,7 +1072,8 @@ def fetch_all_pcf_holdings(master: List[Dict[str, Any]], report_date: str) -> Tu
                         "status": "parsed_zero_holdings",
                         "pcf_url": pcf_url,
                         "holdings_count": 0,
-                        "error": "PCF page fetched but no Taiwan stock holdings parsed.",
+                        "identity_check": payload.get("pcf_identity", {}),
+                        "error": "PCF page identity passed, but no Taiwan stock holdings were parsed.",
                     }
                 )
                 continue
@@ -931,7 +1089,22 @@ def fetch_all_pcf_holdings(master: List[Dict[str, Any]], report_date: str) -> Tu
                     "status": "ok",
                     "pcf_url": pcf_url,
                     "holdings_count": len(holdings),
+                    "identity_check": payload.get("pcf_identity", {}),
                     "error": "",
+                }
+            )
+
+        except PCFIdentityMismatch as exc:
+            logger.warning("PCF identity mismatch for %s %s: %s", code, pcf_url, exc)
+            statuses.append(
+                {
+                    "etf_code": code,
+                    "etf_name": name,
+                    "issuer": issuer,
+                    "status": "pcf_code_mismatch",
+                    "pcf_url": pcf_url,
+                    "holdings_count": 0,
+                    "error": str(exc),
                 }
             )
 
@@ -961,6 +1134,10 @@ def fetch_one_pcf(etf: Dict[str, Any], pcf_url: str, report_date: str) -> Dict[s
 
     debug_save(report_date, f"pcf_{code}_{url_to_name(pcf_url)}", html)
 
+    identity = validate_pcf_page_identity(etf, pcf_url, html)
+    if not identity.get("ok"):
+        raise PCFIdentityMismatch(json.dumps(identity, ensure_ascii=False))
+
     holdings = parse_holdings_from_pcf_html(html, pcf_url)
     meta = parse_pcf_meta_from_html(html)
 
@@ -972,6 +1149,7 @@ def fetch_one_pcf(etf: Dict[str, Any], pcf_url: str, report_date: str) -> Dict[s
         "market": etf.get("market", "TWSE"),
         "source": "issuer_pcf",
         "source_url": pcf_url,
+        "pcf_identity": identity,
         "pcf_meta": meta,
         "holdings": holdings,
     }
@@ -1573,7 +1751,7 @@ def build_data_sources() -> List[Dict[str, Any]]:
         },
         {
             "name": "TWSE ETF 商品資訊頁",
-            "type": "PCF link discovery",
+            "type": "PCF link discovery + identity guard",
             "update_freq": "依 TWSE 官方頁面更新",
             "status": "ready",
             "fields": ["etf_code", "issuer_pcf_url"],
