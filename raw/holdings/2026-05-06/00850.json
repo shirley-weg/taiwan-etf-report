@@ -1,0 +1,72 @@
+{
+  "trade_date": "2026.05.06",
+  "etf_code": "00850",
+  "etf_name": "元大臺灣ESG永續",
+  "issuer": "元大投信",
+  "market": "TWSE",
+  "source": "issuer_pcf",
+  "source_url": "https://www.yuantaetfs.com/tradeInfo/pcf/00850",
+  "pcf_identity": {
+    "ok": true,
+    "method": "visible_context_match",
+    "target_etf_code": "00850",
+    "target_etf_name": "元大臺灣ESG永續",
+    "matched_context": "(00850)元大臺灣ESG永續ETF證券投資信託基金 - 元大申購買回清單 | 元大投信 YuantaETFs",
+    "reason": "Page title/header/selected option visibly matches target ETF."
+  },
+  "pcf_meta": {
+    "trade_date": "2026.05.06",
+    "fund_nav": 0.0,
+    "outstanding_units": 0.0,
+    "unit_diff": 0.0,
+    "nav_per_unit": 0.0,
+    "creation_unit": 0.0
+  },
+  "holdings": [
+    {
+      "stock_code": "2308",
+      "stock_name": "商品名稱",
+      "shares": 1125000.0,
+      "weight_pct": 7.27,
+      "close": 0.0,
+      "market_value": 0.0,
+      "source_table": "text_fallback"
+    },
+    {
+      "stock_code": "2317",
+      "stock_name": "商品名稱",
+      "shares": 7090000.0,
+      "weight_pct": 5.22,
+      "close": 0.0,
+      "market_value": 0.0,
+      "source_table": "text_fallback"
+    },
+    {
+      "stock_code": "2330",
+      "stock_name": "商品名稱",
+      "shares": 4528000.0,
+      "weight_pct": 29.78,
+      "close": 0.0,
+      "market_value": 0.0,
+      "source_table": "text_fallback"
+    },
+    {
+      "stock_code": "2454",
+      "stock_name": "商品名稱",
+      "shares": 858000.0,
+      "weight_pct": 8.6,
+      "close": 0.0,
+      "market_value": 0.0,
+      "source_table": "text_fallback"
+    },
+    {
+      "stock_code": "3711",
+      "stock_name": "商品名稱",
+      "shares": 1913000.0,
+      "weight_pct": 2.93,
+      "close": 0.0,
+      "market_value": 0.0,
+      "source_table": "text_fallback"
+    }
+  ]
+}
