@@ -1,0 +1,108 @@
+{
+  "trade_date": "2026.05.08",
+  "etf_code": "006203",
+  "etf_name": "元大MSCI台灣",
+  "issuer": "元大投信",
+  "market": "TWSE",
+  "source": "issuer_pcf",
+  "source_url": "https://www.yuantaetfs.com/tradeInfo/pcf/006203",
+  "pcf_identity": {
+    "ok": true,
+    "method": "visible_context_match",
+    "target_etf_code": "006203",
+    "target_etf_name": "元大MSCI台灣",
+    "matched_context": "(006203)元大摩臺證券投資信託基金 - 元大申購買回清單 | 元大投信 YuantaETFs",
+    "reason": "Page title/header/selected option visibly matches target ETF."
+  },
+  "pcf_meta": {
+    "trade_date": "2026.05.08",
+    "fund_nav": 0.0,
+    "outstanding_units": 0.0,
+    "unit_diff": 0.0,
+    "nav_per_unit": 0.0,
+    "creation_unit": 0.0
+  },
+  "holdings": [
+    {
+      "stock_code": "1101",
+      "stock_name": "股票名稱",
+      "shares": 6056.0,
+      "weight_pct": 0.0,
+      "close": 0.0,
+      "market_value": 0.0,
+      "source_table": "text_fallback"
+    },
+    {
+      "stock_code": "1102",
+      "stock_name": "股票名稱",
+      "shares": 2054.0,
+      "weight_pct": 0.0,
+      "close": 0.0,
+      "market_value": 0.0,
+      "source_table": "text_fallback"
+    },
+    {
+      "stock_code": "1216",
+      "stock_name": "股票名稱",
+      "shares": 4303.0,
+      "weight_pct": 0.0,
+      "close": 0.0,
+      "market_value": 0.0,
+      "source_table": "text_fallback"
+    },
+    {
+      "stock_code": "1301",
+      "stock_name": "股票名稱",
+      "shares": 3403.0,
+      "weight_pct": 0.0,
+      "close": 0.0,
+      "market_value": 0.0,
+      "source_table": "text_fallback"
+    },
+    {
+      "stock_code": "1303",
+      "stock_name": "股票名稱",
+      "shares": 4593.0,
+      "weight_pct": 0.0,
+      "close": 0.0,
+      "market_value": 0.0,
+      "source_table": "text_fallback"
+    },
+    {
+      "stock_code": "2054",
+      "stock_name": "股票代碼",
+      "shares": 1216.0,
+      "weight_pct": 0.0,
+      "close": 0.0,
+      "market_value": 0.0,
+      "source_table": "text_fallback"
+    },
+    {
+      "stock_code": "3403",
+      "stock_name": "股票代碼",
+      "shares": 1303.0,
+      "weight_pct": 0.0,
+      "close": 0.0,
+      "market_value": 0.0,
+      "source_table": "text_fallback"
+    },
+    {
+      "stock_code": "4303",
+      "stock_name": "股票代碼",
+      "shares": 1301.0,
+      "weight_pct": 0.0,
+      "close": 0.0,
+      "market_value": 0.0,
+      "source_table": "text_fallback"
+    },
+    {
+      "stock_code": "6056",
+      "stock_name": "股票代碼",
+      "shares": 1102.0,
+      "weight_pct": 0.0,
+      "close": 0.0,
+      "market_value": 0.0,
+      "source_table": "text_fallback"
+    }
+  ]
+}

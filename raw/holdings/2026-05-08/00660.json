@@ -1,0 +1,54 @@
+{
+  "trade_date": "2026.05.08",
+  "etf_code": "00660",
+  "etf_name": "元大歐洲50",
+  "issuer": "元大投信",
+  "market": "TWSE",
+  "source": "issuer_pcf",
+  "source_url": "https://www.yuantaetfs.com/tradeInfo/pcf/00660",
+  "pcf_identity": {
+    "ok": true,
+    "method": "visible_context_match",
+    "target_etf_code": "00660",
+    "target_etf_name": "元大歐洲50",
+    "matched_context": "(00660)元大已開發國家傘型證券投資信託基金之元大歐洲50證券投資信託基金 - 元大申購買回清單 | 元大投信 YuantaETFs",
+    "reason": "Page title/header/selected option visibly matches target ETF."
+  },
+  "pcf_meta": {
+    "trade_date": "2026.05.08",
+    "fund_nav": 0.0,
+    "outstanding_units": 0.0,
+    "unit_diff": 0.0,
+    "nav_per_unit": 0.0,
+    "creation_unit": 0.0
+  },
+  "holdings": [
+    {
+      "stock_code": "1205",
+      "stock_name": "商品權重",
+      "shares": 30676.0,
+      "weight_pct": 3.47,
+      "close": 0.0,
+      "market_value": 0.0,
+      "source_table": "text_fallback"
+    },
+    {
+      "stock_code": "1570",
+      "stock_name": "商品權重",
+      "shares": 4570.0,
+      "weight_pct": 4.38,
+      "close": 0.0,
+      "market_value": 0.0,
+      "source_table": "text_fallback"
+    },
+    {
+      "stock_code": "4570",
+      "stock_name": "商品權重",
+      "shares": 1205.0,
+      "weight_pct": 3.6,
+      "close": 0.0,
+      "market_value": 0.0,
+      "source_table": "text_fallback"
+    }
+  ]
+}

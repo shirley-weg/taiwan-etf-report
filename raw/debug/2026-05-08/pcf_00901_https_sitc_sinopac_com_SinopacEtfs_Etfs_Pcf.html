@@ -1,0 +1,2070 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" name="viewport" content="text/html; charset=UTF-8" />
+    <meta http-equiv="pragma" content="no-cache" />
+    <meta http-equiv="cache-control" content="no-cache" />
+    <meta http-equiv="expires" content="0" />
+    <meta name="description" content="永豐投信秉持「專業管理、誠信服務、卓越績效」的經營理念，致力提供投資人多元化基金產品資訊、市場趨勢分析、基金交易等投資需求與理財服務" />
+    <meta name="keywords" content="ETF, ETF交易資訊、即時估計淨值,現金申購買回清單,追蹤偏離度,ETF定期定額,存股,永豐,永豐投信,ETF專區" />
+    <link rel="shortcut icon" href="/SinopacEtfs/Content/images/favicon.ico" />
+    <!--Pad同Web語法-->
+    <meta name="viewport" content="width=1024" />
+    
+    <title>現金申購買回清單 - 永豐投信ETF</title>
+    <script type="text/javascript">
+        var isMobile = false;
+        if (navigator.userAgent.match(/Android/i)
+            || navigator.userAgent.match(/webOS/i)
+            || navigator.userAgent.match(/iPhone/i)
+            || navigator.userAgent.match(/iPod/i)
+            || navigator.userAgent.match(/BlackBerry/i)
+            || navigator.userAgent.match(/Windows Phone/i)) {
+            document.write('<meta name="viewport" content="width=device-width, user-scalable=no"/>');
+            isMobile = true;
+        }
+        if (navigator.userAgent.match(/iPad/i)) {
+            isMobile = true;
+        }
+    </script>
+    <script src="/SinopacEtfs/bundles/jquery?v=FmX5lwof5LEg-7uV2c-EcZvZjeOEXDc47e-ufg0oqoY1"></script>
+
+    <script src="/SinopacEtfs/bundles/modernizr?v=inCVuEFe6J4Q07A0AcRsbJic_UE5MwpRMNGcOtk94TE1"></script>
+
+    <script src="/SinopacEtfs/bundles/sitcjs?v=0d6vzYI6CuDYm28GQdQKStXsugObpRURtsVLIU7d-Js1"></script>
+
+    <link href="/SinopacEtfs/bundles/css?v=MNyiZAM1amtOv46bfPJS5ISpSVA_tnju7HlmzCQIYkY1" rel="stylesheet"/>
+
+
+    
+    <script>
+        $(document).ready(function () {
+            //setting default date
+            //if ($('#qdate').val() == '') {
+            //    $('#qdate').val($.datepicker.formatDate('yy-mm-dd', new Date));
+            //}
+            //datepicker
+            $("#qdate").datepicker({
+                changeYear: true,
+                changeMonth: true,
+                showMinute: false,
+                showSecond: false,
+                dateFormat: 'yy-mm-dd',
+                showOn: 'focus',//'focus','button'
+                //buttonImage: "/Content/images/icons8-calendar-32.png",
+                //buttonImageOnly: false,
+                //buttonText: "選擇日期",
+                maxDate: '2026-05-11',//'+1w','+0m +0w''2020-06-04'
+                monthNamesShort: ["一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"],
+                showButtonPanel: true,
+                closeText: "關閉"
+            });
+
+            //form表單處理
+            //$("select").addClass("sel_typ");
+            $("#fundlist").on("change", function () {
+                $("#hDate").val("");
+                $("#qdate").val("");
+                querySubmit();
+            });
+            $("#qdate").on("change", function () {
+                $("#hDate").val($("#qdate").val());
+                querySubmit();
+            });
+
+            $("#dvHeadMemo").find("ul").each(function () {
+                var u = $(this);
+                if (u.attr("id") != 'B5') {
+                    u.remove();
+                }
+            });
+
+            if (isMobile) {
+                $(".download").remove();
+                $(".fs_cell").removeAttr("style").find("h3").removeAttr("style");
+                //var span = $("#exchangeRateSpan")
+                //var t = span.text();
+                //span.text(t.replace("：", "：\n").replace("　　", "\n").replace("　　", "\n").replace("　　", "\n"));
+            } else {
+                $(".download").show();
+                $("#download").on("click", function () {
+                    downloadPcf();
+                    return false;
+                });
+            }
+        });
+
+        function querySubmit() {
+            //$("#queryform").attr("action", "Pcf");
+            $("#download").attr("disabled", true);
+            var fundid = $("#fundlist").val();
+            $("#op").val("1");
+            $("#queryform").attr("action", "/SinopacEtfs/Etfs/Pcf" + "/" + fundid);
+            $("#queryform").submit();
+        }
+
+        function downloadPcf() {
+            var submitdate = $("#qdate").val();
+
+            if (new Date(submitdate).getTime() >= new Date(new Date().toISOString().substr(0, 10))) {
+                alert("僅提供歷史資料下載!!");
+            } else {
+                //$("#queryform").attr("action", "downloadPcf");
+                $("#op").val("2");
+                $("#queryform").submit();
+            }
+        }
+    </script>
+    <style>
+        input:focus, select:focus, option:focus {
+            outline: none;
+        }
+        .btn_typ a:hover {
+            border: none;
+        }
+        .tab_sh td {
+            border-left: 1px solid #b5b5b5;
+            border-bottom: 1px solid #b5b5b5;
+            padding: 10px;
+            text-align: center;
+            font-size:16px;
+        }
+        select::-ms-expand {
+            display: none;
+        }
+        /*匯率table 背景顏色*/
+        .tab_estexrate-m tr:nth-child(1) {
+            background-color: #ffe8e8;
+        }
+
+        .tab_estexrate-m tr:nth-child(2) {
+            background-color: #fff;
+        }
+
+        .tab_fu-05 tbody tr:nth-child(even) {
+            /*background-color: rgba(255,242,242,1.00);*/
+            background-color: #ffe8e8;
+        }
+        .tab_estexrate-m tr:last-child td {
+            border-top: none;
+            vertical-align: top;
+        }
+
+        /*jquery datepicker remove today button*/
+        button.ui-datepicker-current {
+            display: none;
+        }
+    </style>
+
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    
+	<script async=async src="https://www.googletagmanager.com/gtag/js?id=G-VMERFLBV4M"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-VMERFLBV4M');
+    </script>
+</head>
+<body>
+    <div class="wrapper">
+        <!--header-->
+        <div class="header inp">
+            <div class="box">
+                <div class="opemenu"><a href="#menu"></a></div>
+                <h1></h1>
+            </div>
+        </div>
+        <div class="nav inp">
+            <div class="box">
+                <h1 class="navh1">
+                    <a href="/newweb/index.html" style="display:block; height:60px;" target="_blank">永豐投信</a>
+                </h1>
+                <ul>
+                    <li>
+                        <a href="/SinopacEtfs/Funds/FundInfo">ETF基金總覽</a>
+                    </li>
+                    
+                    <li>
+                        <a href="#">即時估計淨值</a>
+                        <div class="nav_list">
+                            <ol>
+                                <li><a href="/SinopacEtfs/">即時估計淨值</a></li>
+                                <li><a href="/SinopacEtfs/Etfs/NPD">歷史折溢價</a></li>
+                            </ol>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="/SinopacEtfs/Etfs/Tracks">追蹤偏離度</a>
+                    </li>
+                    <li>
+                        <a href="/SinopacEtfs/Etfs/Pcf">現金申購買回清單</a>
+                    </li>
+                    <li>
+                        <a href="#">收益分配</a>
+                        <div class="nav_list">
+                            <ol>
+                                
+                                <li><a href="https://sitc.sinopac.com/newweb/event/2024ETF20/ETF20.pdf" target="_blank">配息時程</a></li>
+                                <li><a href="https://sitc.sinopac.com/newweb/sitcNews/list.do?sitc_news_type_id=189961042dc00000b17424f917cb5b8a" target="_blank">配息公告</a></li>
+                                <li><a href="/SinopacEtfs/Funds/DividenEtf">配息資訊</a></li>
+                            </ol>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="#">申贖費用及表單</a>
+                        <div class="nav_list">
+                            <ol>
+                                <li><a href="https://sitc.sinopac.com/newweb/event/2019ETFCOST/ETFCOST.pdf" target="_blank">申贖費用資訊</a></li>
+                                <li><a href="/SinopacEtfs/Etfs/EtfForms">ETF相關表格</a></li>
+                            </ol>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!--重要訊息-->
+<style>
+    .navAccordionHeader {
+        display: block;
+        cursor: pointer;
+        position: relative;
+        margin: 0 0 0 0;
+        padding: .5em .5em .5em .7em;
+        font-size: 100%;
+        font-weight: bold;
+        background-color: Crimson;
+        border: 0px;
+        color: #ffffff;
+        font-family: 微軟正黑體,Arial, Helvetica;
+    }
+
+    .navAccordionToggle {
+        width: 30px;
+        border: #ffffff 1px solid;
+        border-radius: 5px;
+        color: #ffffff;
+        padding: 2px 5px 2px 5px;
+        text-align: center;
+        font-size: 90%;
+        font-stretch: ultra-expanded;
+        float: right;
+    }
+
+    .navAccordionContent {
+        position: relative;
+        border-bottom: 0px;
+        border-left: 0px;
+        border-right: 0px;
+        margin: 0 auto 0 auto;
+        font-size: 16px;
+        font-family: 微軟正黑體,Arial, Helvetica;
+        color: RoyalBlue;
+        word-break: break-word;
+        word-wrap: break-word;
+    }
+        .navAccordionContent p {
+            word-break: break-word;
+            word-wrap: break-word;
+            line-height: 20px;
+        }
+</style>
+<div id="accdiv" style="overflow:hidden; display:none;">
+    <h4>
+        <!--重要訊息-->
+        <div style="width:1150px; position:relative; margin:0 auto 0 auto; font-size:20px; font-weight:bold;">
+            重要訊息
+            <div class="navAccordionToggle">⊼</div>
+        </div>
+    </h4>
+    <div style="background-color:#ffe8e8; border:0px; overflow:hidden;">
+        <div class="navAccordionContent" style="width:1150px;">
+            <p><strong><span style="font-size: medium;"><span style="color: rgb(255, 0, 0);">一、【永豐投信重要通知】 <br />
+請投資人注意！當國際經濟情勢發生劇烈變動之際，依永豐系列ETF基金信託契約相關規定，如經理公司經專業評估後認為有無法買入或賣出滿足申購人或受益人於申購或買回所對應標的指數成分股或期貨部位或數量之虞時，經理公司有權得決定於初級市場是否接受該ETF之申購申請或買回申請。<br />
+<br />
+二、 【永豐投信重要通知】<br />
+請投資人注意！當股市波動加劇之際，投資人交易永豐系列ETF前，請務必注意市場可能出現較高折溢價的狀況。提醒您：ETF若有折溢價過大情形，易產生價格波動風險，有買進或賣出計畫的投資人，須留意並評估價格合理性；目前持有的投資人，須留意未來價格漲跌幅與標的指數出現大幅落差的風險；套利交易投資人，須留意折溢價波動的風險。</span></span></strong></p>
+        </div>
+    </div>
+</div>
+<script>
+    $(function () {
+        var obj = $("#accdiv");
+        if ($.trim(obj.find(".navAccordionContent").text()) != "") {
+            obj.show();
+            obj.accordion({
+                collapsible: true,
+                //icons:{header: "ui-icon-triangle-1-e", activeHeader: "ui-icon-triangle-1-s"},
+                icons: null,
+                header: "h4",
+                //classes:{
+                //  "ui-state-default":"ui-state-active",
+                //  "ui-state-hoover":"ui-state-active"
+                //},
+                //active:false
+                create: function (event, ui) {
+                    ui.header.removeClass("ui-accordion-header").addClass("navAccordionHeader");
+                    ui.panel.find("ul").css({ "list-style": "disc inside none" });
+                    if (isMobile) {
+                        ui.panel.css({ "height": "" });
+                        ui.panel.css({ "padding": "20px" });
+                        ui.panel.find("div").css({ "width": "" });
+                        ui.header.find("div").css({ "width": "" });
+                    }
+                    //ui.header.removeClass("ui-state-focus");
+                    ui.header.focus(function () {
+                        ui.header.removeClass("ui-state-focus");
+                    });
+                },
+                activate: function (event, ui) {
+                    if (ui.newHeader != null) {
+                        ui.newHeader.removeClass("ui-state-focus");
+                        ui.newHeader.find(".navAccordionToggle").text("⊼");
+                    }
+                    if (ui.oldHeader != null) {
+                        ui.oldHeader.removeClass("ui-state-focus");
+                        ui.oldHeader.find(".navAccordionToggle").text("⊻");
+                    }
+                }
+            });
+        }
+    });
+</script>
+        <!--banner-->
+<style>
+    /*banner pc css*/
+    .swiper-container-pctop {
+        width: 100%;
+        overflow: hidden;
+        height: 200px;
+        position: relative;
+        margin-left: -15px;
+        padding-left: 15px;
+    }
+
+    .swiper-container-pcside {
+        width: 110px;
+        position: fixed;
+        top: 300px;
+        right: 0;
+        overflow: hidden;
+    }
+
+        .swiper-container-pcside .swiper-slide img {
+            width: auto;
+            height: auto;
+        }
+
+    .swiper-container-pctop .swiper-slide div {
+        width: 100%;
+        height: 100%;
+        background-position: 50% !important;
+        background-size: cover !important;
+        display: block !important;
+        box-sizing: border-box;
+    }
+    /*banner mobile css*/
+    .swiper-container-m {
+        width: 100%;
+        overflow: hidden;
+        position: relative;
+        margin: 0px auto 0px auto;
+    }
+    .swiper-container-m .swiper-slide img {
+        width: 100%;
+        height: auto;
+    }
+</style>
+<script>
+    var param = {
+        paginationClickable: true,
+        spaceBetween: 0,
+        centeredSlides: true,
+        autoplay: 8000,
+        autoplayDisableOnInteraction: false,
+        setWrapperSize: true
+    };
+    
+</script>
+
+
+
+
+
+
+
+        <!--content-->
+        <div class="pagesize">
+            
+            <!--content-->
+            
+
+    <div class="inp_bg">
+        <h3 class="inp_tit">現金申購買回清單</h3>
+<form action="/SinopacEtfs/Etfs/Pcf" enctype="application/x-www-form-urlencoded" id="queryform" method="post">            <div class="fund_sel worth_filter">
+                <div class="fs_cell" style="display:flex;">
+                    <h3 style="margin:9px 0px;">基金：</h3>
+                    <div id="divFund">
+                        <select class="sel_typ" id="fundlist" name="fundId"><option value="00930">永豐ESG低碳高息</option>
+<option value="00907">永豐優息存股</option>
+<option value="00901">永豐智能車供應鏈</option>
+<option value="00888">永豐台灣ESG</option>
+<option value="00887">永豐中國科技50大</option>
+<option value="00886">永豐美國科技</option>
+<option value="00858">永豐美國500大</option>
+<option value="006204">永豐臺灣加權</option>
+<option value="00958B">永豐ESG銀行債15+</option>
+<option value="00857B">永豐20年美公債</option>
+<option value="00856B">永豐1-3年美公債</option>
+<option value="00836B">永豐10年A公司債</option>
+</select>
+                    </div>
+                </div>
+                <div class="fs_cell" style="display:flex;">
+                    <h3 style="margin:auto">日期：</h3>
+                    <div class="sel_date">
+                        <input readonly="" type="text" id="qdate" placeholder="請選擇查詢日期" value="2026-05-11" alt="請選擇查詢日期" />
+                        <input id="hDate" name="hDate" type="hidden" value="2026-05-11" />
+                        <input id="op" name="op" type="hidden" value="" />
+                    </div>
+                    <div class="btn_typ download" style="/*border:1px solid #e71a0f; */border-radius:5px; background-color:#4e5f6d; display:none;">
+                        <a href="" id="download" onclick="downloadSubmit(); return false;" aria-hidden="true" style="font-size:25px;font-weight:bold;color:#ffffff;margin:auto;">
+                            <span style="font-size:16px;font-family: 微軟正黑體,Arial, Helvetica;">資料下載</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="fs_cell">
+                    
+                </div>
+            </div>
+</form>        <!--PCF-->
+        <div class="cash_box">
+            <!--受益人數-->
+            <div id="dvHeadMemo" class="cash_title-s" style="text-align:justify;">
+                
+                <ul id="37">
+    <li><span style="font-family: 微軟正黑體, serif;">截至2026年4月30日止，本基金受益人數為1,140人</span></li>
+    <li><strong><span style="font-size: larger;"><span style="color: rgb(0, 0, 255);"><span style="font-family: 微軟正黑體, serif;">本基金目前預收申購價金之收費成數為110%</span></span></span></strong></li>
+</ul>
+<ul id="72">
+    <li><strong><span style="font-size: larger;"><span style="color: rgb(0, 0, 255);"><span style="font-family: 微軟正黑體, serif;">本基金目前預收申購價金之收費成數為108%</span></span></span></strong></li>
+</ul>
+<ul id="75">
+    <li><strong><span style="font-size: larger;"><span style="color: rgb(0, 0, 255);"><span style="font-family: 微軟正黑體, serif;">本基金目前預收申購價金之收費成數為108%</span></span></span></strong></li>
+</ul>
+<ul id="76">    <!-- <li><span style="font-family: 微軟正黑體, serif;">截至2023年1月31日止，本基金受益人數為492人</span></li>-->
+    <li><strong><span style="font-size: larger;"><span style="color: rgb(0, 0, 255);"><span style="font-family: 微軟正黑體, serif;">本基金目前預收申購價金之收費成數為108%</span></span></span></strong></li>
+</ul>
+<ul id="77">     <!--<li><span style="font-family: 微軟正黑體, serif;">截至2023年6月30日止，本基金受益人數為2,156人</span></li>-->
+    <li><strong><span style="font-size: larger;"><span style="color: rgb(0, 0, 255);"><span style="font-family: 微軟正黑體, serif;">本基金目前預收申購價金之收費成數為110%</span></span></span></strong></li>
+</ul>
+<ul id="81">
+    <li><strong><span style="font-size: larger;"><span style="color: rgb(0, 0, 255);"><span style="font-family: 微軟正黑體, serif;">本基金目前預收申購價金之收費成數為110%</span></span></span></strong></li>
+</ul>
+<ul id="82">
+    <li><strong><span style="font-size: larger;"><span style="color: rgb(0, 0, 255);"><span style="font-family: 微軟正黑體, serif;">本基金目前預收申購價金之收費成數為125%</span></span></span></strong></li>
+</ul>
+<ul id="83">
+    <li><strong><span style="font-size: larger;"><span style="color: rgb(0, 0, 255);"><span style="font-family: 微軟正黑體, serif;">本基金目前預收申購價金之收費成數為110%</span></span></span></strong></li>
+</ul>
+<ul id="87">
+    <li><strong><span style="font-size: larger;"><span style="color: rgb(0, 0, 255);"><span style="font-family: 微軟正黑體, serif;">本基金目前預收申購價金之收費成數為110%</span></span></span></strong></li>
+</ul>
+<ul id="88">
+    <li><strong><span style="font-size: larger;"><span style="color: rgb(0, 0, 255);"><span style="font-family: 微軟正黑體, serif;">本基金目前預收申購價金之收費成數為110%</span></span></span></strong></li>
+</ul>
+<ul id="B5">
+    <li><strong><span style="font-size: larger;"><span style="color: rgb(0, 0, 255);"><span style="font-family: 微軟正黑體, serif;">本基金目前預收申購價金之收費成數為110%</span></span></span></strong></li>
+</ul>
+<ul id="D8">
+    <li><strong><span style="font-size: larger;"><span style="color: rgb(0, 0, 255);"><span style="font-family: 微軟正黑體, serif;">本基金目前預收申購價金之收費成數為108%</span></span></span></strong></li>
+</ul>
+            </div>
+            <div class="cash_title-s" style="text-align:justify;">
+                永豐台灣ESG低碳高息40ETF基金（證劵代碼：00930）2026/05/11
+            </div>
+            <div class="fund_list">
+                <div class="fl_cell">
+                    <h4 style="text-align:left;">每申購基數之預收申購總價金(元)</h4>
+                    <div class="fl_txt">
+                        <p>NT$&nbsp;11,904,000</p>
+                    </div>
+                </div>
+                <div class="fl_cell">
+                    <h4 style="text-align:left;">2026/05/08&nbsp;基金淨資產價值(元)</h4>
+                    <div class="fl_txt">
+                        <p>NT$&nbsp;3,510,893,757</p>
+                    </div>
+                </div>
+                <div class="fl_cell">
+                    <h4 style="text-align:left;">2026/05/08&nbsp;已發行受益權單位總數</h4>
+                    <div class="fl_txt">
+                        <p>162,279,000</p>
+                    </div>
+                </div>
+                <div class="fl_cell">
+                    <h4 style="text-align:left;">與前日已發行單位差異數</h4>
+                    <div class="fl_txt">
+                        <p>-1,000,000</p>
+                    </div>
+                </div>
+                <div class="fl_cell">
+                    <h4 style="text-align:left;">2026/05/08&nbsp;每受益權單位淨資產價值(元)</h4>
+                    <div class="fl_txt">
+                        <p>NT$&nbsp;21.63</p>
+                    </div>
+                </div>
+                <div class="fl_cell">
+                    <h4 style="text-align:left;">每申購/買回基數之受益權單位數</h4>
+                    <div class="fl_txt">
+                        <p>500,000</p>
+                    </div>
+                </div>
+                <div class="fl_cell">
+                    <h4 style="text-align:left;">每申購/買回基數約當市值(元)</h4>
+                    <div class="fl_txt">
+                        <p>NT$&nbsp;10,817,462</p>
+                    </div>
+                </div>
+                <div class="fl_cell">
+                    <h4 style="text-align:left;">2026/05/08&nbsp;每基數實際申購總價金(元)</h4>
+                    <div class="fl_txt">
+                        <p>NT$&nbsp;10,833,279</p>
+                    </div>
+                </div>
+                <div class="fl_cell">
+                    <h4 style="text-align:left;">2026/05/08&nbsp;每基數申購總價金差異額(元)</h4>
+                    <div class="fl_txt">
+                        <p>NT$&nbsp;-975,721</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--PCD-->
+        <!--基金資產-->
+        <p class="cash_p" style="text-align:right">資料日期：2026/05/08</p>
+        <div class="cash_box">
+            <div class="cash_title-s">基金資產</div>
+            <!--基金資產 PC-->
+            <table class="tab_sh tab_sh-w tab_fu-09" cellspacing="0" cellpadding="0">
+                <tbody>
+                    <tr>
+                        <td width="50%">基金淨資產價值(元)</td>
+                        <td width="50%">NT$&nbsp;3,510,893,757</td>
+                    </tr>
+                    <tr>
+                        <td>基金在外流通單位數</td>
+                        <td>162,279,000</td>
+                    </tr>
+                    <tr>
+                        <td>基金每單位淨值(元)</td>
+                        <td>NT$&nbsp;21.63</td>
+                    </tr>
+                </tbody>
+            </table>
+            <!--基金資產 行動-->
+            <table class="tab_sh tab_sh-m tab_fu-05" cellspacing="0" cellpadding="0">
+                <tbody>
+                    <tr>
+                        <th>基金淨資產價值(元)</th>
+                        <td>NT$&nbsp;3,510,893,757</td>
+                    </tr>
+                    <tr>
+                        <th>基金在外流通單位數</th>
+                        <td>162,279,000</td>
+                    </tr>
+                    <tr>
+                        <th>基金每單位淨值(元)</th>
+                        <td>NT$&nbsp;21.63</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            
+            
+        </div>
+        <!--股票-->
+        
+            <div class="cash_box">
+                <div class="cash_title-s">股票</div>
+                <!--股票 PC版-->
+                <table class="tab_sh tab_sh-w tab_fu-07" cellspacing="0" cellpadding="0">
+                    <tbody>
+                        <tr>
+                            <th style="width: auto">證券代碼</th>
+                            <th style="width: auto">證券名稱</th>
+                            <th style="width: 180px">股數</th>
+                            
+                            <th style="width: 180px;">佔基金淨資產之權重(%)</th>
+                        </tr>
+                            <tr>
+                                <td>2303</td>
+                                <td>聯電</td>
+                                <td>3,780,173</td>
+                                
+                                <td>9.84</td>
+                            </tr>
+                            <tr>
+                                <td>2454</td>
+                                <td>聯發科</td>
+                                <td>86,155</td>
+                                
+                                <td>8.91</td>
+                            </tr>
+                            <tr>
+                                <td>2891</td>
+                                <td>中信金</td>
+                                <td>3,620,676</td>
+                                
+                                <td>5.82</td>
+                            </tr>
+                            <tr>
+                                <td>2474</td>
+                                <td>可成</td>
+                                <td>980,622</td>
+                                
+                                <td>5.73</td>
+                            </tr>
+                            <tr>
+                                <td>6147</td>
+                                <td>頎邦</td>
+                                <td>1,004,396</td>
+                                
+                                <td>5.67</td>
+                            </tr>
+                            <tr>
+                                <td>5483</td>
+                                <td>中美晶</td>
+                                <td>1,245,803</td>
+                                
+                                <td>5.29</td>
+                            </tr>
+                            <tr>
+                                <td>2882</td>
+                                <td>國泰金</td>
+                                <td>2,284,660</td>
+                                
+                                <td>5.21</td>
+                            </tr>
+                            <tr>
+                                <td>2317</td>
+                                <td>鴻海</td>
+                                <td>682,041</td>
+                                
+                                <td>4.86</td>
+                            </tr>
+                            <tr>
+                                <td>2382</td>
+                                <td>廣達</td>
+                                <td>459,912</td>
+                                
+                                <td>4.46</td>
+                            </tr>
+                            <tr>
+                                <td>2881</td>
+                                <td>富邦金</td>
+                                <td>1,610,490</td>
+                                
+                                <td>4.44</td>
+                            </tr>
+                            <tr>
+                                <td>2385</td>
+                                <td>群光</td>
+                                <td>1,160,949</td>
+                                
+                                <td>4.43</td>
+                            </tr>
+                            <tr>
+                                <td>3034</td>
+                                <td>聯詠</td>
+                                <td>310,957</td>
+                                
+                                <td>4.41</td>
+                            </tr>
+                            <tr>
+                                <td>2357</td>
+                                <td>華碩</td>
+                                <td>222,608</td>
+                                
+                                <td>4.12</td>
+                            </tr>
+                            <tr>
+                                <td>1477</td>
+                                <td>聚陽</td>
+                                <td>551,873</td>
+                                
+                                <td>3.48</td>
+                            </tr>
+                            <tr>
+                                <td>2458</td>
+                                <td>義隆</td>
+                                <td>556,675</td>
+                                
+                                <td>2.40</td>
+                            </tr>
+                            <tr>
+                                <td>6176</td>
+                                <td>瑞儀</td>
+                                <td>723,149</td>
+                                
+                                <td>2.15</td>
+                            </tr>
+                            <tr>
+                                <td>6005</td>
+                                <td>群益證</td>
+                                <td>2,391,977</td>
+                                
+                                <td>2.08</td>
+                            </tr>
+                            <tr>
+                                <td>6670</td>
+                                <td>復盛應用</td>
+                                <td>249,242</td>
+                                
+                                <td>1.80</td>
+                            </tr>
+                            <tr>
+                                <td>2439</td>
+                                <td>美律</td>
+                                <td>689,188</td>
+                                
+                                <td>1.69</td>
+                            </tr>
+                            <tr>
+                                <td>8112</td>
+                                <td>至上</td>
+                                <td>648,865</td>
+                                
+                                <td>1.65</td>
+                            </tr>
+                            <tr>
+                                <td>2504</td>
+                                <td>國產</td>
+                                <td>1,304,991</td>
+                                
+                                <td>1.29</td>
+                            </tr>
+                            <tr>
+                                <td>2393</td>
+                                <td>億光</td>
+                                <td>600,165</td>
+                                
+                                <td>1.26</td>
+                            </tr>
+                            <tr>
+                                <td>8436</td>
+                                <td>大江</td>
+                                <td>336,556</td>
+                                
+                                <td>1.17</td>
+                            </tr>
+                            <tr>
+                                <td>3014</td>
+                                <td>聯陽</td>
+                                <td>231,512</td>
+                                
+                                <td>0.89</td>
+                            </tr>
+                            <tr>
+                                <td>3033</td>
+                                <td>威健</td>
+                                <td>686,572</td>
+                                
+                                <td>0.86</td>
+                            </tr>
+                            <tr>
+                                <td>2204</td>
+                                <td>中華</td>
+                                <td>535,805</td>
+                                
+                                <td>0.83</td>
+                            </tr>
+                            <tr>
+                                <td>3209</td>
+                                <td>全科</td>
+                                <td>480,322</td>
+                                
+                                <td>0.75</td>
+                            </tr>
+                            <tr>
+                                <td>3592</td>
+                                <td>瑞鼎</td>
+                                <td>89,861</td>
+                                
+                                <td>0.66</td>
+                            </tr>
+                            <tr>
+                                <td>6613</td>
+                                <td>朋億*</td>
+                                <td>72,923</td>
+                                
+                                <td>0.51</td>
+                            </tr>
+                            <tr>
+                                <td>1522</td>
+                                <td>堤維西</td>
+                                <td>439,540</td>
+                                
+                                <td>0.40</td>
+                            </tr>
+                            <tr>
+                                <td>6180</td>
+                                <td>橘子</td>
+                                <td>281,351</td>
+                                
+                                <td>0.31</td>
+                            </tr>
+                            <tr>
+                                <td>2852</td>
+                                <td>第一保</td>
+                                <td>365,627</td>
+                                
+                                <td>0.27</td>
+                            </tr>
+                            <tr>
+                                <td>1532</td>
+                                <td>勤美</td>
+                                <td>433,092</td>
+                                
+                                <td>0.25</td>
+                            </tr>
+                            <tr>
+                                <td>9924</td>
+                                <td>福興</td>
+                                <td>143,342</td>
+                                
+                                <td>0.18</td>
+                            </tr>
+                            <tr>
+                                <td>1558</td>
+                                <td>伸興</td>
+                                <td>62,213</td>
+                                
+                                <td>0.16</td>
+                            </tr>
+                            <tr>
+                                <td>4720</td>
+                                <td>德淵</td>
+                                <td>162,713</td>
+                                
+                                <td>0.12</td>
+                            </tr>
+                            <tr>
+                                <td>6538</td>
+                                <td>倉和</td>
+                                <td>49,755</td>
+                                
+                                <td>0.11</td>
+                            </tr>
+                            <tr>
+                                <td>3038</td>
+                                <td>全台</td>
+                                <td>155,448</td>
+                                
+                                <td>0.10</td>
+                            </tr>
+                            <tr>
+                                <td>2527</td>
+                                <td>宏璟</td>
+                                <td>104,931</td>
+                                
+                                <td>0.10</td>
+                            </tr>
+                            <tr>
+                                <td>6754</td>
+                                <td>匯僑設計</td>
+                                <td>22,520</td>
+                                
+                                <td>0.03</td>
+                            </tr>
+                        
+                    </tbody>
+                </table>
+                <!--股票-行動版-->
+                    <table class="tab_sh tab_sh-m tab_fu-05" cellspacing="0" cellpadding="0">
+                        <tbody>
+                            <tr>
+                                <th>證券代碼</th>
+                                <td>2303</td>
+                            </tr>
+                            <tr>
+                                <th>證券名稱</th>
+                                <td style="text-align:left;">聯電</td>
+                            </tr>
+                            <tr>
+                                <th>股數</th>
+                                <td>3,780,173</td>
+                            </tr>
+                            
+                            <tr>
+                                <th>佔基金淨資產之權重(%)</th>
+                                <td>9.84</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="tab_sh tab_sh-m tab_fu-05" cellspacing="0" cellpadding="0">
+                        <tbody>
+                            <tr>
+                                <th>證券代碼</th>
+                                <td>2454</td>
+                            </tr>
+                            <tr>
+                                <th>證券名稱</th>
+                                <td style="text-align:left;">聯發科</td>
+                            </tr>
+                            <tr>
+                                <th>股數</th>
+                                <td>86,155</td>
+                            </tr>
+                            
+                            <tr>
+                                <th>佔基金淨資產之權重(%)</th>
+                                <td>8.91</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="tab_sh tab_sh-m tab_fu-05" cellspacing="0" cellpadding="0">
+                        <tbody>
+                            <tr>
+                                <th>證券代碼</th>
+                                <td>2891</td>
+                            </tr>
+                            <tr>
+                                <th>證券名稱</th>
+                                <td style="text-align:left;">中信金</td>
+                            </tr>
+                            <tr>
+                                <th>股數</th>
+                                <td>3,620,676</td>
+                            </tr>
+                            
+                            <tr>
+                                <th>佔基金淨資產之權重(%)</th>
+                                <td>5.82</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="tab_sh tab_sh-m tab_fu-05" cellspacing="0" cellpadding="0">
+                        <tbody>
+                            <tr>
+                                <th>證券代碼</th>
+                                <td>2474</td>
+                            </tr>
+                            <tr>
+                                <th>證券名稱</th>
+                                <td style="text-align:left;">可成</td>
+                            </tr>
+                            <tr>
+                                <th>股數</th>
+                                <td>980,622</td>
+                            </tr>
+                            
+                            <tr>
+                                <th>佔基金淨資產之權重(%)</th>
+                                <td>5.73</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="tab_sh tab_sh-m tab_fu-05" cellspacing="0" cellpadding="0">
+                        <tbody>
+                            <tr>
+                                <th>證券代碼</th>
+                                <td>6147</td>
+                            </tr>
+                            <tr>
+                                <th>證券名稱</th>
+                                <td style="text-align:left;">頎邦</td>
+                            </tr>
+                            <tr>
+                                <th>股數</th>
+                                <td>1,004,396</td>
+                            </tr>
+                            
+                            <tr>
+                                <th>佔基金淨資產之權重(%)</th>
+                                <td>5.67</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="tab_sh tab_sh-m tab_fu-05" cellspacing="0" cellpadding="0">
+                        <tbody>
+                            <tr>
+                                <th>證券代碼</th>
+                                <td>5483</td>
+                            </tr>
+                            <tr>
+                                <th>證券名稱</th>
+                                <td style="text-align:left;">中美晶</td>
+                            </tr>
+                            <tr>
+                                <th>股數</th>
+                                <td>1,245,803</td>
+                            </tr>
+                            
+                            <tr>
+                                <th>佔基金淨資產之權重(%)</th>
+                                <td>5.29</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="tab_sh tab_sh-m tab_fu-05" cellspacing="0" cellpadding="0">
+                        <tbody>
+                            <tr>
+                                <th>證券代碼</th>
+                                <td>2882</td>
+                            </tr>
+                            <tr>
+                                <th>證券名稱</th>
+                                <td style="text-align:left;">國泰金</td>
+                            </tr>
+                            <tr>
+                                <th>股數</th>
+                                <td>2,284,660</td>
+                            </tr>
+                            
+                            <tr>
+                                <th>佔基金淨資產之權重(%)</th>
+                                <td>5.21</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="tab_sh tab_sh-m tab_fu-05" cellspacing="0" cellpadding="0">
+                        <tbody>
+                            <tr>
+                                <th>證券代碼</th>
+                                <td>2317</td>
+                            </tr>
+                            <tr>
+                                <th>證券名稱</th>
+                                <td style="text-align:left;">鴻海</td>
+                            </tr>
+                            <tr>
+                                <th>股數</th>
+                                <td>682,041</td>
+                            </tr>
+                            
+                            <tr>
+                                <th>佔基金淨資產之權重(%)</th>
+                                <td>4.86</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="tab_sh tab_sh-m tab_fu-05" cellspacing="0" cellpadding="0">
+                        <tbody>
+                            <tr>
+                                <th>證券代碼</th>
+                                <td>2382</td>
+                            </tr>
+                            <tr>
+                                <th>證券名稱</th>
+                                <td style="text-align:left;">廣達</td>
+                            </tr>
+                            <tr>
+                                <th>股數</th>
+                                <td>459,912</td>
+                            </tr>
+                            
+                            <tr>
+                                <th>佔基金淨資產之權重(%)</th>
+                                <td>4.46</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="tab_sh tab_sh-m tab_fu-05" cellspacing="0" cellpadding="0">
+                        <tbody>
+                            <tr>
+                                <th>證券代碼</th>
+                                <td>2881</td>
+                            </tr>
+                            <tr>
+                                <th>證券名稱</th>
+                                <td style="text-align:left;">富邦金</td>
+                            </tr>
+                            <tr>
+                                <th>股數</th>
+                                <td>1,610,490</td>
+                            </tr>
+                            
+                            <tr>
+                                <th>佔基金淨資產之權重(%)</th>
+                                <td>4.44</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="tab_sh tab_sh-m tab_fu-05" cellspacing="0" cellpadding="0">
+                        <tbody>
+                            <tr>
+                                <th>證券代碼</th>
+                                <td>2385</td>
+                            </tr>
+                            <tr>
+                                <th>證券名稱</th>
+                                <td style="text-align:left;">群光</td>
+                            </tr>
+                            <tr>
+                                <th>股數</th>
+                                <td>1,160,949</td>
+                            </tr>
+                            
+                            <tr>
+                                <th>佔基金淨資產之權重(%)</th>
+                                <td>4.43</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="tab_sh tab_sh-m tab_fu-05" cellspacing="0" cellpadding="0">
+                        <tbody>
+                            <tr>
+                                <th>證券代碼</th>
+                                <td>3034</td>
+                            </tr>
+                            <tr>
+                                <th>證券名稱</th>
+                                <td style="text-align:left;">聯詠</td>
+                            </tr>
+                            <tr>
+                                <th>股數</th>
+                                <td>310,957</td>
+                            </tr>
+                            
+                            <tr>
+                                <th>佔基金淨資產之權重(%)</th>
+                                <td>4.41</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="tab_sh tab_sh-m tab_fu-05" cellspacing="0" cellpadding="0">
+                        <tbody>
+                            <tr>
+                                <th>證券代碼</th>
+                                <td>2357</td>
+                            </tr>
+                            <tr>
+                                <th>證券名稱</th>
+                                <td style="text-align:left;">華碩</td>
+                            </tr>
+                            <tr>
+                                <th>股數</th>
+                                <td>222,608</td>
+                            </tr>
+                            
+                            <tr>
+                                <th>佔基金淨資產之權重(%)</th>
+                                <td>4.12</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="tab_sh tab_sh-m tab_fu-05" cellspacing="0" cellpadding="0">
+                        <tbody>
+                            <tr>
+                                <th>證券代碼</th>
+                                <td>1477</td>
+                            </tr>
+                            <tr>
+                                <th>證券名稱</th>
+                                <td style="text-align:left;">聚陽</td>
+                            </tr>
+                            <tr>
+                                <th>股數</th>
+                                <td>551,873</td>
+                            </tr>
+                            
+                            <tr>
+                                <th>佔基金淨資產之權重(%)</th>
+                                <td>3.48</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="tab_sh tab_sh-m tab_fu-05" cellspacing="0" cellpadding="0">
+                        <tbody>
+                            <tr>
+                                <th>證券代碼</th>
+                                <td>2458</td>
+                            </tr>
+                            <tr>
+                                <th>證券名稱</th>
+                                <td style="text-align:left;">義隆</td>
+                            </tr>
+                            <tr>
+                                <th>股數</th>
+                                <td>556,675</td>
+                            </tr>
+                            
+                            <tr>
+                                <th>佔基金淨資產之權重(%)</th>
+                                <td>2.40</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="tab_sh tab_sh-m tab_fu-05" cellspacing="0" cellpadding="0">
+                        <tbody>
+                            <tr>
+                                <th>證券代碼</th>
+                                <td>6176</td>
+                            </tr>
+                            <tr>
+                                <th>證券名稱</th>
+                                <td style="text-align:left;">瑞儀</td>
+                            </tr>
+                            <tr>
+                                <th>股數</th>
+                                <td>723,149</td>
+                            </tr>
+                            
+                            <tr>
+                                <th>佔基金淨資產之權重(%)</th>
+                                <td>2.15</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="tab_sh tab_sh-m tab_fu-05" cellspacing="0" cellpadding="0">
+                        <tbody>
+                            <tr>
+                                <th>證券代碼</th>
+                                <td>6005</td>
+                            </tr>
+                            <tr>
+                                <th>證券名稱</th>
+                                <td style="text-align:left;">群益證</td>
+                            </tr>
+                            <tr>
+                                <th>股數</th>
+                                <td>2,391,977</td>
+                            </tr>
+                            
+                            <tr>
+                                <th>佔基金淨資產之權重(%)</th>
+                                <td>2.08</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="tab_sh tab_sh-m tab_fu-05" cellspacing="0" cellpadding="0">
+                        <tbody>
+                            <tr>
+                                <th>證券代碼</th>
+                                <td>6670</td>
+                            </tr>
+                            <tr>
+                                <th>證券名稱</th>
+                                <td style="text-align:left;">復盛應用</td>
+                            </tr>
+                            <tr>
+                                <th>股數</th>
+                                <td>249,242</td>
+                            </tr>
+                            
+                            <tr>
+                                <th>佔基金淨資產之權重(%)</th>
+                                <td>1.80</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="tab_sh tab_sh-m tab_fu-05" cellspacing="0" cellpadding="0">
+                        <tbody>
+                            <tr>
+                                <th>證券代碼</th>
+                                <td>2439</td>
+                            </tr>
+                            <tr>
+                                <th>證券名稱</th>
+                                <td style="text-align:left;">美律</td>
+                            </tr>
+                            <tr>
+                                <th>股數</th>
+                                <td>689,188</td>
+                            </tr>
+                            
+                            <tr>
+                                <th>佔基金淨資產之權重(%)</th>
+                                <td>1.69</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="tab_sh tab_sh-m tab_fu-05" cellspacing="0" cellpadding="0">
+                        <tbody>
+                            <tr>
+                                <th>證券代碼</th>
+                                <td>8112</td>
+                            </tr>
+                            <tr>
+                                <th>證券名稱</th>
+                                <td style="text-align:left;">至上</td>
+                            </tr>
+                            <tr>
+                                <th>股數</th>
+                                <td>648,865</td>
+                            </tr>
+                            
+                            <tr>
+                                <th>佔基金淨資產之權重(%)</th>
+                                <td>1.65</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="tab_sh tab_sh-m tab_fu-05" cellspacing="0" cellpadding="0">
+                        <tbody>
+                            <tr>
+                                <th>證券代碼</th>
+                                <td>2504</td>
+                            </tr>
+                            <tr>
+                                <th>證券名稱</th>
+                                <td style="text-align:left;">國產</td>
+                            </tr>
+                            <tr>
+                                <th>股數</th>
+                                <td>1,304,991</td>
+                            </tr>
+                            
+                            <tr>
+                                <th>佔基金淨資產之權重(%)</th>
+                                <td>1.29</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="tab_sh tab_sh-m tab_fu-05" cellspacing="0" cellpadding="0">
+                        <tbody>
+                            <tr>
+                                <th>證券代碼</th>
+                                <td>2393</td>
+                            </tr>
+                            <tr>
+                                <th>證券名稱</th>
+                                <td style="text-align:left;">億光</td>
+                            </tr>
+                            <tr>
+                                <th>股數</th>
+                                <td>600,165</td>
+                            </tr>
+                            
+                            <tr>
+                                <th>佔基金淨資產之權重(%)</th>
+                                <td>1.26</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="tab_sh tab_sh-m tab_fu-05" cellspacing="0" cellpadding="0">
+                        <tbody>
+                            <tr>
+                                <th>證券代碼</th>
+                                <td>8436</td>
+                            </tr>
+                            <tr>
+                                <th>證券名稱</th>
+                                <td style="text-align:left;">大江</td>
+                            </tr>
+                            <tr>
+                                <th>股數</th>
+                                <td>336,556</td>
+                            </tr>
+                            
+                            <tr>
+                                <th>佔基金淨資產之權重(%)</th>
+                                <td>1.17</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="tab_sh tab_sh-m tab_fu-05" cellspacing="0" cellpadding="0">
+                        <tbody>
+                            <tr>
+                                <th>證券代碼</th>
+                                <td>3014</td>
+                            </tr>
+                            <tr>
+                                <th>證券名稱</th>
+                                <td style="text-align:left;">聯陽</td>
+                            </tr>
+                            <tr>
+                                <th>股數</th>
+                                <td>231,512</td>
+                            </tr>
+                            
+                            <tr>
+                                <th>佔基金淨資產之權重(%)</th>
+                                <td>0.89</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="tab_sh tab_sh-m tab_fu-05" cellspacing="0" cellpadding="0">
+                        <tbody>
+                            <tr>
+                                <th>證券代碼</th>
+                                <td>3033</td>
+                            </tr>
+                            <tr>
+                                <th>證券名稱</th>
+                                <td style="text-align:left;">威健</td>
+                            </tr>
+                            <tr>
+                                <th>股數</th>
+                                <td>686,572</td>
+                            </tr>
+                            
+                            <tr>
+                                <th>佔基金淨資產之權重(%)</th>
+                                <td>0.86</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="tab_sh tab_sh-m tab_fu-05" cellspacing="0" cellpadding="0">
+                        <tbody>
+                            <tr>
+                                <th>證券代碼</th>
+                                <td>2204</td>
+                            </tr>
+                            <tr>
+                                <th>證券名稱</th>
+                                <td style="text-align:left;">中華</td>
+                            </tr>
+                            <tr>
+                                <th>股數</th>
+                                <td>535,805</td>
+                            </tr>
+                            
+                            <tr>
+                                <th>佔基金淨資產之權重(%)</th>
+                                <td>0.83</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="tab_sh tab_sh-m tab_fu-05" cellspacing="0" cellpadding="0">
+                        <tbody>
+                            <tr>
+                                <th>證券代碼</th>
+                                <td>3209</td>
+                            </tr>
+                            <tr>
+                                <th>證券名稱</th>
+                                <td style="text-align:left;">全科</td>
+                            </tr>
+                            <tr>
+                                <th>股數</th>
+                                <td>480,322</td>
+                            </tr>
+                            
+                            <tr>
+                                <th>佔基金淨資產之權重(%)</th>
+                                <td>0.75</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="tab_sh tab_sh-m tab_fu-05" cellspacing="0" cellpadding="0">
+                        <tbody>
+                            <tr>
+                                <th>證券代碼</th>
+                                <td>3592</td>
+                            </tr>
+                            <tr>
+                                <th>證券名稱</th>
+                                <td style="text-align:left;">瑞鼎</td>
+                            </tr>
+                            <tr>
+                                <th>股數</th>
+                                <td>89,861</td>
+                            </tr>
+                            
+                            <tr>
+                                <th>佔基金淨資產之權重(%)</th>
+                                <td>0.66</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="tab_sh tab_sh-m tab_fu-05" cellspacing="0" cellpadding="0">
+                        <tbody>
+                            <tr>
+                                <th>證券代碼</th>
+                                <td>6613</td>
+                            </tr>
+                            <tr>
+                                <th>證券名稱</th>
+                                <td style="text-align:left;">朋億*</td>
+                            </tr>
+                            <tr>
+                                <th>股數</th>
+                                <td>72,923</td>
+                            </tr>
+                            
+                            <tr>
+                                <th>佔基金淨資產之權重(%)</th>
+                                <td>0.51</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="tab_sh tab_sh-m tab_fu-05" cellspacing="0" cellpadding="0">
+                        <tbody>
+                            <tr>
+                                <th>證券代碼</th>
+                                <td>1522</td>
+                            </tr>
+                            <tr>
+                                <th>證券名稱</th>
+                                <td style="text-align:left;">堤維西</td>
+                            </tr>
+                            <tr>
+                                <th>股數</th>
+                                <td>439,540</td>
+                            </tr>
+                            
+                            <tr>
+                                <th>佔基金淨資產之權重(%)</th>
+                                <td>0.40</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="tab_sh tab_sh-m tab_fu-05" cellspacing="0" cellpadding="0">
+                        <tbody>
+                            <tr>
+                                <th>證券代碼</th>
+                                <td>6180</td>
+                            </tr>
+                            <tr>
+                                <th>證券名稱</th>
+                                <td style="text-align:left;">橘子</td>
+                            </tr>
+                            <tr>
+                                <th>股數</th>
+                                <td>281,351</td>
+                            </tr>
+                            
+                            <tr>
+                                <th>佔基金淨資產之權重(%)</th>
+                                <td>0.31</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="tab_sh tab_sh-m tab_fu-05" cellspacing="0" cellpadding="0">
+                        <tbody>
+                            <tr>
+                                <th>證券代碼</th>
+                                <td>2852</td>
+                            </tr>
+                            <tr>
+                                <th>證券名稱</th>
+                                <td style="text-align:left;">第一保</td>
+                            </tr>
+                            <tr>
+                                <th>股數</th>
+                                <td>365,627</td>
+                            </tr>
+                            
+                            <tr>
+                                <th>佔基金淨資產之權重(%)</th>
+                                <td>0.27</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="tab_sh tab_sh-m tab_fu-05" cellspacing="0" cellpadding="0">
+                        <tbody>
+                            <tr>
+                                <th>證券代碼</th>
+                                <td>1532</td>
+                            </tr>
+                            <tr>
+                                <th>證券名稱</th>
+                                <td style="text-align:left;">勤美</td>
+                            </tr>
+                            <tr>
+                                <th>股數</th>
+                                <td>433,092</td>
+                            </tr>
+                            
+                            <tr>
+                                <th>佔基金淨資產之權重(%)</th>
+                                <td>0.25</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="tab_sh tab_sh-m tab_fu-05" cellspacing="0" cellpadding="0">
+                        <tbody>
+                            <tr>
+                                <th>證券代碼</th>
+                                <td>9924</td>
+                            </tr>
+                            <tr>
+                                <th>證券名稱</th>
+                                <td style="text-align:left;">福興</td>
+                            </tr>
+                            <tr>
+                                <th>股數</th>
+                                <td>143,342</td>
+                            </tr>
+                            
+                            <tr>
+                                <th>佔基金淨資產之權重(%)</th>
+                                <td>0.18</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="tab_sh tab_sh-m tab_fu-05" cellspacing="0" cellpadding="0">
+                        <tbody>
+                            <tr>
+                                <th>證券代碼</th>
+                                <td>1558</td>
+                            </tr>
+                            <tr>
+                                <th>證券名稱</th>
+                                <td style="text-align:left;">伸興</td>
+                            </tr>
+                            <tr>
+                                <th>股數</th>
+                                <td>62,213</td>
+                            </tr>
+                            
+                            <tr>
+                                <th>佔基金淨資產之權重(%)</th>
+                                <td>0.16</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="tab_sh tab_sh-m tab_fu-05" cellspacing="0" cellpadding="0">
+                        <tbody>
+                            <tr>
+                                <th>證券代碼</th>
+                                <td>4720</td>
+                            </tr>
+                            <tr>
+                                <th>證券名稱</th>
+                                <td style="text-align:left;">德淵</td>
+                            </tr>
+                            <tr>
+                                <th>股數</th>
+                                <td>162,713</td>
+                            </tr>
+                            
+                            <tr>
+                                <th>佔基金淨資產之權重(%)</th>
+                                <td>0.12</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="tab_sh tab_sh-m tab_fu-05" cellspacing="0" cellpadding="0">
+                        <tbody>
+                            <tr>
+                                <th>證券代碼</th>
+                                <td>6538</td>
+                            </tr>
+                            <tr>
+                                <th>證券名稱</th>
+                                <td style="text-align:left;">倉和</td>
+                            </tr>
+                            <tr>
+                                <th>股數</th>
+                                <td>49,755</td>
+                            </tr>
+                            
+                            <tr>
+                                <th>佔基金淨資產之權重(%)</th>
+                                <td>0.11</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="tab_sh tab_sh-m tab_fu-05" cellspacing="0" cellpadding="0">
+                        <tbody>
+                            <tr>
+                                <th>證券代碼</th>
+                                <td>3038</td>
+                            </tr>
+                            <tr>
+                                <th>證券名稱</th>
+                                <td style="text-align:left;">全台</td>
+                            </tr>
+                            <tr>
+                                <th>股數</th>
+                                <td>155,448</td>
+                            </tr>
+                            
+                            <tr>
+                                <th>佔基金淨資產之權重(%)</th>
+                                <td>0.10</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="tab_sh tab_sh-m tab_fu-05" cellspacing="0" cellpadding="0">
+                        <tbody>
+                            <tr>
+                                <th>證券代碼</th>
+                                <td>2527</td>
+                            </tr>
+                            <tr>
+                                <th>證券名稱</th>
+                                <td style="text-align:left;">宏璟</td>
+                            </tr>
+                            <tr>
+                                <th>股數</th>
+                                <td>104,931</td>
+                            </tr>
+                            
+                            <tr>
+                                <th>佔基金淨資產之權重(%)</th>
+                                <td>0.10</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="tab_sh tab_sh-m tab_fu-05" cellspacing="0" cellpadding="0">
+                        <tbody>
+                            <tr>
+                                <th>證券代碼</th>
+                                <td>6754</td>
+                            </tr>
+                            <tr>
+                                <th>證券名稱</th>
+                                <td style="text-align:left;">匯僑設計</td>
+                            </tr>
+                            <tr>
+                                <th>股數</th>
+                                <td>22,520</td>
+                            </tr>
+                            
+                            <tr>
+                                <th>佔基金淨資產之權重(%)</th>
+                                <td>0.03</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                <!--股票合計-行動版-->
+                
+            </div>
+        <!--債券-->
+        
+        <!--期貨-->
+        
+            <div class="cash_box">
+                <div class="cash_title-s">期貨</div>
+                <!--期貨 PC-->
+                <table class="tab_sh tab_sh-w tab_fu-06" cellspacing="0" cellpadding="0">
+                    <tbody>
+                        <tr>
+                            <th style="width: auto">期貨代碼</th>
+                            <th style="width: auto">期貨名稱</th>
+                            <th style="width: auto">契約年月</th>
+                            <th style="width: auto">口數</th>
+                            
+                            <th style="width: auto">持股權重(%)</th>
+                        </tr>
+                            <tr>
+                                <td>TX</td>
+                                <td>台指期貨</td>
+                                <td>202605</td>
+                                <td>6</td>
+                                
+                                <td>1.43</td>
+                            </tr>
+                        
+                    </tbody>
+                </table>
+                <!--期貨 行動-->
+                    <table class="tab_sh tab_sh-m tab_fu-05" cellspacing="0" cellpadding="0">
+                        <tbody>
+                            <tr>
+                                <th>期貨代碼</th>
+                                <td>TX</td>
+                            </tr>
+                            <tr>
+                                <th>期貨名稱</th>
+                                <td>台指期貨</td>
+                            </tr>
+                            <tr>
+                                <th>契約年月</th>
+                                <td>202605</td>
+                            </tr>
+                            <tr>
+                                <th>口數</th>
+                                <td>6</td>
+                            </tr>
+                            
+                            <tr>
+                                <th>持股權重(%)</th>
+                                <td>1.43</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                <!--期貨 合計 行動-->
+                
+            </div>
+        <!--其他資產-->
+        
+        
+        <!--匯率 國內不用-->
+        <!--持債特性-->
+        <!--備註-->
+        <div class="edit_box" id="dvMemo">
+            <p>註：</p>
+            <ul>
+    <li>ETF系列基金之權重(%)為相對基金淨資產價值之比重，請注意權重比例可能因有在途款項等因素，而使比例總和超過100%。</li>
+    <li>每現金申購或買回基數之實際申購總價金、申購總價金差額及買回總價金，以基金經理公司通知給付之金額為準。</li>
+    <li>若因申購失敗或買回失敗而影響當日基金淨值時，每一申購基數申購總價金差額以及實際申購總價金，將以最新資料為準。</li>
+    <li>以上資料係依據本基金之信託契約規定公告，資料內容由永豐投信每營業日提供。</li>
+    <li>若無法瀏覽現金申購買回清單訊息，請點選參考網址&nbsp;(<a href='/SinopacEtfs/Etfs/SinglePcf/00930' target='_blank' style='word-wrap: break-word;'>https://sitc.sinopac.com/SinopacEtfs/Etfs/SinglePcf/00930</a>)</li>
+</ul>
+        </div>
+    </div>
+        </div>
+        <!--footer-->
+<div class="footer footer_sitc">
+	<div class="alarm_con ac_close ac_web">
+		<!--以class name="ac_open"或"ac_close"作開合-->
+		<div class="box">
+			<div class="edit_box">
+				<p><strong>《永豐投信 獨立經營管理&nbsp;111年金管投信新字第001號》本基金經金管會核准或同意生效，惟不表示絕無風險。基金經理公司以往之經理績效不保證基金之最低投資收益；基金經理公司除盡善良管理人之注意義務外，不負責本基金之盈虧，亦不保證最低之收益，投資人申購前應詳閱基金公開說明書。<span style="color: #ff0000;">本文提及之經濟走勢預測不必然代表本基金之績效，又投資人因不同時間進場，將有不同之投資績效，過去之績效亦不代表未來績效之保證，本基金投資風險請詳閱基金公開說明書。</span>有關基金應負擔之費用已揭露於基金公開說明書，投資人可向經理公司或銷售機構索取，或於經理公司官網、公開資訊觀測站查詢。投資人申購本基金係持有基金受益憑證，而非本文提及之投資資產或標的。本基金不受存款保險、保險安定基金或其他保護機制之保障。</strong><strong><span style="color: #870303;"><br />
+<br />
+</span><span style="color: #000000;">【永豐永豐基金】本基金經金管會核准或同意生效，惟不表示絕無風險。基金經理公司以往之經理績效不保證基金之最低投資收益；基金經理公司除盡善良管理人之注意義務外，不負責本基金之盈虧，亦不保證最低之收益，投資人申購前應詳閱基金公開說明書。<span style="color: #ff0000;">本文提及之經濟走勢預測不必然代表本基金之績效，又投資人因不同時間進場，將有不同之投資績效，過去之績效亦不代表未來績效之保證，本基金投資風險請詳閱基金公開說明書。</span>有關基金應負擔之費用已揭露於基金公開說明書，投資人可向經理公司或銷售機構索取，或於經理公司官網、公開資訊觀測站查詢。<span style="color: #ff0000;">本基金為股票型基金，主要投資於國內上市（櫃）股票，風險報酬等級為RR4。RR係計算成立年度之淨值波動度，並與同類型基金比較後決定，另綜合考量各項投資風險，及參考投信投顧公會所訂分類標準等，風險報酬分類為RR1-RR5五級，數字愈大代表風險愈高。此等級分類係基於一般市場狀況反映市場價格波動風險，無法涵蓋所有風險（如：投資標的產業風險、信用風險、利率風險、流動性風險等），不宜作為投資唯一依據，投資人仍應注意所投資基金個別的風險。</span>本基金主要投資標的為上市或上櫃股票，可投資標的涵蓋各類股，若本基金投資比例較集中於某些類股、因非經濟因素導致股價下跌、因產業特性使營收獲利變化快速、全球政經情勢或法規之變動及其他因素，導致股價大幅波動，都可能對本基金投資標的造成直接或間接影響。本基金將盡全力分散風險，惟風險亦無法完全消除。基金投資之盈虧尚受到市場風險、流動性風險、信用風險、產業景氣循環變動等影響，相關投資風險皆可能造成大幅虧損。其它投資之風險請詳閱本基金公開說明書。投資人申購本基金係持有基金受益憑證，而非本文提及之投資資產或標的。本基金不受存款保險、保險安定基金或其他保護機制之保障。<br />
+</span>&nbsp;</strong><br />
+<strong><span style="color: #000000;">【</span>永豐中小基金<span style="color: #000000;">】<span>本基金經金管會核准或同意生效，惟不表示絕無風險。基金經理公司以往之經理績效不保證基金之最低投資收益；基金經理公司除盡善良管理人之注意義務外，不負責本基金之盈虧，亦不保證最低之收益，投資人申購前應詳閱基金公開說明書。<span style="color: #ff0000;">本文提及之經濟走勢預測不必然代表本基金之績效，又投資人因不同時間進場，將有不同之投資績效，過去之績效亦不代表未來績效之保證，本基金投資風險請詳閱基金公開說明書。</span>有關基金應負擔之費用已揭露於基金公開說明書，投資人可向經理公司或銷售機構索取，或於經理公司官網、公開資訊觀測站查詢。</span></span><span style="color: #ff0000;">本基金以中小型股為主要投資標的，中小型股具股本小、高成長潛力及股價波動幅度等特質，故本基金之風險報酬等級為RR5。RR係計算成立年度之淨值波動度，並與同類型基金比較後決定，另綜合考量各項投資風險，及參考中華民國證券投資信託暨顧問商業同業公會所訂分類標準等，風險報酬分類為RR1-RR5五級，數字愈大代表風險愈高。此等級分類係基於一般市場狀況反映市場價格波動風險，無法涵蓋所有風險（如：投資標的產業風險、信用風險、利率風險、流動性風險等），不宜作為投資唯一依據，投資人仍應注意所投資基金個別的風險。</span>本基金主要投資標的為上市或上櫃股票，可投資標的涵蓋各類股，本基金投資比例較集中於中小型類股，因非經濟因素導致股價下跌、因產業特性使營收獲利變化快速、全球政經情勢或法規之變動及其他因素，導致股價大幅波動，都可能對本基金投資標的造成直接或間接影響。本基金將盡全力分散風險，惟風險亦無法完全消除。基金投資之盈虧尚受到市場風險、流動性風險、信用風險、產業景氣循環變動等影響，相關投資風險皆可能造成大幅虧損。其他投資之風險請詳閱本基金公開說明書。投資人申購本基金係持有基金受益憑證，而非本文提及之投資資產或標的。本基金不受存款保險、保險安定基金或其他保護機制之保障。<br />
+</strong><br />
+<strong><span style="color: #000000;">【</span>永豐趨勢平衡基金<span style="color: #000000;">】</span>本基金經金管會核准或同意生效，惟不表示絕無風險。基金經理公司以往之經理績效不保證基金之最低投資收益；基金經理公司除盡善良管理人之注意義務外，不負責本基金之盈虧，亦不保證最低之收益，投資人申購前應詳閱基金公開說明書。<span style="color: #ff0000;">本文提及之經濟走勢預測不必然代表本基金之績效，又投資人因不同時間進場，將有不同之投資績效，過去之績效亦不代表未來績效之保證，本基金投資風險請詳閱基金公開說明書。</span>有關基金應負擔之費用已揭露於基金公開說明書，投資人可向經理公司或銷售機構索取，或於經理公司官網、公開資訊觀測站查詢。<span style="color: #ff0000;">本基金為平衡型基金投資於國內，持股比例彈性調整，故本基金之風險報酬等級為RR4。RR係</span></strong><strong><span style="color: #ff0000;">計算成立年度之淨值波動度，並與同類型基金比較後決定，另綜合考量各項投資風險，及參考投信投顧公會所訂分類標準等，風險報酬分類為RR1-RR5五級，數字愈大代表風險愈高。此等級分類係基於一般市場狀況反映市場價格波動風險，無法涵蓋所有風險（如：投資標的產業風險、信用風險、利率風險、流動性風險等），不宜作為投資唯一依據，投資人仍應注意所投資基金個別的風險。</span>本基金主要投資標的之上市櫃股票，某些產業可能因供需不協調而有明顯產業循環週期，致使其股價亦經常隨著公司獲利盈虧而有巨幅波動。我國證券市場受政治因素影響頗大，因此國內外政經情勢、兩岸關係之互動及未來發展情況，均會影響本基金所投資證券價格之波動；此外，利率調整及產業結構等因素亦會影響有價證券之價格，而造成本基金淨資產價值之漲跌，經理公司將盡量分散投資風險，惟風險亦無法因此完全消除。基金投資之盈虧尚受到市場風險、流動性風險、信用風險、產業景氣循環變動等影響，相關投資風險皆可能造成大幅虧損。其它投資之風險請詳閱本基金公開說明書。投資人申購本基金係持有基金受益憑證，而非本文提及之投資資產或標的。本基金不受存款保險、保險安定基金或其他保護機制之保障。<br />
+</strong><strong><br />
+<span style="color: #000000;">【</span>永豐領航科技基金<span style="color: #000000;">】</span>本基金經金管會核准或同意生效，惟不表示絕無風險。基金經理公司以往之經理績效不保證基金之最低投資收益；基金經理公司除盡善良管理人之注意義務外，不負責本基金之盈虧，亦不保證最低之收益，投資人申購前應詳閱基金公開說明書。<span style="color: #ff0000;">本文提及之經濟走勢預測不必然代表本基金之績效，又投資人因不同時間進場，將有不同之投資績效，過去之績效亦不代表未來績效之保證，本基金投資風險請詳閱基金公開說明書。</span>有關基金應負擔之費用已揭露於基金公開說明書，投資人可向經理公司或銷售機構索取，或於經理公司官網、公開資訊觀測站查詢。<span style="color: #ff0000;">本基金為股票型基金，主要投資於國內從事或轉投資科技產業相關之國內上市(櫃)股票，風險報酬等級為RR5。RR係計算成立年度之淨值波動度，並與同類型基金比較後決定，另綜合考量各項投資風險，及參考投信投顧公會所訂分類標準等，風險報酬分類為RR1-RR5五級，數字愈大代表風險愈高。此等級分類係基於一般市場狀況反映市場價格波動風險，無法涵蓋所有風險（如：投資標的產業風險、信用風險、利率風險、流動性風險等），不宜作為投資唯一依據，投資人仍應注意所投資基金個別的風險。</span>相較一般投資標的涵蓋各類股的股票型基金，本基金投資標的主要集中在高科技類股，雖然基金經理人可適度分散投資於各類股，但仍可能因投資之產業屬性，產生類股過度集中之風險，造成基金淨值的波動。基金投資之盈虧尚受到市場風險、流動性風險、政治及經濟變動、信用風險、產業景氣循環變動等影響，相關投資風險皆可能造成本基金之損失。其它投資之風險請詳閱本基金公開說明書。投資人申購本基金係持有基金受益憑證，而非本文提及之投資資產或標的。本基金不受存款保險、保險安定基金或其他保護機制之保障。<br />
+<br />
+</strong><strong><span style="color: #000000;">【永豐臺灣ESG永續優選基金】本基金經金管會核准或同意生效，惟不表示絕無風險。基金經理公司以往之經理績效不保證基金之最低投資收益；基金經理公司除盡善良管理人之注意義務外，不負責本基金之盈虧，亦不保證最低之收益，投資人申購前應詳閱基金公開說明書。<span style="color: #ff0000;">本文提及之經濟走勢預測不必然代表本基金之績效，又投資人因不同時間進場，將有不同之投資績效，過去之績效亦不代表未來績效之保證，本基金投資風險請詳閱基金公開說明書。</span>有關基金應負擔之費用已揭露於基金公開說明書，投資人可向經理公司或銷售機構索取，或於經理公司官網、公開資訊觀測站查詢。<span style="color: #ff0000;">本基金為股票型基金，主要投資中華民國境內之有價證券，以臺灣永續指數成分股為投資標的，本基金之風險報酬等級為RR4。RR係計算成立年度之淨值波動度，並與同類型基金比較後決定，另綜合考量各項投資風險，及參考投信投顧公會所訂分類標準等，風險報酬分類為RR1-RR5五級，數字愈大代表風險愈高。此等級分類係基於一般市場狀況反映市場價格波動風險，無法涵蓋所有風險（如：投資標的產業風險、信用風險、利率風險、流動性風險等），不宜作為投資唯一依據，投資人仍應注意所投資基金個別的風險。</span>本基金主要投資於中華民國境內之有價證券，投資標的涵蓋各類股，股市表現常受到各種因素影響，如產業景氣循環、證券交易市場流動性不足、全球政經情勢或法規之變動及其他因素，導致股價大幅波動，都可能對本基金投資標的造成直接或間接影響。本基金將盡全力分散風險，惟風險亦無法完全消除。本基金主要投資於臺灣永續指數成分股票，該指數採用富時ESG評鑑系統篩選的成分股，相關風險包括：ESG評鑑方法及資料之限制、缺乏標準之分類法、投資選擇之主觀判斷、對第三方資料來源之依賴、對特定ESG投資重點之集中度風險等，相關風險請詳閱公開說明書。</span></strong><span style="color: #ff0000;"><strong>部分可配息基金配息前未先扣除應負擔之相關費用，且基金的配息可能由基金的收益或本金或收益平準金中支付。任何涉及由本金支出的部份，可能導致原始投資金額以同等比例減損。基金配息不代表基金實際報酬，且過去配息不代表未來配息；基金淨值可能因市場因素而上下波動。基金經理公司不保證本基金最低之收益率或獲利，配息金額會因操作及收入來源而有變化，且投資之風險無法因分散投資而完全消除，投資人仍應自行承擔相關風險。投資人可至</strong><strong>本公司官網</strong><strong>查詢最近</strong><strong>12</strong><strong>個月內由本金支付之配息組成項目。</strong><strong>各期間報酬率</strong><strong>(</strong><strong>含息</strong><strong>)</strong><strong>是假設收益分配均滾入再投資於本基金之期間累積報酬率。</strong></span><strong><span style="color: #000000;">相關風險說明及有關基金之ESG資訊，投資人應於申購前詳閱基金公開說明書所載之基金所有特色或目標等資訊，相關資訊可透過經理公司網站（sitc.sinopac.com）查詢。投資人申購本基金係持有基金受益憑證，而非本文提及之投資資產或標的。本基金不受存款保險、保險安定基金或其他保護機制之保障。<br />
+<br />
+</span></strong><strong><span style="color: #000000;">【</span>永豐主流品牌基金<span style="color: #000000;">】</span>本基金經金管會核准或同意生效，惟不表示絕無風險。基金經理公司以往之經理績效不保證基金之最低投資收益；基金經理公司除盡善良管理人之注意義務外，不負責本基金之盈虧，亦不保證最低之收益，投資人申購前應詳閱基金公開說明書。<span style="color: #ff0000;">本文提及之經濟走勢預測不必然代表本基金之績效，又投資人因不同時間進場，將有不同之投資績效，過去之績效亦不代表未來績效之保證，本基金投資風險請詳閱基金公開說明書。</span>有關基金應負擔之費用已揭露於基金公開說明書，投資人可向經理公司或銷售機構索取，或於經理公司官網、公開資訊觀測站查詢。<span style="color: #ff0000;">本基金為股票型基金，主要投資於全球時尚精品形象相關之有價證券，故本基金之風險報酬等級為RR4。RR係計算成立年度之淨值波動度，並與同類型基金比較後決定，另綜合考量各項投資風險，及參考投信投顧公會所訂分類標準等，風險報酬分類為RR1-RR5五級，數字愈大代表風險愈高。此等級分類係基於一般市場狀況反映市場價格波動風險，無法涵蓋所有風險（如：基金計價幣別匯率風險、投資標的產</span></strong><strong><span style="color: #ff0000;">業風險、信用風險、利率風險、流動性風險等），不宜作為投資唯一依據，投資人仍應注意所投資基金個別的風險</span>。本基金投資區域將分佈全球各主要市場，全球政經情勢或法規之變動，可能對本基金所參與的投資市場及投資工具之報酬造成直接或間接的影響，本基金將盡全力分散風險但無法完全消除，所投資之標的淨值、收盤價漲跌及其他因素之波動將影響本基金淨資產價值之增減。除匯兌風險外，基金投資之盈虧尚受到市場風險、流動性風險、信用風險、產業景氣循環變動等影響，相關投資風險皆可能造成大幅虧損。其它投資之風險請詳閱本基金公開說明書。投資人申購本基金係持有基金受益憑證，而非本文提及之投資資產或標的。本基金不受存款保險、保險安定基金或其他保護機制之保障。<br />
+</strong></p>
+<p><strong><span style="color: #000000;">【</span>永豐亞洲民生消費基金<span style="color: #000000;">】</span>本基金經金管會核准或同意生效，惟不表示絕無風險。基金經理公司以往之經理績效不保證基金之最低投資收益；基金經理公司除盡善良管理人之注意義務外，不負責本基金之盈虧，亦不保證最低之收益，投資人申購前應詳閱基金公開說明書。<span style="color: #ff0000;">本文提及之經濟走勢預測不必然代表本基金之績效，又投資人因不同時間進場，將有不同之投資績效，過去之績效亦不代表未來績效之保證，本基金投資風險請詳閱基金公開說明書。</span>有關基金應負擔之費用已揭露於基金公開說明書，投資人可向經理公司或銷售機構索取，或於經理公司官網、公開資訊觀測站查詢。<span style="color: #ff0000;">本基金為股票型基金，主要投資於亞洲地區以民生消費產業為主要投資標的，故本基金之風險報酬等級為RR5。RR係計算成立年度之淨值波動度，並與同類型基金比較後決定，另綜合考量各項投資風險，及參考投信投顧公會所訂分類標準等，風險報酬分類為RR1-RR5五級，數字愈大代表風險愈高。此等級分類係基於一般市場狀況反映市場價格波動風險，無法涵蓋所有風險（如：基金計價幣別匯率風險、投資標的產業風險、信用風險、利率風險、流動性風險等），不宜作為投資唯一依據，投資人仍應注意所投資基金個別的風險。</span>本基金主要投資於亞洲地區民生消費相關產業類股，相較於投資範圍廣泛之海外股票型基金，民生消費類股可能較有明顯產業循環週期，其股價隨著公司盈收獲利之變化而有較大幅度的波動。另外本基金投資所在國或地區，特別是新興國家，有價證券價格波動、外匯的管制、全球政經情勢或法規之變動及其他因素，都可能對本基金投資標的造成直接或間接之影響。本基金將盡全力分散風險，但無法完全消除。除匯兌風險外，基金投資之盈虧尚受到市場風險、流動性風險、信用風險、產業景氣循環變動等影響，相關投資風險皆可能造成大幅虧損。其它投資之風險請詳閱本基金公開說明書。投資人申購本基金係持有基金受益憑證，而非本文提及之投資資產或標的。本基金不受存款保險、保險安定基金或其他保護機制之保障。<br />
+<br />
+</strong><strong><span style="color: #000000;">【</span>永豐滬深300紅利指數基金<span style="color: #000000;">】</span>本基金經金管會核准或同意生效，惟不表示絕無風險。基金經理公司以往之經理績效不保證基金之最低投資收益；基金經理公司除盡善良管理人之注意義務外，不負責本基金之盈虧，亦不保證最低之收益，投資人申購前應詳閱基金公開說明書。<span style="color: #ff0000;">本文提及之經濟走勢預測不必然代表本基金之績效，又投資人因不同時間進場，將有不同之投資績效，過去之績效亦不代表未來績效之保證，本基金投資風險請詳閱基金公開說明書。</span>有關基金應負擔之費用已揭露於基金公開說明書，投資人可向經理公司或銷售機構索取，或於經理公司官網、公開資訊觀測站查詢。<span style="color: #ff0000;">本基金為指數型基金，所追蹤之標的指數主要反映滬深300指數中高股息率股票的整體表現，故本基金之風險報酬等級為RR5。RR係計算成立年度之淨值波動度，並與同類型基金比較後決定，另綜合考量各項投資風險，及參考投信投顧公會所訂分類標準等，風險報酬分類為RR1-RR5五級，數字愈大代表風險愈高。此等級分類係基於一般市場狀況反映市場價格波動風險，無法涵蓋所有風險（如：基金計價幣別匯率風險、投資標的產業風險、信用風險、利率風險、流動性風險等），不宜作為投資唯一依據，投資人仍應注意所投資基金個別的風險。</span>本基金為指數型基金，採被動式管理方式，以追蹤標的指數之績效表現為目標，因此基金之投資績效將視其追蹤之標的指數走勢而定，若標的指數價格波動劇烈，本基金淨資產價值亦將隨之波動或下跌。本基金所投資成分股檔數與所追蹤標的指數成分股檔數覆蓋率不低於90%，當標的指數之成分股發生剔除或增加入產生變化或權重改變時，受限跨市場交易之營業日不同，基金的投資組合內容未能及時調整與標的指數相同，可能使基金報酬與標的指數產生偏離。<span style="color: #ff0000;">本基金主要投資於中國大陸之有價證券，由於中國大陸之政經情勢或法規變動較已開發國家劇烈，外匯的管制也較嚴格，可能對本基金投資標的造成直接或間接之影響。本基金將透過經理公司獲批之境外機構投資者（QFII）額度、滬港通、深港通及其他經主管機關認可之管道，投資於大陸地區有價證券，基於大陸地區對QFII之投資額度及資金匯出入管制等規定，經理公司保留婉拒或暫停受理本基金申購或買回之權利。</span>本基金新臺幣類型受益權單位所有申購及買回價金之收付均以新臺幣為之。外幣計價受益權單位所有申購及買回價金之收付均以外幣為之。如投資人以非本基金計價幣別之貨幣換匯後申購基金，須自行承擔匯率變動之風險。此外因投資人與銀行進行外匯交易有買價與賣價之差異，投資人進行換匯時須承擔買賣價差，此價差依各銀行報價而定。另，投資人尚須承擔匯款費用且外幣匯款費用可能高於新臺幣匯款費用，投資人亦須留意外幣匯款到達時點可能因受款行作業時間而遞延。其它投資之風險請詳閱本基金公開說明書。<br />
+</strong>免責聲明：中証系列指數由中証指數有限公司編制和計算。中証指數有限公司擁有與指數、指數名稱、標誌以及指數所含數據相關或其中包含的權利。中証指數有限公司將採取一切必要措施以確保指數的準確性。但無論因為疏忽或其他原因，中証指數有限公司不因指數的任何錯誤對任何人負責，也無義務對任何人和任何錯誤給予建議。投資人申購本基金係持有基金受益憑證，而非本文提及之投資資產或標的。本基金不受存款保險、保險安定基金或其他保護機制之保障。<strong><br />
+</strong><br />
+<span><span style="color: #000000;"><strong>【永豐中國經濟建設基金】本基金經金管會核准或同意生效，惟不表示絕無風險。基金經理公司以往之經理績效不保證基金之最低投資收益；基金經理公司除盡善良管理人之注意義務外，不負責本基金之盈虧，亦不保證最低之收益，投資人申購前應詳閱基金公開說明書。<span style="color: #ff0000;">本文提及之經濟走勢預測不必然代表本基金之績效，又投資人因不同時間進場，將有不同之投資績效，過去之績效亦不代表未來績效之保證，本基金投資風險請詳閱基金公開說明書。</span>有關基金應負擔之費用已揭露於基金公開說明書，投資人可向經理公司或銷售機構索取，或於經理公司官網、公開資訊觀測站查詢。<span style="color: #ff0000;">本基金為股票型基金，主要投資於台灣、中國、香港及新加坡之有價證券，故本基金之風險報酬等級為RR5。RR係計算成立年度之淨值波動度，並與同類型基金比較後決定，另綜合考量各項投資風險，及參考投信投顧公會所訂分類標準等，風險報酬分類為RR1-RR5五級，數字愈大代表風險愈高。此等級分類係基於一般市場狀況反映市場價格波動風險，無法涵蓋所有風險（如：基金計價幣別匯率風險、投資標的產業風險、信用風險、利率風險、流動性風險等），不宜作為投資唯一依據，投資人仍應注意所投資基金個別的風險。</span>本基金著重於中國每五年經濟規劃增長企業為主要佈局，惟中國、香港等新興市場之政經情勢或法規變動較已開發國家變動較為劇烈，外匯的管制也較嚴格，可能對本基金投資標的造成直接或間接之影響。另外有價證券之價格波動及流動性、法規變動及其他因素，都將影響本基金淨資產價值之增減，本基金將盡全力分散風險，但無法完全消除。<span style="color: #ff0000;">本基金可以透過經理公司申請獲准之合格境外機構投資者(QFII)之額度直接投資中國大陸地區當地證券市場，QFII額度須先兌匯為美元匯入中國大陸地區後再兌換為人民幣，以投資當地人民幣計價之投資商品。故本基金有外匯及匯率變動之風險。</span>本基金新臺幣類型受益權單位所有申購及買回價金之收付均以新臺幣為之。人民幣類型受益權單位所有申購及買回價金之收付均以人民幣為之。如投資人以非本基金計價幣別之貨幣換匯後申購本基金，須自行承擔匯率變動之風險。此外因投資人與銀行進行外匯交易有買價與賣價之差異，投資人進行換匯時須承擔買賣價差，此價差依各銀行報價而定。另，投資人尚須承擔匯款費用且外幣匯款費用可能高於新臺幣匯款費用，投資人亦須留意外幣匯款到達時點可能因受款行作業時間而遞延。其它投資之風險請詳閱本基金公開說明書。投資人申購本基金係持有基金受益憑證，而非本文提及之投資資產或標的。本基金不受存款保險、保險安定基金或其他保護機制之保障。<br />
+<br />
+</strong></span><span style="color: #000000;"><strong>【永豐ESG全球數位基礎建設基金<span style="color: #ff0000;">(本基金配息來源可能為本金)<span style="color: #000000;">】</span></span>本基金經金管會核准或同意生效，惟不表示絕無風險。基金經理公司以往之經理績效不保證基金之最低投資收益；基金經理公司除盡善良管理人之注意義務外，不負責本基金之盈虧，亦不保證最低之收益，投資人申購前應詳閱基金公開說明書。<span style="color: #ff0000;">本文提及之經濟走勢預測不必然代表本基金之績效，又投資人因不同時間進場，將有不同之投資績效，過去之績效亦不代表未來績效之保證，本基金投資風險請詳閱基金公開說明書。</span>有關基金應負擔之費用已揭露於基金公開說明書，投資人可向經理公司或銷售機構索取，或於經理公司官網、公開資訊觀測站查詢。<span style="color: #ff0000;">本基金為股票型基金，主要投資於全球數位資訊、永續發展等長期發展趨勢所需的基礎建設事業相關之有價證券，故本基金之風險報酬等級為RR4。RR係計算成立年度之淨值波動度，並與同類型基金比較後決定，另綜合考量各項投資風險，及參考中華民國證券投資信託暨顧問商業同業公會所訂分類標準等，風險報酬分類為RR1-RR5五級，數字愈大代表風險愈高。此等級分類係基於一般市場狀況反映市場價格波動風險，無法涵蓋所有風險（如：基金計價幣別匯率風險、投資標的產業風險、信用風險、利率風險、流動性風險等），不宜作為投資唯一依據，投資人仍應注意所投資基金個別的風險</span>。本基金主要投資於全球數位基礎建設相關標的，全球政經情勢或法規之變動風險、類股過度集中風險、產業景氣環風險、流動性風險、外匯管制及匯率變動之風險等，可能對本基金所參與的投資市場及投資工具之報酬造成直接或間接的影響，使本基金淨資產價值因此產生波動。本基金將ESG納入主要投資重點，相關風險包括：ESG評鑑方法及資料之限制、缺乏標準之分類法、投資選擇之主觀判斷、對第三方資料來源之依賴、對特定ESG投資重點之集中度風險等。本基金新臺幣計價受益權單位所有申購及買回價金之收付均以新臺幣為之。外幣計價受益權單位所有申購及買回價金之收付均以外幣為之。如投資人以非本基金計價幣別之貨幣換匯後申購基金，須自行承擔匯率變動之風險。此外因投資人與銀行進行外匯交易有買價與賣價之差異，投資人進行換匯時須承擔買賣價差，此價差依各銀行報價而定。另，投資人尚須承擔匯款費用且外幣匯款費用可能高於新臺幣匯款費用，投資人亦須留意外幣匯款到達時點可能因受款行作業時間而遞延。<span style="color: #ff0000;">部分可配息基金配息前未先扣除應負擔之相關費用，且基金的配息可能由基金的收益或本金或收益平準金中支付。任何涉及由本金支出的部份，可能導致原始投資金額以同等比例減損。基金配息不代表基金實際報酬，且過去配息不代表未來配息；基金淨值可能因市場因素而上下波動。基金經理公司不保證本基金最低之收益率或獲利，配息金額會因操作及收入來源而有變化，且投資之風險無法因分散投資而完全消除，投資人仍應自行承擔相關風險。投資人可至本公司官網查詢最近12個月內由本金支付之配息組成項目。各期間報酬率(含息)是假設收益分配均滾入再投資於本基金之期間累積報酬率。</span>相關風險說明及有關基金之ESG資訊，投資人應於申購前詳閱基金公開說明書所載之基金所有特色或目標等資訊，相關資訊可透過經理公司網站（sitc.sinopac.com）查詢。</strong><strong>投資人申購本基金係持有基金受益憑證，而非本文提及之投資資產或標的。投資人申購本基金係持有基金受益憑證，而非本文提及之投資資產或標的。本基金不受存款保險、保險安定基金或其他保護機制之保障。</strong><br />
+<br />
+<strong>【永豐臺灣加權ETF基金】本基金經金管會核准或同意生效，惟不表示絕無風險。基金經理公司以往之經理績效不保證基金之最低投資收益；基金經理公司除盡善良管理人之注意義務外，不負責本基金之盈虧，亦不保證最低之收益，投資人申購前應詳閱基金公開說明書。<span style="color: #ff0000;">本文提及之經濟走勢預測不必然代表本基金之績效，又投資人因不同時間進場，將有不同之投資績效，過去之績效亦不代表未來績效之保證，本基金投資風險請詳閱基金公開說明書。</span>有關基金應負擔之費用已揭露於基金公開說明書，投資人可向經理公司或銷售機構索取，或於經理公司官網、公開資訊觀測站查詢。<span style="color: #ff0000;">本基金為指數股票型基金，主要投資中華民國之有價證券，追蹤之標的指數為臺灣證券交易所發行量加權股價指數以上市股票之發行量當作權數來計算股價指數，採樣樣本為所有掛牌交易中的普通股，故本基金之風險報酬等級為RR4。RR係計算成立年度之淨值波動度，並與同類型基金比較後決定，及參考投信投顧公會所訂分類標準等，風險報酬分類為RR1-RR5五級，數字愈大代表風險愈高。此等級分類係基於一般市場狀況反映市場價格波動風險，無法涵蓋所有風險（如：基金計價幣別匯率風險、信用風險、利率風險、流動性風險等），不宜作為投資唯一依據，投資人仍應注意所投資基金個別的風險。</span>本基金為指數股票型基金，採被動式管理方式，以追蹤標的指數之績效表現為目標，因此基金之投資績效將視其追蹤之標的指數走勢而定。若標的指數價格波動劇烈，本基金淨資產價值亦將隨之波動或下跌。基金投資之盈虧尚受到市場風險、流動性風險、信用風險、產業景氣循環變動等影響，相關投資風險皆可能造成大幅虧損。本基金所投資成分證券檔數與所追蹤標的指數成分股檔數覆蓋率依基金淨資產價值不低於20%~50%，當標的指數之成分股發生剔除或增加入產生變化或權重改變時，基金的投資組合內容未能及時調整與標的指數相同，可能使基金報酬與標的指數產生偏離。基金投資之盈虧尚受到市場風險、流動性風險、信用風險、產業景氣循環變動等影響，相關投資風險皆可能造成大幅虧損。</strong><span style="color: #ff0000;"><strong>部分可配息基金配息前未先扣除應負擔之相關費用，且基金的配息可能由基金的收益或本金或收益平準金中支付。任何涉及由本金支出的部份，可能導致原始投資金額以同等比例減損。基金配息不代表基金實際報酬，且過去配息不代表未來配息；基金淨值可能因市場因素而上下波動。基金經理公司不保證本基金最低之收益率或獲利，配息金額會因操作及收入來源而有變化，且投資之風險無法因分散投資而完全消除，投資人仍應自行承擔相關風險。投資人可至本公司官網查詢最近12個月內由本金支付之配息組成項目。</strong></span></span></span><strong>本基金掛牌後之買賣成交價格無升降幅度限制，掛牌後應依臺灣證交所或櫃買中心掛牌有關規定辦理。</strong><span><span style="color: #000000;"><span style="color: #ff0000;"><strong><span style="color: #000000;">投資人申購本基金係持有基金受益憑證，而非本文提及之投資資產或標的。本基金不受存款保險、保險安定基金或其他保護機制之保障。</span></strong><br />
+</span></span></span><span style="color: #870303;"><span style="color: #000000;">本基金並非由臺灣證券交易所股份有限公司(「證交所」)贊助、認可、銷售或推廣；且證交所不就使用「臺灣證券交易所發行量加權股價指數」及／或該指數於任何特定日期、時間所代表數字之預期結果提供任何明示或默示之擔保或聲明。「臺灣證券交易所發行量加權股價指數」係由證交所編製及計算；惟證交所不就「臺灣證券交易所發行量加權股價指數」之錯誤承擔任何過失或其他賠償責任；且證交所無義務將指數中之任何錯誤告知任何人。</span></span><strong><span style="color: #870303;"><span style="color: #000000;"><span> <br />
+</span></span></span></strong></p>
+<p><strong><span style="color: #000000;">【永豐台灣ESG永續優質ETF基金<span style="color: #ff0000;">(本基金之配息來源可能為收益平準金)<span style="color: #000000;">】</span><span style="color: #000000;">本基金經金管會核准或同意生效，惟不表示絕無風險。基金經理公司以往之經理績效不保證基金之最低投資收益；基金經理公司除盡善良管理人之注意義務外，不負責本基金之盈虧，亦不保證最低之收益，投資人申購前應詳閱基金公開說明書。<span style="color: #ff0000;">本文提及之經濟走勢預測不必然代表本基金之績效，又投資人因不同時間進場，將有不同之投資績效，過去之績效亦不代表未來績效之保證，本基金投資風險請詳閱基金公開說明書。</span>有關基金應負擔之費用已揭露於基金公開說明書，投資人可向經理公司或銷售機構索取，或於經理公司官網、公開資訊觀測站查詢。</span>本基金為指數股票型基金，所追蹤之標的指數以FTSE Taiwan Index為基礎，採用富時的目標因子曝險法編制，目標因子採用富時的ESG評鑑及過去12個月之股利率挑選成分股，本基金之風險報酬等級為RR4。RR係計算成立年度之淨值波動度，並與同類型基金比較後決定，及參考投信投顧公會所訂分類標準等，風險報酬分類為RR1-RR5五級，數字愈大代表風險愈高。此等級分類係基於一般市場狀況反映市場價格波動風險，無法涵蓋所有風險（如：投資標的產業風險、信用風險、利率風險、流動性風險等），不宜作為投資唯一依據，投資人仍應注意所投資基金個別的風險。</span>本基金為指數股票型，採被動式管理方式，以追蹤標的指數之績效表現為目標，因此基金之投資績效將視其追蹤之標的指數走勢而定，若標的指數價格波動劇烈，本基金淨資產價值亦將隨之波動或下跌。本基金所投資成分證券檔數與所追蹤標的指數成分股檔數覆蓋率不低於90%，當標的指數之成分股發生剔除或增加入產生變化或權重改變時，基金的投資組合內容未能及時調整與標的指數相同，可能使基金報酬與標的指數產生偏離。本基金追蹤之標的指數成分股係經認可之ESG優質公司分散於各產業，其成分股雖經過挑選，惟各產業循環周期不同，其中有些產業可能有明顯之產業循環以使公司營收有較大幅度之波動，而產生產業景氣循環之風險。本基金標的指數成分股以涵蓋臺灣經國際公信機構認可 之ESG優質公司，相關風險包括：ESG評鑑方法及資料之限制、缺乏標準之分類法、投資選擇之主觀判斷、對第三方資料來源之依賴、對特定ESG投資重點之集中度風險等。<span style="color: #ff0000;">部分可配息基金配息前未先扣除應負擔之相關費用，且基金的配息可能由基金的收益或本金或收益平準金中支付。任何涉及由本金支出的部份，可能導致原始投資金額以同等比例減損。基金配息不代表基金實際報酬，且過去配息不代表未來配息；基金淨值可能因市場因素而上下波動。基金經理公司不保證本基金最低之收益率或獲利，配息金額會因操作及收入來源而有變化，且投資之風險無法因分散投資而完全消除，投資人仍應自行承擔相關風險。投資人可至本公司官網查詢最近12個月內由本金支付之配息組成項目。各期間報酬率(含息)是假設收益分配均滾入再投資於本基金之期間累積報酬率。</span>本基金的淨值反應其一籃子成分市值總合，惟盤中即時估計淨值與實際基金淨值計算之投組內容亦可能有所差異，可能造成交易資訊傳遞落差之風險。相關風險說明及有關基金之ESG資訊，投資人應於申購前詳閱基金公開說明書所載之基金所有特色或目標等資訊，相關資訊可透過經理公司網站（sitc.sinopac.com）查詢。本基金掛牌後之買賣成交價格無升降幅度限制，掛牌後應依臺灣證交所或櫃買中心掛牌有關規定辦理。投資人申購本基金係持有基金受益憑證，而非本文提及之投資資產或標的。本基金不受存款保險、保險安定基金或其他保護機制之保障。<br />
+</span></strong><span style="color: #000000;">指數免責聲明：FTSE Taiwan Target Exposure ESG Index，係由FTSE International Limited(「FTSE」)所編製及計算，FTSE提供之服務是以現狀提供，而未提供任何明示、默示、法定或其它形式之保證。如有任何服務因任何因素而中斷、變更或無法再提供，則FTSE對於永豐投信或永豐投信的任何終端使用者概不負責。</span></p>
+<p><strong><span style="color: #000000;">【永豐台灣優選入息存股ETF基金<span style="color: #ff0000;">(本基金之配息來源可能為收益平準金且並無保證收益及配息)<span style="color: #000000;">】</span><span style="color: #000000;">本基金經金管會核准或同意生效，惟不表示絕無風險。基金經理公司以往之經理績效不保證基金之最低投資收益；基金經理公司除盡善良管理人之注意義務外，不負責本基金之盈虧，亦不保證最低之收益，投資人申購前應詳閱基金公開說明書。<span style="color: #ff0000;">本文提及之經濟走勢預測不必然代表本基金之績效，又投資人因不同時間進場，將有不同之投資績效，過去之績效亦不代表未來績效之保證，本基金投資風險請詳閱基金公開說明書。</span>有關基金應負擔之費用已揭露於基金公開說明書，投資人可向經理公司或銷售機構索取，或於經理公司官網、公開資訊觀測站查詢。</span>本基金為指數股票型基金，所追蹤的標的指數為臺灣優息存股指數，選取與景氣循環民生必需相關產業，以企業ESG表現、公司獲利、股利配發為篩選條件，挑選30檔上市股票，故本基金之風險報酬等級為RR5。RR係計算成立年度之淨值波動度，並與同類型基金比較後決定，及參考投信投顧公會所訂分類標準等，風險報酬分類為RR1-RR5五級，數字愈大代表風險愈高。此等級分類係基於一般市場狀況反映市場價格波動風險，無法涵蓋所有風險（如：投資標的產業風險、信用風險、利率風險、流動性風險等），不宜作為投資唯一依據，投資人仍應注意所投資基金個別的風險。<span style="color: #000000;">本基金為指數股票型，採被動式管理方式，以追蹤標的指數之績效表現為目標，因此本基金之投資績效將視其追蹤之標的指數走勢而定，若標的指數價格波動劇烈，本基金淨資產價值亦將隨之波動或下跌。本基金所投資成分證券檔數與所追蹤標的指數成分股檔數覆蓋率不低於90%，當標的指數之成分股發生剔除或增加入產生變化或權重改變時，基金的投資組合內容未能及時調整與標的指數相同，可能使基金報酬與標的指數產生偏離。本基金將依標的指數進行最適之資產配置，然產業的循環週期或非經濟因素影響可能導致價格出現劇烈波動，使基金淨值在短期內出現較大幅度之波動，故可能產生類股過度集中之風險，經理公司將善盡管理義務，降低類股過度集中度風險，但不表示風險得以完全規避。本基金的淨值反應其一籃子成分市值總合，惟盤中即時估計淨值與實際基金淨值計算之投組內容亦可能有所差異，可能造成交易資訊傳遞落差之風險。<span style="color: #ff0000;">部分可配息基金配息前未先扣除應負擔之相關費用，且基金的配息可能由基金的收益或本金或收益平準金中支付。任何涉及由本金支出的部份，可能導致原始投資金額以同等比例減損。基金配息不代表基金實際報酬，且過去配息不代表未來配息；基金淨值可能因市場因素而上下波動。基金經理公司不保證本基金最低之收益率或獲利，配息金額會因操作及收入來源而有變化，且投資之風險無法因分散投資而完全消除，投資人仍應自行承擔相關風險。投資人可至本公司官網查詢最近12個月內由本金支付之配息組成項目。各期間報酬率(含息)是假設收益分配均滾入再投資於本基金之期間累積報酬率。</span></span></span>本基金掛牌後之買賣成交價格無升降幅度限制，掛牌後應依臺灣證交所或櫃買中心掛牌有關規定辦理。投資人申購本基金係持有基金受益憑證，而非本文提及之投資資產或標的。本基金不受存款保險、保險安定基金或其他保護機制之保障。<br />
+</span></strong><span style="color: #000000;"><span style="color: #ff0000;"><span style="color: #000000;">指數免責聲明：[臺灣指數公司特選臺灣優選入息存股指數]係由臺灣指數股份有限公司（臺灣指數公司）及社團法人中華民國永續企業發展協會（企業永續發展協會）（以上機構合稱「合作單位」）共同開發，並由臺灣指數公司單獨授權[永豐證券投資信託股份有限公司]使用發行「永豐台灣優選入息存股ETF證券投資信託基金」（本基金之配息來源可能為收益平準金）。「合作單位」並未以任何方式贊助、背書、出售或促銷本基金，且「合作單位」亦未明示或默示對使用指數之結果及/或指數於任一特定日期之任一特定時間或其他時間之數據提供任何保證或聲明。指數係由臺灣指數公司所計算。然「合作單位」就指數之任何錯誤、不正確、遺漏或指數資料之傳輸中斷對任何人均不負任何責任，且無任何義務將該等錯誤、不正確或遺漏通知任何人。</span></span></span><strong><span style="color: #000000;"><span style="color: #ff0000;"><span style="color: #000000;">&nbsp;</span></span></span></strong></p>
+<p><span style="color: #800000;"><span style="color: #000000;"><strong>【永豐美國大型500股票ETF基金<span style="color: #ff0000;">(本基金並無保證收益及配息)</span>】本基金經金管會核准或同意生效，惟不表示絕無風險。基金經理公司以往之經理績效不保證基金之最低投資收益；基金經理公司除盡善良管理人之注意義務外，不負責本基金之盈虧，亦不保證最低之收益，投資人申購前應詳閱基金公開說明書。<span style="color: #ff0000;">本文提及之經濟走勢預測不必然代表本基金之績效，又投資人因不同時間進場，將有不同之投資績效，過去之績效亦不代表未來績效之保證，本基金投資風險請詳閱基金公開說明書。</span>有關基金應負擔之費用已揭露於基金公開說明書，投資人可向經理公司或銷售機構索取，或於經理公司官網、公開資訊觀測站查詢。<span style="color: #ff0000;">本基金為指數股票型基金，所追蹤之標的指數成分股以母指數STOXX&reg; USA 900指數為基礎，其挑選在美國交易所上市，自由流通市值最高的前900家企業作為該指數成分股，在該指數基礎下，選出自由流通市值前500檔股票所組成，故本基金之風險報酬等級為RR4。RR係計算成立年度之淨值波動度，並與同類型基金比較後決定，及參考中華民國證券投資信託暨顧問商業同業公會所訂分類標準等，風險報酬分類為RR1-RR5五級，數字愈大代表風險愈高。此等級分類係基於一般市場狀況反映市場價格波動風險，無法涵蓋所有風險（如：基金計價幣別匯率風險、投資標的產業風險、信用風險、利率風險、流動性風險等），不宜作為投資唯一依據，投資人仍應注意所投資基金個別的風險。</span>本基金為指數股票型，採被動式管理方式，以追蹤標的指數之績效表現為目標，因此基金之投資績效將視其追蹤之標的指數走勢而定，若標的指數價格波動劇烈，本基金淨資產價值亦將隨之波動或下跌。本基金所投資成分股檔數與所追蹤標的指數成分股檔數覆蓋率依基金淨資產價值不低於30%~50%，當標的指數之成分股發生剔除或增加入產生變化或權重改變時，受限跨市場交易之營業日不同，基金的投資組合內容未能及時調整與標的指數相同，可能使基金報酬與標的指數產生偏離。本基金所涉之各證券市場交易時間不同，因此本基金所涉之證券市場交易可能有無法即時完全反應基金投資組合之價格波動風險。另本基金的淨值反應其一籃子成分市值總合，惟盤中即時估計淨值與實際基金淨值計算之投組內容亦可能有所差異，可能造成交易資訊傳遞落差之風險。</strong></span></span><span style="color: #800000;"><span><span style="color: #800000;"><span style="color: #ff0000;"><strong>部分可配息基金配息前未先扣除應負擔之相關費用，且基金的配息可能由基金的收益或本金或收益平準金中支付。任何涉及由本金支出的部份，可能導致原始投資金額以同等比例減損。基金配息不代表基金實際報酬，且過去配息不代表未來配息；基金淨值可能因市場因素而上下波動。基金經理公司不保證本基金最低之收益率或獲利，配息金額會因操作及收入來源而有變化，且投資之風險無法因分散投資而完全消除，投資人仍應自行承擔相關風險。投資人可至本公司官網查詢最近12個月內由本金支付之配息組成項目。各期間報酬率(含息)是假設收益分配均滾入再投資於本基金之期間累積報酬率。<span style="color: #000000;">本基金掛牌後之買賣成交價格無升降幅度限制，掛牌後應依臺灣證交所或櫃買中心掛牌有關規定辦理。</span></strong></span><strong><span style="color: #000000;">投資人申購本基金係持有基金受益憑證，而非本文提及之投資資產或標的。本基金不受存款保險、保險安定基金或其他保護機制之保障。<br />
+</span></strong></span><span style="color: #000000;">指數免責聲明：STOXX&reg; USA 500指數屬於STOXX有限公司及/或其相關人員之智慧財產權(包括註冊商標)。本基金並不被STOXX有限公司及其相關人員資助、宣傳或任何STOXX 有限公司及其相關人員支持的方式來推廣，STOXX有限公司及其相關人員並未給予任何保證且排除對STOXX&reg; USA 500指數之錯誤、疏漏或任何干預之責任(不論是否為過失行為造成)。</span></span><strong><span style="color: #000000;"><span><br />
+</span></span></strong></span></p>
+<p><strong><span style="color: #000000;">【</span>永豐美國科技ETF基金<span style="color: #000000;">】</span>本基金經金管會核准或同意生效，惟不表示絕無風險。基金經理公司以往之經理績效不保證基金之最低投資收益；基金經理公司除盡善良管理人之注意義務外，不負責本基金之盈虧，亦不保證最低之收益，投資人申購前應詳閱基金公開說明書。<span style="color: #ff0000;">本文提及之經濟走勢預測不必然代表本基金之績效，又投資人因不同時間進場，將有不同之投資績效，過去之績效亦不代表未來績效之保證，本基金投資風險請詳閱基金公開說明書。</span>有關基金應負擔之費用已揭露於基金公開說明書，投資人可向經理公司或銷售機構索取，或於經理公司官網、公開資訊觀測站查詢。<span style="color: #ff0000;">本基金為指數股票型基金，所追蹤之標的指數以在美國紐約證交所及那斯達克證交所、芝加哥選擇權交易所下轄美國股票交易所、美國投資者交易所上市股票，符合機器人與人工智慧、網路安全、雲端資訊技術、金融科技、基因與免疫學五大主體領域，故本基金之風險報酬等級為RR4。RR係計算成立年度之淨值波動度，並與同類型基金比較後決定，另綜合考量前述第一項至第三項之主要投資風險，及參考投信投顧公會所訂分類標準等，風險報酬分類為RR1-RR5五級，數字愈大代表風險愈高。此等級分類係基於一般市場狀況反映市場價格波動風險，無法涵蓋所有風險（如：投資標的產業風險、信用風險、利率風險、流動性風險等），不宜作為投資唯一依據，</span>投資人仍應注意所投資基金個別的風險。本基金為指數股票型，採被動式管理方式，以追蹤標的指數之績效表現為目標，因此基金之投資績效將視其追蹤之標的指數走勢而定，若標的指數價格波動劇烈，本基金淨資產價值亦將隨之波動或下跌。本基金所投資成分證券檔數與所追蹤標的指數成分股檔數覆蓋率不低於50%，當標的指數之成分股發生剔除或增加入產生變化或權重改變時，受限跨市場交易之營業日不同，基金的投資組合內容未能及時調整與標的指數相同，可能使基金報酬與標的指數產生偏離。本基金追蹤之標的指數為美國科技概念類股，其成分股雖經過挑選，但仍不排除存在類股過度集中之風險。本基金所涉之證券市場交易時間不同，因此基金所涉之證券市場交易可能有無法即時完全反應基金投資組合之價格波動風險。另本基金的淨值反應其一籃子成分市值總合，惟盤中即時估計淨值與實際基金淨值計算之投組內容亦可能有所差異，可能造成交易資訊傳遞落差之風險。本基金掛牌後之買賣成交價格無升降幅度限制，掛牌後應依臺灣證交所或櫃買中心掛牌有關規定辦理。投資人申購本基金係持有基金受益憑證，而非本文提及之投資資產或標的。本基金不受存款保險、保險安定基金或其他保護機制之保障。<br />
+</strong>指數免責聲明：經許可使用來源ICE Data Indices, LLC(「以下稱ICE Data」)。美國科技股票指數(NYSE FactSet&reg; U.S. Tech Breakthrough Index)係ICE Data或其關係企業之服務/營業標章，且已與系列指數一併授權以供永豐投信針對永豐美國科技100 ETF基金(以下稱「產品」)使用之。永豐投信及產品均非由ICE Data Indices, LLC、其關係企業或第三人供應商(「ICE Data和其供應商」)贊助、背書、販售或宣傳。ICE Data和其供應商針對尤其是產品內之證券投資明智性、信託或指數追蹤一般市場績效之能力，不做任何相關聲明或保證。ICE Data對永豐投信之惟一關係，僅止於授權特定商標和商號以及指數或指數成分。指數係由ICE Data決定、組成和結算，與永豐投信或產品或產品持有人無關。ICE Data無 義務於決定、組成或結算指數時，將永豐投信或產品持有人之需求納入考量。ICE Data不負責亦未參與決定應發行產品之時機、價格或數量，或產品訂價、銷售、認購或贖回依據之決定或公式結算。除特定慣例指數結算服務以外，ICE Data提供之所有資料均為一般性質資料，非為永豐投信或其他任何人、實體或法人團體量身訂作之資料。ICE Data無義務且不負責管理、行銷或交易產品。ICE Data非投資顧問。ICE Data不推薦以納入指數範圍內證券之方式購買、銷售或持有該證券。納入指數範圍內證券亦不得被視為投資建議。ICE Data和其供應商否認任何包含指數、指數資料和該指數及資料所含、相關或衍生之資料(「指數資料」)之明示和/或默示保證和聲明，包括適銷性或特定目的或使用適合性之任何保證。ICE Data和其供應商不須負擔有關指數和指數資料適合性、正確性、適時性或完整性之任何損害賠償或責任。該指數和資料均按「原狀」提供，且於用時應自負風險。<strong><br />
+<br />
+<span style="color: #000000;">【</span>永豐中國科技50大ETF基金<span style="color: #000000;">】</span>本基金經金管會核准或同意生效，惟不表示絕無風險。基金經理公司以往之經理績效不保證基金之最低投資收益；基金經理公司除盡善良管理人之注意義務外，不負責本基金之盈虧，亦不保證最低之收益，投資人申購前應詳閱基金公開說明書。<span style="color: #ff0000;">本文提及之經濟走勢預測不必然代表本基金之績效，又投資人因不同時間進場，將有不同之投資績效，過去之績效亦不代表未來績效之保證，本基金投資風險請詳閱基金公開說明書。</span>有關基金應負擔之費用已揭露於基金公開說明書，投資人可向經理公司或銷售機構索取，或於經理公司官網、公開資訊觀測站查詢。<span style="color: #ff0000;">本基金為指數股票型基金，所追蹤之標的指數以中証全指指數為基礎，選出中証行業分類為資訊技術與電信業務，航空航太與國防、新能源設備、醫療器械、醫療保健技術、生物科技等產業之股票，故本基金之風險報酬等級為RR5。RR係計算成立年度之淨值波動度，並與同類型基金比較後決定，及參考投信投顧公會所訂分類標準等，風險報酬分類為RR1-RR5五級，數字愈大代表風險愈高。此等級分類係基於一般市場狀況反映市場價格波動風險，無法涵蓋所有風險（如：投資標的產業風險、信用風險、利率風險、流動性風險等），不宜作為投資唯一依據，投資人仍應注意所投資基金個別的風險。</span>本基金為指數股票型，採被動式管理方式，以追蹤標的指數之績效表現為目標，因此基金之投資績效將視其追蹤之標的指數走勢而定，若標的指數價格波動劇烈，本基金淨資產價值亦將隨之波動或下跌。本基金所投資成分證券檔數與所追蹤標的指數成分股檔數覆蓋率不低於80%，當標的指數之成分股發生剔除或增加入產生變化或權重改變時，受限跨市場交易之營業日不同，基金的投資組合內容未能及時調整與標的指數相同，可能使基金報酬與標的指數產生偏離。本基金主要投資於大陸地區之有價證券，由於大陸地區之政經情勢或法規變動較已開發國家劇烈，外匯的管制也較嚴格，仍存在投資地區、經濟變動之風險，且追蹤之標的指數為科技概念類股，其成分股雖經過挑選，但仍不排除存在類股過度集中之風險。本基金所涉之證券市場交易時間不同，因此基金所涉之證券市場交易可能有無法即時完全反應基金投資組合之價格波動風險。另本基金的淨值反應其一籃子成分市值總合，惟盤中即時估計淨值與實際基金淨值計算之投組內容亦可能有所差異，可能造成交易資訊傳遞落差之風險。本基金掛牌後之買賣成交價格無升降幅度限制，掛牌後應依臺灣證交所或櫃買中心掛牌有關規定辦理。投資人申購本基金係持有基金受益憑證，而非本文提及之投資資產或標的。本基金不受存款保險、保險安定基金或其他保護機制之保障。<br />
+</strong>指數免責聲明：中証科技50指數(&ldquo;指數&rdquo;)由中証指數有限公司(&ldquo;中証&rdquo;)編制和計算，其所有權歸屬中証。中証將採取一切必要措施以確保指數的準確性，但不對此作任何保證，亦不因指數的任何錯誤對任何人負責。<br />
+<br />
+<strong><span style="color: #000000;">【</span>永豐台灣智能車供應鏈ETF基金<span style="color: #000000;">】</span>本基金經金管會核准或同意生效，惟不表示絕無風險。基金經理公司以往之經理績效不保證基金之最低投資收益；基金經理公司除盡善良管理人之注意義務外，不負責本基金之盈虧，亦不保證最低之收益，投資人申購前應詳閱基金公開說明書。<span style="color: #ff0000;">本文提及之經濟走勢預測不必然代表本基金之績效，又投資人因不同時間進場，將有不同之投資績效，過去之績效亦不代表未來績效之保證，本基金投資風險請詳閱基金公開說明書。</span>有關基金應負擔之費用已揭露於基金公開說明書，投資人可向經理公司或銷售機構索取，或於經理公司官網、公開資訊觀測站查詢。<span style="color: #ff0000;">本基金為指數股票型，主要投資於國內，所追蹤之標的指數為特選臺灣智能車供應鏈聯盟指數，透過指數篩選原則，選取50檔成分股，故本基金之風險報酬等級為RR5。RR係計算成立年度之淨值波動度，並與同類型基金比較後決定，及參考投信投顧公會所訂分類標準等，風險報酬分類為RR1-RR5五級，數字愈大代表風險愈高。此等級分類係基於一般市場狀況反映市場價格波動風險，無法涵蓋所有風險（如：投資標的產業風險、信用風險、利率風險、流動性風險等），不宜作為投資唯一依據，投資人仍應注意所投資基金個別的風險。</span>本基金為指數股票型，採被動式管理方式，以追蹤標的指數之績效表現為目標，因此本基金之投資績效將視其追蹤之標的指數走勢而定，若標的指數價格波動劇烈，本基金淨資產價值亦將隨之波動或下跌。本基金所投資成分證券檔數與所追蹤標的指數成分股檔數覆蓋率不低於90%，當標的指數之成分股發生剔除或增加入產生變化或權重改變時，基金的投資組合內容未能及時調整與標的指數相同，可能使基金報酬與標的指數產生偏離。本基金將依標的指數進行最適之資產配置，然產業的循環週期或非經濟因素影響可能導致價格出現劇烈波動，使基金淨值在短期內出現較大幅度之波動，故可能產生類股過度集中之風險，經理公司將善盡管理義務，降低類股過度集中度風險，但不表示風險得以完全規避。本基金的淨值反應其一籃子成分市值總合，惟盤中即時估計淨值與實際基金淨值計算之投組內容亦可能有所差異，可能造成交易資訊傳遞落差之風險。</strong><span style="color: #ff0000;"><strong>部分可配息基金配息前未先扣除應負擔之相關費用，且基金的配息可能由基金的收益或本金或收益平準金中支付。任何涉及由本金支出的部份，可能導致原始投資金額以同等比例減損。基金配息不代表基金實際報酬，且過去配息不代表未來配息；基金淨值可能因市場因素而上下波動。基金經理公司不保證本基金最低之收益率或獲利，配息金額會因操作及收入來源而有變化，且投資之風險無法因分散投資而完全消除，投資人仍應自行承擔相關風險。投資人可至本公司官網查詢最近12個月內由本金支付之配息組成項目。各期間報酬率(含息)是假設收益分配均滾入再投資於本基金之期間累積報酬率。<span style="color: #000000;">本基金掛牌後之買賣成交價格無升降幅度限制，掛牌後應依臺灣證交所或櫃買中心掛牌有關規定辦理。</span></strong><span style="color: #000000;"><strong>投資人申購本基金係持有基金受益憑證，而非本文提及之投資資產或標的。本基金不受存款保險、保險安定基金或其他保護機制之保障。<br />
+</strong></span></span>指數免責聲明：臺灣指數公司特選上市上櫃臺灣智能車供應鏈聯盟指數係由臺灣指數股份有限公司(臺灣指數公司)及財團法人中華民國證券櫃檯買賣中心(櫃檯買賣中心)(以上機構合稱「合作單位」)共同開發並由臺灣指數公司單獨授權永豐證券投資信託股份有限公司使用發行「基金」。「合作單位」並未以任何方式贊助、背書、出售或促銷「基金」且「合作單位」亦未明示或默示對使用指數之結果及或指數於任一特定日期之任一特定時間或其他時間之數據提供任何保證或聲明。指數係由臺灣指數公司所計算。然「合作單位」就指數之任何錯誤、不正確、遺漏或指數資料之傳輸中斷對任何人均不負任何責任，且無任何義務將該等錯誤、不正確或遺漏通知任何人。</p>
+<p><span><span style="color: #000000;"><strong>【永豐10年期以上美元A級公司債券ETF基金<span style="color: #ff0000;">(本基金之配息來源可能為收益平準金且並無保證收益及配息)</span>】本基金經金管會核准或同意生效，惟不表示絕無風險。基金經理公司以往之經理績效不保證基金之最低投資收益；基金經理公司除盡善良管理人之注意義務外，不負責本基金之盈虧，亦不保證最低之收益，投資人申購前應詳閱基金公開說明書。<span style="color: #ff0000;">本文提及之經濟走勢預測不必然代表本基金之績效，又投資人因不同時間進場，將有不同之投資績效，過去之績效亦不代表未來績效之保證，本基金投資風險請詳閱基金公開說明書。</span>有關基金應負擔之費用已揭露於基金公開說明書，投資人可向經理公司或銷售機構索取，或於經理公司官網、公開資訊觀測站查詢。<span style="color: #ff0000;">本基金為指數股票型基金，所追蹤之標的指數成分債主要為在美國發行之美元計價公司債，信用評級為A級投資等級，故本基金之風險報酬等級為RR2。RR係計算成立年度之淨值波動度，並與同類型基金比較後決定，及參考投信投顧公會所訂分類標準等，風險報酬分類為RR1-RR5五級，數字愈大代表風險愈高。此等級分類係基於一般市場狀況反映市場價格波動風險，無法涵蓋所有風險（如：基金計價幣別匯率風險、投資標的產業風險、信用風險、利率風險、流動性風險等），不宜作為投資唯一依據，投資人仍應注意所投資基金個別的風險。</span>本基金為指數股票型，採被動式管理方式，以追蹤標的指數之績效表現為目標，因此基金之投資績效將視其追蹤之標的指數走勢而定，若標的指數價格波動劇烈，本基金淨資產價值亦將隨之波動或下跌。本基金所投資成分券檔數與所追蹤標的指數成分券檔數覆蓋率依基金淨資產價值不低於50%，當標的指數之成分券發生剔除或增加入產生變化或權重改變時，受限跨市場交易之營業日不同，基金的投資組合內容未能及時調整與標的指數相同，可能使基金報酬與標的指數產生偏離。<span style="color: #ff0000;">本基金可投資於美國Rule 144A債券，該債券屬私募性質，故發行人財務狀況較不透明且僅能轉讓予合格機構投資者，故較可能發生流動性不足、財務訊息揭露不完整或因價格不透明導致波動性較大之風險。</span>本基金所涉之證券市場交易可能有無法即時完全反應基金投資組合之價格波動風險。本基金所涉之各證券市場交易時間不同，因此本基金所涉之證券市場交易可能有無法即時完全反應基金投資組合之價格波動風險。另基金的淨值反應其一籃子成分市值總合，惟盤中即時估計淨值與實際基金淨值計算之投組內容亦可能有所差異，可能造成交易資訊傳遞落差之風險。</strong><span style="color: #ff0000;"><strong>部分可配息基金配息前未先扣除應負擔之相關費用，且基金的配息可能由基金的收益或本金或收益平準金中支付。任何涉及由本金支出的部份，可能導致原始投資金額以同等比例減損。基金配息不代表基金實際報酬，且過去配息不代表未來配息；基金淨值可能因市場因素而上下波動。基金經理公司不保證本基金最低之收益率或獲利，配息金額會因操作及收入來源而有變化，且投資之風險無法因分散投資而完全消除，投資人仍應自行承擔相關風險。投資人可至本公司官網查詢最近12個月內由本金支付之配息組成項目。各期間報酬率(含息)是假設收益分配均滾入再投資於本基金之期間累積報酬率。<span style="color: #000000;">本基金掛牌後之買賣成交價格無升降幅度限制，掛牌後應依臺灣證交所或櫃買中心掛牌有關規定辦理。</span></strong><strong><span style="color: #000000;">投資人申購本基金係持有基金受益憑證，而非本文提及之投資資產或標的。本基金不受存款保險、保險安定基金或其他保護機制之保障。</span></strong></span><br />
+</span><span style="color: #000000;">指數免責聲明：經許可使用來源ICE Data Indices, LLC（「以下稱ICE Data」）。ICE 10年期以上美元A級公司債券指數（ICE 10+ Year Core Large Cap Single-A US Corporate Index）SM/&reg; 係ICE Data或其關係企業之服務／營業標章，且已與指數一併授權以供永豐投信使用之。永豐投信及本基金均非 由ICE Data Indices, LLC、其關係企業或第三人供應商（「ICE Data和其供應商」）贊助、背書、販售或宣傳。ICE Data和其供應商針對尤其是產品內之證券投資明智性、信託或指數追蹤一般市場績效之能力，不做任何相關聲明或保證。指數過去之績效，並非未來成果保證之指標。ICE Data和其供應商否認任何包含指數、指數資料和該指數及資料所含、相關或衍生之資料（「指數資料」）之明示和／或默示保證和聲明，包括適銷性或特定目的或使用適合性之任何保證。ICE Data和其供應商不須負擔有關指數和指數資料適合性、正確性、適時性或完整性之任何損害賠償或責任。該指數和資料均按「原狀」提供，且應於使用時自負風險。</span><span style="color: #000000;"><br />
+<br />
+<strong>【永豐1至3年期美國公債ETF基金<span style="color: #ff0000;">(本基金之配息來源可能為收益平準金且並無保證收益及配息)</span>】本基金經金管會核准或同意生效，惟不表示絕無風險。基金經理公司以往之經理績效不保證基金之最低投資收益；基金經理公司除盡善良管理人之注意義務外，不負責本基金之盈虧，亦不保證最低之收益，投資人申購前應詳閱基金公開說明書。<span style="color: #ff0000;">本文提及之經濟走勢預測不必然代表本基金之績效，又投資人因不同時間進場，將有不同之投資績效，過去之績效亦不代表未來績效之保證，本基金投資風險請詳閱基金公開說明書。</span>有關基金應負擔之費用已揭露於基金公開說明書，投資人可向經理公司或銷售機構索取，或於經理公司官網、公開資訊觀測站查詢。<span style="color: #ff0000;">本基金為指數股票型基金，所追蹤之標的指數成分債主要為美國財政部發行之信評為AAA級美元計價公債，流通在外餘額(Outstanding Amount)需達10億美元以上，債券距離到期日須介於1-3年，故本基金之風險報酬等級為RR2。RR係計算成立年度之淨值波動度，並與同類型基金比較後決定，及參考投信投顧公會所訂分類標準等，風險報酬分類為RR1-RR5五級，數字愈大代表風險愈高。此等級分類係基於一般市場狀況反映市場價格波動風險，無法涵蓋所有風險（如：基金計價幣別匯率風險、投資標的產業風險、信用風險、利率風險、流動性風險等），不宜作為投資唯一依據，投資人仍應注意所投資基金個別的風險。</span>本基金為指數股票型，採被動式管理方式，以追蹤標的指數之績效表現為目標，因此基金之投資績效將視其追蹤之標的指數走勢而定，若標的指數價格波動劇烈，本基金淨資產價值亦將隨之波動或下跌。本基金所投資成分券檔數與所追蹤標的指數成分券檔數覆蓋率依基金淨資產價值不低於30%~50%，當標的指數之成分券發生剔除或增加入產生變化或權重改變時，受限跨市場交易之營業日不同，基金的投資組合內容未能及時調整與標的指數相同，可能使基金報酬與標的指數產生偏離。<span style="color: #ff0000;">本基金可投資於美國Rule 144A債券，該債券屬私募性質，故發行人財務狀況較不透明且僅能轉讓予合格機構投資者，故較可能發生流動性不足、財務訊息揭露不完整或因價格不透明導致波動性較大之風險。</span>本基金所涉之各證券市場交易時間不同，因此本基金所涉之證券市場交易可能有無法即時完全反應基金投資組合之價格波動風險。另基金的淨值反應其一籃子成分市值總合，惟盤中即時估計淨值與實際基金淨值計算之投組內容亦可能有所差異，可能造成交易資訊傳遞落差之風險。</strong></span><span style="color: #000000;"><span style="color: #ff0000;"><strong>部分可配息基金配息前未先扣除應負擔之相關費用，且基金的配息可能由基金的收益或本金或收益平準金中支付。任何涉及由本金支出的部份，可能導致原始投資金額以同等比例減損。基金配息不代表基金實際報酬，且過去配息不代表未來配息；基金淨值可能因市場因素而上下波動。基金經理公司不保證本基金最低之收益率或獲利，配息金額會因操作及收入來源而有變化，且投資之風險無法因分散投資而完全消除，投資人仍應自行承擔相關風險。投資人可至本公司官網查詢最近12個月內由本金支付之配息組成項目。各期間報酬率(含息)是假設收益分配均滾入再投資於本基金之期間累積報酬率。<span style="color: #000000;">本基金掛牌後之買賣成交價格無升降幅度限制，掛牌後應依臺灣證交所或櫃買中心掛牌有關規定辦理。</span></strong><strong><span style="color: #000000;">投資人申購本基金係持有基金受益憑證，而非本文提及之投資資產或標的。本基金不受存款保險、保險安定基金或其他保護機制之保障。</span></strong></span><br />
+</span></span><span><span style="color: #000000;">指數免責聲明：經許可使用來源ICE Data Indices, LLC（「以下稱ICE Data」）。ICE 1-3年期美國公債指數(ICE BofAML 1-3 Year US Treasury Index）SM/&reg; 係ICE Data或其關係企業之服務／營業標章，且已與指數一併授權以供永豐投信使用之。永豐投信及本基金均非由ICE Data Indices, LLC、其關 係企業或第三人供應商（「ICE Data和其供應商」）贊助、背書、販售或宣傳。ICE Data和其供應商針對尤其是產品內之證券投資明智性、信託或指數追蹤一般市場績效之能力，不做任何相關聲明或保證。指數過去之績效，並非未來成果保證之指標。ICE Data和其供應商否認任何包含指數、指數資料和該指數及資料所含、相關或衍生之資料（「指數資料」）之明示和／或默示保證和聲明，包括適銷性或特定目的或使用適合性之任何保證。ICE Data和其供應商不須負擔有關指數和指數資料適合性、正確性、適時性或完整性之任何損害賠償或責任。該指數和資料均按「原狀」提供，且應於使用時自負風險。</span><span style="color: #000000;"><br />
+<br />
+<strong>【永豐20年期以上美國公債ETF基金<span style="color: #ff0000;">(本基金之配息來源可能為收益平準金且並無保證收益及配息)</span>】本基金經金管會核准或同意生效，惟不表示絕無風險。基金經理公司以往之經理績效不保證基金之最低投資收益；基金經理公司除盡善良管理人之注意義務外，不負責本基金之盈虧，亦不保證最低之收益，投資人申購前應詳閱基金公開說明書。<span style="color: #ff0000;">本文提及之經濟走勢預測不必然代表本基金之績效，又投資人因不同時間進場，將有不同之投資績效，過去之績效亦不代表未來績效之保證，本基金投資風險請詳閱基金公開說明書。</span>有關基金應負擔之費用已揭露於基金公開說明書，投資人可向經理公司或銷售機構索取，或於經理公司官網、公開資訊觀測站查詢。<span style="color: #ff0000;">本基金為指數股票型基金，所追蹤之標的指數成分債主要為美國財政部發行之信評為AAA級美元計價公債，流通在外餘額(Outstanding Amount)需達10億美元以上，債券距離到期日須大於等於20年，故本基金之風險報酬等級為RR2。RR係計算成立年度之淨值波動度，並與同類型基金比較後決定，及參考投信投顧公會所訂分類標準等，風險報酬分類為RR1-RR5五級，數字愈大代表風險愈高。此等級分類係基於一般市場狀況反映市場價格波動風險，無法涵蓋所有風險（如：基金計價幣別匯率風險、投資標的產業風險、信用風險、利率風險、流動性風險等），不宜作為投資唯一依據，投資人仍應注意所投資基金個別的風險。</span>本基金為指數股票型，採被動式管理方式，以追蹤標的指數之績效表現為目標，因此基金之投資績效將視其追蹤之標的指數走勢而定，若標的指數價格波動劇烈，本基金淨資產價值亦將隨之波動或下跌。本基金所投資成分券檔數與所追蹤標的指數成分券檔數覆蓋率依基金淨資產價值不低於30%~80%，當標的指數之成分券發生剔除或增加入產生變化或權重改變時，受限跨市場交易之營業日不同，基金的投資組合內容未能及時調整與標的指數相同，可能使基金報酬與標的指數產生偏離。<span style="color: #ff0000;">本基金可投資於美國Rule 144A債券，該債券屬私募性質，故發行人財務狀況較不透明且僅能轉讓予合格機構投資者，故較可能發生流動性不足、財務訊息揭露不完整或因價格不透明導致波動性較大之風險。本基金所涉之各證券市場交易時間不同，因此本基金所涉之證券市場交易可能有無法即時完全反應基金投資組合之價格波動風險。</span>另基金的淨值反應其一籃子成分市值總合，惟盤中即時估計淨值與實際基金淨值計算之投組內容亦可能有所差異，可能造成交易資訊傳遞落差之風險。</strong><span style="color: #ff0000;"><strong>部分可配息基金配息前未先扣除應負擔之相關費用，且基金的配息可能由基金的收益或本金或收益平準金中支付。任何涉及由本金支出的部份，可能導致原始投資金額以同等比例減損。基金配息不代表基金實際報酬，且過去配息不代表未來配息；基金淨值可能因市場因素而上下波動。基金經理公司不保證本基金最低之收益率或獲利，配息金額會因操作及收入來源而有變化，且投資之風險無法因分散投資而完全消除，投資人仍應自行承擔相關風險。投資人可至本公司官網查詢最近12個月內由本金支付之配息組成項目。各期間報酬率(含息)是假設收益分配均滾入再投資於本基金之期間累積報酬率。<span style="color: #000000;">本基金掛牌後之買賣成交價格無升降幅度限制，掛牌後應依臺灣證交所或櫃買中心掛牌有關規定辦理。</span></strong><strong><span style="color: #000000;">投資人申購本基金係持有基金受益憑證，而非本文提及之投資資產或標的。本基金不受存款保險、保險安定基金或其他保護機制之保障。</span></strong></span><br />
+</span></span><span><span style="color: #000000;">指數免責聲明：經許可使用來源ICE Data Indices, LLC（「以下稱ICE Data」）。ICE 20年期以上美國公債指數（ICE BofAML 20+ Year US Treasury Index）SM/&reg; 係ICE Data或其關係企業之服務／營業標章，且已與指數一併授權以供永豐投信使用之。永豐投信及本基金均非由ICE Data Indices, LLC、其關係企業或第三人供應商（「ICE Data和其供應商」）贊助、背書、販售或宣傳。ICE Data和其供應商針對尤其是產品內之證券投資明智性、信託或指數追蹤 一般市場績效之能力，不做任何相關聲明或保證。指數過去之績效，並非未來成果保證之指標。ICE Data和其供應商否認任何包含指數、指數資料和該指數及資料所含、相關或衍生之資料（「指數資料」）之明示和／或默示保證和聲明，包括適銷性或特定目的或使用適合性之任何保證。ICE Data和其供應商不須負擔有關指數和指數資料適合性、正確性、適時性或完整性之任何損害賠償或責任。該指數和資料均按「原狀」提供，且應於使用時自負風險。</span></span><strong><span style="color: #000000;">&nbsp;</span><br />
+</strong><span style="color: #870303;"><span style="color: #000000;"><br />
+<strong>【永豐貨幣市場基金】本基金經金管會核准或同意生效，惟不表示絕無風險。基金經理公司以往之經理績效不保證基金之最低投資收益；基金經理公司除盡善良管理人之注意義務外，不負責本基金之盈虧，亦不保證最低之收益，投資人申購前應詳閱基金公開說明書。<span style="color: #ff0000;">本文提及之經濟走勢預測不必然代表本基金之績效，又投資人因不同時間進場，將有不同之投資績效，過去之績效亦不代表未來績效之保證，本基金投資風險請詳閱基金公開說明書。</span>有關基金應負擔之費用已揭露於基金公開說明書，投資人可向經理公司或銷售機構索取，或於經理公司官網、公開資訊觀測站查詢。<span style="color: #ff0000;">本基金為貨幣市場型基金，流動性佳，以追求穩定收益為目標，故本基金之風險報酬等級為RR1。風險報酬等級為本公司依照投信投顧同業公會「基金風險報酬等級分類標準」編製，該風險報酬等級RR係計算過去5年基金淨值波動度標準差，以標準差區間予以分類等級，分類為RR1-RR5五級，數字愈大代表風險愈高。此等級分類係基於一般市場狀況反映市場價格波動風險，無法涵蓋所有風險（如：投資標的產業風險、信用風險、利率風險、流動性風險等），不宜作為投資唯一依據，投資人仍應注意所投資基金個別的風險。</span>本基金投資之風險請詳閱本基金公開說明書。投資人申購本基金係持有基金受益憑證，而非本文提及之投資資產或標的。本基金不受存款保險、保險安定基金或其他保護機制之保障。</strong></span></span><br />
+<br />
+<strong>【永豐新興市場及非投資等級雙債組合基金<span style="color: #ff0000;">（本基金主要投資於高風險非投資等級債券基金且基金之配息來源可能為本金）</span>】本基金經金管會核准或同意生效，惟不表示絕無風險。基金經理公司以往之經理績效不保證基金之最低投資收益；基金經理公司除盡善良管理人之注意義務外，不負責本基金之盈虧，亦不保證最低之收益，投資人申購前應詳閱基金公開說明書。<span style="color: #ff0000;">本文提及之經濟走勢預測不必然代表本基金之績效，又投資人因不同時間進場，將有不同之投資績效，過去之績效亦不代表未來績效之保證，本基金投資風險請詳閱基金公開說明書。</span>有關基金應負擔之費用已揭露於基金公開說明書，投資人可向經理公司或銷售機構索取，或於經理公司官網、公開資訊觀測站查詢。<span style="color: #ff0000;">本基金為組合型基金，主要投資於非投資等級債券基金及新興市場債券基金，以追求中長期資本利得與穩定成長的收益為目標，本基金之風險報酬等級為RR3。RR係計算成立年度之淨值波動度，並與同類型基金比較後決定，及參考投信投顧公會所訂分類標準等，風險報酬分類為RR1-RR5五級，數字愈大代表風險愈高。此等級分類係基於一般市場狀況反映市場價格波動風險，無法涵蓋所有風險（如：投資標的產業風險、信用風險、利率風險、流動性風險等），不宜作為投資唯一依據，投資人仍應注意所投資基金個別的風險。本基金主要投資於非投資等級債券基金及新興市場債券基金，非投資等級債券基金之投資標的涵蓋低於投資等級之垃圾債券，故該等基金需承受較大之價格波動，而利率風險、信用違約風險、外匯波動風險也將高於一般投資等級之債券型基金；</span>新興市場債券基金因投資標的屬新興市場國家之債券，該等債券對利率風險和信用風險呈現較敏感的價格反應，而使其淨值波動較大。此外，有些地區或國家可能因政治、經濟不穩定而增加其無法償付本金及利息的信用風險。尤其在經濟景氣衰退期間，稍有不利消息，此類債券價格的波動可能較為劇烈。此外，新興市場國家之幣值穩定度和通貨膨脹控制情況等因素，亦容易影響此類債券價格，進而影響新興市場債券基金之淨值，造成本基金淨值之波動。</strong><span style="color: #ff0000;"><strong>部分可配息基金配息前未先扣除應負擔之相關費用，且基金的配息可能由基金的收益或本金或收益平準金中支付。任何涉及由本金支出的部份，可能導致原始投資金額以同等比例減損。基金配息不代表基金實際報酬，且過去配息不代表未來配息；基金淨值可能因市場因素而上下波動。基金經理公司不保證本基金最低之收益率或獲利，配息金額會因操作及收入來源而有變化，且投資之風險無法因分散投資而完全消除，投資人仍應自行承擔相關風險。投資人可至本公司官網查詢最近12個月內由本金支付之配息組成項目。各期間報酬率(含息)是假設收益分配均滾入再投資於本基金之期間累積報酬率。本基金配息前未先扣除應負擔之相關費用，投資人於申購時應謹慎考量。本基金投資子基金部份，可能涉有重複收取經理費。</strong><span style="color: #ff0000;"><span style="color: #000000;"><strong>投資人申購本基金係持有基金受益憑證，而非本文提及之投資資產或標的。本基金不受存款保險、保險安定基金或其他保護機制之保障。</strong></span></span><br />
+</span><br />
+<strong><span style="color: #000000;">【</span>永豐新興市場企業債券基金<span style="color: #ff0000;">（本基金可投資於相當比例非投資等級之高風險債券且基金之配息來源可能為本金）<span style="color: #000000;">】</span></span><span style="color: #000000;">本基金經金管會核准或同意生效，惟不表示絕無風險。基金經理公司以往之經理績效不保證基金之最低投資收益；基金經理公司除盡善良管理人之注意義務外，不負責本基金之盈虧，亦不保證最低之收益，投資人申購前應詳閱基金公開說明書。<span style="color: #ff0000;">本文提及之經濟走勢預測不必然代表本基金之績效，又投資人因不同時間進場，將有不同之投資績效，過去之績效亦不代表未來績效之保證，本基金投資風險請詳閱基金公開說明書。</span>有關基金應負擔之費用已揭露於基金公開說明書，投資人可向經理公司或銷售機構索取，或於經理公司官網、公開資訊觀測站查詢。</span><span style="color: #000000;">由於非投資等級債券之信用評等未達投資等級或未經信用評等，且對利率變動的敏感度甚高，故本基金可能會因利率上升、市場流動性下降，或債券發行機構違約不支付本金、利息或破產而蒙受虧損。<span style="color: #ff0000;">本基金不適合無法承擔相關風險之投資人。本基金適合尋求投資固定潛在收益且能承受較高風險之非保守型投資人。投資人投資以非投資等級債券為訴求之基金不宜占其投資組合過高之比重。本基金為債券型基金，主要投資於新興市場債券，並可投資於相當比例之非投資等級債券，故本基金之風險報酬等級為RR3。風險報酬等級為本公司依照投信投顧同業公會「基金風險報酬等級分類標準」編製，該風險報酬等級RR係計算過去5年基金淨值波動度標準差，以標準差區間予以分類等級，分類為RR1-RR5五級，數字愈大代表風險愈高。此等級分類係基於一般市場狀況反映市場價格波動風險，無法涵蓋所有風險（如：基金計價幣別匯率風險、投資標的產業風險、信用風險、利率風險、流動性風險等），不宜作為投資唯一依據，投資人仍應注意所投資基金個別的風險。</span>本基金主要投資標的為新興市場公司債及金融債券，其中新興市場相較於已開發國家的有價證券有更高的價格波動及更低的流動性，投資於新興市場須承受更多的風險。當新興市場的國家政治、經濟情勢或法規變動，亦可能對本基金可投資市場及投資工具造成直接或間接的影響。另外，新興市場國家的外匯管制較成熟市場多，故匯率變動風險較大，雖然本基金可從事遠期外匯或換匯交易之操作，以降低外匯的匯兌風險，但不表示得以完全規避。<span style="color: #ff0000;">本基金可投資於美國Rule144A債券，該債券係指美國債券市場上，由發行人直接對合格機構投資者(Qualified Institutional Buyers)私募之債券，此類債券因屬私募性質，故發行人財務狀況較不透明且僅能轉讓予合格機構投資者，故較可能發生流動性不足、財務訊息揭露不完整或因價格不透明導致波動性較大之風險。部分可配息基金配息前未先扣除應負擔之相關費用，且基金的配息可能由基金的收益或本金或收益平準金中支付。任何涉及由本金支出的部份，可能導致原始投資金額以同等比例減損。基金配息不代表基金實際報酬，且過去配息不代表未來配息；基金淨值可能因市場因素而上下波動。基金經理公司不保證本基金最低之收益率或獲利，配息金額會因操作及收入來源而有變化，且投資之風險無法因分散投資而完全消除，投資人仍應自行承擔相關風險。投資人可至本公司官網查詢最近12個月內由本金支付之配息組成項目。各期間報酬率(含息)是假設收益分配均滾入再投資於本基金之期間累積報酬率。本基金進行配息前未先扣除行政管理相關費用，投資人於申購時應謹慎考量</span></span>。</strong><strong>投資人申購本基金係持有基金受益憑證，而非本文提及之投資資產或標的。本基金不受存款保險、保險安定基金或其他保護機制之保障。</strong><br />
+<span style="color: #800000;"><span style="color: #000000;"><br />
+<!--2020/05/13清算 永豐標普東南亞基金指數免責聲明：S&amp;P Southeast Asia 40 Index 是 S&amp;P Dow Jones Indices LLC（&ldquo;SPDJI&rdquo;）的一款產品，且已授權予永豐投信使用。Standard &amp; Poor&rsquo;s&reg; 與S&amp;P&reg; 均為 Standard &amp; Poor&rsquo;s Financial Services LLC（&ldquo;S&amp;P&rdquo;）的註冊商標；Dow Jones&reg; 是 Dow Jones Trademark Holdings LLC（&ldquo;Dow Jones&rdquo;）的註冊商標；這些商標已授權予 SPDJI 使用，並已從屬授權予永豐投信用於特定用途。SPDJI、Dow Jones、S&amp;P 及其各自的附屬公司均不保薦、擔保、銷售或推廣永豐投信的永豐標普東南亞指數基金，而且他們中的任何一方既不對投資有關產品的合理性做出任何聲明，也不就 S&amp;P Southeast Asia 40Index 的任何錯誤、遺漏或中斷承擔任何法律責任。</span></span><br /><br /></strong></span>--><strong>【永豐全球多元入息基金<span style="color: #ff0000;">（</span></strong></span></span><strong><span style="color: #ff0000;">本基金有相當比重投資於非投資等級之高風險債券基金且配息來源可能為本金且並無保證收益及配息</span></strong><span style="color: #800000;"><span style="color: #000000;"><strong><span style="color: #ff0000;">）】</span>本基金經金管會核准或同意生效，惟不表示絕無風險。基金經理公司以往之經理績效不保證基金之最低投資收益；基金經理公司除盡善良管理人之注意義務外，不負責本基金之盈虧，亦不保證最低之收益，投資人申購前應詳閱基金公開說明書。<span style="color: #ff0000;">本文提及之經濟走勢預測不必然代表本基金之績效，又投資人因不同時間進場，將有不同之投資績效，過去之績效亦不代表未來績效之保證，本基金投資風險請詳閱基金公開說明書。</span>有關基金應負擔之費用已揭露於基金公開說明書，投資人可向經理公司或銷售機構索取，或於經理公司官網、公開資訊觀測站查詢。本基金進行配息前未先扣除應負擔之相關費用，投資人於申購時應謹慎考量。本基金投資子基金部份，可能涉有重複收取經理費。<span style="color: #ff0000;">本基金有相當比重投資於非投資等級之高風險債券基金，該等基金需承受較大之價格波動，而利率風險、信用違約風險、外匯波動風險也將高於一般投資等級之債券型基金。</span>此外，本基金所投資的子基金之投資標的，可能因國家或地區之政治、經濟不穩定而增加其無法償付本金及利息的信用風險，造成本基金淨值之波動。投資人如以非本基金計價幣別之貨幣換匯後申購基金，須自行承擔匯率變動之風險。此外因投資人與銀行進行外匯交易有買價與賣價之差異，投資人進行換匯時須承擔買賣價差，此價差依各銀行報價而定。另，投資人尚須承擔匯款費用且外幣匯款費用可能高於新臺幣匯款費用，投資人亦須留意外幣匯款到達時點可能因受款行作業時間而遞延。<span style="color: #ff0000;">本基金為組合型基金，主要投資全球各類資產，以追求中長期資本利得與穩定成長的收益為目標，故本基金之風險報酬等級為RR3。風險報酬等級為本公司依照投信投顧同業公會「基金風險報酬等級分類標準」編製，該風險報酬等級RR係計算過去5年基金淨值波動度標準差，以標準差區間予以分類等級，分類為RR1-RR5五級，數字愈大代表風險愈高。此等級分類係基於一般市場狀況反映市場價格波動風險，無法涵蓋所有風險（如：基金計價幣別匯率風險、投資標的產業風險、信用風險、利率風險、流動性風險等），不宜作為投資唯一依據，投資人仍應注意所投資基金個別的風險。<span style="color: #993300;"><span style="color: #ff0000;">部分可配息基金配息前未先扣除應負擔之相關費用，且基金的配息可能由基金的收益或本金或收益平準金中支付。任何涉及由本金支出的部份，可能導致原始投資金額以同等比例減損。基金配息不代表基金實際報酬，且過去配息不代表未來配息；基金淨值可能因市場因素而上下波動。基金經理公司不保證本基金最低之收益率或獲利，配息金額會因操作及收入來源而有變化，且投資之風險無法因分散投資而完全消除，投資人仍應自行承擔相關風險。投資人可至本公司官網查詢最近12個月內由本金支付之配息組成項目。各期間報酬率(含息)是假設收益分配均滾入再投資於本基金之期間累積報酬率。</span><span style="color: #000000;">投資人申購本基金係持有基金受益憑證，而非本文提及之投資資產或標的。本基金不受存款保險、保險安定基金或其他保護機制之保障。</span></span></span><br />
+</strong></span></span></p>
+<p><strong>【永豐全球基礎建設及公用事業投資等級債券基金<span style="color: #ff0000;">(本基金有一定比重得投資於非投資等級之高風險債券且配息來源可能為本金)</span>】</strong><span style="color: #000000;"><strong>本基金經金管會核准或同意生效，惟不表示絕無風險。經理公司以往之經理績效不保證基金最低投資收益，經理公司除盡善良管理人之注意義務外，不負責本基金盈虧，亦不保證最低收益，投資人申購前應詳閱基金公開說明書。本文提及之經濟走勢預測不必然代表本基金之績效，本基金投資風險請詳閱基金公開說明書，本基金之投資風險及應負擔費用已揭露於基金公開說明書，投資人可向經理公司或銷售機構索取，或於經理公司官網、公開資訊觀測站查詢。<span style="color: #ff0000;">本文提及之經濟走勢預測不必然代表本基金之績效，又投資人因不同時間進場，將有不同之投資績效，過去之績效亦不代表未來績效之保證，本基金投資風險請詳閱基金公開說明書。</span>匯率走勢可能影響所投資之海外資產而使資產價值變動。以非基金計價幣別之貨幣換匯後投資本基金者，須自行承擔匯率變動風險。<span style="color: #800000;"><span style="color: #ff0000;">本基金為債券型基金，聚焦於全球基礎建設及公用事業所發行以美元計價投資等級債券（包含公司債與金融債券），本基金之風險報酬等級為RR2。RR係計算成立年度之淨值波動度，並與同類型基金比較後決定，另綜合考量以下各項之投資風險，及參考中華民國證券投資信託暨顧問商業同業公會所訂分類標準等，風險報酬分類為RR1-RR5五級，數字愈大代表風險愈高。此等級分類係基於一般市場狀況反映市場價格波動風險，無法涵蓋所有風險（如：基金計價幣別匯率風險、投資標的產業風險、信用風險、利率風險、流動性風險等），不宜作為投資唯一依據，投資人仍應注意所投資基金個別的風險。</span></span><span style="color: #ff0000;">本基金可投資於美國Rule 144A債券，該債券屬私募性質，發行人財務不透明且僅能轉讓予合格機構投資者，故可能發生流動性不足、財務揭露不完整或因價格不透明導致波動風險。非投資等級債券之信用評等未達投資等級或未經信用評等，且對利率變動的敏感度甚高，故本基金可能因利率上升、市場流動性下降，或債券發行機構違約不支付本金、利息或破產而蒙受虧損。本基金不適合無法承擔相關風險之投資人。本基金適合尋求投資固定潛在收益且能承受較高風險之非保守型投資人。投資人投資以非投資等級債券為訴求之基金不宜占其投資組合過高之比重。本基金配息前可能未先扣除應負擔之費用。部分可配息基金配息前未先扣除應負擔之相關費用，且基金的配息可能由基金的收益或本金或收益平準金中支付。任何涉及由本金支出的部份，可能導致原始投資金額以同等比例減損。基金配息不代表基金實際報酬，且過去配息不代表未來配息；基金淨值可能因市場因素而上下波動。基金經理公司不保證本基金最低之收益率或獲利，配息金額會因操作及收入來源而有變化，且投資之風險無法因分散投資而完全消除，投資人仍應自行承擔相關風險。投資人可至本公司官網查詢最近12個月內由本金支付之配息組成項目。各期間報酬率(含息)是假設收益分配均滾入再投資於本基金之期間累積報酬率。</span>遞延手續費N類型受益權單位，手續費於買回時支付，持有未滿1年(含)、2年(含)、3年(含)，費率依序為3%、2%、1%，超過3年免付。</strong><span style="color: #000000;"><strong>投資人申購本基金係持有基金受益憑證，而非本文提及之投資資產或標的。本基金不受存款保險、保險安定基金或其他保護機制之保障。</strong></span></span></p>
+<p><strong>【永豐台灣</strong><strong>ESG</strong><strong>低碳高</strong><strong>息 </strong><strong>40</strong> <strong>ETF<span style="color: #ff0000;">(本基金之配息來源可能為收益平準金且並無保證收益及配息)</span>】本基金經金管會核准或同意生效，惟不表示絕無風險。經理公司以往之經理績效不保證基金之最低投資收益，經理公司除盡善良管理人之注意義務外，不負責本基金之盈虧，亦不保證最低之收益，投資人申購前應詳閱基金公開說明書。有關基金投資風險及應負擔之費用已揭露於基金公開說明書，投資人可向經理公司及銷售機構索取，或於經理公司官網、公開資訊觀測站查詢。本資料所提及之個股、指數、投資標的等，僅為舉例說明之用，不代表任何基金必然之投資，亦不代表任何投資之推薦。本文提及之經濟走勢預測不必然代表本基金之績效，又投資人因不同時間進場，將有不同之投資績效，過去之績效亦不代表未來績效之保證，本基金投資風險請詳閱基金公開說明書。ETF基金於臺灣證券交易所或櫃買中心掛牌，掛牌後買賣成交價格及升降幅限制依各該規定辦理。<span style="color: #ff0000;">部分可配息基金配息前未先扣除應負擔之相關費用，且基金的配息可能由基金的收益或本金或收益平準金中支付。任何涉及由本金支出的部份，可能導致原始投資金額以同等比例減損。基金配息不代表基金實際報酬，且過去配息不代表未來配息；基金淨值可能因市場因素而上下波動。基金經理公司不保證本基金最低之收益率或獲利，配息金額會因操作及收入來源而有變化，且投資之風險無法因分散投資而完全消除，投資人仍應自行承擔相關風險。投資人可至本公司官網查詢最近12個月內由本金支付之配息組成項目。各期間報酬率(含息)是假設收益分配均滾入再投資於本基金之期間累積報酬率。</span>有關本基金之ESG資訊，投資人應於申購前詳閱基金公開說明書所載之基金所有特色或目標等資訊，相關資訊可透過經理公司網站（sitc.sinopac.com）查詢。本基金為指數股票型基金，所追蹤的標的指數為臺灣ESG低碳高息40指數，選出符合ESG、低碳、高息兼具的40檔成分股建置投資組合，</strong><span style="color: #ff0000;"><strong>本基金之風險報酬等級為RR4。RR係計算成立年度之淨值波動度，並與同類型基金比較後決定，及參考投信投顧公會所訂分類標準等，風險報酬分類為RR1-RR5五級，數字愈大代表風險愈高。此等級分類係基於一般市場狀況反映市場價格波動風險，無法涵蓋所有風險（如：投資標的產業風險、信用風險、利率風險、流動性風險等），不宜作為投資唯一依據，投資人仍應注意所投資基金個別的風險。本基金採被動式管理方式，以追蹤標的指數之績效表現為目標，因此本基金之投資績效將視其追蹤之標的指數走勢而定，若標的指數價格波動劇烈，本基金淨資產價值亦將隨之波動或下跌。本基金所投資成分證券檔數與所追蹤標的指數成分股檔數覆蓋率不低於90%，當標的指數之成分股發生剔除或增加入產生變化或權重改變時，基金的投資組合內容未能及時調整與標的指數相同，可能使基金報酬與標的指數產生偏離。<span style="color: #000000;">本基金掛牌後之買賣成交價格無升降幅度限制，掛牌後應依臺灣證交所或櫃買中心掛牌有關規定辦理。</span></strong><strong><span style="color: #000000;">投資人申購本基金係持有基金受益憑證，而非本文提及之投資資產或標的。本基金不受存款保險、保險安定基金或其他保護機制之保障。</span></strong></span><br />
+指數聲明：臺灣指數公司特選臺灣上市上櫃<span>ESG</span>低碳高息<span>40</span>指數<span>(</span>簡稱「特選臺灣<span>ESG</span>低碳高息<span>40</span>指數」<span>)</span>係以臺灣上市上櫃股票為母體，經流動性指標篩選後，利用臺灣指數公司蒐集自永續報告書所揭露之碳排放資料，綜合考量企業碳排放量以及其對企業營收之影響，結合臺灣指數公司使用永續報告書、年報、政府資訊等公開資訊之「台灣永續評鑑」 結果，並考量配息穩定度，依照股息殖利率與自由流通市值選取成分股<span>40</span>檔並以股息殖利率加權，表彰臺灣具永續<span>ESG</span>表現、低碳特性，與高股息兼具之投資組合績效表現。</p>
+<p><strong>【永豐四年到期美國優質投資等級債券基金<span style="color: #ff0000;">(本基金配息來源可能為本金</span>)】本基金經金管會核准或同意生效，惟不表示絕無風險。經理公司除盡善良管理人之注意義務外，不負責本基金之盈虧，亦不保證最低之收益，投資人申購前應詳閱基金公開說明書。有關基金投資風險及應負擔之費用已揭露於基金公開說明書，投資人可向經理公司及銷售機構索取，或於經理公司官網、公開資訊觀測站查詢。本資料所提及之個股、指數、投資標的等，僅為舉例說明之用，不代表任何基金必然之投資，亦不代表任何投資之推薦。<span style="color: #ff0000;">本文提及之經濟走勢預測不必然代表本基金之績效，又投資人因不同時間進場，將有不同之投資績效，過去之績效亦不代表未來績效之保證，本基金投資風險請詳閱基金公開說明書。本基金為債券型基金，存續期間為四年，主要投資在美國之投資等級債券，透過目標到期債券投資策略，讓債券價格波動的風險隨著基金存續期間逐漸趨向屆滿而降低。因此本基金適合願意能承受基金淨值波動較小、追求長期穩健報酬之投資人。本基金之風險報酬等級為RR2。RR係計算成立年度之淨值波動度，並與同類型基金比較後決定，及參考投信投顧公會所訂分類標準等，風險報酬分類為RR1-RR5五級，數字愈大代表風險愈高。此等級分類係基於一般市場狀況反映市場價格波動風險，無法涵蓋所有風險（如：投資標的產業風險、信用風險、利率風險、流動性風險等），不宜作為投資唯一依據，投資人仍應注意所投資基金個別的風險。</span></strong><span style="color: #ff0000;"><strong>投資人應特別留意，經理公司得於本基金募集期間視基金達首次最低淨發行總面額之情形而決定是否再繼續受理投資人申購。本基金自成立日起屆滿90日後，受益人得於每營業日提出買回申請，惟基金未到期前申請買回，將收取提前買回費用2%並歸入基金資產，以維護有既有受益人利益。本基金不建議受益人從事短線交易並鼓勵受益人持有至基金到期。部分可配息基金配息前未先扣除應負擔之相關費用，且基金的配息可能由基金的收益或本金或收益平準金中支付。任何涉及由本金支出的部份，可能導致原始投資金額以同等比例減損。基金配息不代表基金實際報酬，且過去配息不代表未來配息；基金淨值可能因市場因素而上下波動。基金經理公司不保證本基金最低之收益率或獲利，配息金額會因操作及收入來源而有變化，且投資之風險無法因分散投資而完全消除，投資人仍應自行承擔相關風險。投資人可至本公司官網查詢最近12個月內由本金支付之配息組成項目。各期間報酬率(含息)是假設收益分配均滾入再投資於本基金之期間累積報酬率。</strong><span style="color: #000000;"><strong>投資人申購本基金係持有基金受益憑證，而非本文提及之投資資產或標的。本基金不受存款保險、保險安定基金或其他保護機制之保障。</strong></span></span></p>
+<p><strong>【</strong><strong>永豐</strong><strong>創新醫療多重資產</strong><strong>基金</strong><span style="color: #ff0000;"><strong>(</strong><strong>本</strong><strong>基金有相當比重投資於非投資等級之高風險債券且配息來源可能為</strong><strong>本金</strong><strong>)</strong></span><strong>】</strong><strong>本基金經金管會核准或同意生效，惟不表示絕無風險。經理公司以往經理績效不保證基金最低投資收益，經理公司除盡善良管理人之注意義務外，不負責本基金盈虧亦不保證最低收益，投資人申購前應詳閱公開說明書。本基金應負擔費用已揭露於公開說明書，投資人可向經理公司或銷售機構索取，或於經理公司、公開資訊觀測站查詢。投資人不同時間進場，將有不同投資績效，過去績效不代表未來績效保證。本文提及之經濟走勢預測不必然代表本基金績效，本基金投資風險請詳閱公開說明書。本資料所提及之個股、指數、投資標的等為舉例說明，不代表任何基金必然投資或任何投資之推薦。匯率走勢可能造成所投資之海外資產價值變動。投資人以非基金計價幣別之貨幣換匯後投資本基金者，須自行承擔匯率變動風險。</strong><span style="color: #ff0000;"><strong>基金配息不代表基金實際報酬，且過去配息不代表未來配息；基金淨值可能因市場因素而上下波動。本基金配息可能由收益或本金支付，任何涉及由本金支出的部份，可能導致原始投資金額減損。經理公司不保證本基金最低收益率或獲利，配息金額會因操作及收入來源而變化，投資風險無法因分散投資完全消除，投資人應自行承擔相關風險。本基金配息前可能未先扣除應負擔之費用。近</strong><strong>12</strong><strong>個月內由本金支付之股利及支付基金行政管理費用資料，可至經理公司網站查詢。</strong></span><strong>本基金後收型</strong><strong>(N</strong><strong>類型</strong><strong>)</strong><strong>之申購手續費於買回時支付，持有未滿</strong><strong>1</strong><strong>年</strong><strong>(</strong><strong>含</strong><strong>)</strong><strong>、</strong><strong>2</strong><strong>年</strong><strong>(</strong><strong>含</strong><strong>)</strong><strong>、</strong><strong>3</strong><strong>年</strong><strong>(</strong><strong>含</strong><strong>)</strong><strong>之費率分別為</strong><strong>3%</strong><strong>、</strong><strong>2%</strong><strong>、</strong><strong>1%</strong><strong>，持有超過</strong><strong>3</strong><strong>年者免付。</strong><span style="color: #ff0000;"><strong>非投資等級債券之信用評等未達投資等級或未經信用評等，對利率變動敏感度甚高，故本基金可能會因利率上升、市場流動性下降，或債券發行機構違約不支付本金、利息或破產而蒙受虧損。本基金不適合無法承擔相關風險之投資人。本基金適合尋求潛在收益且能承受較高風險之非保守型投資人。投資人投資以非投資等級債券為訴求之基金不宜占投資組合過高之比重。</strong></span><strong>本基金為多重資產型基金，主要投資創新醫療概念相關之股票、</strong><strong>REITs</strong><strong>、債券、基金受益憑證（包括</strong><strong>ETF</strong><strong>），故風險報酬等級為</strong><strong>RR3</strong><strong>。</strong><strong>RR</strong><strong>係計算成立年度淨值波動度，並與同類型基金比較後決定，另綜合考量各項投資風險，及參考中華民國投信投顧公會所訂分類標準等，風險報酬分類為 </strong><strong>RR1-RR5 </strong><strong>五級，數字愈大代表風險愈高。此等級分類係基於一般市場狀況反映市場價格波動風險，無法涵蓋所有風險（如：基金計價幣別匯率風險、投資標的產業風險、信用風險、利率風險、流動性風險等），不宜作為投資唯一依據，投資人應注意基金個別風險。</strong><span style="color: #ff0000;"><strong>本基金可投資美國</strong><strong>Rule 144A</strong></span><strong><span style="color: #ff0000;">債券，該債券屬私募性質，發行人財務較不透明且僅能轉讓予合格機構投資者，可能發生流動性不足、財務訊息揭露不全或價格不透明導致波動性較大之風險。<span style="color: #000000;">投資人申購本基金係持有基金受益憑證，而非本文提及之投資資產或標的。本基金不受存款保險、保險安定基金或其他保護機制之保障。</span></span></strong></p>
+<p><strong>【永豐15年期以上ESG投資等級美元銀行債ETF<span style="color: #ff0000;">(本基金之配息來源可能為收益平準金）</span>】本基金經金管會核准或同意生效，惟不表示絕無風險。經理公司以往經理績效不保證基金最低投資收益，經理公司除盡善良管理人之注意義務外，不負責本基金盈虧亦不保證最低收益，投資人申購前應詳閱公開說明書。本基金應負擔費用已揭露於公開說明書，投資人可向經理公司或銷售機構索取，或於經理公司網站、公開資訊觀測站查詢。投資人不同時間進場，將有不同投資績效，過去績效不代表未來績效保證。本文提及之經濟走勢預測不必然代表本基金績效，本基金投資風險請詳閱公開說明書。本資料所提及之個股、指數、投資標的等為舉例說明，不代表任何基金必然投資或任何投資之推薦。匯率走勢可能造成所投資之海外資產價值變動。投資人以非基金計價幣別之貨幣換匯後投資本基金者，須自行承擔匯率變動風險。<span style="color: #ff0000;">基金配息不代表基金實際報酬，且過去配息不代表未來配息；基金淨值可能因市場因素而上下波動</span><span style="color: #ff0000;">。本基金配息可能由收益或本金中支付，任何涉及由本金支出的部份，可能導致原始投資金額減損。經理公司不保證本基金最低收益率或獲利，配息金額會因操作及收入來源而變化，投資風險無法因分散投資完全消除，投資人應自行承擔相關風險。本基金配息前可能未先扣除應負擔之費用。投資人可至本公司官網查詢最近12個月內由本金之付之配息組成項目。各期間報酬率(含息)是假設收益分配均滾入再投資於本基金之期間累積報酬率。</span>本指數股票型基金，採被動式管理方式，以追蹤標的指數之績效表現為目標，因此本基金之投資績效將視其追蹤之標的指數走勢而定，若標的指數價格波動劇烈，基金淨資產價值亦將隨之波動或下跌。本基金追蹤之標的指數成分債券為剩餘年期15年期以上之銀行債券，可能面臨之風險包括債券發行人之信用風險、利率風險、產業景氣循環風險、流動性風險、外匯管制及匯率變動之風險等，可能影響本基金淨值表現。本基金為指數股票型基金，所追蹤之標的指數成分債券符合Sustainalytics ESG風險評分30分 以下，且債券剩餘年限達15年以上之投資等級美元銀行債券，本基金之風險報酬等級RR2。RR係計算成立年度之淨值波動度，並與同類型基金比較後決定，另綜合考量以下各項之 投資風險，及參考中華民國證券投資信託暨顧問商業同業公會所訂分類標準等，風險報酬分 類為RR1-RR5五級，數字愈大代表風險愈高。此等級分類係基於一般市場狀況反映市場價格 波動風險，無法涵蓋所有風險（如：基金計價幣別匯率風險、投資標的產業風險、信用風險、 利率風險、流動性風險等），不宜作為投資唯一依據，投資人仍應注意所投資基金個別的風險。<span style="color: #ff0000;">有關基金之ESG資訊，投資人應於申購前詳閱基金公開說明書所載之基金所有特色或目標等資訊，或至經理公司網站（sitc.sinopac.com）查詢。</span><span style="color: #ff0000;">本基金投資於具總損失吸收能力（Total Loss-Absorbing Capacity，TLAC）債券及符合自有資金及合格債務最低要求（Minimum Requirement for Own Funds and Eligible Liabilities，MREL）債券，當金融機構出現資本適足率低於一定水平、重大營運或破產危機時，得以契約形式或透過法定機制將債券減記面額或股權轉換，可能導致客戶部分或全部債權減記、利息取消、債權轉換股權、修改債券條件如到期日、票息、付息日、或暫停配息等變動，由於該類債券為新的運作機制，除了本金減計風險、轉換風險外，還可能有流動性風險、變現性風險、金融領域集中度風險、及未知風險等，相關風險說明請詳見公開說明書。</span><span style="color: #ff0000;">本基金可投資美國Rule 144A債券，該債券屬私募性質，發行人財務較不透明且僅能轉讓予合格機構投資者，可能有流動性不足、財務訊息揭露不全或價格不透明導致波動性大之風險。</span>本基金掛牌後之買賣成交價格無升降幅度限制，掛牌後應依臺灣證交所或櫃買中心掛牌有關規定辦理。<span style="color: #ff0000;"><span style="color: #000000;">投資人申購本基金係持有基金受益憑證，而非本文提及之投資資產或標的。本基金不受存款保險、保險安定基金或其他保護機制之保障。</span></span><br />
+</strong>指數免責聲明：ICE 15 年期以上投資等級美元銀行債 ESG 指數（ICE 15+ Year Investment Grade US Banking ESG Index）係 ICE Data 或其關係企業之服務／營業標章，且已與系列指數一併授權以供永豐投信針對本基金使用之。永豐投信及產品均非由 ICE Data Indices, LLC、其關係企業或第三人供應商（「ICE Data 和其供應商」）贊助、背書、販售或宣傳。ICE Data 和其供應商針對尤其是產品內之證券投資明智性、信託或指數追蹤一般市場績效之能力，不做任何相關聲明或保證。ICE Data 對永豐投信之惟一關係，僅止於授權特定商標和商號以及指數或指數成分。指數係由 ICE Data 決定、組成和結算，與永豐投信或產品或產品持有人無關。ICE Data 無義務於決定、組成或結算指數時，將永豐投信或產品持有人之需求納入考量。ICE Data 不負責亦未參與決定應發行產品之時機、價格或數量，或產品訂價、銷售、認購或贖回依據之決定或公式結算。除特定慣例指數結算服務以外，ICE Data 提供之所有資料均為一般性質資料，非為永豐投信或其他任何人、實體或法人團體量身訂作之資料。ICE Data 無義務且不負責管理、行銷或交易產品。ICE Data 非投資顧問。ICE Data 不推薦以納入指數範圍內證券之方式購買、銷售或持有該證券。納入指數範圍內證券亦不得被視為投資建議。ICE Data 和其供應商否認任何包含指數、指數資料和該指數及資料所含、相關或衍生之資料（「指數資料」）之明示和／或默示保證和聲明，包括適銷性或特定目的或使用適合性之任何保證。ICE Data 和其供應商不須負擔有關指數和指數資料適合性、正確性、適時性或完整性之任何損害賠償或責任。該指數和資料均按「原狀」提供，且於用時應自負風險。</p>
+<p><strong>【</strong><strong>永豐三至六年機動到期成熟市場優先順位投資級債券基金</strong><strong>(</strong><span style="color: #ff0000;"><strong>本基金配息來源可能為本金</strong></span><strong>)】</strong><strong>本</strong><strong>基金經金管會核准或同意生效，惟不表示絕無風險。經理公司以往經理績效不保證基金最低投資收益，經理公司除盡善良管理人之注意義務外，不負責本基金盈虧亦不保證最低收益，投資人申購前應詳閱公開說明書。本基金應負擔費用已揭露於公開說明書，投資人可向經理公司或銷售機構索取，或於經理公司網站、公開資訊觀測站查詢</strong><strong>。投資人</strong><strong>不同時間進場，將有不同投資績效，過去績效不代表未來績效保證。本文提及之經濟走勢預測不必然代表本基金績效，本基金投資風險請詳閱公開說明書。本資料所提及之個股、指數、投資標的等為舉例說明，不代表任何基金必然投資或任何投資之推薦。本基金為債券型基金，主要投資於成熟市場優先順位投資等級債券，在基金存續期間透過目標到期債券投資策略，讓債券價格波動的風險隨著基金存續期間逐漸趨向屆滿而降低，故本基金之風險報酬等級為</strong><strong>RR2</strong><strong>。</strong><strong>RR</strong><strong>係計算成立年度之淨值波動度，並與同類型基金比較後決定，另綜合考量以下各項之投資風險，及參考中華民國證券投資信託暨顧問商業同業公會所訂分類標準等，風險報酬分類為</strong><strong>RR1-RR5</strong><strong>五級，數字愈大代表風險愈高。此等級分類係基於一般市場狀況反映市場價格波動風險，無法涵蓋所有風險（如：基金計價幣別匯率風險、投資標的產業風險、信用風險、利率風險、流動性風險等），不宜作為投資唯一依據，投資人仍應注意所投資基金個別的風險。因此本基金適合願意能承受基金淨值波動較小、追求長期穩健報酬之投資人。匯率走勢可能造成所投資之海外資產價值變動。投資人以非基金計價幣別之貨幣換匯後投資本基金者，須自行承擔匯率變動風險。投資人應特別留意，經理公司得於本基金募集期間視基金達首次最低淨發行總面額之情形而決定是否再繼續受理投資人申購。本基金成立日起之次一營業日起即不再接受受益權單位之申購，本基金自成立日起屆滿</strong><strong>90</strong><strong>日後，受益人得於每營業日提出買回申請，惟基金未到期前申請買回，將收取提前買回費用</strong><strong>1%</strong><strong>並歸入基金資產，以維護既有受益人利益。本基金不建議受益人從事短線交易並鼓勵受益人持有至基金到期。本基金設有提前結算機制，啟動條件指本基金成立日之次一營業日起屆滿三年後，當月最後五個營業日美元累積類型每受益權單位淨資產價值皆達到</strong><strong>11.5000</strong><strong>美元（含）以上的條件時，本基金各類型受益權單位均將於次月第二個營業日起啟動提前結算機制。投資人應留意本基金所設定之特定目標淨值條件為本基金啟動提前結算機制之依據，惟在提前結算過程中，本基金各類型受益權單位可能因市場變動、交易成本、流動性或匯率等因素導致結算後之每受益權單位淨資產價值與特定目標淨值有所差異，受益人取得之提前結算買回價金將以本基金實際完成所有交易後之各類型受益權單位淨資產價值為準，不等同於提前結算機制所訂之特定目標淨值。投資人應了解本基金並非保證本基金屆滿三年至六年期間即可達特定目標淨值</strong><strong>。<span style="color: #ff0000;">基金配息不代表基金實際報酬，且過去配息不代表未來配息；基金淨值可能因市場因素而上下波動</span><span style="color: #ff0000;">。</span><span style="color: #ff0000;">本基金配息可能由收益或本金中支付，任何涉及由本金支出的部份，可能導致原始投資金額減損。經理公司不保證本基金最低收益率或獲利，配息金額會因操作及收入來源而變化，投資風險無法因分散投資完全消除，投資人應自行承擔相關風險。本基金配息前可能未先扣除應負擔之費用。投資人可至本公司官網查詢最近</span></strong><span style="color: #ff0000;"><strong>12</strong><strong>個月內由本金支付之配息組成項目。</strong></span><strong>投資人申購本基金係持有基金受益憑證，非本文提及之投資資產或標的。本基金不受存款保險、保險安定基金或其他相關保護機制保障。</strong></p>
+			</div>
+		</div>
+		<a style="cursor: pointer;" class="btn_unfolded-o">完整展開</a>
+		<a style="cursor: pointer;" class="btn_unfolded-c">全部收合</a>
+	</div>
+	<div class="alarm_con ac_close ac_mobile">
+		<!--以class name="ac_open"或"ac_close"作開合-->
+		<div class="box">
+			<div class="edit_box">
+				<p><strong>《永豐投信 獨立經營管理&nbsp;111年金管投信新字第001號》本基金經金管會核准或同意生效，惟不表示絕無風險。基金經理公司以往之經理績效不保證基金之最低投資收益；基金經理公司除盡善良管理人之注意義務外，不負責本基金之盈虧，亦不保證最低之收益，投資人申購前應詳閱基金公開說明書。<span style="color: #ff0000;">本文提及之經濟走勢預測不必然代表本基金之績效，又投資人因不同時間進場，將有不同之投資績效，過去之績效亦不代表未來績效之保證，本基金投資風險請詳閱基金公開說明書。</span>有關基金應負擔之費用已揭露於基金公開說明書，投資人可向經理公司或銷售機構索取，或於經理公司官網、公開資訊觀測站查詢。投資人申購本基金係持有基金受益憑證，而非本文提及之投資資產或標的。本基金不受存款保險、保險安定基金或其他保護機制之保障。</strong><strong><span style="color: #870303;"><br />
+<br />
+</span><span style="color: #000000;">【永豐永豐基金】本基金經金管會核准或同意生效，惟不表示絕無風險。基金經理公司以往之經理績效不保證基金之最低投資收益；基金經理公司除盡善良管理人之注意義務外，不負責本基金之盈虧，亦不保證最低之收益，投資人申購前應詳閱基金公開說明書。<span style="color: #ff0000;">本文提及之經濟走勢預測不必然代表本基金之績效，又投資人因不同時間進場，將有不同之投資績效，過去之績效亦不代表未來績效之保證，本基金投資風險請詳閱基金公開說明書。</span>有關基金應負擔之費用已揭露於基金公開說明書，投資人可向經理公司或銷售機構索取，或於經理公司官網、公開資訊觀測站查詢。<span style="color: #ff0000;">本基金為股票型基金，主要投資於國內上市（櫃）股票，風險報酬等級為RR4。RR係計算成立年度之淨值波動度，並與同類型基金比較後決定，另綜合考量各項投資風險，及參考投信投顧公會所訂分類標準等，風險報酬分類為RR1-RR5五級，數字愈大代表風險愈高。此等級分類係基於一般市場狀況反映市場價格波動風險，無法涵蓋所有風險（如：投資標的產業風險、信用風險、利率風險、流動性風險等），不宜作為投資唯一依據，投資人仍應注意所投資基金個別的風險。</span>本基金主要投資標的為上市或上櫃股票，可投資標的涵蓋各類股，若本基金投資比例較集中於某些類股、因非經濟因素導致股價下跌、因產業特性使營收獲利變化快速、全球政經情勢或法規之變動及其他因素，導致股價大幅波動，都可能對本基金投資標的造成直接或間接影響。本基金將盡全力分散風險，惟風險亦無法完全消除。基金投資之盈虧尚受到市場風險、流動性風險、信用風險、產業景氣循環變動等影響，相關投資風險皆可能造成大幅虧損。其它投資之風險請詳閱本基金公開說明書。投資人申購本基金係持有基金受益憑證，而非本文提及之投資資產或標的。本基金不受存款保險、保險安定基金或其他保護機制之保障。<br />
+</span>&nbsp;</strong><br />
+<strong><span style="color: #000000;">【</span>永豐中小基金<span style="color: #000000;">】<span>本基金經金管會核准或同意生效，惟不表示絕無風險。基金經理公司以往之經理績效不保證基金之最低投資收益；基金經理公司除盡善良管理人之注意義務外，不負責本基金之盈虧，亦不保證最低之收益，投資人申購前應詳閱基金公開說明書。<span style="color: #ff0000;">本文提及之經濟走勢預測不必然代表本基金之績效，又投資人因不同時間進場，將有不同之投資績效，過去之績效亦不代表未來績效之保證，本基金投資風險請詳閱基金公開說明書。</span>有關基金應負擔之費用已揭露於基金公開說明書，投資人可向經理公司或銷售機構索取，或於經理公司官網、公開資訊觀測站查詢。</span></span><span style="color: #ff0000;">本基金以中小型股為主要投資標的，中小型股具股本小、高成長潛力及股價波動幅度等特質，故本基金之風險報酬等級為RR5。RR係計算成立年度之淨值波動度，並與同類型基金比較後決定，另綜合考量各項投資風險，及參考中華民國證券投資信託暨顧問商業同業公會所訂分類標準等，風險報酬分類為RR1-RR5五級，數字愈大代表風險愈高。此等級分類係基於一般市場狀況反映市場價格波動風險，無法涵蓋所有風險（如：投資標的產業風險、信用風險、利率風險、流動性風險等），不宜作為投資唯一依據，投資人仍應注意所投資基金個別的風險。</span>本基金主要投資標的為上市或上櫃股票，可投資標的涵蓋各類股，本基金投資比例較集中於中小型類股，因非經濟因素導致股價下跌、因產業特性使營收獲利變化快速、全球政經情勢或法規之變動及其他因素，導致股價大幅波動，都可能對本基金投資標的造成直接或間接影響。本基金將盡全力分散風險，惟風險亦無法完全消除。基金投資之盈虧尚受到市場風險、流動性風險、信用風險、產業景氣循環變動等影響，相關投資風險皆可能造成大幅虧損。其他投資之風險請詳閱本基金公開說明書。投資人申購本基金係持有基金受益憑證，而非本文提及之投資資產或標的。本基金不受存款保險、保險安定基金或其他保護機制之保障。<br />
+</strong><br />
+<strong><span style="color: #000000;">【</span>永豐趨勢平衡基金<span style="color: #000000;">】</span>本基金經金管會核准或同意生效，惟不表示絕無風險。基金經理公司以往之經理績效不保證基金之最低投資收益；基金經理公司除盡善良管理人之注意義務外，不負責本基金之盈虧，亦不保證最低之收益，投資人申購前應詳閱基金公開說明書。<span style="color: #ff0000;">本文提及之經濟走勢預測不必然代表本基金之績效，又投資人因不同時間進場，將有不同之投資績效，過去之績效亦不代表未來績效之保證，本基金投資風險請詳閱基金公開說明書。</span>有關基金應負擔之費用已揭露於基金公開說明書，投資人可向經理公司或銷售機構索取，或於經理公司官網、公開資訊觀測站查詢。<span style="color: #ff0000;">本基金為平衡型基金投資於國內，持股比例彈性調整，故本基金之風險報酬等級為RR4。RR係</span></strong><strong><span style="color: #ff0000;">計算成立年度之淨值波動度，並與同類型基金比較後決定，另綜合考量各項投資風險，及參考投信投顧公會所訂分類標準等，風險報酬分類為RR1-RR5五級，數字愈大代表風險愈高。此等級分類係基於一般市場狀況反映市場價格波動風險，無法涵蓋所有風險（如：投資標的產業風險、信用風險、利率風險、流動性風險等），不宜作為投資唯一依據，投資人仍應注意所投資基金個別的風險。</span>本基金主要投資標的之上市櫃股票，某些產業可能因供需不協調而有明顯產業循環週期，致使其股價亦經常隨著公司獲利盈虧而有巨幅波動。我國證券市場受政治因素影響頗大，因此國內外政經情勢、兩岸關係之互動及未來發展情況，均會影響本基金所投資證券價格之波動；此外，利率調整及產業結構等因素亦會影響有價證券之價格，而造成本基金淨資產價值之漲跌，經理公司將盡量分散投資風險，惟風險亦無法因此完全消除。基金投資之盈虧尚受到市場風險、流動性風險、信用風險、產業景氣循環變動等影響，相關投資風險皆可能造成大幅虧損。其它投資之風險請詳閱本基金公開說明書。投資人申購本基金係持有基金受益憑證，而非本文提及之投資資產或標的。本基金不受存款保險、保險安定基金或其他保護機制之保障。<br />
+</strong><strong><br />
+<span style="color: #000000;">【</span>永豐領航科技基金<span style="color: #000000;">】</span>本基金經金管會核准或同意生效，惟不表示絕無風險。基金經理公司以往之經理績效不保證基金之最低投資收益；基金經理公司除盡善良管理人之注意義務外，不負責本基金之盈虧，亦不保證最低之收益，投資人申購前應詳閱基金公開說明書。<span style="color: #ff0000;">本文提及之經濟走勢預測不必然代表本基金之績效，又投資人因不同時間進場，將有不同之投資績效，過去之績效亦不代表未來績效之保證，本基金投資風險請詳閱基金公開說明書。</span>有關基金應負擔之費用已揭露於基金公開說明書，投資人可向經理公司或銷售機構索取，或於經理公司官網、公開資訊觀測站查詢。<span style="color: #ff0000;">本基金為股票型基金，主要投資於國內從事或轉投資科技產業相關之國內上市(櫃)股票，風險報酬等級為RR5。RR係計算成立年度之淨值波動度，並與同類型基金比較後決定，另綜合考量各項投資風險，及參考投信投顧公會所訂分類標準等，風險報酬分類為RR1-RR5五級，數字愈大代表風險愈高。此等級分類係基於一般市場狀況反映市場價格波動風險，無法涵蓋所有風險（如：投資標的產業風險、信用風險、利率風險、流動性風險等），不宜作為投資唯一依據，投資人仍應注意所投資基金個別的風險。</span>相較一般投資標的涵蓋各類股的股票型基金，本基金投資標的主要集中在高科技類股，雖然基金經理人可適度分散投資於各類股，但仍可能因投資之產業屬性，產生類股過度集中之風險，造成基金淨值的波動。基金投資之盈虧尚受到市場風險、流動性風險、政治及經濟變動、信用風險、產業景氣循環變動等影響，相關投資風險皆可能造成本基金之損失。其它投資之風險請詳閱本基金公開說明書。投資人申購本基金係持有基金受益憑證，而非本文提及之投資資產或標的。本基金不受存款保險、保險安定基金或其他保護機制之保障。<br />
+<br />
+</strong><strong><span style="color: #000000;">【永豐臺灣ESG永續優選基金】本基金經金管會核准或同意生效，惟不表示絕無風險。基金經理公司以往之經理績效不保證基金之最低投資收益；基金經理公司除盡善良管理人之注意義務外，不負責本基金之盈虧，亦不保證最低之收益，投資人申購前應詳閱基金公開說明書。<span style="color: #ff0000;">本文提及之經濟走勢預測不必然代表本基金之績效，又投資人因不同時間進場，將有不同之投資績效，過去之績效亦不代表未來績效之保證，本基金投資風險請詳閱基金公開說明書。</span>有關基金應負擔之費用已揭露於基金公開說明書，投資人可向經理公司或銷售機構索取，或於經理公司官網、公開資訊觀測站查詢。<span style="color: #ff0000;">本基金為股票型基金，主要投資中華民國境內之有價證券，以臺灣永續指數成分股為投資標的，本基金之風險報酬等級為RR4。RR係計算成立年度之淨值波動度，並與同類型基金比較後決定，另綜合考量各項投資風險，及參考投信投顧公會所訂分類標準等，風險報酬分類為RR1-RR5五級，數字愈大代表風險愈高。此等級分類係基於一般市場狀況反映市場價格波動風險，無法涵蓋所有風險（如：投資標的產業風險、信用風險、利率風險、流動性風險等），不宜作為投資唯一依據，投資人仍應注意所投資基金個別的風險。</span>本基金主要投資於中華民國境內之有價證券，投資標的涵蓋各類股，股市表現常受到各種因素影響，如產業景氣循環、證券交易市場流動性不足、全球政經情勢或法規之變動及其他因素，導致股價大幅波動，都可能對本基金投資標的造成直接或間接影響。本基金將盡全力分散風險，惟風險亦無法完全消除。本基金主要投資於臺灣永續指數成分股票，該指數採用富時ESG評鑑系統篩選的成分股，相關風險包括：ESG評鑑方法及資料之限制、缺乏標準之分類法、投資選擇之主觀判斷、對第三方資料來源之依賴、對特定ESG投資重點之集中度風險等，相關風險請詳閱公開說明書。</span></strong><span style="color: #ff0000;"><strong>部分可配息基金配息前未先扣除應負擔之相關費用，且基金的配息可能由基金的收益或本金或收益平準金中支付。任何涉及由本金支出的部份，可能導致原始投資金額以同等比例減損。基金配息不代表基金實際報酬，且過去配息不代表未來配息；基金淨值可能因市場因素而上下波動。基金經理公司不保證本基金最低之收益率或獲利，配息金額會因操作及收入來源而有變化，且投資之風險無法因分散投資而完全消除，投資人仍應自行承擔相關風險。投資人可至</strong><strong>本公司官網</strong><strong>查詢最近</strong><strong>12</strong><strong>個月內由本金支付之配息組成項目。</strong><strong>各期間報酬率</strong><strong>(</strong><strong>含息</strong><strong>)</strong><strong>是假設收益分配均滾入再投資於本基金之期間累積報酬率。</strong></span><strong><span style="color: #000000;">相關風險說明及有關基金之ESG資訊，投資人應於申購前詳閱基金公開說明書所載之基金所有特色或目標等資訊，相關資訊可透過經理公司網站（sitc.sinopac.com）查詢。投資人申購本基金係持有基金受益憑證，而非本文提及之投資資產或標的。本基金不受存款保險、保險安定基金或其他保護機制之保障。<br />
+<br />
+</span></strong><strong><span style="color: #000000;">【</span>永豐主流品牌基金<span style="color: #000000;">】</span>本基金經金管會核准或同意生效，惟不表示絕無風險。基金經理公司以往之經理績效不保證基金之最低投資收益；基金經理公司除盡善良管理人之注意義務外，不負責本基金之盈虧，亦不保證最低之收益，投資人申購前應詳閱基金公開說明書。<span style="color: #ff0000;">本文提及之經濟走勢預測不必然代表本基金之績效，又投資人因不同時間進場，將有不同之投資績效，過去之績效亦不代表未來績效之保證，本基金投資風險請詳閱基金公開說明書。</span>有關基金應負擔之費用已揭露於基金公開說明書，投資人可向經理公司或銷售機構索取，或於經理公司官網、公開資訊觀測站查詢。<span style="color: #ff0000;">本基金為股票型基金，主要投資於全球時尚精品形象相關之有價證券，故本基金之風險報酬等級為RR4。RR係計算成立年度之淨值波動度，並與同類型基金比較後決定，另綜合考量各項投資風險，及參考投信投顧公會所訂分類標準等，風險報酬分類為RR1-RR5五級，數字愈大代表風險愈高。此等級分類係基於一般市場狀況反映市場價格波動風險，無法涵蓋所有風險（如：基金計價幣別匯率風險、投資標的產</span></strong><strong><span style="color: #ff0000;">業風險、信用風險、利率風險、流動性風險等），不宜作為投資唯一依據，投資人仍應注意所投資基金個別的風險</span>。本基金投資區域將分佈全球各主要市場，全球政經情勢或法規之變動，可能對本基金所參與的投資市場及投資工具之報酬造成直接或間接的影響，本基金將盡全力分散風險但無法完全消除，所投資之標的淨值、收盤價漲跌及其他因素之波動將影響本基金淨資產價值之增減。除匯兌風險外，基金投資之盈虧尚受到市場風險、流動性風險、信用風險、產業景氣循環變動等影響，相關投資風險皆可能造成大幅虧損。其它投資之風險請詳閱本基金公開說明書。投資人申購本基金係持有基金受益憑證，而非本文提及之投資資產或標的。本基金不受存款保險、保險安定基金或其他保護機制之保障。<br />
+</strong></p>
+<p><strong><span style="color: #000000;">【</span>永豐亞洲民生消費基金<span style="color: #000000;">】</span>本基金經金管會核准或同意生效，惟不表示絕無風險。基金經理公司以往之經理績效不保證基金之最低投資收益；基金經理公司除盡善良管理人之注意義務外，不負責本基金之盈虧，亦不保證最低之收益，投資人申購前應詳閱基金公開說明書。<span style="color: #ff0000;">本文提及之經濟走勢預測不必然代表本基金之績效，又投資人因不同時間進場，將有不同之投資績效，過去之績效亦不代表未來績效之保證，本基金投資風險請詳閱基金公開說明書。</span>有關基金應負擔之費用已揭露於基金公開說明書，投資人可向經理公司或銷售機構索取，或於經理公司官網、公開資訊觀測站查詢。<span style="color: #ff0000;">本基金為股票型基金，主要投資於亞洲地區以民生消費產業為主要投資標的，故本基金之風險報酬等級為RR5。RR係計算成立年度之淨值波動度，並與同類型基金比較後決定，另綜合考量各項投資風險，及參考投信投顧公會所訂分類標準等，風險報酬分類為RR1-RR5五級，數字愈大代表風險愈高。此等級分類係基於一般市場狀況反映市場價格波動風險，無法涵蓋所有風險（如：基金計價幣別匯率風險、投資標的產業風險、信用風險、利率風險、流動性風險等），不宜作為投資唯一依據，投資人仍應注意所投資基金個別的風險。</span>本基金主要投資於亞洲地區民生消費相關產業類股，相較於投資範圍廣泛之海外股票型基金，民生消費類股可能較有明顯產業循環週期，其股價隨著公司盈收獲利之變化而有較大幅度的波動。另外本基金投資所在國或地區，特別是新興國家，有價證券價格波動、外匯的管制、全球政經情勢或法規之變動及其他因素，都可能對本基金投資標的造成直接或間接之影響。本基金將盡全力分散風險，但無法完全消除。除匯兌風險外，基金投資之盈虧尚受到市場風險、流動性風險、信用風險、產業景氣循環變動等影響，相關投資風險皆可能造成大幅虧損。其它投資之風險請詳閱本基金公開說明書。投資人申購本基金係持有基金受益憑證，而非本文提及之投資資產或標的。本基金不受存款保險、保險安定基金或其他保護機制之保障。<br />
+<br />
+</strong><strong><span style="color: #000000;">【</span>永豐滬深300紅利指數基金<span style="color: #000000;">】</span>本基金經金管會核准或同意生效，惟不表示絕無風險。基金經理公司以往之經理績效不保證基金之最低投資收益；基金經理公司除盡善良管理人之注意義務外，不負責本基金之盈虧，亦不保證最低之收益，投資人申購前應詳閱基金公開說明書。<span style="color: #ff0000;">本文提及之經濟走勢預測不必然代表本基金之績效，又投資人因不同時間進場，將有不同之投資績效，過去之績效亦不代表未來績效之保證，本基金投資風險請詳閱基金公開說明書。</span>有關基金應負擔之費用已揭露於基金公開說明書，投資人可向經理公司或銷售機構索取，或於經理公司官網、公開資訊觀測站查詢。<span style="color: #ff0000;">本基金為指數型基金，所追蹤之標的指數主要反映滬深300指數中高股息率股票的整體表現，故本基金之風險報酬等級為RR5。RR係計算成立年度之淨值波動度，並與同類型基金比較後決定，另綜合考量各項投資風險，及參考投信投顧公會所訂分類標準等，風險報酬分類為RR1-RR5五級，數字愈大代表風險愈高。此等級分類係基於一般市場狀況反映市場價格波動風險，無法涵蓋所有風險（如：基金計價幣別匯率風險、投資標的產業風險、信用風險、利率風險、流動性風險等），不宜作為投資唯一依據，投資人仍應注意所投資基金個別的風險。</span>本基金為指數型基金，採被動式管理方式，以追蹤標的指數之績效表現為目標，因此基金之投資績效將視其追蹤之標的指數走勢而定，若標的指數價格波動劇烈，本基金淨資產價值亦將隨之波動或下跌。本基金所投資成分股檔數與所追蹤標的指數成分股檔數覆蓋率不低於90%，當標的指數之成分股發生剔除或增加入產生變化或權重改變時，受限跨市場交易之營業日不同，基金的投資組合內容未能及時調整與標的指數相同，可能使基金報酬與標的指數產生偏離。<span style="color: #ff0000;">本基金主要投資於中國大陸之有價證券，由於中國大陸之政經情勢或法規變動較已開發國家劇烈，外匯的管制也較嚴格，可能對本基金投資標的造成直接或間接之影響。本基金將透過經理公司獲批之境外機構投資者（QFII）額度、滬港通、深港通及其他經主管機關認可之管道，投資於大陸地區有價證券，基於大陸地區對QFII之投資額度及資金匯出入管制等規定，經理公司保留婉拒或暫停受理本基金申購或買回之權利。</span>本基金新臺幣類型受益權單位所有申購及買回價金之收付均以新臺幣為之。外幣計價受益權單位所有申購及買回價金之收付均以外幣為之。如投資人以非本基金計價幣別之貨幣換匯後申購基金，須自行承擔匯率變動之風險。此外因投資人與銀行進行外匯交易有買價與賣價之差異，投資人進行換匯時須承擔買賣價差，此價差依各銀行報價而定。另，投資人尚須承擔匯款費用且外幣匯款費用可能高於新臺幣匯款費用，投資人亦須留意外幣匯款到達時點可能因受款行作業時間而遞延。其它投資之風險請詳閱本基金公開說明書。<br />
+</strong>免責聲明：中証系列指數由中証指數有限公司編制和計算。中証指數有限公司擁有與指數、指數名稱、標誌以及指數所含數據相關或其中包含的權利。中証指數有限公司將採取一切必要措施以確保指數的準確性。但無論因為疏忽或其他原因，中証指數有限公司不因指數的任何錯誤對任何人負責，也無義務對任何人和任何錯誤給予建議。投資人申購本基金係持有基金受益憑證，而非本文提及之投資資產或標的。本基金不受存款保險、保險安定基金或其他保護機制之保障。<strong><br />
+</strong><br />
+<span><span style="color: #000000;"><strong>【永豐中國經濟建設基金】本基金經金管會核准或同意生效，惟不表示絕無風險。基金經理公司以往之經理績效不保證基金之最低投資收益；基金經理公司除盡善良管理人之注意義務外，不負責本基金之盈虧，亦不保證最低之收益，投資人申購前應詳閱基金公開說明書。<span style="color: #ff0000;">本文提及之經濟走勢預測不必然代表本基金之績效，又投資人因不同時間進場，將有不同之投資績效，過去之績效亦不代表未來績效之保證，本基金投資風險請詳閱基金公開說明書。</span>有關基金應負擔之費用已揭露於基金公開說明書，投資人可向經理公司或銷售機構索取，或於經理公司官網、公開資訊觀測站查詢。<span style="color: #ff0000;">本基金為股票型基金，主要投資於台灣、中國、香港及新加坡之有價證券，故本基金之風險報酬等級為RR5。RR係計算成立年度之淨值波動度，並與同類型基金比較後決定，另綜合考量各項投資風險，及參考投信投顧公會所訂分類標準等，風險報酬分類為RR1-RR5五級，數字愈大代表風險愈高。此等級分類係基於一般市場狀況反映市場價格波動風險，無法涵蓋所有風險（如：基金計價幣別匯率風險、投資標的產業風險、信用風險、利率風險、流動性風險等），不宜作為投資唯一依據，投資人仍應注意所投資基金個別的風險。</span>本基金著重於中國每五年經濟規劃增長企業為主要佈局，惟中國、香港等新興市場之政經情勢或法規變動較已開發國家變動較為劇烈，外匯的管制也較嚴格，可能對本基金投資標的造成直接或間接之影響。另外有價證券之價格波動及流動性、法規變動及其他因素，都將影響本基金淨資產價值之增減，本基金將盡全力分散風險，但無法完全消除。<span style="color: #ff0000;">本基金可以透過經理公司申請獲准之合格境外機構投資者(QFII)之額度直接投資中國大陸地區當地證券市場，QFII額度須先兌匯為美元匯入中國大陸地區後再兌換為人民幣，以投資當地人民幣計價之投資商品。故本基金有外匯及匯率變動之風險。</span>本基金新臺幣類型受益權單位所有申購及買回價金之收付均以新臺幣為之。人民幣類型受益權單位所有申購及買回價金之收付均以人民幣為之。如投資人以非本基金計價幣別之貨幣換匯後申購本基金，須自行承擔匯率變動之風險。此外因投資人與銀行進行外匯交易有買價與賣價之差異，投資人進行換匯時須承擔買賣價差，此價差依各銀行報價而定。另，投資人尚須承擔匯款費用且外幣匯款費用可能高於新臺幣匯款費用，投資人亦須留意外幣匯款到達時點可能因受款行作業時間而遞延。其它投資之風險請詳閱本基金公開說明書。投資人申購本基金係持有基金受益憑證，而非本文提及之投資資產或標的。本基金不受存款保險、保險安定基金或其他保護機制之保障。<br />
+<br />
+</strong></span><span style="color: #000000;"><strong>【永豐ESG全球數位基礎建設基金<span style="color: #ff0000;">(本基金配息來源可能為本金)<span style="color: #000000;">】</span></span>本基金經金管會核准或同意生效，惟不表示絕無風險。基金經理公司以往之經理績效不保證基金之最低投資收益；基金經理公司除盡善良管理人之注意義務外，不負責本基金之盈虧，亦不保證最低之收益，投資人申購前應詳閱基金公開說明書。<span style="color: #ff0000;">本文提及之經濟走勢預測不必然代表本基金之績效，又投資人因不同時間進場，將有不同之投資績效，過去之績效亦不代表未來績效之保證，本基金投資風險請詳閱基金公開說明書。</span>有關基金應負擔之費用已揭露於基金公開說明書，投資人可向經理公司或銷售機構索取，或於經理公司官網、公開資訊觀測站查詢。<span style="color: #ff0000;">本基金為股票型基金，主要投資於全球數位資訊、永續發展等長期發展趨勢所需的基礎建設事業相關之有價證券，故本基金之風險報酬等級為RR4。RR係計算成立年度之淨值波動度，並與同類型基金比較後決定，另綜合考量各項投資風險，及參考中華民國證券投資信託暨顧問商業同業公會所訂分類標準等，風險報酬分類為RR1-RR5五級，數字愈大代表風險愈高。此等級分類係基於一般市場狀況反映市場價格波動風險，無法涵蓋所有風險（如：基金計價幣別匯率風險、投資標的產業風險、信用風險、利率風險、流動性風險等），不宜作為投資唯一依據，投資人仍應注意所投資基金個別的風險</span>。本基金主要投資於全球數位基礎建設相關標的，全球政經情勢或法規之變動風險、類股過度集中風險、產業景氣環風險、流動性風險、外匯管制及匯率變動之風險等，可能對本基金所參與的投資市場及投資工具之報酬造成直接或間接的影響，使本基金淨資產價值因此產生波動。本基金將ESG納入主要投資重點，相關風險包括：ESG評鑑方法及資料之限制、缺乏標準之分類法、投資選擇之主觀判斷、對第三方資料來源之依賴、對特定ESG投資重點之集中度風險等。本基金新臺幣計價受益權單位所有申購及買回價金之收付均以新臺幣為之。外幣計價受益權單位所有申購及買回價金之收付均以外幣為之。如投資人以非本基金計價幣別之貨幣換匯後申購基金，須自行承擔匯率變動之風險。此外因投資人與銀行進行外匯交易有買價與賣價之差異，投資人進行換匯時須承擔買賣價差，此價差依各銀行報價而定。另，投資人尚須承擔匯款費用且外幣匯款費用可能高於新臺幣匯款費用，投資人亦須留意外幣匯款到達時點可能因受款行作業時間而遞延。<span style="color: #ff0000;">部分可配息基金配息前未先扣除應負擔之相關費用，且基金的配息可能由基金的收益或本金或收益平準金中支付。任何涉及由本金支出的部份，可能導致原始投資金額以同等比例減損。基金配息不代表基金實際報酬，且過去配息不代表未來配息；基金淨值可能因市場因素而上下波動。基金經理公司不保證本基金最低之收益率或獲利，配息金額會因操作及收入來源而有變化，且投資之風險無法因分散投資而完全消除，投資人仍應自行承擔相關風險。投資人可至本公司官網查詢最近12個月內由本金支付之配息組成項目。各期間報酬率(含息)是假設收益分配均滾入再投資於本基金之期間累積報酬率。</span>相關風險說明及有關基金之ESG資訊，投資人應於申購前詳閱基金公開說明書所載之基金所有特色或目標等資訊，相關資訊可透過經理公司網站（sitc.sinopac.com）查詢。</strong><strong>投資人申購本基金係持有基金受益憑證，而非本文提及之投資資產或標的。投資人申購本基金係持有基金受益憑證，而非本文提及之投資資產或標的。本基金不受存款保險、保險安定基金或其他保護機制之保障。</strong><br />
+<br />
+<strong>【永豐臺灣加權ETF基金】本基金經金管會核准或同意生效，惟不表示絕無風險。基金經理公司以往之經理績效不保證基金之最低投資收益；基金經理公司除盡善良管理人之注意義務外，不負責本基金之盈虧，亦不保證最低之收益，投資人申購前應詳閱基金公開說明書。<span style="color: #ff0000;">本文提及之經濟走勢預測不必然代表本基金之績效，又投資人因不同時間進場，將有不同之投資績效，過去之績效亦不代表未來績效之保證，本基金投資風險請詳閱基金公開說明書。</span>有關基金應負擔之費用已揭露於基金公開說明書，投資人可向經理公司或銷售機構索取，或於經理公司官網、公開資訊觀測站查詢。<span style="color: #ff0000;">本基金為指數股票型基金，主要投資中華民國之有價證券，追蹤之標的指數為臺灣證券交易所發行量加權股價指數以上市股票之發行量當作權數來計算股價指數，採樣樣本為所有掛牌交易中的普通股，故本基金之風險報酬等級為RR4。RR係計算成立年度之淨值波動度，並與同類型基金比較後決定，及參考投信投顧公會所訂分類標準等，風險報酬分類為RR1-RR5五級，數字愈大代表風險愈高。此等級分類係基於一般市場狀況反映市場價格波動風險，無法涵蓋所有風險（如：基金計價幣別匯率風險、信用風險、利率風險、流動性風險等），不宜作為投資唯一依據，投資人仍應注意所投資基金個別的風險。</span>本基金為指數股票型基金，採被動式管理方式，以追蹤標的指數之績效表現為目標，因此基金之投資績效將視其追蹤之標的指數走勢而定。若標的指數價格波動劇烈，本基金淨資產價值亦將隨之波動或下跌。基金投資之盈虧尚受到市場風險、流動性風險、信用風險、產業景氣循環變動等影響，相關投資風險皆可能造成大幅虧損。本基金所投資成分證券檔數與所追蹤標的指數成分股檔數覆蓋率依基金淨資產價值不低於20%~50%，當標的指數之成分股發生剔除或增加入產生變化或權重改變時，基金的投資組合內容未能及時調整與標的指數相同，可能使基金報酬與標的指數產生偏離。基金投資之盈虧尚受到市場風險、流動性風險、信用風險、產業景氣循環變動等影響，相關投資風險皆可能造成大幅虧損。</strong><span style="color: #ff0000;"><strong>部分可配息基金配息前未先扣除應負擔之相關費用，且基金的配息可能由基金的收益或本金或收益平準金中支付。任何涉及由本金支出的部份，可能導致原始投資金額以同等比例減損。基金配息不代表基金實際報酬，且過去配息不代表未來配息；基金淨值可能因市場因素而上下波動。基金經理公司不保證本基金最低之收益率或獲利，配息金額會因操作及收入來源而有變化，且投資之風險無法因分散投資而完全消除，投資人仍應自行承擔相關風險。投資人可至本公司官網查詢最近12個月內由本金支付之配息組成項目。</strong></span></span></span><strong>本基金掛牌後之買賣成交價格無升降幅度限制，掛牌後應依臺灣證交所或櫃買中心掛牌有關規定辦理。</strong><span><span style="color: #000000;"><span style="color: #ff0000;"><strong><span style="color: #000000;">投資人申購本基金係持有基金受益憑證，而非本文提及之投資資產或標的。本基金不受存款保險、保險安定基金或其他保護機制之保障。</span></strong><br />
+</span></span></span><span style="color: #870303;"><span style="color: #000000;">本基金並非由臺灣證券交易所股份有限公司(「證交所」)贊助、認可、銷售或推廣；且證交所不就使用「臺灣證券交易所發行量加權股價指數」及／或該指數於任何特定日期、時間所代表數字之預期結果提供任何明示或默示之擔保或聲明。「臺灣證券交易所發行量加權股價指數」係由證交所編製及計算；惟證交所不就「臺灣證券交易所發行量加權股價指數」之錯誤承擔任何過失或其他賠償責任；且證交所無義務將指數中之任何錯誤告知任何人。</span></span><strong><span style="color: #870303;"><span style="color: #000000;"><span> <br />
+</span></span></span></strong></p>
+<p><strong><span style="color: #000000;">【永豐台灣ESG永續優質ETF基金<span style="color: #ff0000;">(本基金之配息來源可能為收益平準金)<span style="color: #000000;">】</span><span style="color: #000000;">本基金經金管會核准或同意生效，惟不表示絕無風險。基金經理公司以往之經理績效不保證基金之最低投資收益；基金經理公司除盡善良管理人之注意義務外，不負責本基金之盈虧，亦不保證最低之收益，投資人申購前應詳閱基金公開說明書。<span style="color: #ff0000;">本文提及之經濟走勢預測不必然代表本基金之績效，又投資人因不同時間進場，將有不同之投資績效，過去之績效亦不代表未來績效之保證，本基金投資風險請詳閱基金公開說明書。</span>有關基金應負擔之費用已揭露於基金公開說明書，投資人可向經理公司或銷售機構索取，或於經理公司官網、公開資訊觀測站查詢。</span>本基金為指數股票型基金，所追蹤之標的指數以FTSE Taiwan Index為基礎，採用富時的目標因子曝險法編制，目標因子採用富時的ESG評鑑及過去12個月之股利率挑選成分股，本基金之風險報酬等級為RR4。RR係計算成立年度之淨值波動度，並與同類型基金比較後決定，及參考投信投顧公會所訂分類標準等，風險報酬分類為RR1-RR5五級，數字愈大代表風險愈高。此等級分類係基於一般市場狀況反映市場價格波動風險，無法涵蓋所有風險（如：投資標的產業風險、信用風險、利率風險、流動性風險等），不宜作為投資唯一依據，投資人仍應注意所投資基金個別的風險。</span>本基金為指數股票型，採被動式管理方式，以追蹤標的指數之績效表現為目標，因此基金之投資績效將視其追蹤之標的指數走勢而定，若標的指數價格波動劇烈，本基金淨資產價值亦將隨之波動或下跌。本基金所投資成分證券檔數與所追蹤標的指數成分股檔數覆蓋率不低於90%，當標的指數之成分股發生剔除或增加入產生變化或權重改變時，基金的投資組合內容未能及時調整與標的指數相同，可能使基金報酬與標的指數產生偏離。本基金追蹤之標的指數成分股係經認可之ESG優質公司分散於各產業，其成分股雖經過挑選，惟各產業循環周期不同，其中有些產業可能有明顯之產業循環以使公司營收有較大幅度之波動，而產生產業景氣循環之風險。本基金標的指數成分股以涵蓋臺灣經國際公信機構認可 之ESG優質公司，相關風險包括：ESG評鑑方法及資料之限制、缺乏標準之分類法、投資選擇之主觀判斷、對第三方資料來源之依賴、對特定ESG投資重點之集中度風險等。<span style="color: #ff0000;">部分可配息基金配息前未先扣除應負擔之相關費用，且基金的配息可能由基金的收益或本金或收益平準金中支付。任何涉及由本金支出的部份，可能導致原始投資金額以同等比例減損。基金配息不代表基金實際報酬，且過去配息不代表未來配息；基金淨值可能因市場因素而上下波動。基金經理公司不保證本基金最低之收益率或獲利，配息金額會因操作及收入來源而有變化，且投資之風險無法因分散投資而完全消除，投資人仍應自行承擔相關風險。投資人可至本公司官網查詢最近12個月內由本金支付之配息組成項目。各期間報酬率(含息)是假設收益分配均滾入再投資於本基金之期間累積報酬率。</span>本基金的淨值反應其一籃子成分市值總合，惟盤中即時估計淨值與實際基金淨值計算之投組內容亦可能有所差異，可能造成交易資訊傳遞落差之風險。相關風險說明及有關基金之ESG資訊，投資人應於申購前詳閱基金公開說明書所載之基金所有特色或目標等資訊，相關資訊可透過經理公司網站（sitc.sinopac.com）查詢。本基金掛牌後之買賣成交價格無升降幅度限制，掛牌後應依臺灣證交所或櫃買中心掛牌有關規定辦理。投資人申購本基金係持有基金受益憑證，而非本文提及之投資資產或標的。本基金不受存款保險、保險安定基金或其他保護機制之保障。<br />
+</span></strong><span style="color: #000000;">指數免責聲明：FTSE Taiwan Target Exposure ESG Index，係由FTSE International Limited(「FTSE」)所編製及計算，FTSE提供之服務是以現狀提供，而未提供任何明示、默示、法定或其它形式之保證。如有任何服務因任何因素而中斷、變更或無法再提供，則FTSE對於永豐投信或永豐投信的任何終端使用者概不負責。</span></p>
+<p><strong><span style="color: #000000;">【永豐台灣優選入息存股ETF基金<span style="color: #ff0000;">(本基金之配息來源可能為收益平準金且並無保證收益及配息)<span style="color: #000000;">】</span><span style="color: #000000;">本基金經金管會核准或同意生效，惟不表示絕無風險。基金經理公司以往之經理績效不保證基金之最低投資收益；基金經理公司除盡善良管理人之注意義務外，不負責本基金之盈虧，亦不保證最低之收益，投資人申購前應詳閱基金公開說明書。<span style="color: #ff0000;">本文提及之經濟走勢預測不必然代表本基金之績效，又投資人因不同時間進場，將有不同之投資績效，過去之績效亦不代表未來績效之保證，本基金投資風險請詳閱基金公開說明書。</span>有關基金應負擔之費用已揭露於基金公開說明書，投資人可向經理公司或銷售機構索取，或於經理公司官網、公開資訊觀測站查詢。</span>本基金為指數股票型基金，所追蹤的標的指數為臺灣優息存股指數，選取與景氣循環民生必需相關產業，以企業ESG表現、公司獲利、股利配發為篩選條件，挑選30檔上市股票，故本基金之風險報酬等級為RR5。RR係計算成立年度之淨值波動度，並與同類型基金比較後決定，及參考投信投顧公會所訂分類標準等，風險報酬分類為RR1-RR5五級，數字愈大代表風險愈高。此等級分類係基於一般市場狀況反映市場價格波動風險，無法涵蓋所有風險（如：投資標的產業風險、信用風險、利率風險、流動性風險等），不宜作為投資唯一依據，投資人仍應注意所投資基金個別的風險。<span style="color: #000000;">本基金為指數股票型，採被動式管理方式，以追蹤標的指數之績效表現為目標，因此本基金之投資績效將視其追蹤之標的指數走勢而定，若標的指數價格波動劇烈，本基金淨資產價值亦將隨之波動或下跌。本基金所投資成分證券檔數與所追蹤標的指數成分股檔數覆蓋率不低於90%，當標的指數之成分股發生剔除或增加入產生變化或權重改變時，基金的投資組合內容未能及時調整與標的指數相同，可能使基金報酬與標的指數產生偏離。本基金將依標的指數進行最適之資產配置，然產業的循環週期或非經濟因素影響可能導致價格出現劇烈波動，使基金淨值在短期內出現較大幅度之波動，故可能產生類股過度集中之風險，經理公司將善盡管理義務，降低類股過度集中度風險，但不表示風險得以完全規避。本基金的淨值反應其一籃子成分市值總合，惟盤中即時估計淨值與實際基金淨值計算之投組內容亦可能有所差異，可能造成交易資訊傳遞落差之風險。<span style="color: #ff0000;">部分可配息基金配息前未先扣除應負擔之相關費用，且基金的配息可能由基金的收益或本金或收益平準金中支付。任何涉及由本金支出的部份，可能導致原始投資金額以同等比例減損。基金配息不代表基金實際報酬，且過去配息不代表未來配息；基金淨值可能因市場因素而上下波動。基金經理公司不保證本基金最低之收益率或獲利，配息金額會因操作及收入來源而有變化，且投資之風險無法因分散投資而完全消除，投資人仍應自行承擔相關風險。投資人可至本公司官網查詢最近12個月內由本金支付之配息組成項目。各期間報酬率(含息)是假設收益分配均滾入再投資於本基金之期間累積報酬率。</span></span></span>本基金掛牌後之買賣成交價格無升降幅度限制，掛牌後應依臺灣證交所或櫃買中心掛牌有關規定辦理。投資人申購本基金係持有基金受益憑證，而非本文提及之投資資產或標的。本基金不受存款保險、保險安定基金或其他保護機制之保障。<br />
+</span></strong><span style="color: #000000;"><span style="color: #ff0000;"><span style="color: #000000;">指數免責聲明：[臺灣指數公司特選臺灣優選入息存股指數]係由臺灣指數股份有限公司（臺灣指數公司）及社團法人中華民國永續企業發展協會（企業永續發展協會）（以上機構合稱「合作單位」）共同開發，並由臺灣指數公司單獨授權[永豐證券投資信託股份有限公司]使用發行「永豐台灣優選入息存股ETF證券投資信託基金」（本基金之配息來源可能為收益平準金）。「合作單位」並未以任何方式贊助、背書、出售或促銷本基金，且「合作單位」亦未明示或默示對使用指數之結果及/或指數於任一特定日期之任一特定時間或其他時間之數據提供任何保證或聲明。指數係由臺灣指數公司所計算。然「合作單位」就指數之任何錯誤、不正確、遺漏或指數資料之傳輸中斷對任何人均不負任何責任，且無任何義務將該等錯誤、不正確或遺漏通知任何人。</span></span></span><strong><span style="color: #000000;"><span style="color: #ff0000;"><span style="color: #000000;">&nbsp;</span></span></span></strong></p>
+<p><span style="color: #800000;"><span style="color: #000000;"><strong>【永豐美國大型500股票ETF基金<span style="color: #ff0000;">(本基金並無保證收益及配息)</span>】本基金經金管會核准或同意生效，惟不表示絕無風險。基金經理公司以往之經理績效不保證基金之最低投資收益；基金經理公司除盡善良管理人之注意義務外，不負責本基金之盈虧，亦不保證最低之收益，投資人申購前應詳閱基金公開說明書。<span style="color: #ff0000;">本文提及之經濟走勢預測不必然代表本基金之績效，又投資人因不同時間進場，將有不同之投資績效，過去之績效亦不代表未來績效之保證，本基金投資風險請詳閱基金公開說明書。</span>有關基金應負擔之費用已揭露於基金公開說明書，投資人可向經理公司或銷售機構索取，或於經理公司官網、公開資訊觀測站查詢。<span style="color: #ff0000;">本基金為指數股票型基金，所追蹤之標的指數成分股以母指數STOXX&reg; USA 900指數為基礎，其挑選在美國交易所上市，自由流通市值最高的前900家企業作為該指數成分股，在該指數基礎下，選出自由流通市值前500檔股票所組成，故本基金之風險報酬等級為RR4。RR係計算成立年度之淨值波動度，並與同類型基金比較後決定，及參考中華民國證券投資信託暨顧問商業同業公會所訂分類標準等，風險報酬分類為RR1-RR5五級，數字愈大代表風險愈高。此等級分類係基於一般市場狀況反映市場價格波動風險，無法涵蓋所有風險（如：基金計價幣別匯率風險、投資標的產業風險、信用風險、利率風險、流動性風險等），不宜作為投資唯一依據，投資人仍應注意所投資基金個別的風險。</span>本基金為指數股票型，採被動式管理方式，以追蹤標的指數之績效表現為目標，因此基金之投資績效將視其追蹤之標的指數走勢而定，若標的指數價格波動劇烈，本基金淨資產價值亦將隨之波動或下跌。本基金所投資成分股檔數與所追蹤標的指數成分股檔數覆蓋率依基金淨資產價值不低於30%~50%，當標的指數之成分股發生剔除或增加入產生變化或權重改變時，受限跨市場交易之營業日不同，基金的投資組合內容未能及時調整與標的指數相同，可能使基金報酬與標的指數產生偏離。本基金所涉之各證券市場交易時間不同，因此本基金所涉之證券市場交易可能有無法即時完全反應基金投資組合之價格波動風險。另本基金的淨值反應其一籃子成分市值總合，惟盤中即時估計淨值與實際基金淨值計算之投組內容亦可能有所差異，可能造成交易資訊傳遞落差之風險。</strong></span></span><span style="color: #800000;"><span><span style="color: #800000;"><span style="color: #ff0000;"><strong>部分可配息基金配息前未先扣除應負擔之相關費用，且基金的配息可能由基金的收益或本金或收益平準金中支付。任何涉及由本金支出的部份，可能導致原始投資金額以同等比例減損。基金配息不代表基金實際報酬，且過去配息不代表未來配息；基金淨值可能因市場因素而上下波動。基金經理公司不保證本基金最低之收益率或獲利，配息金額會因操作及收入來源而有變化，且投資之風險無法因分散投資而完全消除，投資人仍應自行承擔相關風險。投資人可至本公司官網查詢最近12個月內由本金支付之配息組成項目。各期間報酬率(含息)是假設收益分配均滾入再投資於本基金之期間累積報酬率。<span style="color: #000000;">本基金掛牌後之買賣成交價格無升降幅度限制，掛牌後應依臺灣證交所或櫃買中心掛牌有關規定辦理。</span></strong></span><strong><span style="color: #000000;">投資人申購本基金係持有基金受益憑證，而非本文提及之投資資產或標的。本基金不受存款保險、保險安定基金或其他保護機制之保障。<br />
+</span></strong></span><span style="color: #000000;">指數免責聲明：STOXX&reg; USA 500指數屬於STOXX有限公司及/或其相關人員之智慧財產權(包括註冊商標)。本基金並不被STOXX有限公司及其相關人員資助、宣傳或任何STOXX 有限公司及其相關人員支持的方式來推廣，STOXX有限公司及其相關人員並未給予任何保證且排除對STOXX&reg; USA 500指數之錯誤、疏漏或任何干預之責任(不論是否為過失行為造成)。</span></span><strong><span style="color: #000000;"><span><br />
+</span></span></strong></span></p>
+<p><strong><span style="color: #000000;">【</span>永豐美國科技ETF基金<span style="color: #000000;">】</span>本基金經金管會核准或同意生效，惟不表示絕無風險。基金經理公司以往之經理績效不保證基金之最低投資收益；基金經理公司除盡善良管理人之注意義務外，不負責本基金之盈虧，亦不保證最低之收益，投資人申購前應詳閱基金公開說明書。<span style="color: #ff0000;">本文提及之經濟走勢預測不必然代表本基金之績效，又投資人因不同時間進場，將有不同之投資績效，過去之績效亦不代表未來績效之保證，本基金投資風險請詳閱基金公開說明書。</span>有關基金應負擔之費用已揭露於基金公開說明書，投資人可向經理公司或銷售機構索取，或於經理公司官網、公開資訊觀測站查詢。<span style="color: #ff0000;">本基金為指數股票型基金，所追蹤之標的指數以在美國紐約證交所及那斯達克證交所、芝加哥選擇權交易所下轄美國股票交易所、美國投資者交易所上市股票，符合機器人與人工智慧、網路安全、雲端資訊技術、金融科技、基因與免疫學五大主體領域，故本基金之風險報酬等級為RR4。RR係計算成立年度之淨值波動度，並與同類型基金比較後決定，另綜合考量前述第一項至第三項之主要投資風險，及參考投信投顧公會所訂分類標準等，風險報酬分類為RR1-RR5五級，數字愈大代表風險愈高。此等級分類係基於一般市場狀況反映市場價格波動風險，無法涵蓋所有風險（如：投資標的產業風險、信用風險、利率風險、流動性風險等），不宜作為投資唯一依據，</span>投資人仍應注意所投資基金個別的風險。本基金為指數股票型，採被動式管理方式，以追蹤標的指數之績效表現為目標，因此基金之投資績效將視其追蹤之標的指數走勢而定，若標的指數價格波動劇烈，本基金淨資產價值亦將隨之波動或下跌。本基金所投資成分證券檔數與所追蹤標的指數成分股檔數覆蓋率不低於50%，當標的指數之成分股發生剔除或增加入產生變化或權重改變時，受限跨市場交易之營業日不同，基金的投資組合內容未能及時調整與標的指數相同，可能使基金報酬與標的指數產生偏離。本基金追蹤之標的指數為美國科技概念類股，其成分股雖經過挑選，但仍不排除存在類股過度集中之風險。本基金所涉之證券市場交易時間不同，因此基金所涉之證券市場交易可能有無法即時完全反應基金投資組合之價格波動風險。另本基金的淨值反應其一籃子成分市值總合，惟盤中即時估計淨值與實際基金淨值計算之投組內容亦可能有所差異，可能造成交易資訊傳遞落差之風險。本基金掛牌後之買賣成交價格無升降幅度限制，掛牌後應依臺灣證交所或櫃買中心掛牌有關規定辦理。投資人申購本基金係持有基金受益憑證，而非本文提及之投資資產或標的。本基金不受存款保險、保險安定基金或其他保護機制之保障。<br />
+</strong>指數免責聲明：經許可使用來源ICE Data Indices, LLC(「以下稱ICE Data」)。美國科技股票指數(NYSE FactSet&reg; U.S. Tech Breakthrough Index)係ICE Data或其關係企業之服務/營業標章，且已與系列指數一併授權以供永豐投信針對永豐美國科技100 ETF基金(以下稱「產品」)使用之。永豐投信及產品均非由ICE Data Indices, LLC、其關係企業或第三人供應商(「ICE Data和其供應商」)贊助、背書、販售或宣傳。ICE Data和其供應商針對尤其是產品內之證券投資明智性、信託或指數追蹤一般市場績效之能力，不做任何相關聲明或保證。ICE Data對永豐投信之惟一關係，僅止於授權特定商標和商號以及指數或指數成分。指數係由ICE Data決定、組成和結算，與永豐投信或產品或產品持有人無關。ICE Data無 義務於決定、組成或結算指數時，將永豐投信或產品持有人之需求納入考量。ICE Data不負責亦未參與決定應發行產品之時機、價格或數量，或產品訂價、銷售、認購或贖回依據之決定或公式結算。除特定慣例指數結算服務以外，ICE Data提供之所有資料均為一般性質資料，非為永豐投信或其他任何人、實體或法人團體量身訂作之資料。ICE Data無義務且不負責管理、行銷或交易產品。ICE Data非投資顧問。ICE Data不推薦以納入指數範圍內證券之方式購買、銷售或持有該證券。納入指數範圍內證券亦不得被視為投資建議。ICE Data和其供應商否認任何包含指數、指數資料和該指數及資料所含、相關或衍生之資料(「指數資料」)之明示和/或默示保證和聲明，包括適銷性或特定目的或使用適合性之任何保證。ICE Data和其供應商不須負擔有關指數和指數資料適合性、正確性、適時性或完整性之任何損害賠償或責任。該指數和資料均按「原狀」提供，且於用時應自負風險。<strong><br />
+<br />
+<span style="color: #000000;">【</span>永豐中國科技50大ETF基金<span style="color: #000000;">】</span>本基金經金管會核准或同意生效，惟不表示絕無風險。基金經理公司以往之經理績效不保證基金之最低投資收益；基金經理公司除盡善良管理人之注意義務外，不負責本基金之盈虧，亦不保證最低之收益，投資人申購前應詳閱基金公開說明書。<span style="color: #ff0000;">本文提及之經濟走勢預測不必然代表本基金之績效，又投資人因不同時間進場，將有不同之投資績效，過去之績效亦不代表未來績效之保證，本基金投資風險請詳閱基金公開說明書。</span>有關基金應負擔之費用已揭露於基金公開說明書，投資人可向經理公司或銷售機構索取，或於經理公司官網、公開資訊觀測站查詢。<span style="color: #ff0000;">本基金為指數股票型基金，所追蹤之標的指數以中証全指指數為基礎，選出中証行業分類為資訊技術與電信業務，航空航太與國防、新能源設備、醫療器械、醫療保健技術、生物科技等產業之股票，故本基金之風險報酬等級為RR5。RR係計算成立年度之淨值波動度，並與同類型基金比較後決定，及參考投信投顧公會所訂分類標準等，風險報酬分類為RR1-RR5五級，數字愈大代表風險愈高。此等級分類係基於一般市場狀況反映市場價格波動風險，無法涵蓋所有風險（如：投資標的產業風險、信用風險、利率風險、流動性風險等），不宜作為投資唯一依據，投資人仍應注意所投資基金個別的風險。</span>本基金為指數股票型，採被動式管理方式，以追蹤標的指數之績效表現為目標，因此基金之投資績效將視其追蹤之標的指數走勢而定，若標的指數價格波動劇烈，本基金淨資產價值亦將隨之波動或下跌。本基金所投資成分證券檔數與所追蹤標的指數成分股檔數覆蓋率不低於80%，當標的指數之成分股發生剔除或增加入產生變化或權重改變時，受限跨市場交易之營業日不同，基金的投資組合內容未能及時調整與標的指數相同，可能使基金報酬與標的指數產生偏離。本基金主要投資於大陸地區之有價證券，由於大陸地區之政經情勢或法規變動較已開發國家劇烈，外匯的管制也較嚴格，仍存在投資地區、經濟變動之風險，且追蹤之標的指數為科技概念類股，其成分股雖經過挑選，但仍不排除存在類股過度集中之風險。本基金所涉之證券市場交易時間不同，因此基金所涉之證券市場交易可能有無法即時完全反應基金投資組合之價格波動風險。另本基金的淨值反應其一籃子成分市值總合，惟盤中即時估計淨值與實際基金淨值計算之投組內容亦可能有所差異，可能造成交易資訊傳遞落差之風險。本基金掛牌後之買賣成交價格無升降幅度限制，掛牌後應依臺灣證交所或櫃買中心掛牌有關規定辦理。投資人申購本基金係持有基金受益憑證，而非本文提及之投資資產或標的。本基金不受存款保險、保險安定基金或其他保護機制之保障。<br />
+</strong>指數免責聲明：中証科技50指數(&ldquo;指數&rdquo;)由中証指數有限公司(&ldquo;中証&rdquo;)編制和計算，其所有權歸屬中証。中証將採取一切必要措施以確保指數的準確性，但不對此作任何保證，亦不因指數的任何錯誤對任何人負責。<br />
+<br />
+<strong><span style="color: #000000;">【</span>永豐台灣智能車供應鏈ETF基金<span style="color: #000000;">】</span>本基金經金管會核准或同意生效，惟不表示絕無風險。基金經理公司以往之經理績效不保證基金之最低投資收益；基金經理公司除盡善良管理人之注意義務外，不負責本基金之盈虧，亦不保證最低之收益，投資人申購前應詳閱基金公開說明書。<span style="color: #ff0000;">本文提及之經濟走勢預測不必然代表本基金之績效，又投資人因不同時間進場，將有不同之投資績效，過去之績效亦不代表未來績效之保證，本基金投資風險請詳閱基金公開說明書。</span>有關基金應負擔之費用已揭露於基金公開說明書，投資人可向經理公司或銷售機構索取，或於經理公司官網、公開資訊觀測站查詢。<span style="color: #ff0000;">本基金為指數股票型，主要投資於國內，所追蹤之標的指數為特選臺灣智能車供應鏈聯盟指數，透過指數篩選原則，選取50檔成分股，故本基金之風險報酬等級為RR5。RR係計算成立年度之淨值波動度，並與同類型基金比較後決定，及參考投信投顧公會所訂分類標準等，風險報酬分類為RR1-RR5五級，數字愈大代表風險愈高。此等級分類係基於一般市場狀況反映市場價格波動風險，無法涵蓋所有風險（如：投資標的產業風險、信用風險、利率風險、流動性風險等），不宜作為投資唯一依據，投資人仍應注意所投資基金個別的風險。</span>本基金為指數股票型，採被動式管理方式，以追蹤標的指數之績效表現為目標，因此本基金之投資績效將視其追蹤之標的指數走勢而定，若標的指數價格波動劇烈，本基金淨資產價值亦將隨之波動或下跌。本基金所投資成分證券檔數與所追蹤標的指數成分股檔數覆蓋率不低於90%，當標的指數之成分股發生剔除或增加入產生變化或權重改變時，基金的投資組合內容未能及時調整與標的指數相同，可能使基金報酬與標的指數產生偏離。本基金將依標的指數進行最適之資產配置，然產業的循環週期或非經濟因素影響可能導致價格出現劇烈波動，使基金淨值在短期內出現較大幅度之波動，故可能產生類股過度集中之風險，經理公司將善盡管理義務，降低類股過度集中度風險，但不表示風險得以完全規避。本基金的淨值反應其一籃子成分市值總合，惟盤中即時估計淨值與實際基金淨值計算之投組內容亦可能有所差異，可能造成交易資訊傳遞落差之風險。</strong><span style="color: #ff0000;"><strong>部分可配息基金配息前未先扣除應負擔之相關費用，且基金的配息可能由基金的收益或本金或收益平準金中支付。任何涉及由本金支出的部份，可能導致原始投資金額以同等比例減損。基金配息不代表基金實際報酬，且過去配息不代表未來配息；基金淨值可能因市場因素而上下波動。基金經理公司不保證本基金最低之收益率或獲利，配息金額會因操作及收入來源而有變化，且投資之風險無法因分散投資而完全消除，投資人仍應自行承擔相關風險。投資人可至本公司官網查詢最近12個月內由本金支付之配息組成項目。各期間報酬率(含息)是假設收益分配均滾入再投資於本基金之期間累積報酬率。<span style="color: #000000;">本基金掛牌後之買賣成交價格無升降幅度限制，掛牌後應依臺灣證交所或櫃買中心掛牌有關規定辦理。</span></strong><span style="color: #000000;"><strong>投資人申購本基金係持有基金受益憑證，而非本文提及之投資資產或標的。本基金不受存款保險、保險安定基金或其他保護機制之保障。<br />
+</strong></span></span>指數免責聲明：臺灣指數公司特選上市上櫃臺灣智能車供應鏈聯盟指數係由臺灣指數股份有限公司(臺灣指數公司)及財團法人中華民國證券櫃檯買賣中心(櫃檯買賣中心)(以上機構合稱「合作單位」)共同開發並由臺灣指數公司單獨授權永豐證券投資信託股份有限公司使用發行「基金」。「合作單位」並未以任何方式贊助、背書、出售或促銷「基金」且「合作單位」亦未明示或默示對使用指數之結果及或指數於任一特定日期之任一特定時間或其他時間之數據提供任何保證或聲明。指數係由臺灣指數公司所計算。然「合作單位」就指數之任何錯誤、不正確、遺漏或指數資料之傳輸中斷對任何人均不負任何責任，且無任何義務將該等錯誤、不正確或遺漏通知任何人。</p>
+<p><span><span style="color: #000000;"><strong>【永豐10年期以上美元A級公司債券ETF基金<span style="color: #ff0000;">(本基金之配息來源可能為收益平準金且並無保證收益及配息)</span>】本基金經金管會核准或同意生效，惟不表示絕無風險。基金經理公司以往之經理績效不保證基金之最低投資收益；基金經理公司除盡善良管理人之注意義務外，不負責本基金之盈虧，亦不保證最低之收益，投資人申購前應詳閱基金公開說明書。<span style="color: #ff0000;">本文提及之經濟走勢預測不必然代表本基金之績效，又投資人因不同時間進場，將有不同之投資績效，過去之績效亦不代表未來績效之保證，本基金投資風險請詳閱基金公開說明書。</span>有關基金應負擔之費用已揭露於基金公開說明書，投資人可向經理公司或銷售機構索取，或於經理公司官網、公開資訊觀測站查詢。<span style="color: #ff0000;">本基金為指數股票型基金，所追蹤之標的指數成分債主要為在美國發行之美元計價公司債，信用評級為A級投資等級，故本基金之風險報酬等級為RR2。RR係計算成立年度之淨值波動度，並與同類型基金比較後決定，及參考投信投顧公會所訂分類標準等，風險報酬分類為RR1-RR5五級，數字愈大代表風險愈高。此等級分類係基於一般市場狀況反映市場價格波動風險，無法涵蓋所有風險（如：基金計價幣別匯率風險、投資標的產業風險、信用風險、利率風險、流動性風險等），不宜作為投資唯一依據，投資人仍應注意所投資基金個別的風險。</span>本基金為指數股票型，採被動式管理方式，以追蹤標的指數之績效表現為目標，因此基金之投資績效將視其追蹤之標的指數走勢而定，若標的指數價格波動劇烈，本基金淨資產價值亦將隨之波動或下跌。本基金所投資成分券檔數與所追蹤標的指數成分券檔數覆蓋率依基金淨資產價值不低於50%，當標的指數之成分券發生剔除或增加入產生變化或權重改變時，受限跨市場交易之營業日不同，基金的投資組合內容未能及時調整與標的指數相同，可能使基金報酬與標的指數產生偏離。<span style="color: #ff0000;">本基金可投資於美國Rule 144A債券，該債券屬私募性質，故發行人財務狀況較不透明且僅能轉讓予合格機構投資者，故較可能發生流動性不足、財務訊息揭露不完整或因價格不透明導致波動性較大之風險。</span>本基金所涉之證券市場交易可能有無法即時完全反應基金投資組合之價格波動風險。本基金所涉之各證券市場交易時間不同，因此本基金所涉之證券市場交易可能有無法即時完全反應基金投資組合之價格波動風險。另基金的淨值反應其一籃子成分市值總合，惟盤中即時估計淨值與實際基金淨值計算之投組內容亦可能有所差異，可能造成交易資訊傳遞落差之風險。</strong><span style="color: #ff0000;"><strong>部分可配息基金配息前未先扣除應負擔之相關費用，且基金的配息可能由基金的收益或本金或收益平準金中支付。任何涉及由本金支出的部份，可能導致原始投資金額以同等比例減損。基金配息不代表基金實際報酬，且過去配息不代表未來配息；基金淨值可能因市場因素而上下波動。基金經理公司不保證本基金最低之收益率或獲利，配息金額會因操作及收入來源而有變化，且投資之風險無法因分散投資而完全消除，投資人仍應自行承擔相關風險。投資人可至本公司官網查詢最近12個月內由本金支付之配息組成項目。各期間報酬率(含息)是假設收益分配均滾入再投資於本基金之期間累積報酬率。<span style="color: #000000;">本基金掛牌後之買賣成交價格無升降幅度限制，掛牌後應依臺灣證交所或櫃買中心掛牌有關規定辦理。</span></strong><strong><span style="color: #000000;">投資人申購本基金係持有基金受益憑證，而非本文提及之投資資產或標的。本基金不受存款保險、保險安定基金或其他保護機制之保障。</span></strong></span><br />
+</span><span style="color: #000000;">指數免責聲明：經許可使用來源ICE Data Indices, LLC（「以下稱ICE Data」）。ICE 10年期以上美元A級公司債券指數（ICE 10+ Year Core Large Cap Single-A US Corporate Index）SM/&reg; 係ICE Data或其關係企業之服務／營業標章，且已與指數一併授權以供永豐投信使用之。永豐投信及本基金均非 由ICE Data Indices, LLC、其關係企業或第三人供應商（「ICE Data和其供應商」）贊助、背書、販售或宣傳。ICE Data和其供應商針對尤其是產品內之證券投資明智性、信託或指數追蹤一般市場績效之能力，不做任何相關聲明或保證。指數過去之績效，並非未來成果保證之指標。ICE Data和其供應商否認任何包含指數、指數資料和該指數及資料所含、相關或衍生之資料（「指數資料」）之明示和／或默示保證和聲明，包括適銷性或特定目的或使用適合性之任何保證。ICE Data和其供應商不須負擔有關指數和指數資料適合性、正確性、適時性或完整性之任何損害賠償或責任。該指數和資料均按「原狀」提供，且應於使用時自負風險。</span><span style="color: #000000;"><br />
+<br />
+<strong>【永豐1至3年期美國公債ETF基金<span style="color: #ff0000;">(本基金之配息來源可能為收益平準金且並無保證收益及配息)</span>】本基金經金管會核准或同意生效，惟不表示絕無風險。基金經理公司以往之經理績效不保證基金之最低投資收益；基金經理公司除盡善良管理人之注意義務外，不負責本基金之盈虧，亦不保證最低之收益，投資人申購前應詳閱基金公開說明書。<span style="color: #ff0000;">本文提及之經濟走勢預測不必然代表本基金之績效，又投資人因不同時間進場，將有不同之投資績效，過去之績效亦不代表未來績效之保證，本基金投資風險請詳閱基金公開說明書。</span>有關基金應負擔之費用已揭露於基金公開說明書，投資人可向經理公司或銷售機構索取，或於經理公司官網、公開資訊觀測站查詢。<span style="color: #ff0000;">本基金為指數股票型基金，所追蹤之標的指數成分債主要為美國財政部發行之信評為AAA級美元計價公債，流通在外餘額(Outstanding Amount)需達10億美元以上，債券距離到期日須介於1-3年，故本基金之風險報酬等級為RR2。RR係計算成立年度之淨值波動度，並與同類型基金比較後決定，及參考投信投顧公會所訂分類標準等，風險報酬分類為RR1-RR5五級，數字愈大代表風險愈高。此等級分類係基於一般市場狀況反映市場價格波動風險，無法涵蓋所有風險（如：基金計價幣別匯率風險、投資標的產業風險、信用風險、利率風險、流動性風險等），不宜作為投資唯一依據，投資人仍應注意所投資基金個別的風險。</span>本基金為指數股票型，採被動式管理方式，以追蹤標的指數之績效表現為目標，因此基金之投資績效將視其追蹤之標的指數走勢而定，若標的指數價格波動劇烈，本基金淨資產價值亦將隨之波動或下跌。本基金所投資成分券檔數與所追蹤標的指數成分券檔數覆蓋率依基金淨資產價值不低於30%~50%，當標的指數之成分券發生剔除或增加入產生變化或權重改變時，受限跨市場交易之營業日不同，基金的投資組合內容未能及時調整與標的指數相同，可能使基金報酬與標的指數產生偏離。<span style="color: #ff0000;">本基金可投資於美國Rule 144A債券，該債券屬私募性質，故發行人財務狀況較不透明且僅能轉讓予合格機構投資者，故較可能發生流動性不足、財務訊息揭露不完整或因價格不透明導致波動性較大之風險。</span>本基金所涉之各證券市場交易時間不同，因此本基金所涉之證券市場交易可能有無法即時完全反應基金投資組合之價格波動風險。另基金的淨值反應其一籃子成分市值總合，惟盤中即時估計淨值與實際基金淨值計算之投組內容亦可能有所差異，可能造成交易資訊傳遞落差之風險。</strong></span><span style="color: #000000;"><span style="color: #ff0000;"><strong>部分可配息基金配息前未先扣除應負擔之相關費用，且基金的配息可能由基金的收益或本金或收益平準金中支付。任何涉及由本金支出的部份，可能導致原始投資金額以同等比例減損。基金配息不代表基金實際報酬，且過去配息不代表未來配息；基金淨值可能因市場因素而上下波動。基金經理公司不保證本基金最低之收益率或獲利，配息金額會因操作及收入來源而有變化，且投資之風險無法因分散投資而完全消除，投資人仍應自行承擔相關風險。投資人可至本公司官網查詢最近12個月內由本金支付之配息組成項目。各期間報酬率(含息)是假設收益分配均滾入再投資於本基金之期間累積報酬率。<span style="color: #000000;">本基金掛牌後之買賣成交價格無升降幅度限制，掛牌後應依臺灣證交所或櫃買中心掛牌有關規定辦理。</span></strong><strong><span style="color: #000000;">投資人申購本基金係持有基金受益憑證，而非本文提及之投資資產或標的。本基金不受存款保險、保險安定基金或其他保護機制之保障。</span></strong></span><br />
+</span></span><span><span style="color: #000000;">指數免責聲明：經許可使用來源ICE Data Indices, LLC（「以下稱ICE Data」）。ICE 1-3年期美國公債指數(ICE BofAML 1-3 Year US Treasury Index）SM/&reg; 係ICE Data或其關係企業之服務／營業標章，且已與指數一併授權以供永豐投信使用之。永豐投信及本基金均非由ICE Data Indices, LLC、其關 係企業或第三人供應商（「ICE Data和其供應商」）贊助、背書、販售或宣傳。ICE Data和其供應商針對尤其是產品內之證券投資明智性、信託或指數追蹤一般市場績效之能力，不做任何相關聲明或保證。指數過去之績效，並非未來成果保證之指標。ICE Data和其供應商否認任何包含指數、指數資料和該指數及資料所含、相關或衍生之資料（「指數資料」）之明示和／或默示保證和聲明，包括適銷性或特定目的或使用適合性之任何保證。ICE Data和其供應商不須負擔有關指數和指數資料適合性、正確性、適時性或完整性之任何損害賠償或責任。該指數和資料均按「原狀」提供，且應於使用時自負風險。</span><span style="color: #000000;"><br />
+<br />
+<strong>【永豐20年期以上美國公債ETF基金<span style="color: #ff0000;">(本基金之配息來源可能為收益平準金且並無保證收益及配息)</span>】本基金經金管會核准或同意生效，惟不表示絕無風險。基金經理公司以往之經理績效不保證基金之最低投資收益；基金經理公司除盡善良管理人之注意義務外，不負責本基金之盈虧，亦不保證最低之收益，投資人申購前應詳閱基金公開說明書。<span style="color: #ff0000;">本文提及之經濟走勢預測不必然代表本基金之績效，又投資人因不同時間進場，將有不同之投資績效，過去之績效亦不代表未來績效之保證，本基金投資風險請詳閱基金公開說明書。</span>有關基金應負擔之費用已揭露於基金公開說明書，投資人可向經理公司或銷售機構索取，或於經理公司官網、公開資訊觀測站查詢。<span style="color: #ff0000;">本基金為指數股票型基金，所追蹤之標的指數成分債主要為美國財政部發行之信評為AAA級美元計價公債，流通在外餘額(Outstanding Amount)需達10億美元以上，債券距離到期日須大於等於20年，故本基金之風險報酬等級為RR2。RR係計算成立年度之淨值波動度，並與同類型基金比較後決定，及參考投信投顧公會所訂分類標準等，風險報酬分類為RR1-RR5五級，數字愈大代表風險愈高。此等級分類係基於一般市場狀況反映市場價格波動風險，無法涵蓋所有風險（如：基金計價幣別匯率風險、投資標的產業風險、信用風險、利率風險、流動性風險等），不宜作為投資唯一依據，投資人仍應注意所投資基金個別的風險。</span>本基金為指數股票型，採被動式管理方式，以追蹤標的指數之績效表現為目標，因此基金之投資績效將視其追蹤之標的指數走勢而定，若標的指數價格波動劇烈，本基金淨資產價值亦將隨之波動或下跌。本基金所投資成分券檔數與所追蹤標的指數成分券檔數覆蓋率依基金淨資產價值不低於30%~80%，當標的指數之成分券發生剔除或增加入產生變化或權重改變時，受限跨市場交易之營業日不同，基金的投資組合內容未能及時調整與標的指數相同，可能使基金報酬與標的指數產生偏離。<span style="color: #ff0000;">本基金可投資於美國Rule 144A債券，該債券屬私募性質，故發行人財務狀況較不透明且僅能轉讓予合格機構投資者，故較可能發生流動性不足、財務訊息揭露不完整或因價格不透明導致波動性較大之風險。本基金所涉之各證券市場交易時間不同，因此本基金所涉之證券市場交易可能有無法即時完全反應基金投資組合之價格波動風險。</span>另基金的淨值反應其一籃子成分市值總合，惟盤中即時估計淨值與實際基金淨值計算之投組內容亦可能有所差異，可能造成交易資訊傳遞落差之風險。</strong><span style="color: #ff0000;"><strong>部分可配息基金配息前未先扣除應負擔之相關費用，且基金的配息可能由基金的收益或本金或收益平準金中支付。任何涉及由本金支出的部份，可能導致原始投資金額以同等比例減損。基金配息不代表基金實際報酬，且過去配息不代表未來配息；基金淨值可能因市場因素而上下波動。基金經理公司不保證本基金最低之收益率或獲利，配息金額會因操作及收入來源而有變化，且投資之風險無法因分散投資而完全消除，投資人仍應自行承擔相關風險。投資人可至本公司官網查詢最近12個月內由本金支付之配息組成項目。各期間報酬率(含息)是假設收益分配均滾入再投資於本基金之期間累積報酬率。<span style="color: #000000;">本基金掛牌後之買賣成交價格無升降幅度限制，掛牌後應依臺灣證交所或櫃買中心掛牌有關規定辦理。</span></strong><strong><span style="color: #000000;">投資人申購本基金係持有基金受益憑證，而非本文提及之投資資產或標的。本基金不受存款保險、保險安定基金或其他保護機制之保障。</span></strong></span><br />
+</span></span><span><span style="color: #000000;">指數免責聲明：經許可使用來源ICE Data Indices, LLC（「以下稱ICE Data」）。ICE 20年期以上美國公債指數（ICE BofAML 20+ Year US Treasury Index）SM/&reg; 係ICE Data或其關係企業之服務／營業標章，且已與指數一併授權以供永豐投信使用之。永豐投信及本基金均非由ICE Data Indices, LLC、其關係企業或第三人供應商（「ICE Data和其供應商」）贊助、背書、販售或宣傳。ICE Data和其供應商針對尤其是產品內之證券投資明智性、信託或指數追蹤 一般市場績效之能力，不做任何相關聲明或保證。指數過去之績效，並非未來成果保證之指標。ICE Data和其供應商否認任何包含指數、指數資料和該指數及資料所含、相關或衍生之資料（「指數資料」）之明示和／或默示保證和聲明，包括適銷性或特定目的或使用適合性之任何保證。ICE Data和其供應商不須負擔有關指數和指數資料適合性、正確性、適時性或完整性之任何損害賠償或責任。該指數和資料均按「原狀」提供，且應於使用時自負風險。</span></span><strong><span style="color: #000000;">&nbsp;</span><br />
+</strong><span style="color: #870303;"><span style="color: #000000;"><br />
+<strong>【永豐貨幣市場基金】本基金經金管會核准或同意生效，惟不表示絕無風險。基金經理公司以往之經理績效不保證基金之最低投資收益；基金經理公司除盡善良管理人之注意義務外，不負責本基金之盈虧，亦不保證最低之收益，投資人申購前應詳閱基金公開說明書。<span style="color: #ff0000;">本文提及之經濟走勢預測不必然代表本基金之績效，又投資人因不同時間進場，將有不同之投資績效，過去之績效亦不代表未來績效之保證，本基金投資風險請詳閱基金公開說明書。</span>有關基金應負擔之費用已揭露於基金公開說明書，投資人可向經理公司或銷售機構索取，或於經理公司官網、公開資訊觀測站查詢。<span style="color: #ff0000;">本基金為貨幣市場型基金，流動性佳，以追求穩定收益為目標，故本基金之風險報酬等級為RR1。風險報酬等級為本公司依照投信投顧同業公會「基金風險報酬等級分類標準」編製，該風險報酬等級RR係計算過去5年基金淨值波動度標準差，以標準差區間予以分類等級，分類為RR1-RR5五級，數字愈大代表風險愈高。此等級分類係基於一般市場狀況反映市場價格波動風險，無法涵蓋所有風險（如：投資標的產業風險、信用風險、利率風險、流動性風險等），不宜作為投資唯一依據，投資人仍應注意所投資基金個別的風險。</span>本基金投資之風險請詳閱本基金公開說明書。投資人申購本基金係持有基金受益憑證，而非本文提及之投資資產或標的。本基金不受存款保險、保險安定基金或其他保護機制之保障。</strong></span></span><br />
+<br />
+<strong>【永豐新興市場及非投資等級雙債組合基金<span style="color: #ff0000;">（本基金主要投資於高風險非投資等級債券基金且基金之配息來源可能為本金）</span>】本基金經金管會核准或同意生效，惟不表示絕無風險。基金經理公司以往之經理績效不保證基金之最低投資收益；基金經理公司除盡善良管理人之注意義務外，不負責本基金之盈虧，亦不保證最低之收益，投資人申購前應詳閱基金公開說明書。<span style="color: #ff0000;">本文提及之經濟走勢預測不必然代表本基金之績效，又投資人因不同時間進場，將有不同之投資績效，過去之績效亦不代表未來績效之保證，本基金投資風險請詳閱基金公開說明書。</span>有關基金應負擔之費用已揭露於基金公開說明書，投資人可向經理公司或銷售機構索取，或於經理公司官網、公開資訊觀測站查詢。<span style="color: #ff0000;">本基金為組合型基金，主要投資於非投資等級債券基金及新興市場債券基金，以追求中長期資本利得與穩定成長的收益為目標，本基金之風險報酬等級為RR3。RR係計算成立年度之淨值波動度，並與同類型基金比較後決定，及參考投信投顧公會所訂分類標準等，風險報酬分類為RR1-RR5五級，數字愈大代表風險愈高。此等級分類係基於一般市場狀況反映市場價格波動風險，無法涵蓋所有風險（如：投資標的產業風險、信用風險、利率風險、流動性風險等），不宜作為投資唯一依據，投資人仍應注意所投資基金個別的風險。本基金主要投資於非投資等級債券基金及新興市場債券基金，非投資等級債券基金之投資標的涵蓋低於投資等級之垃圾債券，故該等基金需承受較大之價格波動，而利率風險、信用違約風險、外匯波動風險也將高於一般投資等級之債券型基金；</span>新興市場債券基金因投資標的屬新興市場國家之債券，該等債券對利率風險和信用風險呈現較敏感的價格反應，而使其淨值波動較大。此外，有些地區或國家可能因政治、經濟不穩定而增加其無法償付本金及利息的信用風險。尤其在經濟景氣衰退期間，稍有不利消息，此類債券價格的波動可能較為劇烈。此外，新興市場國家之幣值穩定度和通貨膨脹控制情況等因素，亦容易影響此類債券價格，進而影響新興市場債券基金之淨值，造成本基金淨值之波動。</strong><span style="color: #ff0000;"><strong>部分可配息基金配息前未先扣除應負擔之相關費用，且基金的配息可能由基金的收益或本金或收益平準金中支付。任何涉及由本金支出的部份，可能導致原始投資金額以同等比例減損。基金配息不代表基金實際報酬，且過去配息不代表未來配息；基金淨值可能因市場因素而上下波動。基金經理公司不保證本基金最低之收益率或獲利，配息金額會因操作及收入來源而有變化，且投資之風險無法因分散投資而完全消除，投資人仍應自行承擔相關風險。投資人可至本公司官網查詢最近12個月內由本金支付之配息組成項目。各期間報酬率(含息)是假設收益分配均滾入再投資於本基金之期間累積報酬率。本基金配息前未先扣除應負擔之相關費用，投資人於申購時應謹慎考量。本基金投資子基金部份，可能涉有重複收取經理費。</strong><span style="color: #ff0000;"><span style="color: #000000;"><strong>投資人申購本基金係持有基金受益憑證，而非本文提及之投資資產或標的。本基金不受存款保險、保險安定基金或其他保護機制之保障。</strong></span></span><br />
+</span><br />
+<strong><span style="color: #000000;">【</span>永豐新興市場企業債券基金<span style="color: #ff0000;">（本基金可投資於相當比例非投資等級之高風險債券且基金之配息來源可能為本金）<span style="color: #000000;">】</span></span><span style="color: #000000;">本基金經金管會核准或同意生效，惟不表示絕無風險。基金經理公司以往之經理績效不保證基金之最低投資收益；基金經理公司除盡善良管理人之注意義務外，不負責本基金之盈虧，亦不保證最低之收益，投資人申購前應詳閱基金公開說明書。<span style="color: #ff0000;">本文提及之經濟走勢預測不必然代表本基金之績效，又投資人因不同時間進場，將有不同之投資績效，過去之績效亦不代表未來績效之保證，本基金投資風險請詳閱基金公開說明書。</span>有關基金應負擔之費用已揭露於基金公開說明書，投資人可向經理公司或銷售機構索取，或於經理公司官網、公開資訊觀測站查詢。</span><span style="color: #000000;">由於非投資等級債券之信用評等未達投資等級或未經信用評等，且對利率變動的敏感度甚高，故本基金可能會因利率上升、市場流動性下降，或債券發行機構違約不支付本金、利息或破產而蒙受虧損。<span style="color: #ff0000;">本基金不適合無法承擔相關風險之投資人。本基金適合尋求投資固定潛在收益且能承受較高風險之非保守型投資人。投資人投資以非投資等級債券為訴求之基金不宜占其投資組合過高之比重。本基金為債券型基金，主要投資於新興市場債券，並可投資於相當比例之非投資等級債券，故本基金之風險報酬等級為RR3。風險報酬等級為本公司依照投信投顧同業公會「基金風險報酬等級分類標準」編製，該風險報酬等級RR係計算過去5年基金淨值波動度標準差，以標準差區間予以分類等級，分類為RR1-RR5五級，數字愈大代表風險愈高。此等級分類係基於一般市場狀況反映市場價格波動風險，無法涵蓋所有風險（如：基金計價幣別匯率風險、投資標的產業風險、信用風險、利率風險、流動性風險等），不宜作為投資唯一依據，投資人仍應注意所投資基金個別的風險。</span>本基金主要投資標的為新興市場公司債及金融債券，其中新興市場相較於已開發國家的有價證券有更高的價格波動及更低的流動性，投資於新興市場須承受更多的風險。當新興市場的國家政治、經濟情勢或法規變動，亦可能對本基金可投資市場及投資工具造成直接或間接的影響。另外，新興市場國家的外匯管制較成熟市場多，故匯率變動風險較大，雖然本基金可從事遠期外匯或換匯交易之操作，以降低外匯的匯兌風險，但不表示得以完全規避。<span style="color: #ff0000;">本基金可投資於美國Rule144A債券，該債券係指美國債券市場上，由發行人直接對合格機構投資者(Qualified Institutional Buyers)私募之債券，此類債券因屬私募性質，故發行人財務狀況較不透明且僅能轉讓予合格機構投資者，故較可能發生流動性不足、財務訊息揭露不完整或因價格不透明導致波動性較大之風險。部分可配息基金配息前未先扣除應負擔之相關費用，且基金的配息可能由基金的收益或本金或收益平準金中支付。任何涉及由本金支出的部份，可能導致原始投資金額以同等比例減損。基金配息不代表基金實際報酬，且過去配息不代表未來配息；基金淨值可能因市場因素而上下波動。基金經理公司不保證本基金最低之收益率或獲利，配息金額會因操作及收入來源而有變化，且投資之風險無法因分散投資而完全消除，投資人仍應自行承擔相關風險。投資人可至本公司官網查詢最近12個月內由本金支付之配息組成項目。各期間報酬率(含息)是假設收益分配均滾入再投資於本基金之期間累積報酬率。本基金進行配息前未先扣除行政管理相關費用，投資人於申購時應謹慎考量</span></span>。</strong><strong>投資人申購本基金係持有基金受益憑證，而非本文提及之投資資產或標的。本基金不受存款保險、保險安定基金或其他保護機制之保障。</strong><br />
+<span style="color: #800000;"><span style="color: #000000;"><br />
+<!--2020/05/13清算 永豐標普東南亞基金指數免責聲明：S&amp;P Southeast Asia 40 Index 是 S&amp;P Dow Jones Indices LLC（&ldquo;SPDJI&rdquo;）的一款產品，且已授權予永豐投信使用。Standard &amp; Poor&rsquo;s&reg; 與S&amp;P&reg; 均為 Standard &amp; Poor&rsquo;s Financial Services LLC（&ldquo;S&amp;P&rdquo;）的註冊商標；Dow Jones&reg; 是 Dow Jones Trademark Holdings LLC（&ldquo;Dow Jones&rdquo;）的註冊商標；這些商標已授權予 SPDJI 使用，並已從屬授權予永豐投信用於特定用途。SPDJI、Dow Jones、S&amp;P 及其各自的附屬公司均不保薦、擔保、銷售或推廣永豐投信的永豐標普東南亞指數基金，而且他們中的任何一方既不對投資有關產品的合理性做出任何聲明，也不就 S&amp;P Southeast Asia 40Index 的任何錯誤、遺漏或中斷承擔任何法律責任。</span></span><br /><br /></strong></span>--><strong>【永豐全球多元入息基金<span style="color: #ff0000;">（</span></strong></span></span><strong><span style="color: #ff0000;">本基金有相當比重投資於非投資等級之高風險債券基金且配息來源可能為本金且並無保證收益及配息</span></strong><span style="color: #800000;"><span style="color: #000000;"><strong><span style="color: #ff0000;">）】</span>本基金經金管會核准或同意生效，惟不表示絕無風險。基金經理公司以往之經理績效不保證基金之最低投資收益；基金經理公司除盡善良管理人之注意義務外，不負責本基金之盈虧，亦不保證最低之收益，投資人申購前應詳閱基金公開說明書。<span style="color: #ff0000;">本文提及之經濟走勢預測不必然代表本基金之績效，又投資人因不同時間進場，將有不同之投資績效，過去之績效亦不代表未來績效之保證，本基金投資風險請詳閱基金公開說明書。</span>有關基金應負擔之費用已揭露於基金公開說明書，投資人可向經理公司或銷售機構索取，或於經理公司官網、公開資訊觀測站查詢。本基金進行配息前未先扣除應負擔之相關費用，投資人於申購時應謹慎考量。本基金投資子基金部份，可能涉有重複收取經理費。<span style="color: #ff0000;">本基金有相當比重投資於非投資等級之高風險債券基金，該等基金需承受較大之價格波動，而利率風險、信用違約風險、外匯波動風險也將高於一般投資等級之債券型基金。</span>此外，本基金所投資的子基金之投資標的，可能因國家或地區之政治、經濟不穩定而增加其無法償付本金及利息的信用風險，造成本基金淨值之波動。投資人如以非本基金計價幣別之貨幣換匯後申購基金，須自行承擔匯率變動之風險。此外因投資人與銀行進行外匯交易有買價與賣價之差異，投資人進行換匯時須承擔買賣價差，此價差依各銀行報價而定。另，投資人尚須承擔匯款費用且外幣匯款費用可能高於新臺幣匯款費用，投資人亦須留意外幣匯款到達時點可能因受款行作業時間而遞延。<span style="color: #ff0000;">本基金為組合型基金，主要投資全球各類資產，以追求中長期資本利得與穩定成長的收益為目標，故本基金之風險報酬等級為RR3。風險報酬等級為本公司依照投信投顧同業公會「基金風險報酬等級分類標準」編製，該風險報酬等級RR係計算過去5年基金淨值波動度標準差，以標準差區間予以分類等級，分類為RR1-RR5五級，數字愈大代表風險愈高。此等級分類係基於一般市場狀況反映市場價格波動風險，無法涵蓋所有風險（如：基金計價幣別匯率風險、投資標的產業風險、信用風險、利率風險、流動性風險等），不宜作為投資唯一依據，投資人仍應注意所投資基金個別的風險。<span style="color: #993300;"><span style="color: #ff0000;">部分可配息基金配息前未先扣除應負擔之相關費用，且基金的配息可能由基金的收益或本金或收益平準金中支付。任何涉及由本金支出的部份，可能導致原始投資金額以同等比例減損。基金配息不代表基金實際報酬，且過去配息不代表未來配息；基金淨值可能因市場因素而上下波動。基金經理公司不保證本基金最低之收益率或獲利，配息金額會因操作及收入來源而有變化，且投資之風險無法因分散投資而完全消除，投資人仍應自行承擔相關風險。投資人可至本公司官網查詢最近12個月內由本金支付之配息組成項目。各期間報酬率(含息)是假設收益分配均滾入再投資於本基金之期間累積報酬率。</span><span style="color: #000000;">投資人申購本基金係持有基金受益憑證，而非本文提及之投資資產或標的。本基金不受存款保險、保險安定基金或其他保護機制之保障。</span></span></span><br />
+</strong></span></span></p>
+<p><strong>【永豐全球基礎建設及公用事業投資等級債券基金<span style="color: #ff0000;">(本基金有一定比重得投資於非投資等級之高風險債券且配息來源可能為本金)</span>】</strong><span style="color: #000000;"><strong>本基金經金管會核准或同意生效，惟不表示絕無風險。經理公司以往之經理績效不保證基金最低投資收益，經理公司除盡善良管理人之注意義務外，不負責本基金盈虧，亦不保證最低收益，投資人申購前應詳閱基金公開說明書。本文提及之經濟走勢預測不必然代表本基金之績效，本基金投資風險請詳閱基金公開說明書，本基金之投資風險及應負擔費用已揭露於基金公開說明書，投資人可向經理公司或銷售機構索取，或於經理公司官網、公開資訊觀測站查詢。<span style="color: #ff0000;">本文提及之經濟走勢預測不必然代表本基金之績效，又投資人因不同時間進場，將有不同之投資績效，過去之績效亦不代表未來績效之保證，本基金投資風險請詳閱基金公開說明書。</span>匯率走勢可能影響所投資之海外資產而使資產價值變動。以非基金計價幣別之貨幣換匯後投資本基金者，須自行承擔匯率變動風險。<span style="color: #800000;"><span style="color: #ff0000;">本基金為債券型基金，聚焦於全球基礎建設及公用事業所發行以美元計價投資等級債券（包含公司債與金融債券），本基金之風險報酬等級為RR2。RR係計算成立年度之淨值波動度，並與同類型基金比較後決定，另綜合考量以下各項之投資風險，及參考中華民國證券投資信託暨顧問商業同業公會所訂分類標準等，風險報酬分類為RR1-RR5五級，數字愈大代表風險愈高。此等級分類係基於一般市場狀況反映市場價格波動風險，無法涵蓋所有風險（如：基金計價幣別匯率風險、投資標的產業風險、信用風險、利率風險、流動性風險等），不宜作為投資唯一依據，投資人仍應注意所投資基金個別的風險。</span></span><span style="color: #ff0000;">本基金可投資於美國Rule 144A債券，該債券屬私募性質，發行人財務不透明且僅能轉讓予合格機構投資者，故可能發生流動性不足、財務揭露不完整或因價格不透明導致波動風險。非投資等級債券之信用評等未達投資等級或未經信用評等，且對利率變動的敏感度甚高，故本基金可能因利率上升、市場流動性下降，或債券發行機構違約不支付本金、利息或破產而蒙受虧損。本基金不適合無法承擔相關風險之投資人。本基金適合尋求投資固定潛在收益且能承受較高風險之非保守型投資人。投資人投資以非投資等級債券為訴求之基金不宜占其投資組合過高之比重。本基金配息前可能未先扣除應負擔之費用。部分可配息基金配息前未先扣除應負擔之相關費用，且基金的配息可能由基金的收益或本金或收益平準金中支付。任何涉及由本金支出的部份，可能導致原始投資金額以同等比例減損。基金配息不代表基金實際報酬，且過去配息不代表未來配息；基金淨值可能因市場因素而上下波動。基金經理公司不保證本基金最低之收益率或獲利，配息金額會因操作及收入來源而有變化，且投資之風險無法因分散投資而完全消除，投資人仍應自行承擔相關風險。投資人可至本公司官網查詢最近12個月內由本金支付之配息組成項目。各期間報酬率(含息)是假設收益分配均滾入再投資於本基金之期間累積報酬率。</span>遞延手續費N類型受益權單位，手續費於買回時支付，持有未滿1年(含)、2年(含)、3年(含)，費率依序為3%、2%、1%，超過3年免付。</strong><span style="color: #000000;"><strong>投資人申購本基金係持有基金受益憑證，而非本文提及之投資資產或標的。本基金不受存款保險、保險安定基金或其他保護機制之保障。</strong></span></span></p>
+<p><strong>【永豐台灣</strong><strong>ESG</strong><strong>低碳高</strong><strong>息 </strong><strong>40</strong> <strong>ETF<span style="color: #ff0000;">(本基金之配息來源可能為收益平準金且並無保證收益及配息)</span>】本基金經金管會核准或同意生效，惟不表示絕無風險。經理公司以往之經理績效不保證基金之最低投資收益，經理公司除盡善良管理人之注意義務外，不負責本基金之盈虧，亦不保證最低之收益，投資人申購前應詳閱基金公開說明書。有關基金投資風險及應負擔之費用已揭露於基金公開說明書，投資人可向經理公司及銷售機構索取，或於經理公司官網、公開資訊觀測站查詢。本資料所提及之個股、指數、投資標的等，僅為舉例說明之用，不代表任何基金必然之投資，亦不代表任何投資之推薦。本文提及之經濟走勢預測不必然代表本基金之績效，又投資人因不同時間進場，將有不同之投資績效，過去之績效亦不代表未來績效之保證，本基金投資風險請詳閱基金公開說明書。ETF基金於臺灣證券交易所或櫃買中心掛牌，掛牌後買賣成交價格及升降幅限制依各該規定辦理。<span style="color: #ff0000;">部分可配息基金配息前未先扣除應負擔之相關費用，且基金的配息可能由基金的收益或本金或收益平準金中支付。任何涉及由本金支出的部份，可能導致原始投資金額以同等比例減損。基金配息不代表基金實際報酬，且過去配息不代表未來配息；基金淨值可能因市場因素而上下波動。基金經理公司不保證本基金最低之收益率或獲利，配息金額會因操作及收入來源而有變化，且投資之風險無法因分散投資而完全消除，投資人仍應自行承擔相關風險。投資人可至本公司官網查詢最近12個月內由本金支付之配息組成項目。各期間報酬率(含息)是假設收益分配均滾入再投資於本基金之期間累積報酬率。</span>有關本基金之ESG資訊，投資人應於申購前詳閱基金公開說明書所載之基金所有特色或目標等資訊，相關資訊可透過經理公司網站（sitc.sinopac.com）查詢。本基金為指數股票型基金，所追蹤的標的指數為臺灣ESG低碳高息40指數，選出符合ESG、低碳、高息兼具的40檔成分股建置投資組合，</strong><span style="color: #ff0000;"><strong>本基金之風險報酬等級為RR4。RR係計算成立年度之淨值波動度，並與同類型基金比較後決定，及參考投信投顧公會所訂分類標準等，風險報酬分類為RR1-RR5五級，數字愈大代表風險愈高。此等級分類係基於一般市場狀況反映市場價格波動風險，無法涵蓋所有風險（如：投資標的產業風險、信用風險、利率風險、流動性風險等），不宜作為投資唯一依據，投資人仍應注意所投資基金個別的風險。本基金採被動式管理方式，以追蹤標的指數之績效表現為目標，因此本基金之投資績效將視其追蹤之標的指數走勢而定，若標的指數價格波動劇烈，本基金淨資產價值亦將隨之波動或下跌。本基金所投資成分證券檔數與所追蹤標的指數成分股檔數覆蓋率不低於90%，當標的指數之成分股發生剔除或增加入產生變化或權重改變時，基金的投資組合內容未能及時調整與標的指數相同，可能使基金報酬與標的指數產生偏離。<span style="color: #000000;">本基金掛牌後之買賣成交價格無升降幅度限制，掛牌後應依臺灣證交所或櫃買中心掛牌有關規定辦理。</span></strong><strong><span style="color: #000000;">投資人申購本基金係持有基金受益憑證，而非本文提及之投資資產或標的。本基金不受存款保險、保險安定基金或其他保護機制之保障。</span></strong></span><br />
+指數聲明：臺灣指數公司特選臺灣上市上櫃<span>ESG</span>低碳高息<span>40</span>指數<span>(</span>簡稱「特選臺灣<span>ESG</span>低碳高息<span>40</span>指數」<span>)</span>係以臺灣上市上櫃股票為母體，經流動性指標篩選後，利用臺灣指數公司蒐集自永續報告書所揭露之碳排放資料，綜合考量企業碳排放量以及其對企業營收之影響，結合臺灣指數公司使用永續報告書、年報、政府資訊等公開資訊之「台灣永續評鑑」 結果，並考量配息穩定度，依照股息殖利率與自由流通市值選取成分股<span>40</span>檔並以股息殖利率加權，表彰臺灣具永續<span>ESG</span>表現、低碳特性，與高股息兼具之投資組合績效表現。</p>
+<p><strong>【永豐四年到期美國優質投資等級債券基金<span style="color: #ff0000;">(本基金配息來源可能為本金</span>)】本基金經金管會核准或同意生效，惟不表示絕無風險。經理公司除盡善良管理人之注意義務外，不負責本基金之盈虧，亦不保證最低之收益，投資人申購前應詳閱基金公開說明書。有關基金投資風險及應負擔之費用已揭露於基金公開說明書，投資人可向經理公司及銷售機構索取，或於經理公司官網、公開資訊觀測站查詢。本資料所提及之個股、指數、投資標的等，僅為舉例說明之用，不代表任何基金必然之投資，亦不代表任何投資之推薦。<span style="color: #ff0000;">本文提及之經濟走勢預測不必然代表本基金之績效，又投資人因不同時間進場，將有不同之投資績效，過去之績效亦不代表未來績效之保證，本基金投資風險請詳閱基金公開說明書。本基金為債券型基金，存續期間為四年，主要投資在美國之投資等級債券，透過目標到期債券投資策略，讓債券價格波動的風險隨著基金存續期間逐漸趨向屆滿而降低。因此本基金適合願意能承受基金淨值波動較小、追求長期穩健報酬之投資人。本基金之風險報酬等級為RR2。RR係計算成立年度之淨值波動度，並與同類型基金比較後決定，及參考投信投顧公會所訂分類標準等，風險報酬分類為RR1-RR5五級，數字愈大代表風險愈高。此等級分類係基於一般市場狀況反映市場價格波動風險，無法涵蓋所有風險（如：投資標的產業風險、信用風險、利率風險、流動性風險等），不宜作為投資唯一依據，投資人仍應注意所投資基金個別的風險。</span></strong><span style="color: #ff0000;"><strong>投資人應特別留意，經理公司得於本基金募集期間視基金達首次最低淨發行總面額之情形而決定是否再繼續受理投資人申購。本基金自成立日起屆滿90日後，受益人得於每營業日提出買回申請，惟基金未到期前申請買回，將收取提前買回費用2%並歸入基金資產，以維護有既有受益人利益。本基金不建議受益人從事短線交易並鼓勵受益人持有至基金到期。部分可配息基金配息前未先扣除應負擔之相關費用，且基金的配息可能由基金的收益或本金或收益平準金中支付。任何涉及由本金支出的部份，可能導致原始投資金額以同等比例減損。基金配息不代表基金實際報酬，且過去配息不代表未來配息；基金淨值可能因市場因素而上下波動。基金經理公司不保證本基金最低之收益率或獲利，配息金額會因操作及收入來源而有變化，且投資之風險無法因分散投資而完全消除，投資人仍應自行承擔相關風險。投資人可至本公司官網查詢最近12個月內由本金支付之配息組成項目。各期間報酬率(含息)是假設收益分配均滾入再投資於本基金之期間累積報酬率。</strong><span style="color: #000000;"><strong>投資人申購本基金係持有基金受益憑證，而非本文提及之投資資產或標的。本基金不受存款保險、保險安定基金或其他保護機制之保障。</strong></span></span></p>
+<p><strong>【</strong><strong>永豐</strong><strong>創新醫療多重資產</strong><strong>基金</strong><span style="color: #ff0000;"><strong>(</strong><strong>本</strong><strong>基金有相當比重投資於非投資等級之高風險債券且配息來源可能為</strong><strong>本金</strong><strong>)</strong></span><strong>】</strong><strong>本基金經金管會核准或同意生效，惟不表示絕無風險。經理公司以往經理績效不保證基金最低投資收益，經理公司除盡善良管理人之注意義務外，不負責本基金盈虧亦不保證最低收益，投資人申購前應詳閱公開說明書。本基金應負擔費用已揭露於公開說明書，投資人可向經理公司或銷售機構索取，或於經理公司、公開資訊觀測站查詢。投資人不同時間進場，將有不同投資績效，過去績效不代表未來績效保證。本文提及之經濟走勢預測不必然代表本基金績效，本基金投資風險請詳閱公開說明書。本資料所提及之個股、指數、投資標的等為舉例說明，不代表任何基金必然投資或任何投資之推薦。匯率走勢可能造成所投資之海外資產價值變動。投資人以非基金計價幣別之貨幣換匯後投資本基金者，須自行承擔匯率變動風險。</strong><span style="color: #ff0000;"><strong>基金配息不代表基金實際報酬，且過去配息不代表未來配息；基金淨值可能因市場因素而上下波動。本基金配息可能由收益或本金支付，任何涉及由本金支出的部份，可能導致原始投資金額減損。經理公司不保證本基金最低收益率或獲利，配息金額會因操作及收入來源而變化，投資風險無法因分散投資完全消除，投資人應自行承擔相關風險。本基金配息前可能未先扣除應負擔之費用。近</strong><strong>12</strong><strong>個月內由本金支付之股利及支付基金行政管理費用資料，可至經理公司網站查詢。</strong></span><strong>本基金後收型</strong><strong>(N</strong><strong>類型</strong><strong>)</strong><strong>之申購手續費於買回時支付，持有未滿</strong><strong>1</strong><strong>年</strong><strong>(</strong><strong>含</strong><strong>)</strong><strong>、</strong><strong>2</strong><strong>年</strong><strong>(</strong><strong>含</strong><strong>)</strong><strong>、</strong><strong>3</strong><strong>年</strong><strong>(</strong><strong>含</strong><strong>)</strong><strong>之費率分別為</strong><strong>3%</strong><strong>、</strong><strong>2%</strong><strong>、</strong><strong>1%</strong><strong>，持有超過</strong><strong>3</strong><strong>年者免付。</strong><span style="color: #ff0000;"><strong>非投資等級債券之信用評等未達投資等級或未經信用評等，對利率變動敏感度甚高，故本基金可能會因利率上升、市場流動性下降，或債券發行機構違約不支付本金、利息或破產而蒙受虧損。本基金不適合無法承擔相關風險之投資人。本基金適合尋求潛在收益且能承受較高風險之非保守型投資人。投資人投資以非投資等級債券為訴求之基金不宜占投資組合過高之比重。</strong></span><strong>本基金為多重資產型基金，主要投資創新醫療概念相關之股票、</strong><strong>REITs</strong><strong>、債券、基金受益憑證（包括</strong><strong>ETF</strong><strong>），故風險報酬等級為</strong><strong>RR3</strong><strong>。</strong><strong>RR</strong><strong>係計算成立年度淨值波動度，並與同類型基金比較後決定，另綜合考量各項投資風險，及參考中華民國投信投顧公會所訂分類標準等，風險報酬分類為 </strong><strong>RR1-RR5 </strong><strong>五級，數字愈大代表風險愈高。此等級分類係基於一般市場狀況反映市場價格波動風險，無法涵蓋所有風險（如：基金計價幣別匯率風險、投資標的產業風險、信用風險、利率風險、流動性風險等），不宜作為投資唯一依據，投資人應注意基金個別風險。</strong><span style="color: #ff0000;"><strong>本基金可投資美國</strong><strong>Rule 144A</strong></span><strong><span style="color: #ff0000;">債券，該債券屬私募性質，發行人財務較不透明且僅能轉讓予合格機構投資者，可能發生流動性不足、財務訊息揭露不全或價格不透明導致波動性較大之風險。<span style="color: #000000;">投資人申購本基金係持有基金受益憑證，而非本文提及之投資資產或標的。本基金不受存款保險、保險安定基金或其他保護機制之保障。</span></span></strong></p>
+<p><strong>【永豐15年期以上ESG投資等級美元銀行債ETF<span style="color: #ff0000;">(本基金之配息來源可能為收益平準金）</span>】本基金經金管會核准或同意生效，惟不表示絕無風險。經理公司以往經理績效不保證基金最低投資收益，經理公司除盡善良管理人之注意義務外，不負責本基金盈虧亦不保證最低收益，投資人申購前應詳閱公開說明書。本基金應負擔費用已揭露於公開說明書，投資人可向經理公司或銷售機構索取，或於經理公司網站、公開資訊觀測站查詢。投資人不同時間進場，將有不同投資績效，過去績效不代表未來績效保證。本文提及之經濟走勢預測不必然代表本基金績效，本基金投資風險請詳閱公開說明書。本資料所提及之個股、指數、投資標的等為舉例說明，不代表任何基金必然投資或任何投資之推薦。匯率走勢可能造成所投資之海外資產價值變動。投資人以非基金計價幣別之貨幣換匯後投資本基金者，須自行承擔匯率變動風險。<span style="color: #ff0000;">基金配息不代表基金實際報酬，且過去配息不代表未來配息；基金淨值可能因市場因素而上下波動</span><span style="color: #ff0000;">。本基金配息可能由收益或本金中支付，任何涉及由本金支出的部份，可能導致原始投資金額減損。經理公司不保證本基金最低收益率或獲利，配息金額會因操作及收入來源而變化，投資風險無法因分散投資完全消除，投資人應自行承擔相關風險。本基金配息前可能未先扣除應負擔之費用。投資人可至本公司官網查詢最近12個月內由本金之付之配息組成項目。各期間報酬率(含息)是假設收益分配均滾入再投資於本基金之期間累積報酬率。</span>本指數股票型基金，採被動式管理方式，以追蹤標的指數之績效表現為目標，因此本基金之投資績效將視其追蹤之標的指數走勢而定，若標的指數價格波動劇烈，基金淨資產價值亦將隨之波動或下跌。本基金追蹤之標的指數成分債券為剩餘年期15年期以上之銀行債券，可能面臨之風險包括債券發行人之信用風險、利率風險、產業景氣循環風險、流動性風險、外匯管制及匯率變動之風險等，可能影響本基金淨值表現。本基金為指數股票型基金，所追蹤之標的指數成分債券符合Sustainalytics ESG風險評分30分 以下，且債券剩餘年限達15年以上之投資等級美元銀行債券，本基金之風險報酬等級RR2。RR係計算成立年度之淨值波動度，並與同類型基金比較後決定，另綜合考量以下各項之 投資風險，及參考中華民國證券投資信託暨顧問商業同業公會所訂分類標準等，風險報酬分 類為RR1-RR5五級，數字愈大代表風險愈高。此等級分類係基於一般市場狀況反映市場價格 波動風險，無法涵蓋所有風險（如：基金計價幣別匯率風險、投資標的產業風險、信用風險、 利率風險、流動性風險等），不宜作為投資唯一依據，投資人仍應注意所投資基金個別的風險。<span style="color: #ff0000;">有關基金之ESG資訊，投資人應於申購前詳閱基金公開說明書所載之基金所有特色或目標等資訊，或至經理公司網站（sitc.sinopac.com）查詢。</span><span style="color: #ff0000;">本基金投資於具總損失吸收能力（Total Loss-Absorbing Capacity，TLAC）債券及符合自有資金及合格債務最低要求（Minimum Requirement for Own Funds and Eligible Liabilities，MREL）債券，當金融機構出現資本適足率低於一定水平、重大營運或破產危機時，得以契約形式或透過法定機制將債券減記面額或股權轉換，可能導致客戶部分或全部債權減記、利息取消、債權轉換股權、修改債券條件如到期日、票息、付息日、或暫停配息等變動，由於該類債券為新的運作機制，除了本金減計風險、轉換風險外，還可能有流動性風險、變現性風險、金融領域集中度風險、及未知風險等，相關風險說明請詳見公開說明書。</span><span style="color: #ff0000;">本基金可投資美國Rule 144A債券，該債券屬私募性質，發行人財務較不透明且僅能轉讓予合格機構投資者，可能有流動性不足、財務訊息揭露不全或價格不透明導致波動性大之風險。</span>本基金掛牌後之買賣成交價格無升降幅度限制，掛牌後應依臺灣證交所或櫃買中心掛牌有關規定辦理。<span style="color: #ff0000;"><span style="color: #000000;">投資人申購本基金係持有基金受益憑證，而非本文提及之投資資產或標的。本基金不受存款保險、保險安定基金或其他保護機制之保障。</span></span><br />
+</strong>指數免責聲明：ICE 15 年期以上投資等級美元銀行債 ESG 指數（ICE 15+ Year Investment Grade US Banking ESG Index）係 ICE Data 或其關係企業之服務／營業標章，且已與系列指數一併授權以供永豐投信針對本基金使用之。永豐投信及產品均非由 ICE Data Indices, LLC、其關係企業或第三人供應商（「ICE Data 和其供應商」）贊助、背書、販售或宣傳。ICE Data 和其供應商針對尤其是產品內之證券投資明智性、信託或指數追蹤一般市場績效之能力，不做任何相關聲明或保證。ICE Data 對永豐投信之惟一關係，僅止於授權特定商標和商號以及指數或指數成分。指數係由 ICE Data 決定、組成和結算，與永豐投信或產品或產品持有人無關。ICE Data 無義務於決定、組成或結算指數時，將永豐投信或產品持有人之需求納入考量。ICE Data 不負責亦未參與決定應發行產品之時機、價格或數量，或產品訂價、銷售、認購或贖回依據之決定或公式結算。除特定慣例指數結算服務以外，ICE Data 提供之所有資料均為一般性質資料，非為永豐投信或其他任何人、實體或法人團體量身訂作之資料。ICE Data 無義務且不負責管理、行銷或交易產品。ICE Data 非投資顧問。ICE Data 不推薦以納入指數範圍內證券之方式購買、銷售或持有該證券。納入指數範圍內證券亦不得被視為投資建議。ICE Data 和其供應商否認任何包含指數、指數資料和該指數及資料所含、相關或衍生之資料（「指數資料」）之明示和／或默示保證和聲明，包括適銷性或特定目的或使用適合性之任何保證。ICE Data 和其供應商不須負擔有關指數和指數資料適合性、正確性、適時性或完整性之任何損害賠償或責任。該指數和資料均按「原狀」提供，且於用時應自負風險。</p>
+<p><strong>【</strong><strong>永豐三至六年機動到期成熟市場優先順位投資級債券基金</strong><strong>(</strong><span style="color: #ff0000;"><strong>本基金配息來源可能為本金</strong></span><strong>)】</strong><strong>本</strong><strong>基金經金管會核准或同意生效，惟不表示絕無風險。經理公司以往經理績效不保證基金最低投資收益，經理公司除盡善良管理人之注意義務外，不負責本基金盈虧亦不保證最低收益，投資人申購前應詳閱公開說明書。本基金應負擔費用已揭露於公開說明書，投資人可向經理公司或銷售機構索取，或於經理公司網站、公開資訊觀測站查詢</strong><strong>。投資人</strong><strong>不同時間進場，將有不同投資績效，過去績效不代表未來績效保證。本文提及之經濟走勢預測不必然代表本基金績效，本基金投資風險請詳閱公開說明書。本資料所提及之個股、指數、投資標的等為舉例說明，不代表任何基金必然投資或任何投資之推薦。本基金為債券型基金，主要投資於成熟市場優先順位投資等級債券，在基金存續期間透過目標到期債券投資策略，讓債券價格波動的風險隨著基金存續期間逐漸趨向屆滿而降低，故本基金之風險報酬等級為</strong><strong>RR2</strong><strong>。</strong><strong>RR</strong><strong>係計算成立年度之淨值波動度，並與同類型基金比較後決定，另綜合考量以下各項之投資風險，及參考中華民國證券投資信託暨顧問商業同業公會所訂分類標準等，風險報酬分類為</strong><strong>RR1-RR5</strong><strong>五級，數字愈大代表風險愈高。此等級分類係基於一般市場狀況反映市場價格波動風險，無法涵蓋所有風險（如：基金計價幣別匯率風險、投資標的產業風險、信用風險、利率風險、流動性風險等），不宜作為投資唯一依據，投資人仍應注意所投資基金個別的風險。因此本基金適合願意能承受基金淨值波動較小、追求長期穩健報酬之投資人。匯率走勢可能造成所投資之海外資產價值變動。投資人以非基金計價幣別之貨幣換匯後投資本基金者，須自行承擔匯率變動風險。投資人應特別留意，經理公司得於本基金募集期間視基金達首次最低淨發行總面額之情形而決定是否再繼續受理投資人申購。本基金成立日起之次一營業日起即不再接受受益權單位之申購，本基金自成立日起屆滿</strong><strong>90</strong><strong>日後，受益人得於每營業日提出買回申請，惟基金未到期前申請買回，將收取提前買回費用</strong><strong>1%</strong><strong>並歸入基金資產，以維護既有受益人利益。本基金不建議受益人從事短線交易並鼓勵受益人持有至基金到期。本基金設有提前結算機制，啟動條件指本基金成立日之次一營業日起屆滿三年後，當月最後五個營業日美元累積類型每受益權單位淨資產價值皆達到</strong><strong>11.5000</strong><strong>美元（含）以上的條件時，本基金各類型受益權單位均將於次月第二個營業日起啟動提前結算機制。投資人應留意本基金所設定之特定目標淨值條件為本基金啟動提前結算機制之依據，惟在提前結算過程中，本基金各類型受益權單位可能因市場變動、交易成本、流動性或匯率等因素導致結算後之每受益權單位淨資產價值與特定目標淨值有所差異，受益人取得之提前結算買回價金將以本基金實際完成所有交易後之各類型受益權單位淨資產價值為準，不等同於提前結算機制所訂之特定目標淨值。投資人應了解本基金並非保證本基金屆滿三年至六年期間即可達特定目標淨值</strong><strong>。<span style="color: #ff0000;">基金配息不代表基金實際報酬，且過去配息不代表未來配息；基金淨值可能因市場因素而上下波動</span><span style="color: #ff0000;">。</span><span style="color: #ff0000;">本基金配息可能由收益或本金中支付，任何涉及由本金支出的部份，可能導致原始投資金額減損。經理公司不保證本基金最低收益率或獲利，配息金額會因操作及收入來源而變化，投資風險無法因分散投資完全消除，投資人應自行承擔相關風險。本基金配息前可能未先扣除應負擔之費用。投資人可至本公司官網查詢最近</span></strong><span style="color: #ff0000;"><strong>12</strong><strong>個月內由本金支付之配息組成項目。</strong></span><strong>投資人申購本基金係持有基金受益憑證，非本文提及之投資資產或標的。本基金不受存款保險、保險安定基金或其他相關保護機制保障。</strong></p>
+			</div>
+		</div>
+		<a style="cursor: pointer;" class="btn_unfolded-o">完整展開</a>
+		<a style="cursor: pointer;" class="btn_unfolded-c">全部收合</a>
+	</div>
+	<div class="f_con">
+		<div class="box">
+			<div class="f_link">
+				<a href="http://sitc.sinopac.com/newweb/footers/20170612202616819000000000000485.html">隱私權保護政策</a>
+			</div>
+            <ul class="f_copy">
+                <li>©永豐投信版權所有</li>
+                
+                
+                <li>客服中心: (02)2312-5066</li>
+				<li>電話：02-2361-8110</li>
+                <li>總公司:台北市100中正區博愛路17號14樓</li>
+                <!--
+    <li>
+        <a href="https://ssl2.twca.com.tw/NCWebSSL/certinfo.htm?DNS=sitc.sinopac.com&amp;SerialNumber=95538262197041130470431317630955406809" target="_blank">
+            <img src="~/Content/images/15c9c428a21000008dbe.png" />
+        </a>
+    </li>
+    -->
+            </ul>
+		</div>
+	</div>
+</div>
+
+    </div>
+    <!--行動版menu-->
+	<nav id="menu">
+        <ul>
+            <li>
+                <a href="/SinopacEtfs/Funds/FundInfo">ETF基金總覽</a>
+            </li>
+            
+            <li>
+                <a href="#">即時估計淨值</a>
+                <div class="nav_list">
+                    <ol>
+                        <li><a href="/SinopacEtfs/">即時估計淨值</a></li>
+                        <li><a href="/SinopacEtfs/Etfs/NPD">歷史折溢價</a></li>
+                    </ol>
+                </div>
+            </li>
+            <li>
+                <a href="/SinopacEtfs/Etfs/Tracks">追蹤偏離度</a>
+            </li>
+            <li>
+                <a href="/SinopacEtfs/Etfs/Pcf">現金申購買回清單</a>
+            </li>
+            <li>
+                <a href="#">收益分配</a>
+                <ul>
+                    
+                    <li><a href="https://sitc.sinopac.com/newweb/event/2024ETF20/ETF20.pdf" target="_blank">配息時程</a></li>
+                    
+                    <li><a href="https://sitc.sinopac.com/newweb/sitcNews/list.do?sitc_news_type_id=189961042dc00000b17424f917cb5b8a" target="_blank">配息公告</a></li>
+                    <li><a href="/SinopacEtfs/Funds/DividenEtf">配息資訊</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#">申贖費用及表單</a>
+                <ul>
+                    <li><a href="https://sitc.sinopac.com/newweb/event/2019ETFCOST/ETFCOST.pdf" target="_blank">申贖費用資訊</a></li>
+                    <li><a href="/SinopacEtfs/Etfs/EtfForms">ETF相關表格</a></li>
+                </ul>
+            </li>
+        </ul>
+	</nav>	
+	<script type="text/javascript">
+		$(document).ready(function () {
+			$(".btn_unfolded-o").click(function () {
+				$(".alarm_con").removeClass("ac_open");
+				$(".alarm_con").addClass("ac_close");
+			});
+
+			$(".btn_unfolded-c").click(function () {
+				$(".alarm_con").addClass("ac_open");
+				$(".alarm_con").removeClass("ac_close");
+            });
+		});
+	</script>
+	<!--nav-->
+	<script>
+		var isViewLinkEnable = $.trim("true") == "true";
+		$(document).on("click", "a", function () {
+			if (!isViewLinkEnable) {//for cms preview.
+				return false;
+			}
+		});
+		//mobile open select
+		if (isMobile) {
+			$("*").css("cursor", "pointer");
+			//$("div.sel_typ").click(function () {
+			//	$(this).find("ul").css("display", "block");
+			//});
+			$(document).click(function (event) {
+				var selector = $(event.target).is("span") ? $(event.target).parent() : $(event.target);
+				if (!selector.is("div.sel_typ")) {
+					$("div.sel_typ ul").css("display", "none");
+				}
+			});
+		}
+		//開圖
+		var imgs = $(".edit_box img");
+		imgs.each(function () {
+			if (!$(this).parent().is("a")) {
+				$(this).wrap('<div class="mag_img"></div>');
+				var src = $(this).attr("src");
+				$(this).parent().prepend('<a href="' + src + '" target="_blank"></a>');
+			}
+		});
+		$(".sel_typ").click(function () {
+			$(this).children(".sel_typ ul").slideToggle("fast");
+		});
+	</script>
+</body>
+</html>

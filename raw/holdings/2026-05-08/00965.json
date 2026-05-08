@@ -1,0 +1,36 @@
+{
+  "trade_date": "2026.05.08",
+  "etf_code": "00965",
+  "etf_name": "元大航太防衛科技",
+  "issuer": "元大投信",
+  "market": "TWSE",
+  "source": "issuer_pcf",
+  "source_url": "https://www.yuantaetfs.com/tradeInfo/pcf/00965",
+  "pcf_identity": {
+    "ok": true,
+    "method": "visible_context_match",
+    "target_etf_code": "00965",
+    "target_etf_name": "元大航太防衛科技",
+    "matched_context": "(00965)元大全球航太與防衛科技ETF證券投資信託基金 - 元大申購買回清單 | 元大投信 YuantaETFs",
+    "reason": "Page title/header/selected option visibly matches target ETF."
+  },
+  "pcf_meta": {
+    "trade_date": "2026.05.08",
+    "fund_nav": 0.0,
+    "outstanding_units": 0.0,
+    "unit_diff": 0.0,
+    "nav_per_unit": 0.0,
+    "creation_unit": 0.0
+  },
+  "holdings": [
+    {
+      "stock_code": "2330",
+      "stock_name": "商品名稱",
+      "shares": 509000.0,
+      "weight_pct": 8.1,
+      "close": 0.0,
+      "market_value": 0.0,
+      "source_table": "text_fallback"
+    }
+  ]
+}
