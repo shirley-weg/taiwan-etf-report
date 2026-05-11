@@ -1,0 +1,45 @@
+{
+  "trade_date": "2026.05.11",
+  "etf_code": "00739",
+  "etf_name": "元大MSCI A股",
+  "issuer": "元大投信",
+  "market": "TWSE",
+  "source": "issuer_pcf",
+  "source_url": "https://www.yuantaetfs.com/tradeInfo/pcf/00739",
+  "pcf_identity": {
+    "ok": true,
+    "method": "visible_context_match",
+    "target_etf_code": "00739",
+    "target_etf_name": "元大MSCI A股",
+    "matched_context": "(00739)元大MSCI中國A股國際通ETF證券投資信託基金 - 元大申購買回清單 | 元大投信 YuantaETFs",
+    "reason": "Page title/header/selected option visibly matches target ETF."
+  },
+  "pcf_meta": {
+    "trade_date": "2026.05.11",
+    "fund_nav": 0.0,
+    "outstanding_units": 0.0,
+    "unit_diff": 0.0,
+    "nav_per_unit": 0.0,
+    "creation_unit": 0.0
+  },
+  "holdings": [
+    {
+      "stock_code": "3600",
+      "stock_name": "商品權重",
+      "shares": 66981.0,
+      "weight_pct": 1.96,
+      "close": 0.0,
+      "market_value": 0.0,
+      "source_table": "text_fallback"
+    },
+    {
+      "stock_code": "4029",
+      "stock_name": "商品權重",
+      "shares": 3600.0,
+      "weight_pct": 3.4,
+      "close": 0.0,
+      "market_value": 0.0,
+      "source_table": "text_fallback"
+    }
+  ]
+}
