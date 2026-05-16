@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="format-detection" content="telephone=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>聯邦投信-申購買回清單</title>
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    
+
+    <meta data-n-head="ssr" data-hid="keywords" name="keywords" content="聯邦, 聯邦投信, 聯邦基金理財網,基金管理平台, 聯邦基金理財網,基金,投資理財,基金投資">
+    <meta data-n-head="ssr" data-hid="homepage" name="homepage" content="聯邦投信">
+    <meta name="description" content="聯邦投信以穩健踏實為基調，持續開發具成長趨勢之產品，提供多元且優質的金融商品服務。 " />
+    <meta property="og:description" content="聯邦投信以穩健踏實為基調，持續開發具成長趨勢之產品，提供多元且優質的金融商品服務。" />
+    <meta property="og:site_name" content="聯邦投信" />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://www.usitc.com.tw/ " />
+    
+    <meta name="author" content="www.usitc.com.tw">
+    <meta property="og:image" content="https://www.usitc.com.tw/images/logo_og.png" />
+
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+          integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous">
+    <link rel="stylesheet" href="/fonts/css/all.css">
+      
+    <link rel="stylesheet" data-title="fullCalendar" href="/Content/fullCalendar.css">
+
+    <link rel="stylesheet" href="/Content/bootstrap.css">
+    <link rel="stylesheet" href="/Content/all.css">
+    <link href="/Content/css?v=mQwRwE-WYDSQVepMAksvMWK09EuRWUA4P-tvZv40bfI1" rel="stylesheet"/>
+
+    <script src="/bundles/modernizr?v="></script>
+
+
+    
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    
+</head>
+<body>
+    <header>
+        <div class="navbar navbar-expand-md navbar-light bg-light">
+            <div class="container">
+                <h1>
+                    <a title="聯邦投信" class="navbar-brand" href="/Home/Index"></a>
+                </h1>
+                <button class="navbar-toggler" aria-expanded="false" aria-controls="navbarHam" aria-label="Toggle navigation" type="button" data-target="#navbarHam" data-toggle="collapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <!-- 搜尋按鈕-m -->         
+                
+            </div>
+        </div>
+        <div class="mainNav navbar-expand-md navbar-light">
+            <div class="container">
+                <nav class="collapse navbar-collapse" id="navbarHam">
+                    <ul class="nav navbar-nav">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" id="navDropdown" role="button" aria-expanded="false" aria-haspopup="true" href="#" data-toggle="dropdown">基金專區</a>
+                            <div class="dropdown-menu" aria-labelledby="navDropdown">
+                                <a class="dropdown-item" href="/Fund/FundOverview">基金總覽</a>
+                                <a class="dropdown-item" href="/Fund/NAV">最新淨值</a>
+                                <a class="dropdown-item" href="/Fund/FundDividend">配息紀錄</a>
+                                <a class="dropdown-item" href="/Fund/FundCalendar">基金行事曆</a>
+                            </div>
+                        </li>
+						<li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" id="navDropdown" role="button" aria-expanded="false" aria-haspopup="true" href="#" data-toggle="dropdown">ETF專區</a>
+                            <div class="dropdown-menu" aria-labelledby="navDropdown">
+                                    <a class="dropdown-item" href="/CustCenter/Equalization">收益平準金專區</a>
+                                    <a class="dropdown-item" href="/CustCenter/InstantNav_Preview">即時估計淨值</a>
+                                    <a class="dropdown-item" href="/CustCenter/BuyBackList">申購買回清單</a>
+                                    <a class="dropdown-item" href="/CustCenter/NavDetail">淨值組成查詢</a>
+                                    <a class="dropdown-item" href="/CustCenter/Tracking_TWD">追蹤差距</a>
+                                    <a class="dropdown-item" href="/Fund/FundDividend_ETF">配息紀錄</a>
+                                    <a class="dropdown-item" href="/CustCenter/Etf_QA">ETF問答集</a>
+                            </div>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" id="navDropdown" role="button" aria-expanded="false" aria-haspopup="true" href="#" data-toggle="dropdown">交易登入</a>
+                            <div class="dropdown-menu" aria-labelledby="navDropdown">
+                                <a class="dropdown-item" href="/Trade" target="_blank">投資人登入</a>
+                                <a class="dropdown-item" href="/CustCenter/download">立即開戶</a>
+                                <!--<a class="dropdown-item" href="/AccountOpen/AccountOpen">開戶資料填寫</a> 
+                                <a class="dropdown-item" href="#">公開說明書</a> 
+                                <a class="dropdown-item" href="/AccountOpen/AccountProcess">開戶進度查詢</a> -->
+                            </div>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" id="navDropdown" role="button" aria-expanded="false" aria-haspopup="true" href="#" data-toggle="dropdown">服務專區</a>
+                            <div class="dropdown-menu" aria-labelledby="navDropdown">
+                                <a class="dropdown-item" href="/CustCenter/download">下載專區</a><!-- <a class="dropdown-item" href="#">公開說明書</a> -->
+                                <a class="dropdown-item" href="/CustCenter/buyStep">申購買回流程</a>
+                                <a class="dropdown-item" href="/CustCenter/sRule">短線交易規範</a><!-- <a class="dropdown-item" href="#">定時定額</a> -->
+                                <a class="dropdown-item" href="/CustCenter/sGroup">銷售買回機構</a>
+                                <a class="dropdown-item" href="/CustCenter/faq">常見問題</a>
+                                <a class="dropdown-item" href="/CustCenter/lawInfo">投資宣導專區</a>
+                                <a class="dropdown-item" href="/CustCenter/InfoCenter?PType=5">盡職治理</a>
+                                <a class="dropdown-item" href="/CustCenter/InfoCenter?PType=7">防制洗錢專區</a>
+                            </div>
+                        </li>
+                        <li class="nav-item"><a class="nav-link" href="/Home/About">關於聯邦</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/Home/Contact">聯絡我們</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- ETF 清單 (下拉選單) -->
+    <!-- ETF 申購買回清單資料-->
+    <!-- ETF 基金資產  -->
+    <!-- ETF 成分股票  -->
+    <!-- ETF 成分期貨  -->
+
+
+<link rel="stylesheet" data-title="Chart" href="/Content/Chart.css">
+    <!-- ETF專區 -->
+<div class="gridContainer">
+    <!--mainArea-->
+    <section class="mainArea">
+        <div class="container">
+            <div class="row mx-auto">
+                <div class="form-bg col">
+                    <!-- ETF專區 -->
+                    <div class="stepTitle">
+                        <h3><span>ETF專區</span></h3>
+                    </div>
+<form action="/CustCenter/BuyBackList" id="form1" method="post" name="form1">                        <article class="infoArea">
+                            <ol class="formList fund mb-4">
+                                <li class="form-group">
+                                       &nbsp;&nbsp;&nbsp;&nbsp;<label for="Lv">選擇基金：</label>
+                                       <select name="FundNo" id="FundNo" class="form-control">
+                                                   <option value=009804>聯邦台灣精彩50ETF基金</option>
+                                           
+                                       </select>
+                                </li>
+                                <li class="form-group">
+                                       <label>選擇查詢日期：</label>
+                                       <input type="date" name="sDate" id="sDate" value="2026-05-16" />
+                                       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button class="btn btn-primary btn-sm" type="submit">查詢</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                </li>
+                            </ol>
+                            <div class="infoTitle">
+                                       <h2>聯邦台灣精彩50ETF基金 ( 009804 )</h2>
+                               </div> 
+                            <!-- list-group -->
+                            <div class="row mb-3">
+                                   <div class="list-group list-group-horizontal-xl col-12" id="list-tab" role="tablist">
+                                       <a class="list-group-item list-group-item-action active" id="list-fid-list" data-toggle="list"
+                                          href="#list-fid" role="tab" aria-controls="fid">申購買回清單</a>
+                                       <a class="list-group-item list-group-item-action" id="list-pbl-list" data-toggle="list"
+                                          href="#list-pbl" role="tab" aria-controls="pfm">基金成分股</a>
+                                   </div>
+                               </div>
+                            <!-- list-group-main -->
+                            <div class="tab-content" id="nav-tabContent">
+                                <!-- 申購買回清單  -->
+                                <div class="tab-pane fade show active" id="list-fid" role="tabpanel" aria-labelledby="list-fid-list">
+                                    <div class="stepTitle">
+                                        <h3>現金申購買回清單 
+                                        </h3> 
+                                        <span style="float: right; color: gray"><b>
+2026-05-18                                        </b></span>
+
+                                    </div>
+                                    <table class="table table-bordered table-hover table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th colspan="2">現金申購買回清單公告</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                                <tr>
+                                                                    <td class="col-md-6 col-sm-6"><h6>預收申購總價金(元)</h6></td>
+                                                                    <td class="col-md-6 col-sm-6"><h6>NT$ 11,450,000</h6></td> 
+                                                                </tr>
+                                                                <tr>
+                                                                    <td class="col-md-6 col-sm-6"><h6>基金淨資產價值(元)</h6></td>
+                                                                    <td class="col-md-6 col-sm-6"><h6>NT$ 2,471,699,628</h6></td>      
+                                                                </tr>
+                                                                <tr>
+                                                                    <td class="col-md-6 col-sm-6"><h6>已發行受益權單位總數</h6></td>
+                                                                    <td class="col-md-6 col-sm-6"><h6>118,892,000</h6></td>         
+                                                                </tr>
+                                                                <tr>
+                                                                    <td class="col-md-6 col-sm-6"><h6>與前日已發行單位差異數</h6></td>
+                                                                    <td class="col-md-6 col-sm-6"><h6>0</h6></td>       
+                                                                </tr>
+                                                                <tr>
+                                                                    <td class="col-md-6 col-sm-6"><h6>每受益權單位淨資產價值(元)</h6></td>
+                                                                    <td class="col-md-6 col-sm-6"><h6>NT$ 20.79</h6></td>      
+                                                                </tr>
+                                                                <tr>
+                                                                    <td class="col-md-6 col-sm-6"><h6>每現金申購/買回基數之受益權單位數</h6></td>
+                                                                    <td class="col-md-6 col-sm-6"><h6>500,000</h6></td>       
+                                                                </tr>
+                                                                <tr>
+                                                                    <td class="col-md-6 col-sm-6"><h6>每現金申購/買回基數約當市值(元)</h6></td>
+                                                                    <td class="col-md-6 col-sm-6"><h6>NT$ 10,394,726</h6></td>      
+                                                                </tr>
+                                                                <tr>
+                                                                    <td class="col-md-6 col-sm-6"><h6>2026-05-15 每基數實際申購總價金(元)</h6></td>
+                                                                    <td class="col-md-6 col-sm-6"><h6>NT$ 10,410,121</h6></td>      
+                                                                </tr>
+                                                                <tr>
+                                                                    <td class="col-md-6 col-sm-6"><h6>2026-05-15 每基數申購總價金差異額(元)</h6></td>
+                                                                    <td class="col-md-6 col-sm-6"><h6>NT$ -1,249,879</h6></td>      
+                                                                </tr>
+                                            </tbody>
+                                    </table>
+                                    <p>
+                                       註：<br>
+                                       每現金申購/買回基數之實際現金差額以基金經理公司通知給付之金額為準。每現金申購/買回基數總價金與實際執行結果有關，詳請參閱公開說明書。
+                                    </p>
+                                </div>
+                                <!-- 基金成分股 -->
+                                <div class="tab-pane fade" id="list-pbl" role="tabpanel" aria-labelledby="list-pbl-list">
+                                    <div class="stepTitle">
+                                        <h3>基金資產</h3>
+                                    </div>
+                                        <span style="float:right;color:gray"><b>資料日期： 2026-05-15</b></span>
+                                    <table class="table table-bordered altTable table-hover table-striped" style="font-size: 15px;text-align: center">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">基金淨資產價值     </th>
+                                                <th scope="col">基金在外流通單位數 </th>
+                                                <th scope="col">基金每單位淨值     </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                    <tr data-toggle="collapse" class="accordion-toggle">
+                                                        <td data-title="基金淨資產價值">NT$ 2,471,699,628</td>
+                                                        <td data-title="基金在外流通單位數">118,892,000</td>
+                                                        <td data-title="基金每單位淨值">NT$ 20.79</td>
+                                                    </tr>
+                                        </tbody>
+                                    </table>
+                                    <div class="stepTitle">
+                                        <h3>期貨投資比例</h3>
+                                    </div>
+                                    <h3></h3>
+                                    <div class="stepTitle">
+                                        <table class="table table-bordered altTable table-hover table-striped" style="font-size: 15px;text-align: center">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">期貨代碼</th>
+                                                    <th scope="col">期貨名稱</th>
+                                                    <th scope="col">口數</th>
+                                                    <th scope="col">權重(%)</th>
+                                                    <th scope="col">契約年月</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                        <tr data-toggle="collapse" class="accordion-toggle">
+                                                            <td data-title="期貨代碼">TX</td>
+                                                            <td data-title="期貨名稱">台指期貨</td>
+                                                            <td data-title="口數">2</td>
+                                                            <td data-title="權重">0.6635</td>
+                                                            <td data-title="契約年月">202605</td>
+                                                        </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="stepTitle">
+                                        <h3>股票投資比例</h3>
+                                    </div>
+                                    <h3></h3>
+                                    <div class="stepTitle">
+                                        <table class="table table-bordered altTable table-hover table-striped" style="font-size: 15px;text-align: center">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">股票代號</th>
+                                                    <th scope="col">股票名稱</th>
+                                                    <th scope="col">股數</th>
+                                                    <th scope="col">權重(%)</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <div class="card stepTitle">
+
+                                                                <tr data-toggle="collapse" class="accordion-toggle">
+                                                                    <td data-title="股票代號">2330</td>
+                                                                    <td data-title="股票名稱">台積電</td>
+                                                                    <td data-title="股數">304,380</td>
+                                                                    <td data-title="權重">27.8926</td>
+                                                                </tr>
+                                                                <tr data-toggle="collapse" class="accordion-toggle">
+                                                                    <td data-title="股票代號">2454</td>
+                                                                    <td data-title="股票名稱">聯發科</td>
+                                                                    <td data-title="股數">72,310</td>
+                                                                    <td data-title="權重">9.5372</td>
+                                                                </tr>
+                                                                <tr data-toggle="collapse" class="accordion-toggle">
+                                                                    <td data-title="股票代號">2308</td>
+                                                                    <td data-title="股票名稱">台達電</td>
+                                                                    <td data-title="股數">96,283</td>
+                                                                    <td data-title="權重">8.0830</td>
+                                                                </tr>
+                                                                <tr data-toggle="collapse" class="accordion-toggle">
+                                                                    <td data-title="股票代號">2317</td>
+                                                                    <td data-title="股票名稱">鴻海</td>
+                                                                    <td data-title="股數">606,902</td>
+                                                                    <td data-title="權重">6.1017</td>
+                                                                </tr>
+                                                                <tr data-toggle="collapse" class="accordion-toggle">
+                                                                    <td data-title="股票代號">3711</td>
+                                                                    <td data-title="股票名稱">日月光投控</td>
+                                                                    <td data-title="股數">162,701</td>
+                                                                    <td data-title="權重">3.6007</td>
+                                                                </tr>
+                                                                <tr data-toggle="collapse" class="accordion-toggle">
+                                                                    <td data-title="股票代號">2383</td>
+                                                                    <td data-title="股票名稱">台光電</td>
+                                                                    <td data-title="股數">14,204</td>
+                                                                    <td data-title="權重">2.6521</td>
+                                                                </tr>
+                                                                <tr data-toggle="collapse" class="accordion-toggle">
+                                                                    <td data-title="股票代號">2303</td>
+                                                                    <td data-title="股票名稱">聯電</td>
+                                                                    <td data-title="股數">578,062</td>
+                                                                    <td data-title="權重">2.5726</td>
+                                                                </tr>
+                                                                <tr data-toggle="collapse" class="accordion-toggle">
+                                                                    <td data-title="股票代號">2345</td>
+                                                                    <td data-title="股票名稱">智邦</td>
+                                                                    <td data-title="股數">24,586</td>
+                                                                    <td data-title="權重">2.4917</td>
+                                                                </tr>
+                                                                <tr data-toggle="collapse" class="accordion-toggle">
+                                                                    <td data-title="股票代號">3037</td>
+                                                                    <td data-title="股票名稱">欣興</td>
+                                                                    <td data-title="股數">66,168</td>
+                                                                    <td data-title="權重">2.1978</td>
+                                                                </tr>
+                                                                <tr data-toggle="collapse" class="accordion-toggle">
+                                                                    <td data-title="股票代號">2891</td>
+                                                                    <td data-title="股票名稱">中信金</td>
+                                                                    <td data-title="股數">875,735</td>
+                                                                    <td data-title="權重">1.9416</td>
+                                                                </tr>
+                                                                <tr data-toggle="collapse" class="hiderow" style="display: none">
+                                                                    <td data-title="股票代號">2360</td>
+                                                                    <td data-title="股票名稱">致茂</td>
+                                                                    <td data-title="股數">18,291</td>
+                                                                    <td data-title="權重">1.6576</td>
+                                                                </tr>
+                                                                <tr data-toggle="collapse" class="hiderow" style="display: none">
+                                                                    <td data-title="股票代號">2382</td>
+                                                                    <td data-title="股票名稱">廣達</td>
+                                                                    <td data-title="股數">130,874</td>
+                                                                    <td data-title="權重">1.6202</td>
+                                                                </tr>
+                                                                <tr data-toggle="collapse" class="hiderow" style="display: none">
+                                                                    <td data-title="股票代號">2881</td>
+                                                                    <td data-title="股票名稱">富邦金</td>
+                                                                    <td data-title="股數">413,862</td>
+                                                                    <td data-title="權重">1.6091</td>
+                                                                </tr>
+                                                                <tr data-toggle="collapse" class="hiderow" style="display: none">
+                                                                    <td data-title="股票代號">3017</td>
+                                                                    <td data-title="股票名稱">奇鋐</td>
+                                                                    <td data-title="股數">16,072</td>
+                                                                    <td data-title="權重">1.5963</td>
+                                                                </tr>
+                                                                <tr data-toggle="collapse" class="hiderow" style="display: none">
+                                                                    <td data-title="股票代號">2882</td>
+                                                                    <td data-title="股票名稱">國泰金</td>
+                                                                    <td data-title="股數">464,382</td>
+                                                                    <td data-title="權重">1.4636</td>
+                                                                </tr>
+                                                                <tr data-toggle="collapse" class="hiderow" style="display: none">
+                                                                    <td data-title="股票代號">2327</td>
+                                                                    <td data-title="股票名稱">國巨*</td>
+                                                                    <td data-title="股數">76,998</td>
+                                                                    <td data-title="權重">1.4190</td>
+                                                                </tr>
+                                                                <tr data-toggle="collapse" class="hiderow" style="display: none">
+                                                                    <td data-title="股票代號">2885</td>
+                                                                    <td data-title="股票名稱">元大金</td>
+                                                                    <td data-title="股數">540,436</td>
+                                                                    <td data-title="權重">1.1982</td>
+                                                                </tr>
+                                                                <tr data-toggle="collapse" class="hiderow" style="display: none">
+                                                                    <td data-title="股票代號">2887</td>
+                                                                    <td data-title="股票名稱">台新新光金</td>
+                                                                    <td data-title="股數">1,140,363</td>
+                                                                    <td data-title="權重">1.0981</td>
+                                                                </tr>
+                                                                <tr data-toggle="collapse" class="hiderow" style="display: none">
+                                                                    <td data-title="股票代號">6669</td>
+                                                                    <td data-title="股票名稱">緯穎</td>
+                                                                    <td data-title="股數">5,134</td>
+                                                                    <td data-title="權重">1.0624</td>
+                                                                </tr>
+                                                                <tr data-toggle="collapse" class="hiderow" style="display: none">
+                                                                    <td data-title="股票代號">2412</td>
+                                                                    <td data-title="股票名稱">中華電</td>
+                                                                    <td data-title="股數">189,276</td>
+                                                                    <td data-title="權重">1.0568</td>
+                                                                </tr>
+                                                                <tr data-toggle="collapse" class="hiderow" style="display: none">
+                                                                    <td data-title="股票代號">2884</td>
+                                                                    <td data-title="股票名稱">玉山金</td>
+                                                                    <td data-title="股數">761,224</td>
+                                                                    <td data-title="權重">0.9840</td>
+                                                                </tr>
+                                                                <tr data-toggle="collapse" class="hiderow" style="display: none">
+                                                                    <td data-title="股票代號">2886</td>
+                                                                    <td data-title="股票名稱">兆豐金</td>
+                                                                    <td data-title="股數">585,795</td>
+                                                                    <td data-title="權重">0.9338</td>
+                                                                </tr>
+                                                                <tr data-toggle="collapse" class="hiderow" style="display: none">
+                                                                    <td data-title="股票代號">2368</td>
+                                                                    <td data-title="股票名稱">金像電</td>
+                                                                    <td data-title="股數">17,072</td>
+                                                                    <td data-title="權重">0.8910</td>
+                                                                </tr>
+                                                                <tr data-toggle="collapse" class="hiderow" style="display: none">
+                                                                    <td data-title="股票代號">2357</td>
+                                                                    <td data-title="股票名稱">華碩</td>
+                                                                    <td data-title="股數">33,874</td>
+                                                                    <td data-title="權重">0.8785</td>
+                                                                </tr>
+                                                                <tr data-toggle="collapse" class="hiderow" style="display: none">
+                                                                    <td data-title="股票代號">1303</td>
+                                                                    <td data-title="股票名稱">南亞</td>
+                                                                    <td data-title="股數">244,376</td>
+                                                                    <td data-title="權重">0.8434</td>
+                                                                </tr>
+                                                                <tr data-toggle="collapse" class="hiderow" style="display: none">
+                                                                    <td data-title="股票代號">3231</td>
+                                                                    <td data-title="股票名稱">緯創</td>
+                                                                    <td data-title="股數">151,724</td>
+                                                                    <td data-title="權重">0.8318</td>
+                                                                </tr>
+                                                                <tr data-toggle="collapse" class="hiderow" style="display: none">
+                                                                    <td data-title="股票代號">2344</td>
+                                                                    <td data-title="股票名稱">華邦電</td>
+                                                                    <td data-title="股數">154,762</td>
+                                                                    <td data-title="權重">0.8108</td>
+                                                                </tr>
+                                                                <tr data-toggle="collapse" class="hiderow" style="display: none">
+                                                                    <td data-title="股票代號">2301</td>
+                                                                    <td data-title="股票名稱">光寶科</td>
+                                                                    <td data-title="股數">96,338</td>
+                                                                    <td data-title="權重">0.7971</td>
+                                                                </tr>
+                                                                <tr data-toggle="collapse" class="hiderow" style="display: none">
+                                                                    <td data-title="股票代號">7769</td>
+                                                                    <td data-title="股票名稱">鴻勁</td>
+                                                                    <td data-title="股數">2,829</td>
+                                                                    <td data-title="權重">0.7892</td>
+                                                                </tr>
+                                                                <tr data-toggle="collapse" class="hiderow" style="display: none">
+                                                                    <td data-title="股票代號">2890</td>
+                                                                    <td data-title="股票名稱">永豐金</td>
+                                                                    <td data-title="股數">628,765</td>
+                                                                    <td data-title="權重">0.7682</td>
+                                                                </tr>
+                                                                <tr data-toggle="collapse" class="hiderow" style="display: none">
+                                                                    <td data-title="股票代號">1216</td>
+                                                                    <td data-title="股票名稱">統一</td>
+                                                                    <td data-title="股數">244,219</td>
+                                                                    <td data-title="權重">0.7480</td>
+                                                                </tr>
+                                                                <tr data-toggle="collapse" class="hiderow" style="display: none">
+                                                                    <td data-title="股票代號">3661</td>
+                                                                    <td data-title="股票名稱">世芯-KY　</td>
+                                                                    <td data-title="股數">3,939</td>
+                                                                    <td data-title="權重">0.7339</td>
+                                                                </tr>
+                                                                <tr data-toggle="collapse" class="hiderow" style="display: none">
+                                                                    <td data-title="股票代號">2408</td>
+                                                                    <td data-title="股票名稱">南亞科</td>
+                                                                    <td data-title="股數">55,703</td>
+                                                                    <td data-title="權重">0.7020</td>
+                                                                </tr>
+                                                                <tr data-toggle="collapse" class="hiderow" style="display: none">
+                                                                    <td data-title="股票代號">2883</td>
+                                                                    <td data-title="股票名稱">凱基金</td>
+                                                                    <td data-title="股數">782,190</td>
+                                                                    <td data-title="權重">0.6915</td>
+                                                                </tr>
+                                                                <tr data-toggle="collapse" class="hiderow" style="display: none">
+                                                                    <td data-title="股票代號">3008</td>
+                                                                    <td data-title="股票名稱">大立光</td>
+                                                                    <td data-title="股數">4,761</td>
+                                                                    <td data-title="權重">0.6636</td>
+                                                                </tr>
+                                                                <tr data-toggle="collapse" class="hiderow" style="display: none">
+                                                                    <td data-title="股票代號">2449</td>
+                                                                    <td data-title="股票名稱">京元電子</td>
+                                                                    <td data-title="股數">53,944</td>
+                                                                    <td data-title="權重">0.6536</td>
+                                                                </tr>
+                                                                <tr data-toggle="collapse" class="hiderow" style="display: none">
+                                                                    <td data-title="股票代號">2892</td>
+                                                                    <td data-title="股票名稱">第一金</td>
+                                                                    <td data-title="股數">538,194</td>
+                                                                    <td data-title="權重">0.6380</td>
+                                                                </tr>
+                                                                <tr data-toggle="collapse" class="hiderow" style="display: none">
+                                                                    <td data-title="股票代號">2880</td>
+                                                                    <td data-title="股票名稱">華南金</td>
+                                                                    <td data-title="股數">461,417</td>
+                                                                    <td data-title="權重">0.6048</td>
+                                                                </tr>
+                                                                <tr data-toggle="collapse" class="hiderow" style="display: none">
+                                                                    <td data-title="股票代號">3653</td>
+                                                                    <td data-title="股票名稱">健策</td>
+                                                                    <td data-title="股數">4,144</td>
+                                                                    <td data-title="權重">0.5809</td>
+                                                                </tr>
+                                                                <tr data-toggle="collapse" class="hiderow" style="display: none">
+                                                                    <td data-title="股票代號">2059</td>
+                                                                    <td data-title="股票名稱">川湖</td>
+                                                                    <td data-title="股數">2,814</td>
+                                                                    <td data-title="權重">0.5533</td>
+                                                                </tr>
+                                                                <tr data-toggle="collapse" class="hiderow" style="display: none">
+                                                                    <td data-title="股票代號">5880</td>
+                                                                    <td data-title="股票名稱">合庫金</td>
+                                                                    <td data-title="股數">519,012</td>
+                                                                    <td data-title="權重">0.4798</td>
+                                                                </tr>
+                                                                <tr data-toggle="collapse" class="hiderow" style="display: none">
+                                                                    <td data-title="股票代號">2603</td>
+                                                                    <td data-title="股票名稱">長榮</td>
+                                                                    <td data-title="股數">53,892</td>
+                                                                    <td data-title="權重">0.4372</td>
+                                                                </tr>
+                                                                <tr data-toggle="collapse" class="hiderow" style="display: none">
+                                                                    <td data-title="股票代號">2395</td>
+                                                                    <td data-title="股票名稱">研華</td>
+                                                                    <td data-title="股數">22,775</td>
+                                                                    <td data-title="權重">0.4234</td>
+                                                                </tr>
+                                                                <tr data-toggle="collapse" class="hiderow" style="display: none">
+                                                                    <td data-title="股票代號">2002</td>
+                                                                    <td data-title="股票名稱">中鋼</td>
+                                                                    <td data-title="股數">554,379</td>
+                                                                    <td data-title="權重">0.4071</td>
+                                                                </tr>
+                                                                <tr data-toggle="collapse" class="hiderow" style="display: none">
+                                                                    <td data-title="股票代號">1301</td>
+                                                                    <td data-title="股票名稱">臺塑</td>
+                                                                    <td data-title="股數">208,090</td>
+                                                                    <td data-title="權重">0.3847</td>
+                                                                </tr>
+                                                                <tr data-toggle="collapse" class="hiderow" style="display: none">
+                                                                    <td data-title="股票代號">4904</td>
+                                                                    <td data-title="股票名稱">遠傳電信</td>
+                                                                    <td data-title="股數">87,976</td>
+                                                                    <td data-title="權重">0.3499</td>
+                                                                </tr>
+                                                                <tr data-toggle="collapse" class="hiderow" style="display: none">
+                                                                    <td data-title="股票代號">3045</td>
+                                                                    <td data-title="股票名稱">台灣大</td>
+                                                                    <td data-title="股數">70,104</td>
+                                                                    <td data-title="權重">0.3248</td>
+                                                                </tr>
+                                                                <tr data-toggle="collapse" class="hiderow" style="display: none">
+                                                                    <td data-title="股票代號">2207</td>
+                                                                    <td data-title="股票名稱">和泰車</td>
+                                                                    <td data-title="股數">13,879</td>
+                                                                    <td data-title="權重">0.2628</td>
+                                                                </tr>
+                                                                <tr data-toggle="collapse" class="hiderow" style="display: none">
+                                                                    <td data-title="股票代號">6919</td>
+                                                                    <td data-title="股票名稱">康霈*</td>
+                                                                    <td data-title="股數">49,292</td>
+                                                                    <td data-title="權重">0.1916</td>
+                                                                </tr>
+                                                                <tr data-toggle="collapse" class="hiderow" style="display: none">
+                                                                    <td data-title="股票代號">6505</td>
+                                                                    <td data-title="股票名稱">台塑化</td>
+                                                                    <td data-title="股數">59,056</td>
+                                                                    <td data-title="權重">0.1226</td>
+                                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                        <button type="button" autofocus class="btn btn-primary btn-lg" style="width:100%;" id="foldtable"><b>展開↓</b></button>
+                                </div>
+                            </div>
+                        </article>
+</form>                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<script type="text/javascript" src="https://libs.baidu.com/jquery/2.1.1/jquery.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#foldtable").click(function () {
+            var txt = $(this).text();
+            if (txt == "展開↓") {
+                $(this).text("收合↑");
+                $(".altTable").find(".hiderow").css("display", "table-row");
+                $(".altTable").find(".omitrow").css("display", "none");
+            } else {
+                $(this).text("展開↓");
+                $(".altTable").find(".hiderow").css("display", "none");
+                $(".altTable").find(".omitrow").css("display", "table-row");
+            }
+        })
+    });
+</script>        <hr />
+
+    <div id="goTop" class="goTop"></div>
+        <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="copyright">
+                        <nav>
+                            <h3><a href="/CustCenter/InfoCenter?PType=5" style="font-size:16px;">盡職治理遵循專區</a></h3> 
+                            <h3><a href="/CustCenter/InfoCenter?PType=7" style="font-size:16px;">洗錢防制及反恐專區</a></h3> 
+                            <h3><a href="/CustCenter/safety" style="font-size:16px;">網路釣魚宣導暨網站安全提醒</a></h3> 
+                            <h3><a href="/Home/About?pg=4" style="font-size:16px;">金融友善服務</a></h3>
+                            <h3><a href="/CustCenter/InfoCenter?PType=8" style="font-size:16px;">ESG基金專區</a></h3> 
+							<h3><a href="/CustCenter/InfoCenter?PType=9" style="font-size:16px;">反金融投資詐騙專區</a></h3> 
+                            <h3><a href="/CustCenter/InfoCenter?PType=11" style="font-size:16px;">永續發展專區</a></h3>
+                        </nav>
+                        <br />
+                        <p style="font-size:16px;">本網站建議使用Chrome、Microsoft Edge以上版本瀏覽器，以獲得最佳瀏覽體驗</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+            <div class="footer-copyright">
+                <div class="gd_seal">
+                    
+                    <p class="ml-3">
+                        客服信箱 <i class="fas fa-envelope"></i><a href="mailto:usitc.cs@usitc.com.tw"> usitc.cs@usitc.com.tw</a> | 客服專線 <a data-role="none" href="tel:0266189901"><i class="fa fa-phone"></i>(02)6618-9901</a><br>
+                        ( 服務時間：週一至週五上午9:00至下午5:30 )<br>
+                        聯邦證券投資信託股份有限公司<br>
+                        台北市中山區南京東路二段137號6樓
+                    </p>
+                </div>
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="footer-notice col-12">
+                                聯邦投信獨立經營管理。本公司系列基金經金管會核准或同意生效，惟不表示絕無風險。基金經理公司以往之經理績效不保證基金之最低投資收益；基金經理公司除盡善良管理人之注意義務外，不負責基金之盈虧，亦不保證最低之收益，投資人申購前應詳閱基金公開說明書。有關基金應負擔之費用已揭露於基金之公開說明書或投資人須知中，本公司及各銷售機構備有公開說明書，歡迎索取，或自行至本公司官網、公開資訊觀測站或境外基金資訊觀測站下載。投資人申購本基金係持有基金受益憑證，而非本文提及之投資資產或標的。<br>
+                                
+                                <span class="footer-red"> 投資人應注意基金投資之風險包括匯率風險、利率風險、債券交易市場流動性不足之風險及投資無擔保公司債之風險；基金或有因利率變動、債券交易市場流動性不足及定期存單提前解約而影響基金淨值下跌之風險，同時或有受益人大量贖回時，致延遲給付贖回價款之可能。 </span><br>
+
+                                基金非投資等級債券之投資占顯著比重者，適合能承受較高風險之非保守型之投資人。由於非投資等級債券之信用評等未達投資等級或未經信用評等，且對利率變動的敏感度甚高，故本基金可能會因利率上升、市場流動性下降，或債券發行機構違約不支付本金、利息或破產而蒙受虧損，投資人應審慎評估。本基金不適合無法承擔相關風險之投資人。
+                                <span class="footer-red">投資人投資以非投資等級債券為訴求之基金不宜占其投資組合過高之比重。基金可能投資美國Rule 144A 債券（境內基金投資比例最高可達基金淨資產價值30%），該債券屬私募性質，易發生流動性不足，財務訊息揭露不完整或價格不透明導致高波動性之風險。</span><br>
+
+                                部分可配息基金配息前已扣除應負擔之相關費用，且基金的配息可能由基金的收益或本金中支付。任何涉及由本金支出的部份，可能導致原始投資金額以同等比例減損。基金配息不代表基金實際報酬，且過去配息不代表未來配息；基金淨值可能因市場因素而上下波動。基金經理公司不保證本基金最低之收益率或獲利，配息金額會因操作及收入來源而有變化，且投資之風險無法因分散投資而完全消除，投資人仍應自行承擔相關風險。投資人可至本公司官網查詢最近12個月內由本金支付之配息組成項目。各期間報酬率(含息)是假設收益分配均滾入再投資於本基金之期間累積報酬率。<br>
+
+                                <span class="footer-red">內容涉及新興市場部分，因其波動性與風險程度較高，且政治與經濟情勢穩定度可能低於已開發國家，可能使資產價值受不同程度之影響。</span>
+                                匯率走勢可能影響所投資之海外資產而使資產價值變動。投資人因不同時間進場，將有不同之投資績效，過去之績效亦不代表未來績效之保證。以過去績效進行模擬投資組合之報酬率時，僅為歷史資料模擬投資組合之結果，不代表本投資組合之實際報酬率及未來績效保證，不同時間進行模擬操作，結果可能不同。本資料提及之企業、指數或投資標的，僅為舉例說明之用，不代表任何投資之推薦。有關未成立之基金初期資產配置，僅為暫訂之規劃，實際投資配置可能依市場狀況而改變。
+                                <span class="footer-red">基金風險報酬等級，依投信投顧公會分類標準，由低至高分為RR1~RR5等五個等級。</span>
+                                此分類係基於一般市況反映市場價格波動風險，無法涵蓋所有風險，不宜作為投資唯一依據，投資人仍應注意所投資基金之個別風險，並考量個人風險承擔能力、資金可運用期間等，始為投資判斷。基金之風險可能含有產業景氣循環變動、流動性不足、外匯管制、投資地區政經社會變動或其他投資風險。<br>
+
+                                目標到期基金成立日之當日起即不再接受受益權單位之申購，投資人於目標到期基金未到期前買回，將收取提前買回費用2%並歸入基金資產，以維護既有投資人利益。<br>
+
+                                本公司系列基金包含新台幣及外幣計價級別，如投資人以非基金計價幣別之貨幣換匯後申購基金，須自行承擔匯率變動之風險。此外，因投資人與銀行進行外匯交易有賣價與買價之差異，投資人進行換匯時須承擔買賣價差，此價差依各銀行報價而定。
+                                <span class="footer-red">由於中國大陸地區實施外匯管制，基金可以透過經理公司申請獲准之合格境外投資機構者(QFII)之額度直接投資中國大陸地區當地證券市場，QFII額度須先兌匯為美元匯入中國大陸地區後再兌換為人民幣，以投資當地人民幣計價之投資商品，使得結轉匯成本因此提高。而人民幣匯率波動可能對該類型每受益權單位淨資產價值造成直接或間接之影響，故申購該類型受益權單位之受益人需承擔人民幣匯率變動之風險。投資人應特別留意，基金因計價幣別不同，投資人申購之受益權單位數為該申購幣別金額除以面額計算，於召開受益人會議時，各計價幣別受益權單位每受益權單位有一表決權，不因投資人取得各級別每受益權單位之成本不同而異。基金外幣計價之受益權單位，於銀行國際金融業務分行(OBU)或國際證券分公司(OSU)銷售者，其銷售對象以非中華民國之居住民為限。</span><br>
+
+                                本資料提及之經濟走勢預測不必然代表該基金之績效，基金投資風險請詳閱基金公開說明書。投資人因不同時間進場，將有不同之投資績效，過去之績效亦不代表未來績效之保證。以過去績效進行模擬投資組合之報酬率，僅為歷史資料模擬投資組合之結果，不代表任何基金或相關投資組合之實際報酬率及未來績效保證；不同時間進行模擬操作，結果可能不同。本資料提及之企業、指數或投資標的，僅為舉例說明之用，不代表任何投資之推薦。<br>
+
+                                資料僅供參考，請勿將其視為買賣基金或其他任何投資之建議或要約。本公司自當盡力提供正確資訊，所作任何投資意見與市場分析結果，係依資料製作當時情況進行判斷，惟可能因市場變化而更動，且文中數據、預測或意見可能有脫漏、錯誤，投資標的價格與收益亦可能隨時變動，本公司或關係企業與其相關人等對此不負任何法律責任，投資人應自行判斷投資標的、投資風險，不應將本資料引為投資之唯一依據，若有投資損益或因使用本資料所生之直接或間接損失，應由投資人自行負責。
+                                <span class="footer-red">本公司系列基金無受存款保險、保險安定基金或其他相關保護機制之保障。</span><br>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </footer>
+    <script src="/Scripts/jquery-3.7.1.min.js" type="text/javascript"></script>
+    <script src="/Scripts/popper.min.js" type="text/javascript"></script>
+    <script src="/Scripts/bootstrap.js" type="text/javascript"></script>
+    <script src="/Scripts/all.js"></script>
+    <script src="/bundles/jquery?v="></script>
+
+    <script src="/bundles/bootstrap?v=pzJfcIZGrz7JWplHhd0cIN5fmCdC8ct6jB4r8FT-mAE1"></script>
+
+    
+</body>
+</html>

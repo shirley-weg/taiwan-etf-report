@@ -38,35 +38,19 @@
     "etf_code": "0050",
     "etf_name": "元大台灣50",
     "issuer": "元大投信",
-    "status": "ok",
+    "status": "pcf_code_mismatch",
     "pcf_url": "https://www.yuantaetfs.com/tradeInfo/pcf/0050",
-    "holdings_count": 8,
-    "identity_check": {
-      "ok": true,
-      "method": "visible_context_match",
-      "target_etf_code": "0050",
-      "target_etf_name": "元大台灣50",
-      "matched_context": "(0050)元大台灣卓越50證券投資信託基金 - 元大申購買回清單 | 元大投信 YuantaETFs",
-      "reason": "Page title/header/selected option visibly matches target ETF."
-    },
-    "error": ""
+    "holdings_count": 0,
+    "error": "{\"ok\": false, \"method\": \"identity_not_confirmed\", \"target_etf_code\": \"0050\", \"target_etf_name\": \"元大台灣50\", \"matched_context\": \"\", \"reason\": \"PCF page does not visibly confirm the target ETF code/name in title, header, selected option, or direct ETF-specific URL context. Not saving this snapshot to avoid default-ETF misclassification.\", \"sample_contexts\": [\"元大投信 Yuanta ETFs | 停機公告\", \"停機公告\", \"親愛的客戶您好:\", \"集團成員\"]}"
   },
   {
     "etf_code": "0051",
     "etf_name": "元大中型100",
     "issuer": "元大投信",
-    "status": "ok",
+    "status": "pcf_code_mismatch",
     "pcf_url": "https://www.yuantaetfs.com/tradeInfo/pcf/0051",
-    "holdings_count": 7,
-    "identity_check": {
-      "ok": true,
-      "method": "visible_context_match",
-      "target_etf_code": "0051",
-      "target_etf_name": "元大中型100",
-      "matched_context": "(0051)元大台灣中型100證券投資信託基金 - 元大申購買回清單 | 元大投信 YuantaETFs",
-      "reason": "Page title/header/selected option visibly matches target ETF."
-    },
-    "error": ""
+    "holdings_count": 0,
+    "error": "{\"ok\": false, \"method\": \"identity_not_confirmed\", \"target_etf_code\": \"0051\", \"target_etf_name\": \"元大中型100\", \"matched_context\": \"\", \"reason\": \"PCF page does not visibly confirm the target ETF code/name in title, header, selected option, or direct ETF-specific URL context. Not saving this snapshot to avoid default-ETF misclassification.\", \"sample_contexts\": [\"元大投信 Yuanta ETFs | 停機公告\", \"停機公告\", \"親愛的客戶您好:\", \"集團成員\"]}"
   },
   {
     "etf_code": "0052",
@@ -89,52 +73,28 @@
     "etf_code": "0053",
     "etf_name": "元大電子",
     "issuer": "元大投信",
-    "status": "ok",
+    "status": "pcf_code_mismatch",
     "pcf_url": "https://www.yuantaetfs.com/tradeInfo/pcf/0053",
-    "holdings_count": 6,
-    "identity_check": {
-      "ok": true,
-      "method": "visible_context_match",
-      "target_etf_code": "0053",
-      "target_etf_name": "元大電子",
-      "matched_context": "(0053)元大台灣ETF傘型證券投資信託基金之電子科技證券投資信託基金 - 元大申購買回清單 | 元大投信 YuantaETFs",
-      "reason": "Page title/header/selected option visibly matches target ETF."
-    },
-    "error": ""
+    "holdings_count": 0,
+    "error": "{\"ok\": false, \"method\": \"identity_not_confirmed\", \"target_etf_code\": \"0053\", \"target_etf_name\": \"元大電子\", \"matched_context\": \"\", \"reason\": \"PCF page does not visibly confirm the target ETF code/name in title, header, selected option, or direct ETF-specific URL context. Not saving this snapshot to avoid default-ETF misclassification.\", \"sample_contexts\": [\"元大投信 Yuanta ETFs | 停機公告\", \"停機公告\", \"親愛的客戶您好:\", \"集團成員\"]}"
   },
   {
     "etf_code": "0055",
     "etf_name": "元大MSCI金融",
     "issuer": "元大投信",
-    "status": "ok",
+    "status": "pcf_code_mismatch",
     "pcf_url": "https://www.yuantaetfs.com/tradeInfo/pcf/0055",
-    "holdings_count": 5,
-    "identity_check": {
-      "ok": true,
-      "method": "visible_context_match",
-      "target_etf_code": "0055",
-      "target_etf_name": "元大MSCI金融",
-      "matched_context": "(0055)元大台灣ETF傘型證券投資信託基金之金融證券投資信託基金 - 元大申購買回清單 | 元大投信 YuantaETFs",
-      "reason": "Page title/header/selected option visibly matches target ETF."
-    },
-    "error": ""
+    "holdings_count": 0,
+    "error": "{\"ok\": false, \"method\": \"identity_not_confirmed\", \"target_etf_code\": \"0055\", \"target_etf_name\": \"元大MSCI金融\", \"matched_context\": \"\", \"reason\": \"PCF page does not visibly confirm the target ETF code/name in title, header, selected option, or direct ETF-specific URL context. Not saving this snapshot to avoid default-ETF misclassification.\", \"sample_contexts\": [\"元大投信 Yuanta ETFs | 停機公告\", \"停機公告\", \"親愛的客戶您好:\", \"集團成員\"]}"
   },
   {
     "etf_code": "0056",
     "etf_name": "元大高股息",
     "issuer": "元大投信",
-    "status": "ok",
+    "status": "pcf_code_mismatch",
     "pcf_url": "https://www.yuantaetfs.com/tradeInfo/pcf/0056",
-    "holdings_count": 7,
-    "identity_check": {
-      "ok": true,
-      "method": "visible_context_match",
-      "target_etf_code": "0056",
-      "target_etf_name": "元大高股息",
-      "matched_context": "(0056)元大台灣高股息證券投資信託基金 - 元大申購買回清單 | 元大投信 YuantaETFs",
-      "reason": "Page title/header/selected option visibly matches target ETF."
-    },
-    "error": ""
+    "holdings_count": 0,
+    "error": "{\"ok\": false, \"method\": \"identity_not_confirmed\", \"target_etf_code\": \"0056\", \"target_etf_name\": \"元大高股息\", \"matched_context\": \"\", \"reason\": \"PCF page does not visibly confirm the target ETF code/name in title, header, selected option, or direct ETF-specific URL context. Not saving this snapshot to avoid default-ETF misclassification.\", \"sample_contexts\": [\"元大投信 Yuanta ETFs | 停機公告\", \"停機公告\", \"親愛的客戶您好:\", \"集團成員\"]}"
   },
   {
     "etf_code": "0057",
@@ -157,35 +117,19 @@
     "etf_code": "0061",
     "etf_name": "元大寶滬深",
     "issuer": "元大投信",
-    "status": "parsed_zero_holdings",
+    "status": "pcf_code_mismatch",
     "pcf_url": "https://www.yuantaetfs.com/tradeInfo/pcf/0061",
     "holdings_count": 0,
-    "identity_check": {
-      "ok": true,
-      "method": "visible_context_match",
-      "target_etf_code": "0061",
-      "target_etf_name": "元大寶滬深",
-      "matched_context": "(0061)元大標智滬深300證券投資信託基金 - 元大申購買回清單 | 元大投信 YuantaETFs",
-      "reason": "Page title/header/selected option visibly matches target ETF."
-    },
-    "error": "PCF page identity passed, but no Taiwan stock holdings were parsed."
+    "error": "{\"ok\": false, \"method\": \"identity_not_confirmed\", \"target_etf_code\": \"0061\", \"target_etf_name\": \"元大寶滬深\", \"matched_context\": \"\", \"reason\": \"PCF page does not visibly confirm the target ETF code/name in title, header, selected option, or direct ETF-specific URL context. Not saving this snapshot to avoid default-ETF misclassification.\", \"sample_contexts\": [\"元大投信 Yuanta ETFs | 停機公告\", \"停機公告\", \"親愛的客戶您好:\", \"集團成員\"]}"
   },
   {
     "etf_code": "006203",
     "etf_name": "元大MSCI台灣",
     "issuer": "元大投信",
-    "status": "ok",
+    "status": "pcf_code_mismatch",
     "pcf_url": "https://www.yuantaetfs.com/tradeInfo/pcf/006203",
-    "holdings_count": 9,
-    "identity_check": {
-      "ok": true,
-      "method": "visible_context_match",
-      "target_etf_code": "006203",
-      "target_etf_name": "元大MSCI台灣",
-      "matched_context": "(006203)元大摩臺證券投資信託基金 - 元大申購買回清單 | 元大投信 YuantaETFs",
-      "reason": "Page title/header/selected option visibly matches target ETF."
-    },
-    "error": ""
+    "holdings_count": 0,
+    "error": "{\"ok\": false, \"method\": \"identity_not_confirmed\", \"target_etf_code\": \"006203\", \"target_etf_name\": \"元大MSCI台灣\", \"matched_context\": \"\", \"reason\": \"PCF page does not visibly confirm the target ETF code/name in title, header, selected option, or direct ETF-specific URL context. Not saving this snapshot to avoid default-ETF misclassification.\", \"sample_contexts\": [\"元大投信 Yuanta ETFs | 停機公告\", \"停機公告\", \"親愛的客戶您好:\", \"集團成員\"]}"
   },
   {
     "etf_code": "006204",
@@ -225,18 +169,10 @@
     "etf_code": "006206",
     "etf_name": "元大上證50",
     "issuer": "元大投信",
-    "status": "parsed_zero_holdings",
+    "status": "pcf_code_mismatch",
     "pcf_url": "https://www.yuantaetfs.com/tradeInfo/pcf/006206",
     "holdings_count": 0,
-    "identity_check": {
-      "ok": true,
-      "method": "visible_context_match",
-      "target_etf_code": "006206",
-      "target_etf_name": "元大上證50",
-      "matched_context": "(006206)元大中國傘型證券投資信託基金之上證50證券投資信託基金 - 元大申購買回清單 | 元大投信 YuantaETFs",
-      "reason": "Page title/header/selected option visibly matches target ETF."
-    },
-    "error": "PCF page identity passed, but no Taiwan stock holdings were parsed."
+    "error": "{\"ok\": false, \"method\": \"identity_not_confirmed\", \"target_etf_code\": \"006206\", \"target_etf_name\": \"元大上證50\", \"matched_context\": \"\", \"reason\": \"PCF page does not visibly confirm the target ETF code/name in title, header, selected option, or direct ETF-specific URL context. Not saving this snapshot to avoid default-ETF misclassification.\", \"sample_contexts\": [\"元大投信 Yuanta ETFs | 停機公告\", \"停機公告\", \"親愛的客戶您好:\", \"集團成員\"]}"
   },
   {
     "etf_code": "006207",
@@ -277,35 +213,19 @@
     "etf_code": "00631L",
     "etf_name": "元大台灣50正2",
     "issuer": "元大投信",
-    "status": "ok",
+    "status": "pcf_code_mismatch",
     "pcf_url": "https://www.yuantaetfs.com/tradeInfo/pcf/00631L",
-    "holdings_count": 2,
-    "identity_check": {
-      "ok": true,
-      "method": "visible_context_match",
-      "target_etf_code": "00631L",
-      "target_etf_name": "元大台灣50正2",
-      "matched_context": "(00631L)元大ETF傘型證券投資信託基金之台灣50單日正向2倍證券投資信託基金 - 元大申購買回清單 | 元大投信 YuantaETFs",
-      "reason": "Page title/header/selected option visibly matches target ETF."
-    },
-    "error": ""
+    "holdings_count": 0,
+    "error": "{\"ok\": false, \"method\": \"identity_not_confirmed\", \"target_etf_code\": \"00631L\", \"target_etf_name\": \"元大台灣50正2\", \"matched_context\": \"\", \"reason\": \"PCF page does not visibly confirm the target ETF code/name in title, header, selected option, or direct ETF-specific URL context. Not saving this snapshot to avoid default-ETF misclassification.\", \"sample_contexts\": [\"元大投信 Yuanta ETFs | 停機公告\", \"停機公告\", \"親愛的客戶您好:\", \"集團成員\"]}"
   },
   {
     "etf_code": "00632R",
     "etf_name": "元大台灣50反1",
     "issuer": "元大投信",
-    "status": "parsed_zero_holdings",
+    "status": "pcf_code_mismatch",
     "pcf_url": "https://www.yuantaetfs.com/tradeInfo/pcf/00632R",
     "holdings_count": 0,
-    "identity_check": {
-      "ok": true,
-      "method": "visible_context_match",
-      "target_etf_code": "00632R",
-      "target_etf_name": "元大台灣50反1",
-      "matched_context": "(00632R)元大ETF傘型證券投資信託基金之台灣50單日反向1倍證券投資信託基金 - 元大申購買回清單 | 元大投信 YuantaETFs",
-      "reason": "Page title/header/selected option visibly matches target ETF."
-    },
-    "error": "PCF page identity passed, but no Taiwan stock holdings were parsed."
+    "error": "{\"ok\": false, \"method\": \"identity_not_confirmed\", \"target_etf_code\": \"00632R\", \"target_etf_name\": \"元大台灣50反1\", \"matched_context\": \"\", \"reason\": \"PCF page does not visibly confirm the target ETF code/name in title, header, selected option, or direct ETF-specific URL context. Not saving this snapshot to avoid default-ETF misclassification.\", \"sample_contexts\": [\"元大投信 Yuanta ETFs | 停機公告\", \"停機公告\", \"親愛的客戶您好:\", \"集團成員\"]}"
   },
   {
     "etf_code": "00633L",
@@ -345,18 +265,10 @@
     "etf_code": "00635U",
     "etf_name": "期元大S&P黃金",
     "issuer": "元大投信",
-    "status": "parsed_zero_holdings",
+    "status": "pcf_code_mismatch",
     "pcf_url": "https://www.yuantaetfs.com/tradeInfo/pcf/00635U",
     "holdings_count": 0,
-    "identity_check": {
-      "ok": true,
-      "method": "visible_context_match",
-      "target_etf_code": "00635U",
-      "target_etf_name": "期元大S&P黃金",
-      "matched_context": "(00635U)元大標普高盛黃金ER指數股票型期貨信託基金 - 元大申購買回清單 | 元大投信 YuantaETFs",
-      "reason": "Page title/header/selected option visibly matches target ETF."
-    },
-    "error": "PCF page identity passed, but no Taiwan stock holdings were parsed."
+    "error": "{\"ok\": false, \"method\": \"identity_not_confirmed\", \"target_etf_code\": \"00635U\", \"target_etf_name\": \"期元大S&P黃金\", \"matched_context\": \"\", \"reason\": \"PCF page does not visibly confirm the target ETF code/name in title, header, selected option, or direct ETF-specific URL context. Not saving this snapshot to avoid default-ETF misclassification.\", \"sample_contexts\": [\"元大投信 Yuanta ETFs | 停機公告\", \"停機公告\", \"親愛的客戶您好:\", \"集團成員\"]}"
   },
   {
     "etf_code": "00636",
@@ -380,35 +292,19 @@
     "etf_code": "00637L",
     "etf_name": "元大滬深300正2",
     "issuer": "元大投信",
-    "status": "ok",
+    "status": "pcf_code_mismatch",
     "pcf_url": "https://www.yuantaetfs.com/tradeInfo/pcf/00637L",
-    "holdings_count": 1,
-    "identity_check": {
-      "ok": true,
-      "method": "visible_context_match",
-      "target_etf_code": "00637L",
-      "target_etf_name": "元大滬深300正2",
-      "matched_context": "(00637L)元大滬深300傘型證券投資信託基金之滬深300單日正向2倍證券投資信託基金 - 元大申購買回清單 | 元大投信 YuantaETFs",
-      "reason": "Page title/header/selected option visibly matches target ETF."
-    },
-    "error": ""
+    "holdings_count": 0,
+    "error": "{\"ok\": false, \"method\": \"identity_not_confirmed\", \"target_etf_code\": \"00637L\", \"target_etf_name\": \"元大滬深300正2\", \"matched_context\": \"\", \"reason\": \"PCF page does not visibly confirm the target ETF code/name in title, header, selected option, or direct ETF-specific URL context. Not saving this snapshot to avoid default-ETF misclassification.\", \"sample_contexts\": [\"元大投信 Yuanta ETFs | 停機公告\", \"停機公告\", \"親愛的客戶您好:\", \"集團成員\"]}"
   },
   {
     "etf_code": "00638R",
     "etf_name": "元大滬深300反1",
     "issuer": "元大投信",
-    "status": "parsed_zero_holdings",
+    "status": "pcf_code_mismatch",
     "pcf_url": "https://www.yuantaetfs.com/tradeInfo/pcf/00638R",
     "holdings_count": 0,
-    "identity_check": {
-      "ok": true,
-      "method": "visible_context_match",
-      "target_etf_code": "00638R",
-      "target_etf_name": "元大滬深300反1",
-      "matched_context": "(00638R)元大滬深300傘型證券投資信託基金之滬深300單日反向1倍證券投資信託基金 - 元大申購買回清單 | 元大投信 YuantaETFs",
-      "reason": "Page title/header/selected option visibly matches target ETF."
-    },
-    "error": "PCF page identity passed, but no Taiwan stock holdings were parsed."
+    "error": "{\"ok\": false, \"method\": \"identity_not_confirmed\", \"target_etf_code\": \"00638R\", \"target_etf_name\": \"元大滬深300反1\", \"matched_context\": \"\", \"reason\": \"PCF page does not visibly confirm the target ETF code/name in title, header, selected option, or direct ETF-specific URL context. Not saving this snapshot to avoid default-ETF misclassification.\", \"sample_contexts\": [\"元大投信 Yuanta ETFs | 停機公告\", \"停機公告\", \"親愛的客戶您好:\", \"集團成員\"]}"
   },
   {
     "etf_code": "00639",
@@ -465,18 +361,10 @@
     "etf_code": "00642U",
     "etf_name": "期元大S&P石油",
     "issuer": "元大投信",
-    "status": "ok",
+    "status": "pcf_code_mismatch",
     "pcf_url": "https://www.yuantaetfs.com/tradeInfo/pcf/00642U",
-    "holdings_count": 1,
-    "identity_check": {
-      "ok": true,
-      "method": "visible_context_match",
-      "target_etf_code": "00642U",
-      "target_etf_name": "期元大S&P石油",
-      "matched_context": "(00642U)元大標普高盛原油ER指數股票型期貨信託基金 - 元大申購買回清單 | 元大投信 YuantaETFs",
-      "reason": "Page title/header/selected option visibly matches target ETF."
-    },
-    "error": ""
+    "holdings_count": 0,
+    "error": "{\"ok\": false, \"method\": \"identity_not_confirmed\", \"target_etf_code\": \"00642U\", \"target_etf_name\": \"期元大S&P石油\", \"matched_context\": \"\", \"reason\": \"PCF page does not visibly confirm the target ETF code/name in title, header, selected option, or direct ETF-specific URL context. Not saving this snapshot to avoid default-ETF misclassification.\", \"sample_contexts\": [\"元大投信 Yuanta ETFs | 停機公告\", \"停機公告\", \"親愛的客戶您好:\", \"集團成員\"]}"
   },
   {
     "etf_code": "00643",
@@ -517,52 +405,28 @@
     "etf_code": "00646",
     "etf_name": "元大S&P500",
     "issuer": "元大投信",
-    "status": "parsed_zero_holdings",
+    "status": "pcf_code_mismatch",
     "pcf_url": "https://www.yuantaetfs.com/tradeInfo/pcf/00646",
     "holdings_count": 0,
-    "identity_check": {
-      "ok": true,
-      "method": "visible_context_match",
-      "target_etf_code": "00646",
-      "target_etf_name": "元大S&P500",
-      "matched_context": "(00646)元大標普500傘型證券投資信託基金之標普500證券投資信託基金 - 元大申購買回清單 | 元大投信 YuantaETFs",
-      "reason": "Page title/header/selected option visibly matches target ETF."
-    },
-    "error": "PCF page identity passed, but no Taiwan stock holdings were parsed."
+    "error": "{\"ok\": false, \"method\": \"identity_not_confirmed\", \"target_etf_code\": \"00646\", \"target_etf_name\": \"元大S&P500\", \"matched_context\": \"\", \"reason\": \"PCF page does not visibly confirm the target ETF code/name in title, header, selected option, or direct ETF-specific URL context. Not saving this snapshot to avoid default-ETF misclassification.\", \"sample_contexts\": [\"元大投信 Yuanta ETFs | 停機公告\", \"停機公告\", \"親愛的客戶您好:\", \"集團成員\"]}"
   },
   {
     "etf_code": "00647L",
     "etf_name": "元大S&P500正2",
     "issuer": "元大投信",
-    "status": "parsed_zero_holdings",
+    "status": "pcf_code_mismatch",
     "pcf_url": "https://www.yuantaetfs.com/tradeInfo/pcf/00647L",
     "holdings_count": 0,
-    "identity_check": {
-      "ok": true,
-      "method": "visible_context_match",
-      "target_etf_code": "00647L",
-      "target_etf_name": "元大S&P500正2",
-      "matched_context": "(00647L)元大標普500傘型證券投資信託基金之標普500單日正向2倍證券投資信託基金 - 元大申購買回清單 | 元大投信 YuantaETFs",
-      "reason": "Page title/header/selected option visibly matches target ETF."
-    },
-    "error": "PCF page identity passed, but no Taiwan stock holdings were parsed."
+    "error": "{\"ok\": false, \"method\": \"identity_not_confirmed\", \"target_etf_code\": \"00647L\", \"target_etf_name\": \"元大S&P500正2\", \"matched_context\": \"\", \"reason\": \"PCF page does not visibly confirm the target ETF code/name in title, header, selected option, or direct ETF-specific URL context. Not saving this snapshot to avoid default-ETF misclassification.\", \"sample_contexts\": [\"元大投信 Yuanta ETFs | 停機公告\", \"停機公告\", \"親愛的客戶您好:\", \"集團成員\"]}"
   },
   {
     "etf_code": "00648R",
     "etf_name": "元大S&P500反1",
     "issuer": "元大投信",
-    "status": "parsed_zero_holdings",
+    "status": "pcf_code_mismatch",
     "pcf_url": "https://www.yuantaetfs.com/tradeInfo/pcf/00648R",
     "holdings_count": 0,
-    "identity_check": {
-      "ok": true,
-      "method": "visible_context_match",
-      "target_etf_code": "00648R",
-      "target_etf_name": "元大S&P500反1",
-      "matched_context": "(00648R)元大標普500傘型證券投資信託基金之標普500單日反向1倍證券投資信託基金 - 元大申購買回清單 | 元大投信 YuantaETFs",
-      "reason": "Page title/header/selected option visibly matches target ETF."
-    },
-    "error": "PCF page identity passed, but no Taiwan stock holdings were parsed."
+    "error": "{\"ok\": false, \"method\": \"identity_not_confirmed\", \"target_etf_code\": \"00648R\", \"target_etf_name\": \"元大S&P500反1\", \"matched_context\": \"\", \"reason\": \"PCF page does not visibly confirm the target ETF code/name in title, header, selected option, or direct ETF-specific URL context. Not saving this snapshot to avoid default-ETF misclassification.\", \"sample_contexts\": [\"元大投信 Yuanta ETFs | 停機公告\", \"停機公告\", \"親愛的客戶您好:\", \"集團成員\"]}"
   },
   {
     "etf_code": "00650L",
@@ -673,35 +537,19 @@
     "etf_code": "00660",
     "etf_name": "元大歐洲50",
     "issuer": "元大投信",
-    "status": "ok",
+    "status": "pcf_code_mismatch",
     "pcf_url": "https://www.yuantaetfs.com/tradeInfo/pcf/00660",
-    "holdings_count": 3,
-    "identity_check": {
-      "ok": true,
-      "method": "visible_context_match",
-      "target_etf_code": "00660",
-      "target_etf_name": "元大歐洲50",
-      "matched_context": "(00660)元大已開發國家傘型證券投資信託基金之元大歐洲50證券投資信託基金 - 元大申購買回清單 | 元大投信 YuantaETFs",
-      "reason": "Page title/header/selected option visibly matches target ETF."
-    },
-    "error": ""
+    "holdings_count": 0,
+    "error": "{\"ok\": false, \"method\": \"identity_not_confirmed\", \"target_etf_code\": \"00660\", \"target_etf_name\": \"元大歐洲50\", \"matched_context\": \"\", \"reason\": \"PCF page does not visibly confirm the target ETF code/name in title, header, selected option, or direct ETF-specific URL context. Not saving this snapshot to avoid default-ETF misclassification.\", \"sample_contexts\": [\"元大投信 Yuanta ETFs | 停機公告\", \"停機公告\", \"親愛的客戶您好:\", \"集團成員\"]}"
   },
   {
     "etf_code": "00661",
     "etf_name": "元大日經225",
     "issuer": "元大投信",
-    "status": "parsed_zero_holdings",
+    "status": "pcf_code_mismatch",
     "pcf_url": "https://www.yuantaetfs.com/tradeInfo/pcf/00661",
     "holdings_count": 0,
-    "identity_check": {
-      "ok": true,
-      "method": "visible_context_match",
-      "target_etf_code": "00661",
-      "target_etf_name": "元大日經225",
-      "matched_context": "(00661)元大已開發國家傘型證券投資信託基金之元大日經225證券投資信託基金 - 元大申購買回清單 | 元大投信 YuantaETFs",
-      "reason": "Page title/header/selected option visibly matches target ETF."
-    },
-    "error": "PCF page identity passed, but no Taiwan stock holdings were parsed."
+    "error": "{\"ok\": false, \"method\": \"identity_not_confirmed\", \"target_etf_code\": \"00661\", \"target_etf_name\": \"元大日經225\", \"matched_context\": \"\", \"reason\": \"PCF page does not visibly confirm the target ETF code/name in title, header, selected option, or direct ETF-specific URL context. Not saving this snapshot to avoid default-ETF misclassification.\", \"sample_contexts\": [\"元大投信 Yuanta ETFs | 停機公告\", \"停機公告\", \"親愛的客戶您好:\", \"集團成員\"]}"
   },
   {
     "etf_code": "00662",
@@ -837,35 +685,19 @@
     "etf_code": "00673R",
     "etf_name": "期元大S&P原油反1",
     "issuer": "元大投信",
-    "status": "parsed_zero_holdings",
+    "status": "pcf_code_mismatch",
     "pcf_url": "https://www.yuantaetfs.com/tradeInfo/pcf/00673R",
     "holdings_count": 0,
-    "identity_check": {
-      "ok": true,
-      "method": "visible_context_match",
-      "target_etf_code": "00673R",
-      "target_etf_name": "期元大S&P原油反1",
-      "matched_context": "(00673R)元大標普油金傘型期貨信託基金之元大標普高盛原油ER單日反向1倍指數股票型期貨信託基金 - 元大申購買回清單 | 元大投信 YuantaETFs",
-      "reason": "Page title/header/selected option visibly matches target ETF."
-    },
-    "error": "PCF page identity passed, but no Taiwan stock holdings were parsed."
+    "error": "{\"ok\": false, \"method\": \"identity_not_confirmed\", \"target_etf_code\": \"00673R\", \"target_etf_name\": \"期元大S&P原油反1\", \"matched_context\": \"\", \"reason\": \"PCF page does not visibly confirm the target ETF code/name in title, header, selected option, or direct ETF-specific URL context. Not saving this snapshot to avoid default-ETF misclassification.\", \"sample_contexts\": [\"元大投信 Yuanta ETFs | 停機公告\", \"停機公告\", \"親愛的客戶您好:\", \"集團成員\"]}"
   },
   {
     "etf_code": "00674R",
     "etf_name": "期元大S&P黃金反1",
     "issuer": "元大投信",
-    "status": "parsed_zero_holdings",
+    "status": "pcf_code_mismatch",
     "pcf_url": "https://www.yuantaetfs.com/tradeInfo/pcf/00674R",
     "holdings_count": 0,
-    "identity_check": {
-      "ok": true,
-      "method": "visible_context_match",
-      "target_etf_code": "00674R",
-      "target_etf_name": "期元大S&P黃金反1",
-      "matched_context": "(00674R)元大標普油金傘型期貨信託基金之元大標普高盛黃金ER單日反向1倍指數股票型期貨信託基金 - 元大申購買回清單 | 元大投信 YuantaETFs",
-      "reason": "Page title/header/selected option visibly matches target ETF."
-    },
-    "error": "PCF page identity passed, but no Taiwan stock holdings were parsed."
+    "error": "{\"ok\": false, \"method\": \"identity_not_confirmed\", \"target_etf_code\": \"00674R\", \"target_etf_name\": \"期元大S&P黃金反1\", \"matched_context\": \"\", \"reason\": \"PCF page does not visibly confirm the target ETF code/name in title, header, selected option, or direct ETF-specific URL context. Not saving this snapshot to avoid default-ETF misclassification.\", \"sample_contexts\": [\"元大投信 Yuanta ETFs | 停機公告\", \"停機公告\", \"親愛的客戶您好:\", \"集團成員\"]}"
   },
   {
     "etf_code": "00675L",
@@ -914,86 +746,46 @@
     "etf_code": "00680L",
     "etf_name": "元大美債20正2",
     "issuer": "元大投信",
-    "status": "ok",
+    "status": "pcf_code_mismatch",
     "pcf_url": "https://www.yuantaetfs.com/tradeInfo/pcf/00680L",
-    "holdings_count": 1,
-    "identity_check": {
-      "ok": true,
-      "method": "visible_context_match",
-      "target_etf_code": "00680L",
-      "target_etf_name": "元大美債20正2",
-      "matched_context": "(00680L)元大美國政府20年期(以上)債券ETF傘型證券投資信託基金之元大美國政府20年期(以上)債券單日正向2倍證券投資信託基金 - 元大申購買回清單 | 元大投信 YuantaETFs",
-      "reason": "Page title/header/selected option visibly matches target ETF."
-    },
-    "error": ""
+    "holdings_count": 0,
+    "error": "{\"ok\": false, \"method\": \"identity_not_confirmed\", \"target_etf_code\": \"00680L\", \"target_etf_name\": \"元大美債20正2\", \"matched_context\": \"\", \"reason\": \"PCF page does not visibly confirm the target ETF code/name in title, header, selected option, or direct ETF-specific URL context. Not saving this snapshot to avoid default-ETF misclassification.\", \"sample_contexts\": [\"元大投信 Yuanta ETFs | 停機公告\", \"停機公告\", \"親愛的客戶您好:\", \"集團成員\"]}"
   },
   {
     "etf_code": "00681R",
     "etf_name": "元大美債20反1",
     "issuer": "元大投信",
-    "status": "parsed_zero_holdings",
+    "status": "pcf_code_mismatch",
     "pcf_url": "https://www.yuantaetfs.com/tradeInfo/pcf/00681R",
     "holdings_count": 0,
-    "identity_check": {
-      "ok": true,
-      "method": "visible_context_match",
-      "target_etf_code": "00681R",
-      "target_etf_name": "元大美債20反1",
-      "matched_context": "(00681R)元大美國政府20年期(以上)債券ETF傘型證券投資信託基金之元大美國政府20年期(以上)債券單日反向1倍證券投資信託基金 - 元大申購買回清單 | 元大投信 YuantaETFs",
-      "reason": "Page title/header/selected option visibly matches target ETF."
-    },
-    "error": "PCF page identity passed, but no Taiwan stock holdings were parsed."
+    "error": "{\"ok\": false, \"method\": \"identity_not_confirmed\", \"target_etf_code\": \"00681R\", \"target_etf_name\": \"元大美債20反1\", \"matched_context\": \"\", \"reason\": \"PCF page does not visibly confirm the target ETF code/name in title, header, selected option, or direct ETF-specific URL context. Not saving this snapshot to avoid default-ETF misclassification.\", \"sample_contexts\": [\"元大投信 Yuanta ETFs | 停機公告\", \"停機公告\", \"親愛的客戶您好:\", \"集團成員\"]}"
   },
   {
     "etf_code": "00682U",
     "etf_name": "期元大美元指數",
     "issuer": "元大投信",
-    "status": "parsed_zero_holdings",
+    "status": "pcf_code_mismatch",
     "pcf_url": "https://www.yuantaetfs.com/tradeInfo/pcf/00682U",
     "holdings_count": 0,
-    "identity_check": {
-      "ok": true,
-      "method": "visible_context_match",
-      "target_etf_code": "00682U",
-      "target_etf_name": "期元大美元指數",
-      "matched_context": "(00682U)元大標普美元指數傘型期貨信託基金之元大標普美元ER指數股票型期貨信託基金 - 元大申購買回清單 | 元大投信 YuantaETFs",
-      "reason": "Page title/header/selected option visibly matches target ETF."
-    },
-    "error": "PCF page identity passed, but no Taiwan stock holdings were parsed."
+    "error": "{\"ok\": false, \"method\": \"identity_not_confirmed\", \"target_etf_code\": \"00682U\", \"target_etf_name\": \"期元大美元指數\", \"matched_context\": \"\", \"reason\": \"PCF page does not visibly confirm the target ETF code/name in title, header, selected option, or direct ETF-specific URL context. Not saving this snapshot to avoid default-ETF misclassification.\", \"sample_contexts\": [\"元大投信 Yuanta ETFs | 停機公告\", \"停機公告\", \"親愛的客戶您好:\", \"集團成員\"]}"
   },
   {
     "etf_code": "00683L",
     "etf_name": "期元大美元指正2",
     "issuer": "元大投信",
-    "status": "parsed_zero_holdings",
+    "status": "pcf_code_mismatch",
     "pcf_url": "https://www.yuantaetfs.com/tradeInfo/pcf/00683L",
     "holdings_count": 0,
-    "identity_check": {
-      "ok": true,
-      "method": "visible_context_match",
-      "target_etf_code": "00683L",
-      "target_etf_name": "期元大美元指正2",
-      "matched_context": "(00683L)元大標普美元指數傘型期貨信託基金之元大標普美元ER單日正向2倍指數股票型期貨信託基金 - 元大申購買回清單 | 元大投信 YuantaETFs",
-      "reason": "Page title/header/selected option visibly matches target ETF."
-    },
-    "error": "PCF page identity passed, but no Taiwan stock holdings were parsed."
+    "error": "{\"ok\": false, \"method\": \"identity_not_confirmed\", \"target_etf_code\": \"00683L\", \"target_etf_name\": \"期元大美元指正2\", \"matched_context\": \"\", \"reason\": \"PCF page does not visibly confirm the target ETF code/name in title, header, selected option, or direct ETF-specific URL context. Not saving this snapshot to avoid default-ETF misclassification.\", \"sample_contexts\": [\"元大投信 Yuanta ETFs | 停機公告\", \"停機公告\", \"親愛的客戶您好:\", \"集團成員\"]}"
   },
   {
     "etf_code": "00684R",
     "etf_name": "期元大美元指反1",
     "issuer": "元大投信",
-    "status": "parsed_zero_holdings",
+    "status": "pcf_code_mismatch",
     "pcf_url": "https://www.yuantaetfs.com/tradeInfo/pcf/00684R",
     "holdings_count": 0,
-    "identity_check": {
-      "ok": true,
-      "method": "visible_context_match",
-      "target_etf_code": "00684R",
-      "target_etf_name": "期元大美元指反1",
-      "matched_context": "(00684R)元大標普美元指數傘型期貨信託基金之元大標普美元ER單日反向1倍指數股票型期貨信託基金 - 元大申購買回清單 | 元大投信 YuantaETFs",
-      "reason": "Page title/header/selected option visibly matches target ETF."
-    },
-    "error": "PCF page identity passed, but no Taiwan stock holdings were parsed."
+    "error": "{\"ok\": false, \"method\": \"identity_not_confirmed\", \"target_etf_code\": \"00684R\", \"target_etf_name\": \"期元大美元指反1\", \"matched_context\": \"\", \"reason\": \"PCF page does not visibly confirm the target ETF code/name in title, header, selected option, or direct ETF-specific URL context. Not saving this snapshot to avoid default-ETF misclassification.\", \"sample_contexts\": [\"元大投信 Yuanta ETFs | 停機公告\", \"停機公告\", \"親愛的客戶您好:\", \"集團成員\"]}"
   },
   {
     "etf_code": "00685L",
@@ -1130,52 +922,28 @@
     "etf_code": "00706L",
     "etf_name": "期元大S&P日圓正2",
     "issuer": "元大投信",
-    "status": "ok",
+    "status": "pcf_code_mismatch",
     "pcf_url": "https://www.yuantaetfs.com/tradeInfo/pcf/00706L",
-    "holdings_count": 1,
-    "identity_check": {
-      "ok": true,
-      "method": "visible_context_match",
-      "target_etf_code": "00706L",
-      "target_etf_name": "期元大S&P日圓正2",
-      "matched_context": "(00706L)元大標普日圓ER單日正向2倍指數股票型期貨信託基金 - 元大申購買回清單 | 元大投信 YuantaETFs",
-      "reason": "Page title/header/selected option visibly matches target ETF."
-    },
-    "error": ""
+    "holdings_count": 0,
+    "error": "{\"ok\": false, \"method\": \"identity_not_confirmed\", \"target_etf_code\": \"00706L\", \"target_etf_name\": \"期元大S&P日圓正2\", \"matched_context\": \"\", \"reason\": \"PCF page does not visibly confirm the target ETF code/name in title, header, selected option, or direct ETF-specific URL context. Not saving this snapshot to avoid default-ETF misclassification.\", \"sample_contexts\": [\"元大投信 Yuanta ETFs | 停機公告\", \"停機公告\", \"親愛的客戶您好:\", \"集團成員\"]}"
   },
   {
     "etf_code": "00707R",
     "etf_name": "期元大S&P日圓反1",
     "issuer": "元大投信",
-    "status": "parsed_zero_holdings",
+    "status": "pcf_code_mismatch",
     "pcf_url": "https://www.yuantaetfs.com/tradeInfo/pcf/00707R",
     "holdings_count": 0,
-    "identity_check": {
-      "ok": true,
-      "method": "visible_context_match",
-      "target_etf_code": "00707R",
-      "target_etf_name": "期元大S&P日圓反1",
-      "matched_context": "(00707R)元大標普日圓ER單日反向1倍指數股票型期貨信託基金 - 元大申購買回清單 | 元大投信 YuantaETFs",
-      "reason": "Page title/header/selected option visibly matches target ETF."
-    },
-    "error": "PCF page identity passed, but no Taiwan stock holdings were parsed."
+    "error": "{\"ok\": false, \"method\": \"identity_not_confirmed\", \"target_etf_code\": \"00707R\", \"target_etf_name\": \"期元大S&P日圓反1\", \"matched_context\": \"\", \"reason\": \"PCF page does not visibly confirm the target ETF code/name in title, header, selected option, or direct ETF-specific URL context. Not saving this snapshot to avoid default-ETF misclassification.\", \"sample_contexts\": [\"元大投信 Yuanta ETFs | 停機公告\", \"停機公告\", \"親愛的客戶您好:\", \"集團成員\"]}"
   },
   {
     "etf_code": "00708L",
     "etf_name": "期元大S&P黃金正2",
     "issuer": "元大投信",
-    "status": "ok",
+    "status": "pcf_code_mismatch",
     "pcf_url": "https://www.yuantaetfs.com/tradeInfo/pcf/00708L",
-    "holdings_count": 1,
-    "identity_check": {
-      "ok": true,
-      "method": "visible_context_match",
-      "target_etf_code": "00708L",
-      "target_etf_name": "期元大S&P黃金正2",
-      "matched_context": "(00708L)元大標普高盛黃金ER單日正向2倍指數股票型期貨信託基金 - 元大申購買回清單 | 元大投信 YuantaETFs",
-      "reason": "Page title/header/selected option visibly matches target ETF."
-    },
-    "error": ""
+    "holdings_count": 0,
+    "error": "{\"ok\": false, \"method\": \"identity_not_confirmed\", \"target_etf_code\": \"00708L\", \"target_etf_name\": \"期元大S&P黃金正2\", \"matched_context\": \"\", \"reason\": \"PCF page does not visibly confirm the target ETF code/name in title, header, selected option, or direct ETF-specific URL context. Not saving this snapshot to avoid default-ETF misclassification.\", \"sample_contexts\": [\"元大投信 Yuanta ETFs | 停機公告\", \"停機公告\", \"親愛的客戶您好:\", \"集團成員\"]}"
   },
   {
     "etf_code": "00709",
@@ -1225,18 +993,10 @@
     "etf_code": "00713",
     "etf_name": "元大台灣高息低波",
     "issuer": "元大投信",
-    "status": "ok",
+    "status": "pcf_code_mismatch",
     "pcf_url": "https://www.yuantaetfs.com/tradeInfo/pcf/00713",
-    "holdings_count": 5,
-    "identity_check": {
-      "ok": true,
-      "method": "visible_context_match",
-      "target_etf_code": "00713",
-      "target_etf_name": "元大台灣高息低波",
-      "matched_context": "(00713)元大台灣高股息低波動ETF證券投資信託基金 - 元大申購買回清單 | 元大投信 YuantaETFs",
-      "reason": "Page title/header/selected option visibly matches target ETF."
-    },
-    "error": ""
+    "holdings_count": 0,
+    "error": "{\"ok\": false, \"method\": \"identity_not_confirmed\", \"target_etf_code\": \"00713\", \"target_etf_name\": \"元大台灣高息低波\", \"matched_context\": \"\", \"reason\": \"PCF page does not visibly confirm the target ETF code/name in title, header, selected option, or direct ETF-specific URL context. Not saving this snapshot to avoid default-ETF misclassification.\", \"sample_contexts\": [\"元大投信 Yuanta ETFs | 停機公告\", \"停機公告\", \"親愛的客戶您好:\", \"集團成員\"]}"
   },
   {
     "etf_code": "00714",
@@ -1356,35 +1116,19 @@
     "etf_code": "00738U",
     "etf_name": "期元大道瓊白銀",
     "issuer": "元大投信",
-    "status": "ok",
+    "status": "pcf_code_mismatch",
     "pcf_url": "https://www.yuantaetfs.com/tradeInfo/pcf/00738U",
-    "holdings_count": 1,
-    "identity_check": {
-      "ok": true,
-      "method": "visible_context_match",
-      "target_etf_code": "00738U",
-      "target_etf_name": "期元大道瓊白銀",
-      "matched_context": "(00738U)元大道瓊白銀ER指數股票型期貨信託基金 - 元大申購買回清單 | 元大投信 YuantaETFs",
-      "reason": "Page title/header/selected option visibly matches target ETF."
-    },
-    "error": ""
+    "holdings_count": 0,
+    "error": "{\"ok\": false, \"method\": \"identity_not_confirmed\", \"target_etf_code\": \"00738U\", \"target_etf_name\": \"期元大道瓊白銀\", \"matched_context\": \"\", \"reason\": \"PCF page does not visibly confirm the target ETF code/name in title, header, selected option, or direct ETF-specific URL context. Not saving this snapshot to avoid default-ETF misclassification.\", \"sample_contexts\": [\"元大投信 Yuanta ETFs | 停機公告\", \"停機公告\", \"親愛的客戶您好:\", \"集團成員\"]}"
   },
   {
     "etf_code": "00739",
     "etf_name": "元大MSCI A股",
     "issuer": "元大投信",
-    "status": "ok",
+    "status": "pcf_code_mismatch",
     "pcf_url": "https://www.yuantaetfs.com/tradeInfo/pcf/00739",
-    "holdings_count": 2,
-    "identity_check": {
-      "ok": true,
-      "method": "visible_context_match",
-      "target_etf_code": "00739",
-      "target_etf_name": "元大MSCI A股",
-      "matched_context": "(00739)元大MSCI中國A股國際通ETF證券投資信託基金 - 元大申購買回清單 | 元大投信 YuantaETFs",
-      "reason": "Page title/header/selected option visibly matches target ETF."
-    },
-    "error": ""
+    "holdings_count": 0,
+    "error": "{\"ok\": false, \"method\": \"identity_not_confirmed\", \"target_etf_code\": \"00739\", \"target_etf_name\": \"元大MSCI A股\", \"matched_context\": \"\", \"reason\": \"PCF page does not visibly confirm the target ETF code/name in title, header, selected option, or direct ETF-specific URL context. Not saving this snapshot to avoid default-ETF misclassification.\", \"sample_contexts\": [\"元大投信 Yuanta ETFs | 停機公告\", \"停機公告\", \"親愛的客戶您好:\", \"集團成員\"]}"
   },
   {
     "etf_code": "00752",
@@ -1425,18 +1169,10 @@
     "etf_code": "00762",
     "etf_name": "元大全球AI",
     "issuer": "元大投信",
-    "status": "parsed_zero_holdings",
+    "status": "pcf_code_mismatch",
     "pcf_url": "https://www.yuantaetfs.com/tradeInfo/pcf/00762",
     "holdings_count": 0,
-    "identity_check": {
-      "ok": true,
-      "method": "visible_context_match",
-      "target_etf_code": "00762",
-      "target_etf_name": "元大全球AI",
-      "matched_context": "(00762)元大全球人工智慧ETF證券投資信託基金 - 元大申購買回清單 | 元大投信 YuantaETFs",
-      "reason": "Page title/header/selected option visibly matches target ETF."
-    },
-    "error": "PCF page identity passed, but no Taiwan stock holdings were parsed."
+    "error": "{\"ok\": false, \"method\": \"identity_not_confirmed\", \"target_etf_code\": \"00762\", \"target_etf_name\": \"元大全球AI\", \"matched_context\": \"\", \"reason\": \"PCF page does not visibly confirm the target ETF code/name in title, header, selected option, or direct ETF-specific URL context. Not saving this snapshot to avoid default-ETF misclassification.\", \"sample_contexts\": [\"元大投信 Yuanta ETFs | 停機公告\", \"停機公告\", \"親愛的客戶您好:\", \"集團成員\"]}"
   },
   {
     "etf_code": "00763U",
@@ -1460,18 +1196,10 @@
     "etf_code": "00771",
     "etf_name": "元大US高息特別股",
     "issuer": "元大投信",
-    "status": "parsed_zero_holdings",
+    "status": "pcf_code_mismatch",
     "pcf_url": "https://www.yuantaetfs.com/tradeInfo/pcf/00771",
     "holdings_count": 0,
-    "identity_check": {
-      "ok": true,
-      "method": "visible_context_match",
-      "target_etf_code": "00771",
-      "target_etf_name": "元大US高息特別股",
-      "matched_context": "(00771)元大標普美國高息特別股ETF證券投資信託基金 - 元大申購買回清單 | 元大投信 YuantaETFs",
-      "reason": "Page title/header/selected option visibly matches target ETF."
-    },
-    "error": "PCF page identity passed, but no Taiwan stock holdings were parsed."
+    "error": "{\"ok\": false, \"method\": \"identity_not_confirmed\", \"target_etf_code\": \"00771\", \"target_etf_name\": \"元大US高息特別股\", \"matched_context\": \"\", \"reason\": \"PCF page does not visibly confirm the target ETF code/name in title, header, selected option, or direct ETF-specific URL context. Not saving this snapshot to avoid default-ETF misclassification.\", \"sample_contexts\": [\"元大投信 Yuanta ETFs | 停機公告\", \"停機公告\", \"親愛的客戶您好:\", \"集團成員\"]}"
   },
   {
     "etf_code": "00775B",
@@ -1520,18 +1248,10 @@
     "etf_code": "00850",
     "etf_name": "元大臺灣ESG永續",
     "issuer": "元大投信",
-    "status": "ok",
+    "status": "pcf_code_mismatch",
     "pcf_url": "https://www.yuantaetfs.com/tradeInfo/pcf/00850",
-    "holdings_count": 5,
-    "identity_check": {
-      "ok": true,
-      "method": "visible_context_match",
-      "target_etf_code": "00850",
-      "target_etf_name": "元大臺灣ESG永續",
-      "matched_context": "(00850)元大臺灣ESG永續ETF證券投資信託基金 - 元大申購買回清單 | 元大投信 YuantaETFs",
-      "reason": "Page title/header/selected option visibly matches target ETF."
-    },
-    "error": ""
+    "holdings_count": 0,
+    "error": "{\"ok\": false, \"method\": \"identity_not_confirmed\", \"target_etf_code\": \"00850\", \"target_etf_name\": \"元大臺灣ESG永續\", \"matched_context\": \"\", \"reason\": \"PCF page does not visibly confirm the target ETF code/name in title, header, selected option, or direct ETF-specific URL context. Not saving this snapshot to avoid default-ETF misclassification.\", \"sample_contexts\": [\"元大投信 Yuanta ETFs | 停機公告\", \"停機公告\", \"親愛的客戶您好:\", \"集團成員\"]}"
   },
   {
     "etf_code": "00851",
@@ -1563,18 +1283,10 @@
     "etf_code": "00861",
     "etf_name": "元大全球未來通訊",
     "issuer": "元大投信",
-    "status": "ok",
+    "status": "pcf_code_mismatch",
     "pcf_url": "https://www.yuantaetfs.com/tradeInfo/pcf/00861",
-    "holdings_count": 1,
-    "identity_check": {
-      "ok": true,
-      "method": "visible_context_match",
-      "target_etf_code": "00861",
-      "target_etf_name": "元大全球未來通訊",
-      "matched_context": "(00861)元大全球未來通訊ETF證券投資信託基金 - 元大申購買回清單 | 元大投信 YuantaETFs",
-      "reason": "Page title/header/selected option visibly matches target ETF."
-    },
-    "error": ""
+    "holdings_count": 0,
+    "error": "{\"ok\": false, \"method\": \"identity_not_confirmed\", \"target_etf_code\": \"00861\", \"target_etf_name\": \"元大全球未來通訊\", \"matched_context\": \"\", \"reason\": \"PCF page does not visibly confirm the target ETF code/name in title, header, selected option, or direct ETF-specific URL context. Not saving this snapshot to avoid default-ETF misclassification.\", \"sample_contexts\": [\"元大投信 Yuanta ETFs | 停機公告\", \"停機公告\", \"親愛的客戶您好:\", \"集團成員\"]}"
   },
   {
     "etf_code": "00865B",
@@ -1598,18 +1310,10 @@
     "etf_code": "00876",
     "etf_name": "元大全球5G",
     "issuer": "元大投信",
-    "status": "ok",
+    "status": "pcf_code_mismatch",
     "pcf_url": "https://www.yuantaetfs.com/tradeInfo/pcf/00876",
-    "holdings_count": 2,
-    "identity_check": {
-      "ok": true,
-      "method": "visible_context_match",
-      "target_etf_code": "00876",
-      "target_etf_name": "元大全球5G",
-      "matched_context": "(00876)元大全球5G關鍵科技ETF證券投資信託基金 - 元大申購買回清單 | 元大投信 YuantaETFs",
-      "reason": "Page title/header/selected option visibly matches target ETF."
-    },
-    "error": ""
+    "holdings_count": 0,
+    "error": "{\"ok\": false, \"method\": \"identity_not_confirmed\", \"target_etf_code\": \"00876\", \"target_etf_name\": \"元大全球5G\", \"matched_context\": \"\", \"reason\": \"PCF page does not visibly confirm the target ETF code/name in title, header, selected option, or direct ETF-specific URL context. Not saving this snapshot to avoid default-ETF misclassification.\", \"sample_contexts\": [\"元大投信 Yuanta ETFs | 停機公告\", \"停機公告\", \"親愛的客戶您好:\", \"集團成員\"]}"
   },
   {
     "etf_code": "00878",
@@ -1844,7 +1548,7 @@
     "status": "pcf_code_mismatch",
     "pcf_url": "https://www.ftft.com.tw/etf/transcation/",
     "holdings_count": 0,
-    "error": "{\"ok\": false, \"method\": \"identity_not_confirmed\", \"target_etf_code\": \"00905\", \"target_etf_name\": \"FT臺灣SMART\", \"matched_context\": \"\", \"reason\": \"PCF page does not visibly confirm the target ETF code/name in title, header, selected option, or direct ETF-specific URL context. Not saving this snapshot to avoid default-ETF misclassification.\", \"sample_contexts\": [\"Error\"]}"
+    "error": "{\"ok\": false, \"method\": \"identity_not_confirmed\", \"target_etf_code\": \"00905\", \"target_etf_name\": \"FT臺灣SMART\", \"matched_context\": \"\", \"reason\": \"PCF page does not visibly confirm the target ETF code/name in title, header, selected option, or direct ETF-specific URL context. Not saving this snapshot to avoid default-ETF misclassification.\", \"sample_contexts\": [\"富蘭克林華美投信 ETF專區\", \"ETF專區\", \"交易資訊\", \"0800-088-899\", \"相關連結\", \"申贖費用查詢\"]}"
   },
   {
     "etf_code": "00907",
@@ -2181,18 +1885,10 @@
     "etf_code": "00940",
     "etf_name": "元大台灣價值高息",
     "issuer": "元大投信",
-    "status": "ok",
+    "status": "pcf_code_mismatch",
     "pcf_url": "https://www.yuantaetfs.com/tradeInfo/pcf/00940",
-    "holdings_count": 5,
-    "identity_check": {
-      "ok": true,
-      "method": "visible_context_match",
-      "target_etf_code": "00940",
-      "target_etf_name": "元大台灣價值高息",
-      "matched_context": "(00940)元大臺灣價值高息ETF證券投資信託基金 - 元大申購買回清單 | 元大投信 YuantaETFs",
-      "reason": "Page title/header/selected option visibly matches target ETF."
-    },
-    "error": ""
+    "holdings_count": 0,
+    "error": "{\"ok\": false, \"method\": \"identity_not_confirmed\", \"target_etf_code\": \"00940\", \"target_etf_name\": \"元大台灣價值高息\", \"matched_context\": \"\", \"reason\": \"PCF page does not visibly confirm the target ETF code/name in title, header, selected option, or direct ETF-specific URL context. Not saving this snapshot to avoid default-ETF misclassification.\", \"sample_contexts\": [\"元大投信 Yuanta ETFs | 停機公告\", \"停機公告\", \"親愛的客戶您好:\", \"集團成員\"]}"
   },
   {
     "etf_code": "00941",
@@ -2383,18 +2079,10 @@
     "etf_code": "00965",
     "etf_name": "元大航太防衛科技",
     "issuer": "元大投信",
-    "status": "ok",
+    "status": "pcf_code_mismatch",
     "pcf_url": "https://www.yuantaetfs.com/tradeInfo/pcf/00965",
-    "holdings_count": 1,
-    "identity_check": {
-      "ok": true,
-      "method": "visible_context_match",
-      "target_etf_code": "00965",
-      "target_etf_name": "元大航太防衛科技",
-      "matched_context": "(00965)元大全球航太與防衛科技ETF證券投資信託基金 - 元大申購買回清單 | 元大投信 YuantaETFs",
-      "reason": "Page title/header/selected option visibly matches target ETF."
-    },
-    "error": ""
+    "holdings_count": 0,
+    "error": "{\"ok\": false, \"method\": \"identity_not_confirmed\", \"target_etf_code\": \"00965\", \"target_etf_name\": \"元大航太防衛科技\", \"matched_context\": \"\", \"reason\": \"PCF page does not visibly confirm the target ETF code/name in title, header, selected option, or direct ETF-specific URL context. Not saving this snapshot to avoid default-ETF misclassification.\", \"sample_contexts\": [\"元大投信 Yuanta ETFs | 停機公告\", \"停機公告\", \"親愛的客戶您好:\", \"集團成員\"]}"
   },
   {
     "etf_code": "00971",
@@ -2645,18 +2333,10 @@
     "etf_code": "009820",
     "etf_name": "元大納斯達克精選",
     "issuer": "元大投信",
-    "status": "parsed_zero_holdings",
+    "status": "pcf_code_mismatch",
     "pcf_url": "https://www.yuantaetfs.com/tradeInfo/pcf/009820",
     "holdings_count": 0,
-    "identity_check": {
-      "ok": true,
-      "method": "visible_context_match",
-      "target_etf_code": "009820",
-      "target_etf_name": "元大納斯達克精選",
-      "matched_context": "(009820)元大納斯達克100增強成長精選ETF證券投資信託基金 - 元大申購買回清單 | 元大投信 YuantaETFs",
-      "reason": "Page title/header/selected option visibly matches target ETF."
-    },
-    "error": "PCF page identity passed, but no Taiwan stock holdings were parsed."
+    "error": "{\"ok\": false, \"method\": \"identity_not_confirmed\", \"target_etf_code\": \"009820\", \"target_etf_name\": \"元大納斯達克精選\", \"matched_context\": \"\", \"reason\": \"PCF page does not visibly confirm the target ETF code/name in title, header, selected option, or direct ETF-specific URL context. Not saving this snapshot to avoid default-ETF misclassification.\", \"sample_contexts\": [\"元大投信 Yuanta ETFs | 停機公告\", \"停機公告\", \"親愛的客戶您好:\", \"集團成員\"]}"
   },
   {
     "etf_code": "00982A",
@@ -2819,18 +2499,10 @@
     "etf_code": "00990A",
     "etf_name": "主動元大AI新經濟",
     "issuer": "元大投信",
-    "status": "ok",
+    "status": "pcf_code_mismatch",
     "pcf_url": "https://www.yuantaetfs.com/tradeInfo/pcf/00990A",
-    "holdings_count": 1,
-    "identity_check": {
-      "ok": true,
-      "method": "visible_context_match",
-      "target_etf_code": "00990A",
-      "target_etf_name": "主動元大AI新經濟",
-      "matched_context": "(00990A)元大全球AI新經濟主動式ETF證券投資信託基金 - 元大申購買回清單 | 元大投信 YuantaETFs",
-      "reason": "Page title/header/selected option visibly matches target ETF."
-    },
-    "error": ""
+    "holdings_count": 0,
+    "error": "{\"ok\": false, \"method\": \"identity_not_confirmed\", \"target_etf_code\": \"00990A\", \"target_etf_name\": \"主動元大AI新經濟\", \"matched_context\": \"\", \"reason\": \"PCF page does not visibly confirm the target ETF code/name in title, header, selected option, or direct ETF-specific URL context. Not saving this snapshot to avoid default-ETF misclassification.\", \"sample_contexts\": [\"元大投信 Yuanta ETFs | 停機公告\", \"停機公告\", \"親愛的客戶您好:\", \"集團成員\"]}"
   },
   {
     "etf_code": "00991A",

@@ -1,0 +1,2355 @@
+{
+  "meta": {
+    "report_date": "2026-05-16",
+    "updated_at": "2026-05-16 19:29:50",
+    "timezone": "Asia/Taipei",
+    "tracked_etfs": 225,
+    "covered_etfs": 8,
+    "coverage_ratio": 0.0356,
+    "universe": "TWSE listed ETFs",
+    "market_bias": "PCF 已更新",
+    "snapshot_mode": "production_issuer_pcf",
+    "previous_snapshot_date": "2026-05-15",
+    "sample_mode": false
+  },
+  "data_quality": {
+    "tracked_etfs": 225,
+    "covered_etfs": 8,
+    "coverage_ratio": 0.0356,
+    "min_required_coverage_ratio": 0.1,
+    "is_ready": false
+  },
+  "kpis": {
+    "net_change_value_yi": 0,
+    "consensus_buy_count": 0,
+    "consensus_sell_count": 0,
+    "concentration_score": 0
+  },
+  "top_stock_changes": [],
+  "stock_radar": [],
+  "etf_rankings": [
+    {
+      "etf_code": "00999A",
+      "etf_name": "主動野村臺灣高息",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00997A",
+      "etf_name": "主動群益美國增長",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00996A",
+      "etf_name": "主動兆豐台灣豐收",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00995A",
+      "etf_name": "主動中信台灣卓越",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00994A",
+      "etf_name": "主動第一金台股優",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00993A",
+      "etf_name": "主動安聯台灣",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00992A",
+      "etf_name": "主動群益科技創新",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00991A",
+      "etf_name": "主動復華未來50",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00990A",
+      "etf_name": "主動元大AI新經濟",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00989A",
+      "etf_name": "主動摩根美國科技",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00988A",
+      "etf_name": "主動統一全球創新",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00987A",
+      "etf_name": "主動台新優勢成長",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00986A",
+      "etf_name": "主動台新龍頭成長",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00985B",
+      "etf_name": "群益ESG投等債0-5",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00985A",
+      "etf_name": "主動野村台灣50",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00984D",
+      "etf_name": "主動聯博全球非投",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00984A",
+      "etf_name": "主動安聯台灣高息",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00983D",
+      "etf_name": "主動富邦複合收益",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00983A",
+      "etf_name": "主動中信ARK創新",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00982T",
+      "etf_name": "平衡兆豐台美動能",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00982D",
+      "etf_name": "主動富邦動態入息",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00982A",
+      "etf_name": "主動群益台灣強棒",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "009820",
+      "etf_name": "元大納斯達克精選",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00981T",
+      "etf_name": "平衡凱基雙核收息",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00981A",
+      "etf_name": "主動統一台股增長",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "009819",
+      "etf_name": "中信數據及電力",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "009818",
+      "etf_name": "華南永昌NASDAQxT",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "009817",
+      "etf_name": "國泰日本不動產",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "009816",
+      "etf_name": "凱基台灣TOP50",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "009813",
+      "etf_name": "貝萊德標普卓越50",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "009812",
+      "etf_name": "野村日本東證",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "009811",
+      "etf_name": "統一美國50",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "009810",
+      "etf_name": "玉山全球藍籌100",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00980A",
+      "etf_name": "主動野村臺灣優選",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "009809",
+      "etf_name": "富邦淨零ESG50",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "009808",
+      "etf_name": "華南永昌優選50",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "009805",
+      "etf_name": "新光美國電力基建",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "009804",
+      "etf_name": "聯邦台精彩50",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "009803",
+      "etf_name": "玉山市值動能50",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "009802",
+      "etf_name": "富邦旗艦50",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "009801",
+      "etf_name": "中信美國創新科技",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "009800",
+      "etf_name": "中信NASDAQ",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00972",
+      "etf_name": "野村日本動能高息",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00971",
+      "etf_name": "野村美國研發龍頭",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00965",
+      "etf_name": "元大航太防衛科技",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00964",
+      "etf_name": "中信亞太高股息",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00963",
+      "etf_name": "中信全球高股息",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00962",
+      "etf_name": "台新AI優息動能",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00961",
+      "etf_name": "FT臺灣永續高息",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00960",
+      "etf_name": "野村全球航運龍頭",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00956",
+      "etf_name": "中信日經高股息",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00954",
+      "etf_name": "中信日本半導體",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00953B",
+      "etf_name": "群益優選非投等債",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00952",
+      "etf_name": "凱基台灣AI50",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00951",
+      "etf_name": "台新日本半導體",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00949",
+      "etf_name": "復華日本龍頭",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00947",
+      "etf_name": "台新臺灣IC設計",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00946",
+      "etf_name": "群益科技高息成長",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00945B",
+      "etf_name": "凱基美國非投等債",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00944",
+      "etf_name": "野村趨勢動能高息",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00943",
+      "etf_name": "兆豐電子高息等權",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00941",
+      "etf_name": "中信上游半導體",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00940",
+      "etf_name": "元大台灣價值高息",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00939",
+      "etf_name": "統一台灣高息動能",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00938",
+      "etf_name": "凱基優選30",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00936",
+      "etf_name": "台新永續高息中小",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00935",
+      "etf_name": "野村臺灣新科技50",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00934",
+      "etf_name": "中信成長高股息",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00932",
+      "etf_name": "兆豐永續高息等權",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00930",
+      "etf_name": "永豐ESG低碳高息",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00929",
+      "etf_name": "復華台灣科技優息",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00927",
+      "etf_name": "群益半導體收益",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00926",
+      "etf_name": "凱基全球菁英55",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00924",
+      "etf_name": "復華S&P500成長",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00923",
+      "etf_name": "群益台ESG低碳50",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00922",
+      "etf_name": "國泰台灣領袖50",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00921",
+      "etf_name": "兆豐龍頭等權重",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00920",
+      "etf_name": "富邦ESG綠色電力",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00919",
+      "etf_name": "群益台灣精選高息",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00918",
+      "etf_name": "大華優利高填息30",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00917",
+      "etf_name": "中信特選金融",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00916",
+      "etf_name": "國泰全球品牌50",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00915",
+      "etf_name": "凱基優選高股息30",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00913",
+      "etf_name": "兆豐台灣晶圓製造",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00912",
+      "etf_name": "中信臺灣智慧50",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00911",
+      "etf_name": "兆豐洲際半導體",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00910",
+      "etf_name": "第一金太空衛星",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00909",
+      "etf_name": "國泰數位支付服務",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00908",
+      "etf_name": "富邦入息REITs+",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00907",
+      "etf_name": "永豐優息存股",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00905",
+      "etf_name": "FT臺灣SMART",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00904",
+      "etf_name": "新光臺灣半導體30",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00903",
+      "etf_name": "富邦元宇宙",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00902",
+      "etf_name": "中信電池及儲能",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00901",
+      "etf_name": "永豐智能車供應鏈",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00900",
+      "etf_name": "富邦特選高股息30",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00899",
+      "etf_name": "FT潔淨能源",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00898",
+      "etf_name": "國泰基因免疫革命",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00897",
+      "etf_name": "富邦基因免疫生技",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00896",
+      "etf_name": "中信綠能及電動車",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00895",
+      "etf_name": "富邦未來車",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00894",
+      "etf_name": "中信小資高價30",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00893",
+      "etf_name": "國泰智能電動車",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00892",
+      "etf_name": "富邦台灣半導體",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00891",
+      "etf_name": "中信關鍵半導體",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00885",
+      "etf_name": "富邦越南",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00882",
+      "etf_name": "中信中國高股息",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00881",
+      "etf_name": "國泰台灣科技龍頭",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00878",
+      "etf_name": "國泰永續高股息",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00876",
+      "etf_name": "元大全球5G",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00875",
+      "etf_name": "國泰網路資安",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00865B",
+      "etf_name": "國泰US短期公債",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00861",
+      "etf_name": "元大全球未來通訊",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00852L",
+      "etf_name": "國泰美國道瓊正2",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00851",
+      "etf_name": "台新全球AI",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00850",
+      "etf_name": "元大臺灣ESG永續",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00830",
+      "etf_name": "國泰費城半導體",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00783",
+      "etf_name": "富邦中証500",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00775B",
+      "etf_name": "新光投等債15+",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00771",
+      "etf_name": "元大US高息特別股",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00770",
+      "etf_name": "國泰北美科技",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00763U",
+      "etf_name": "期街口道瓊銅",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00762",
+      "etf_name": "元大全球AI",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00757",
+      "etf_name": "統一FANG+",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00753L",
+      "etf_name": "中信中國50正2",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00752",
+      "etf_name": "中信中國50",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00739",
+      "etf_name": "元大MSCI A股",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00738U",
+      "etf_name": "期元大道瓊白銀",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00737",
+      "etf_name": "國泰AI機器人",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00736",
+      "etf_name": "國泰新興市場",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00735",
+      "etf_name": "國泰臺韓科技",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00733",
+      "etf_name": "富邦臺灣中小",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00731",
+      "etf_name": "復華富時高息低波",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00730",
+      "etf_name": "富邦臺灣優質高息",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00728",
+      "etf_name": "第一金工業30",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00717",
+      "etf_name": "富邦美國特別股",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00715L",
+      "etf_name": "期街口S&P布蘭特油正2",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00714",
+      "etf_name": "群益道瓊美國地產",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00713",
+      "etf_name": "元大台灣高息低波",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00712",
+      "etf_name": "復華富時不動產",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00711B",
+      "etf_name": "復華彭博新興債",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00710B",
+      "etf_name": "復華彭博非投等債",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00709",
+      "etf_name": "富邦歐洲",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00708L",
+      "etf_name": "期元大S&P黃金正2",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00707R",
+      "etf_name": "期元大S&P日圓反1",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00706L",
+      "etf_name": "期元大S&P日圓正2",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00703",
+      "etf_name": "台新MSCI中國",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00702",
+      "etf_name": "國泰標普低波高息",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00701",
+      "etf_name": "國泰股利精選30",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00700",
+      "etf_name": "富邦恒生國企",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00693U",
+      "etf_name": "期街口S&P黃豆",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00692",
+      "etf_name": "富邦公司治理",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00690",
+      "etf_name": "兆豐藍籌30",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00689R",
+      "etf_name": "國泰20年美債反1",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00688L",
+      "etf_name": "國泰20年美債正2",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00686R",
+      "etf_name": "群益臺灣加權反1",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00685L",
+      "etf_name": "群益臺灣加權正2",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00684R",
+      "etf_name": "期元大美元指反1",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00683L",
+      "etf_name": "期元大美元指正2",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00682U",
+      "etf_name": "期元大美元指數",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00681R",
+      "etf_name": "元大美債20反1",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00680L",
+      "etf_name": "元大美債20正2",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00678",
+      "etf_name": "群益那斯達克生技",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00676R",
+      "etf_name": "富邦臺灣加權反1",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00675L",
+      "etf_name": "富邦臺灣加權正2",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00674R",
+      "etf_name": "期元大S&P黃金反1",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00673R",
+      "etf_name": "期元大S&P原油反1",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00671R",
+      "etf_name": "富邦NASDAQ反1",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00670L",
+      "etf_name": "富邦NASDAQ正2",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00669R",
+      "etf_name": "國泰美國道瓊反1",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00668K",
+      "etf_name": "國泰美國道瓊+U",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00668",
+      "etf_name": "國泰美國道瓊",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00666R",
+      "etf_name": "富邦恒生國企反1",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00665L",
+      "etf_name": "富邦恒生國企正2",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00664R",
+      "etf_name": "國泰臺灣加權反1",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00663L",
+      "etf_name": "國泰臺灣加權正2",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00662",
+      "etf_name": "富邦NASDAQ",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00661",
+      "etf_name": "元大日經225",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00660",
+      "etf_name": "元大歐洲50",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00657K",
+      "etf_name": "國泰日經225+U",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00657",
+      "etf_name": "國泰日經225",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00656R",
+      "etf_name": "國泰中國A50反1",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00655L",
+      "etf_name": "國泰中國A50正2",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00654R",
+      "etf_name": "富邦印度反1",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00653L",
+      "etf_name": "富邦印度正2",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00652",
+      "etf_name": "富邦印度",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00651R",
+      "etf_name": "復華香港反1",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00650L",
+      "etf_name": "復華香港正2",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00648R",
+      "etf_name": "元大S&P500反1",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00647L",
+      "etf_name": "元大S&P500正2",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00646",
+      "etf_name": "元大S&P500",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00645",
+      "etf_name": "富邦日本",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00643K",
+      "etf_name": "群益深証中小+R",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00643",
+      "etf_name": "群益深証中小",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00642U",
+      "etf_name": "期元大S&P石油",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00641R",
+      "etf_name": "富邦日本反1",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00640L",
+      "etf_name": "富邦日本正2",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00639",
+      "etf_name": "富邦深100",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00638R",
+      "etf_name": "元大滬深300反1",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00637L",
+      "etf_name": "元大滬深300正2",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00636K",
+      "etf_name": "國泰中國A50+U",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00636",
+      "etf_name": "國泰中國A50",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00635U",
+      "etf_name": "期元大S&P黃金",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00634R",
+      "etf_name": "富邦上証反1",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00633L",
+      "etf_name": "富邦上証正2",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00632R",
+      "etf_name": "元大台灣50反1",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00631L",
+      "etf_name": "元大台灣50正2",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00625K",
+      "etf_name": "富邦上証+R",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "006208",
+      "etf_name": "富邦台50",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "006207",
+      "etf_name": "復華滬深",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "006206",
+      "etf_name": "元大上證50",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "006205",
+      "etf_name": "富邦上証",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "006204",
+      "etf_name": "永豐臺灣加權",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "006203",
+      "etf_name": "元大MSCI台灣",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "0061",
+      "etf_name": "元大寶滬深",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "0057",
+      "etf_name": "富邦摩台",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "0056",
+      "etf_name": "元大高股息",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "0055",
+      "etf_name": "元大MSCI金融",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "0053",
+      "etf_name": "元大電子",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "0052",
+      "etf_name": "富邦科技",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "0051",
+      "etf_name": "元大中型100",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "0050",
+      "etf_name": "元大台灣50",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00403A",
+      "etf_name": "主動統一升級50",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00401A",
+      "etf_name": "主動摩根台灣鑫收",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    },
+    {
+      "etf_code": "00400A",
+      "etf_name": "主動國泰動能高息",
+      "aum_yi": 0.0,
+      "buy_value_yi": 0,
+      "sell_value_yi": 0,
+      "net_flow_yi": 0,
+      "turnover_pct": 0.0,
+      "top10_weight_pct": 0.0
+    }
+  ],
+  "events": [
+    {
+      "time": "資料檢查",
+      "title": "TWSE ETF Master 已成功更新",
+      "desc": "本次從 TWSE ISIN 官方資料解析並驗證 225 檔上市 ETF master。"
+    },
+    {
+      "time": "資料檢查",
+      "title": "PCF 持股快照覆蓋率",
+      "desc": "今日已成功解析 8/225 檔 ETF PCF，覆蓋率 3.6%。"
+    }
+  ],
+  "data_sources": [
+    {
+      "name": "TWSE ISIN 證券編碼分類查詢",
+      "type": "ETF master",
+      "update_freq": "依 TWSE 官方資料更新",
+      "status": "ready",
+      "fields": [
+        "isin",
+        "etf_code",
+        "etf_name",
+        "market",
+        "security_type",
+        "listing_date",
+        "cfi_code"
+      ]
+    },
+    {
+      "name": "TWSE ETF 商品資訊頁",
+      "type": "PCF link discovery + identity guard",
+      "update_freq": "依 TWSE 官方頁面更新",
+      "status": "ready",
+      "fields": [
+        "etf_code",
+        "issuer_pcf_url"
+      ]
+    },
+    {
+      "name": "各投信 PCF / 每日持股揭露",
+      "type": "每日持股核心資料",
+      "update_freq": "每日盤前或盤後",
+      "status": "ready",
+      "fields": [
+        "stock_code",
+        "stock_name",
+        "shares",
+        "weight_pct",
+        "market_value"
+      ]
+    },
+    {
+      "name": "raw/holdings snapshot",
+      "type": "本系統標準化後持股快照",
+      "update_freq": "每日",
+      "status": "ready",
+      "fields": [
+        "trade_date",
+        "etf_code",
+        "stock_code",
+        "shares",
+        "weight_pct",
+        "close",
+        "market_value"
+      ]
+    }
+  ],
+  "ai_report": {
+    "headline": "TWSE ETF master 已更新，今日成功解析 PCF 覆蓋率 3.6%。",
+    "summary": "目前系統已接上真實 PCF crawler，不再使用 sample holdings。若前十大個股變動仍為空，常見原因是：第一天尚無前一交易日 raw/holdings 快照可比較，或目前成功解析的 PCF ETF 數量不足。請等下一個交易日或補齊 data/pcf_source_registry.json。",
+    "watchlist": [],
+    "risk": "PCF 來自各投信網站，格式可能調整；請查看 data/pcf_fetch_status.json 確認覆蓋率與錯誤原因。"
+  }
+}
