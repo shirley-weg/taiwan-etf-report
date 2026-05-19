@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <meta name="Asset-Path" content="/rsrc">
+    <title>ETF Screener - Taiwan Stock Exchange Corporation｜ETF ETFortune Institutional Investors website</title>
+    <link href="/rsrc/sites/etfortune-institute/css/main.css" rel="stylesheet">
+    
+    <meta name="layout" content="enETFInstLayout"/>
+    <link href="/rsrc/sites/etfortune-institute/css/page.css" rel="stylesheet">
+    <link href="/rsrc/sites/etfortune-institute/css/filter.css" rel="stylesheet">
+    <link href="/rsrc/sites/etfortune-institute/lib/bootstrap-slider.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/dompurify@2.3.4/dist/purify.min.js"></script>
+    
+    <style>
+    #body>.page-banner figure{background-image: url(/rsrc/sites/etfortune-institute/img/banner3.jpg);}
+    </style>
+
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-J2HVMN6FVP"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-J2HVMN6FVP');
+    </script>
+</head>
+<body class="">
+<input type="checkbox" title="Menu status" tabindex="-1" id="hamburger-toggle">
+
+<div id="layout">
+    <header role="heading" aria-level="1">
+        <div class="container">
+            <h1><a href="/en/ETFortune-institute/index" class="logo"><span>Institutional Investors website</span></a></h1>
+        </div>
+        <label for="hamburger-toggle" id="hamburger">
+            <span></span>
+        </label>
+        <nav>
+            <div class="wp">
+                <div class="tool">
+                    <a href="/zh/ETFortune-institute/products" class="lang">中文</a>
+                    <a href="/zh/ETFortune/index">Back to ETFortune</a>
+                </div>
+                <ul>
+                    <li>
+                        <a class="subtitle">Latest news <i class="font-icon font-icon-menu" style="font-size:0.38rem"></i></a>
+                        <div class="submenu">
+                            <ul>
+                                <li><a href="/en/ETFortune-institute/market">Market Overview by ETF Types</a></li>
+                                <li><a href="/en/ETFortune-institute/split">ETF Certificate Split/Reverse Split Announcement</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li><a href="/en/ETFortune-institute/dividendCalendar">Dividend Distribution Information</a></li>
+                    <li><a href="/en/ETFortune-institute/products">ETF Screener</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <div id="body">
+        <div class="page-banner"><figure></figure><div class="figure-title">ETF</div><h2></h2></div>
+        <div class="container">
+            <div class="breadcrumbs">
+    <a href="/en/ETFortune-institute/index" title="Home"><i class="font-icon font-icon-home" style="font-size:0.69rem"></i></a>
+    
+    
+    
+    
+        <span>ETF Screener</span>
+    
+    
+</div>
+            <main>
+
+                
+
+<form class="filter-form" name="filterForm" id="filterForm" method="post" data-productsurl="/en/ETFortune-institute/ajaxProducts">
+    <input type="checkbox" title="Screener" id="mob-filter">
+    <label for="mob-filter" class="filter-open" id="filter-toggle"><i class="font-icon font-icon-filter" style="font-size:0.94rem"></i> Screener</label>
+    <aside>
+        <div>
+            <h3><i class="font-icon font-icon-filter" style="font-size:0.94rem;vertical-align: 1px;"></i> Screener</h3>
+            <ul class="filter-ul">
+                <li>
+                    <h4 class="filter-sub">Active / Passive</h4>
+                    <ul>
+                        
+                            <li>
+                                <div style="display: flex;align-items: flex-start;">
+                                    <input onclick="checkFilter(this)" type="checkbox" name="managerType" id="managerType_1" data-tagword="Active / Passive:Active" data-tagid="tag_Active" value="Active">
+                                    <label for="managerType_1" style="letter-spacing: normal;margin-top: -8px;">Active</label>
+                                </div>
+                            </li>
+                        
+                            <li>
+                                <div style="display: flex;align-items: flex-start;">
+                                    <input onclick="checkFilter(this)" type="checkbox" name="managerType" id="managerType_2" data-tagword="Active / Passive:Passive" data-tagid="tag_Passive" value="Passive">
+                                    <label for="managerType_2" style="letter-spacing: normal;margin-top: -8px;">Passive</label>
+                                </div>
+                            </li>
+                        
+                    </ul>
+                </li>
+                <li>
+                    <h4 class="filter-sub">Asset Type</h4>
+                    <ul>
+                        
+                            <li>
+                                <div style="display: flex;align-items: flex-start;">
+                                    <input onclick="checkFilter(this)" type="checkbox" name="assetType" id="checkbox1" data-tagword="Asset Type:Equity" data-tagid="tag_Stock" value="Stock">
+                                    <label for="checkbox1" style="letter-spacing: normal;margin-top: -8px;">Equity</label>
+                                </div>
+                            </li>
+                        
+                            <li>
+                                <div style="display: flex;align-items: flex-start;">
+                                    <input onclick="checkFilter(this)" type="checkbox" name="assetType" id="checkbox2" data-tagword="Asset Type:Bond" data-tagid="tag_Bond" value="Bond">
+                                    <label for="checkbox2" style="letter-spacing: normal;margin-top: -8px;">Bond</label>
+                                </div>
+                            </li>
+                        
+                            <li>
+                                <div style="display: flex;align-items: flex-start;">
+                                    <input onclick="checkFilter(this)" type="checkbox" name="assetType" id="checkbox3" data-tagword="Asset Type:Multi-Asset" data-tagid="tag_MultiAsset" value="MultiAsset">
+                                    <label for="checkbox3" style="letter-spacing: normal;margin-top: -8px;">Multi-Asset</label>
+                                </div>
+                            </li>
+                        
+                            <li>
+                                <div style="display: flex;align-items: flex-start;">
+                                    <input onclick="checkFilter(this)" type="checkbox" name="assetType" id="checkbox4" data-tagword="Asset Type:Commodity Future" data-tagid="tag_RawMaterial" value="RawMaterial">
+                                    <label for="checkbox4" style="letter-spacing: normal;margin-top: -8px;">Commodity Future</label>
+                                </div>
+                            </li>
+                        
+                            <li>
+                                <div style="display: flex;align-items: flex-start;">
+                                    <input onclick="checkFilter(this)" type="checkbox" name="assetType" id="checkbox5" data-tagword="Asset Type:Foreign Currency" data-tagid="tag_FX" value="FX">
+                                    <label for="checkbox5" style="letter-spacing: normal;margin-top: -8px;">Foreign Currency</label>
+                                </div>
+                            </li>
+                        
+                            <li>
+                                <div style="display: flex;align-items: flex-start;">
+                                    <input onclick="checkFilter(this)" type="checkbox" name="assetType" id="checkbox6" data-tagword="Asset Type:REITs" data-tagid="tag_REITs" value="REITs">
+                                    <label for="checkbox6" style="letter-spacing: normal;margin-top: -8px;">REITs</label>
+                                </div>
+                            </li>
+                        
+                    </ul>
+                </li>
+                <li>
+                    <h4 class="filter-sub">Daily Performance Type</h4>
+                    <ul>
+                        <li>
+                            
+                                <div style="display: flex;align-items: flex-start;">
+                                    <input onclick="checkFilter(this)" type="checkbox" name="rewardType" id="rewardType_Vanilla" data-tagword="Daily Performance Type:Vanilla" data-tagid="tag_Vanilla" value="Vanilla">
+                                    <label for="rewardType_Vanilla" style="margin-top: -8px;">Vanilla</label><br/>
+                                </div>
+                            
+                                <div style="display: flex;align-items: flex-start;">
+                                    <input onclick="checkFilter(this)" type="checkbox" name="rewardType" id="rewardType_L" data-tagword="Daily Performance Type:Leverage" data-tagid="tag_L" value="L">
+                                    <label for="rewardType_L" style="margin-top: -8px;">Leverage</label><br/>
+                                </div>
+                            
+                                <div style="display: flex;align-items: flex-start;">
+                                    <input onclick="checkFilter(this)" type="checkbox" name="rewardType" id="rewardType_I" data-tagword="Daily Performance Type:Inverse" data-tagid="tag_I" value="I">
+                                    <label for="rewardType_I" style="margin-top: -8px;">Inverse</label><br/>
+                                </div>
+                            
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <h4 class="filter-sub ">AUM  <small>(latest trading date)</small></h4>
+                    <ul>
+                        <li>
+                            <div class="range-number">
+                                <input class="min-num" name="rangeTotalAv" type="number" value="1" data-tagword="AUM" data-unit="(NT$ 100 mil.)"> ~ <input class="max-num" name="rangeTotalAv" type="number" value="17740">
+                            </div>
+                            <input type="text" value="" data-slider-min="1" data-slider-max="17740" data-slider-step="5" data-slider-tooltip="hide">
+                            <span class="range-label"> 1 - 17,740( NT$ 100 mil.)</span>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <h4 class="filter-sub">Trading Value (YTD)</h4>
+                    <ul>
+                        <li>
+                            <div class="range-number">
+                                <input class="min-num" name="rangeValueYTD" type="number" value="0" data-tagword="Trading Value (YTD)" data-unit="NTD in Millions"> ~ <input class="max-num" name="rangeValueYTD" type="number" value="22457">
+                            </div>
+                            <input type="text" value="" data-slider-min="0" data-slider-max="22457" data-slider-step="5" data-slider-tooltip="hide">
+                            <span class="range-label"> 0 - 22,457 NTD in Millions</span>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <h4 class="filter-sub">Closing Price</h4>
+                    <ul>
+                        <li>
+                            <div class="range-number">
+                                <input class="min-num" name="rangeClose1" type="number" value="0" data-tagword="Closing Price" data-unit="NTD"> ~ <input class="max-num" name="rangeClose1" type="number" value="277">
+                            </div>
+                            <input type="text" value="" data-slider-min="0" data-slider-max="277" data-slider-step="5" data-slider-tooltip="hide">
+                            <span class="range-label"> 0 - 277 NTD</span>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <h4 class="filter-sub">Issuer</h4>
+                    <ul>
+                        <li>
+                            <div class="keyword"><input type="text" placeholder="輸入關鍵字"></div>
+                            
+                                <div style="display: flex;align-items: flex-start;" data-keyword="Yuanta">
+                                    <input onclick="checkFilter(this)" type="checkbox" name="issuer" id="issuer_0" data-tagword="Issuer:Yuanta" data-tagid="tag_Yuanta" value="Yuanta">
+                                    <label for="issuer_0" style="margin-top: -8px;">Yuanta</label>
+                                </div>
+                            
+                                <div style="display: flex;align-items: flex-start;" data-keyword="Fubon">
+                                    <input onclick="checkFilter(this)" type="checkbox" name="issuer" id="issuer_1" data-tagword="Issuer:Fubon" data-tagid="tag_Fubon" value="Fubon">
+                                    <label for="issuer_1" style="margin-top: -8px;">Fubon</label>
+                                </div>
+                            
+                                <div style="display: flex;align-items: flex-start;" data-keyword="SinoPac">
+                                    <input onclick="checkFilter(this)" type="checkbox" name="issuer" id="issuer_2" data-tagword="Issuer:SinoPac" data-tagid="tag_SinoPac" value="SinoPac">
+                                    <label for="issuer_2" style="margin-top: -8px;">SinoPac</label>
+                                </div>
+                            
+                                <div style="display: flex;align-items: flex-start;" data-keyword="Mega International">
+                                    <input onclick="checkFilter(this)" type="checkbox" name="issuer" id="issuer_3" data-tagword="Issuer:Mega International" data-tagid="tag_Mega_International" value="Mega International">
+                                    <label for="issuer_3" style="margin-top: -8px;">Mega International</label>
+                                </div>
+                            
+                                <div style="display: flex;align-items: flex-start;" data-keyword="Cathay">
+                                    <input onclick="checkFilter(this)" type="checkbox" name="issuer" id="issuer_4" data-tagword="Issuer:Cathay" data-tagid="tag_Cathay" value="Cathay">
+                                    <label for="issuer_4" style="margin-top: -8px;">Cathay</label>
+                                </div>
+                            
+                                <div style="display: flex;align-items: flex-start;" data-keyword="First Securities">
+                                    <input onclick="checkFilter(this)" type="checkbox" name="issuer" id="issuer_5" data-tagword="Issuer:First Securities" data-tagid="tag_First_Securities" value="First Securities">
+                                    <label for="issuer_5" style="margin-top: -8px;">First Securities</label>
+                                </div>
+                            
+                                <div style="display: flex;align-items: flex-start;" data-keyword="Fuh Hwa">
+                                    <input onclick="checkFilter(this)" type="checkbox" name="issuer" id="issuer_6" data-tagword="Issuer:Fuh Hwa" data-tagid="tag_Fuh_Hwa" value="Fuh Hwa">
+                                    <label for="issuer_6" style="margin-top: -8px;">Fuh Hwa</label>
+                                </div>
+                            
+                                <div style="display: flex;align-items: flex-start;" data-keyword="Capital">
+                                    <input onclick="checkFilter(this)" type="checkbox" name="issuer" id="issuer_7" data-tagword="Issuer:Capital" data-tagid="tag_Capital" value="Capital">
+                                    <label for="issuer_7" style="margin-top: -8px;">Capital</label>
+                                </div>
+                            
+                                <div style="display: flex;align-items: flex-start;" data-keyword="Taishin">
+                                    <input onclick="checkFilter(this)" type="checkbox" name="issuer" id="issuer_8" data-tagword="Issuer:Taishin" data-tagid="tag_Taishin" value="Taishin">
+                                    <label for="issuer_8" style="margin-top: -8px;">Taishin</label>
+                                </div>
+                            
+                                <div style="display: flex;align-items: flex-start;" data-keyword="CTBC">
+                                    <input onclick="checkFilter(this)" type="checkbox" name="issuer" id="issuer_9" data-tagword="Issuer:CTBC" data-tagid="tag_CTBC" value="CTBC">
+                                    <label for="issuer_9" style="margin-top: -8px;">CTBC</label>
+                                </div>
+                            
+                                <div style="display: flex;align-items: flex-start;" data-keyword="Uni-President">
+                                    <input onclick="checkFilter(this)" type="checkbox" name="issuer" id="issuer_10" data-tagword="Issuer:Uni-President" data-tagid="tag_Uni-President" value="Uni-President">
+                                    <label for="issuer_10" style="margin-top: -8px;">Uni-President</label>
+                                </div>
+                            
+                                <div style="display: flex;align-items: flex-start;" data-keyword="JKO">
+                                    <input onclick="checkFilter(this)" type="checkbox" name="issuer" id="issuer_11" data-tagword="Issuer:JKO" data-tagid="tag_JKO" value="JKO">
+                                    <label for="issuer_11" style="margin-top: -8px;">JKO</label>
+                                </div>
+                            
+                                <div style="display: flex;align-items: flex-start;" data-keyword="Franklin Templeton SinoAm">
+                                    <input onclick="checkFilter(this)" type="checkbox" name="issuer" id="issuer_12" data-tagword="Issuer:Franklin Templeton SinoAm" data-tagid="tag_Franklin_Templeton_SinoAm" value="Franklin Templeton SinoAm">
+                                    <label for="issuer_12" style="margin-top: -8px;">Franklin Templeton SinoAm</label>
+                                </div>
+                            
+                                <div style="display: flex;align-items: flex-start;" data-keyword="KGI">
+                                    <input onclick="checkFilter(this)" type="checkbox" name="issuer" id="issuer_13" data-tagword="Issuer:KGI" data-tagid="tag_KGI" value="KGI">
+                                    <label for="issuer_13" style="margin-top: -8px;">KGI</label>
+                                </div>
+                            
+                                <div style="display: flex;align-items: flex-start;" data-keyword="UOB">
+                                    <input onclick="checkFilter(this)" type="checkbox" name="issuer" id="issuer_14" data-tagword="Issuer:UOB" data-tagid="tag_UOB" value="UOB">
+                                    <label for="issuer_14" style="margin-top: -8px;">UOB</label>
+                                </div>
+                            
+                                <div style="display: flex;align-items: flex-start;" data-keyword="Nomura">
+                                    <input onclick="checkFilter(this)" type="checkbox" name="issuer" id="issuer_15" data-tagword="Issuer:Nomura" data-tagid="tag_Nomura" value="Nomura">
+                                    <label for="issuer_15" style="margin-top: -8px;">Nomura</label>
+                                </div>
+                            
+                                <div style="display: flex;align-items: flex-start;" data-keyword="E.SUN">
+                                    <input onclick="checkFilter(this)" type="checkbox" name="issuer" id="issuer_16" data-tagword="Issuer:E.SUN" data-tagid="tag_E.SUN" value="E.SUN">
+                                    <label for="issuer_16" style="margin-top: -8px;">E.SUN</label>
+                                </div>
+                            
+                                <div style="display: flex;align-items: flex-start;" data-keyword="usitc">
+                                    <input onclick="checkFilter(this)" type="checkbox" name="issuer" id="issuer_17" data-tagword="Issuer:usitc" data-tagid="tag_usitc" value="usitc">
+                                    <label for="issuer_17" style="margin-top: -8px;">usitc</label>
+                                </div>
+                            
+                                <div style="display: flex;align-items: flex-start;" data-keyword="HNIT">
+                                    <input onclick="checkFilter(this)" type="checkbox" name="issuer" id="issuer_18" data-tagword="Issuer:HNIT" data-tagid="tag_HNIT" value="HNIT">
+                                    <label for="issuer_18" style="margin-top: -8px;">HNIT</label>
+                                </div>
+                            
+                                <div style="display: flex;align-items: flex-start;" data-keyword="Allianz">
+                                    <input onclick="checkFilter(this)" type="checkbox" name="issuer" id="issuer_19" data-tagword="Issuer:Allianz" data-tagid="tag_Allianz" value="Allianz">
+                                    <label for="issuer_19" style="margin-top: -8px;">Allianz</label>
+                                </div>
+                            
+                                <div style="display: flex;align-items: flex-start;" data-keyword="BlackRock">
+                                    <input onclick="checkFilter(this)" type="checkbox" name="issuer" id="issuer_20" data-tagword="Issuer:BlackRock" data-tagid="tag_BlackRock" value="BlackRock">
+                                    <label for="issuer_20" style="margin-top: -8px;">BlackRock</label>
+                                </div>
+                            
+                                <div style="display: flex;align-items: flex-start;" data-keyword="J.P. Morgan">
+                                    <input onclick="checkFilter(this)" type="checkbox" name="issuer" id="issuer_21" data-tagword="Issuer:J.P. Morgan" data-tagid="tag_J.P._Morgan" value="J.P. Morgan">
+                                    <label for="issuer_21" style="margin-top: -8px;">J.P. Morgan</label>
+                                </div>
+                            
+                                <div style="display: flex;align-items: flex-start;" data-keyword="AllianceBernstein">
+                                    <input onclick="checkFilter(this)" type="checkbox" name="issuer" id="issuer_22" data-tagword="Issuer:AllianceBernstein" data-tagid="tag_AllianceBernstein" value="AllianceBernstein">
+                                    <label for="issuer_22" style="margin-top: -8px;">AllianceBernstein</label>
+                                </div>
+                            
+                        </li>
+                    </ul>
+                </li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                
+                    <li>
+                        <h4 class="filter-sub">Theme</h4>
+                        <ul>
+                            <li>
+                                
+                                    <div style="display: flex;align-items: flex-start;">
+                                        <input onclick="checkFilter(this)" type="checkbox" name="hashtag" id="hashtag_High Dividend Yield" data-tagword="Theme:High Dividend Yield" data-tagid="tag_ff808081899b8efc0189aa050440001c" value="ff808081899b8efc0189aa050440001c" >
+                                        <label for="hashtag_High Dividend Yield" style="margin-top: -8px;">High Dividend Yield</label>
+                                    </div>
+                                
+                                    <div style="display: flex;align-items: flex-start;">
+                                        <input onclick="checkFilter(this)" type="checkbox" name="hashtag" id="hashtag_High Dividend and Low Volatility" data-tagword="Theme:High Dividend and Low Volatility" data-tagid="tag_ff808081899b8efc0189aa05af5c001d" value="ff808081899b8efc0189aa05af5c001d" >
+                                        <label for="hashtag_High Dividend and Low Volatility" style="margin-top: -8px;">High Dividend and Low Volatility</label>
+                                    </div>
+                                
+                                    <div style="display: flex;align-items: flex-start;">
+                                        <input onclick="checkFilter(this)" type="checkbox" name="hashtag" id="hashtag_Factor Investing" data-tagword="Theme:Factor Investing" data-tagid="tag_ff808081899b8efc0189aa05ed24001e" value="ff808081899b8efc0189aa05ed24001e" >
+                                        <label for="hashtag_Factor Investing" style="margin-top: -8px;">Factor Investing</label>
+                                    </div>
+                                
+                                    <div style="display: flex;align-items: flex-start;">
+                                        <input onclick="checkFilter(this)" type="checkbox" name="hashtag" id="hashtag_Equal Weighting" data-tagword="Theme:Equal Weighting" data-tagid="tag_ff808081899b8efc0189aa06281f001f" value="ff808081899b8efc0189aa06281f001f" >
+                                        <label for="hashtag_Equal Weighting" style="margin-top: -8px;">Equal Weighting</label>
+                                    </div>
+                                
+                                    <div style="display: flex;align-items: flex-start;">
+                                        <input onclick="checkFilter(this)" type="checkbox" name="hashtag" id="hashtag_Broad Market Index" data-tagword="Theme:Broad Market Index" data-tagid="tag_ff808081899b8efc0189aa066a5a0020" value="ff808081899b8efc0189aa066a5a0020" >
+                                        <label for="hashtag_Broad Market Index" style="margin-top: -8px;">Broad Market Index</label>
+                                    </div>
+                                
+                                    <div style="display: flex;align-items: flex-start;">
+                                        <input onclick="checkFilter(this)" type="checkbox" name="hashtag" id="hashtag_Large-Cap" data-tagword="Theme:Large-Cap" data-tagid="tag_ff808081899b8efc0189aa06d5ce0021" value="ff808081899b8efc0189aa06d5ce0021" >
+                                        <label for="hashtag_Large-Cap" style="margin-top: -8px;">Large-Cap</label>
+                                    </div>
+                                
+                                    <div style="display: flex;align-items: flex-start;">
+                                        <input onclick="checkFilter(this)" type="checkbox" name="hashtag" id="hashtag_Small/Mid-Cap" data-tagword="Theme:Small/Mid-Cap" data-tagid="tag_ff808081899b8efc0189aa070e910022" value="ff808081899b8efc0189aa070e910022" >
+                                        <label for="hashtag_Small/Mid-Cap" style="margin-top: -8px;">Small/Mid-Cap</label>
+                                    </div>
+                                
+                                    <div style="display: flex;align-items: flex-start;">
+                                        <input onclick="checkFilter(this)" type="checkbox" name="hashtag" id="hashtag_Tech-Theme" data-tagword="Theme:Tech-Theme" data-tagid="tag_ff808081899b8efc0189aa074b8d0023" value="ff808081899b8efc0189aa074b8d0023" >
+                                        <label for="hashtag_Tech-Theme" style="margin-top: -8px;">Tech-Theme</label>
+                                    </div>
+                                
+                                    <div style="display: flex;align-items: flex-start;">
+                                        <input onclick="checkFilter(this)" type="checkbox" name="hashtag" id="hashtag_Finance" data-tagword="Theme:Finance" data-tagid="tag_ff808081899b8efc0189aa0786cb0024" value="ff808081899b8efc0189aa0786cb0024" >
+                                        <label for="hashtag_Finance" style="margin-top: -8px;">Finance</label>
+                                    </div>
+                                
+                                    <div style="display: flex;align-items: flex-start;">
+                                        <input onclick="checkFilter(this)" type="checkbox" name="hashtag" id="hashtag_Green Energy &amp; EV" data-tagword="Theme:Green Energy &amp; EV" data-tagid="tag_ff808081899b8efc0189aa07ec700025" value="ff808081899b8efc0189aa07ec700025" >
+                                        <label for="hashtag_Green Energy &amp; EV" style="margin-top: -8px;">Green Energy &amp; EV</label>
+                                    </div>
+                                
+                                    <div style="display: flex;align-items: flex-start;">
+                                        <input onclick="checkFilter(this)" type="checkbox" name="hashtag" id="hashtag_Biotech" data-tagword="Theme:Biotech" data-tagid="tag_ff808081899b8efc0189aa082e6d0026" value="ff808081899b8efc0189aa082e6d0026" >
+                                        <label for="hashtag_Biotech" style="margin-top: -8px;">Biotech</label>
+                                    </div>
+                                
+                                    <div style="display: flex;align-items: flex-start;">
+                                        <input onclick="checkFilter(this)" type="checkbox" name="hashtag" id="hashtag_CG &amp; ESG" data-tagword="Theme:CG &amp; ESG" data-tagid="tag_ff808081899b8efc0189aa0864d40027" value="ff808081899b8efc0189aa0864d40027" >
+                                        <label for="hashtag_CG &amp; ESG" style="margin-top: -8px;">CG &amp; ESG</label>
+                                    </div>
+                                
+                            </li>
+                        </ul>
+                    </li>
+                
+            </ul>
+
+            <label for="mob-filter" class="filter-close" id="filter-toggle">Close</label>
+        </div>
+    </aside>
+
+    <section class="filter-section">
+
+        <div class="stock-search">
+            <input type="text" id="stockNo" name="stkNo" placeholder="Pls Input Company Name/Code" value=""/>
+            <button type="submit"><i class="font-icon font-icon-search" style="font-size:1rem"></i></button>
+        </div>
+
+        <div class="result-box">
+            <div class="text">Result：</div>
+            
+        </div>
+
+        <div class="text-right mb-2">
+            <a href="#" class="download" onclick="produceExcel(); return false;"><i class="font-icon font-icon-download" style="font-size:1.25rem"></i> csv Download</a>
+        </div>
+
+        <input type="hidden" name="sort" value="">
+        <input type="hidden" name="orderBy" value="">
+        <div class="fix-table">
+            <div class="shadow-bg"><div class="shadow-scroll"><div></div></div></div>
+            <table class="stock-table" style="table-layout: fixed;">
+                <thead>
+                <tr>
+                    <th class="sort" width="100" data-sort="stockNo" data-orderBy="">ETF Code</th>
+                    <th class="sort" width="125" data-sort="stockName" data-orderBy="">ETF Name</th>
+                    <th class="sort" width="130" data-sort="listingDate" data-orderBy="">Listing Date</th>
+                    <th class="sort" width="300" data-sort="indexName" data-orderBy="">Benchmark</th>
+                    <th class="sort" width="150" data-sort="totalAv" data-orderBy="">AUM (NT$ 100 mil.)</th>
+                    <th class="sort" width="150" data-sort="close1" data-orderBy="">Closing Price</th>
+                    <th class="sort" width="150" data-sort="valueYTD" data-orderBy="">Average Daily Trading Value (Year-to-Date)(NTD in Millions)</th>
+                    <th class="sort" width="150" data-sort="volumeYTD" data-orderBy="">Average Daily Trading Volume (Year-to-Date)(shares)</th>
+                    <th class="sort" width="150" data-sort="holdersNum" data-orderBy="">Beneficiary (people)</th>
+
+                    <th class="sort" width="200" data-sort="issuer" data-orderBy="">Issuer</th>
+
+                </tr>
+                </thead>
+                <tbody>
+
+                </tbody>
+            </table>
+
+            <div class="loading"></div>
+        </div>
+    </section>
+</form>
+<div id="tpl-tr" style="display:none;">
+    <table>
+        <tr onclick="window.open('etfInfo/' + $(this).attr('stkno'), '_blank');return false;">
+            <td></td>
+            <td style="text-align: left;"></td>
+            <td></td>
+            <td style="text-align: left;"></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+
+            <td style="text-align: left;"></td>
+        </tr>
+    </table>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+            </main>
+        </div>
+    </div>
+    <footer>
+        <div class="container">
+            <ul>
+                <li class="logo"><a href="#"></a></li>
+                <li class="info">
+                    <h2>Taiwan Stock Exchange Corporation</h2>
+                    <p>3F, 9F-12F, 19F, No.7, Sec.5, Xinyi Rd., Taipei City 110615, Taiwan (R.O.C.) <br> Tel: 886-2-81013101 <br> ISC: 886-2-27928188</p>
+                </li>
+                <li class="copy">Copyright &copy; <b>2023</b> TWSE. All rights reserved.</li>
+                <li class="social">
+                    <a target="_blank" href="//www.facebook.com/TaiwanStockExchangeCorp/" class="fb"></a>
+                    <a target="_blank" href="//www.youtube.com/channel/UCb_JzqaWz4Dw1OScrDpGxrg" class="yt"></a>
+                    <a target="_blank" href="https://www.twse.com.tw/zh/terms/rss.html" class="rss"></a>
+                </li>
+            </ul>
+        </div>
+    </footer>
+</div>
+<script nomodule src="/rsrc/sites/etfortune-institute/js/ie.js"></script>
+<script src="/rsrc/sites/etfortune-institute/lib/jquery-3.6.3.min.js" type="text/javascript"></script>
+<script src="/rsrc/sites/etfortune-institute/js/main.js" type="text/javascript"></script>
+
+    <script type="text/javascript">
+        let produceExcelURL="/en/ETFortune-institute/exportProducts";
+    </script>
+    <script src="/rsrc/sites/etfortune-institute/lib/bootstrap-slider.min.js" type="text/javascript"></script>
+    <!-- <script src="/rsrc/js/products-filter.js" type="text/javascript"></script> -->
+    <script src="/rsrc/sites/etfortune-institute/js/filter.js" type="text/javascript"></script>
+    <script src="/rsrc/sites/etfortune-institute/js/products-filter.js" type="text/javascript"></script>
+    <script>
+        $('#body>.page-banner h2').text('\n' + 'ETF Screener');
+    </script>
+
+
+</body>
+</html>
