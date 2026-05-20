@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-tw">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <meta name="Asset-Path" content="/rsrc">
+    <title>投資篩選器 - 臺灣證券交易所｜ETF e添富</title>
+    <link href="/rsrc/sites/etfortune/css/main.css" rel="stylesheet">
+    <meta property="og:image" content="https://www.twse.com.tw/rsrc/sites/etfortune/img/og.jpg"/>
+    <meta itemprop="image" content="https://www.twse.com.tw/rsrc/sites/etfortune/img/og.jpg">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="臺灣證券交易所｜ETF e添富">
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-J2HVMN6FVP"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-J2HVMN6FVP');
+    </script>
+
+    
+    <meta name="layout" content="ETFLayout"/>
+    <link href="/rsrc/sites/etfortune/css/page.css" rel="stylesheet">
+    <link href="/rsrc/sites/etfortune/css/filter.css" rel="stylesheet">
+    <link href="/rsrc/sites/etfortune/lib/bootstrap-slider.min.css" rel="stylesheet">
+    
+    <style>
+    #body>.page-banner figure{background-image: url(/rsrc/sites/etfortune/img/banner2.jpg);}
+    </style>
+
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-J2HVMN6FVP"></script>
+</head>
+<body class="">
+<input type="checkbox" title="選單狀態" tabindex="-1" id="hamburger-toggle">
+
+<div id="layout">
+    <header role="heading" aria-level="1">
+        <div class="container">
+            <h1><a href="/zh/ETFortune/index" class="logo"></a></h1>
+        </div>
+        <label for="hamburger-toggle" id="hamburger">
+            <span></span>
+        </label>
+        <nav>
+            <div class="wp">
+                <div class="tool">
+                    <a href="/zh/ETFortune-institute/index">機構投資人專區</a>
+                    <a href="/en/ETFortune-institute/index">Institutional Investors</a>
+                    <br>
+                    <a href="/zh/ETFortune-cross-border/index">跨境ETF專區</a>
+                    <a href="/en/ETFortune-cross-border/index">Cross-border ETF</a>
+                    <a href="/jp/ETFortune-cross-border/index">クロスボーダーETF</a>
+                </div>
+                
+<ul>
+    <li>
+        <a class="subtitle">最新資訊 <i class="font-icon font-icon-menu" style="font-size:0.38rem"></i></a>
+        <div class="submenu">
+            <ul>
+                <li><a href="/zh/ETFortune/newsList">最新消息</a></li>
+                <li><a href="/zh/ETFortune/market">商品分類資訊</a></li>
+                <li><a href="/zh/ETFortune/split">分割/反分割預告表</a></li>
+            </ul>
+        </div>
+    </li>
+    <li><a href="/zh/ETFortune/dividendCalendar">配息資訊</a></li>
+    <li><a href="/zh/ETFortune/products">投資篩選器</a></li>
+    <li><a href="/zh/ETFortune/hotetfList">新種ETF哈燒專區</a></li>
+    <li><a href="/zh/ETFortune/advisor">達人講BAR</a></li>
+    <li><a href="/zh/ETFortune/investList">投資練功房</a></li>
+    <li><a href="/zh/ETFortune/announcementList">重大消息</a></li>
+</ul>
+
+            </div>
+        </nav>
+    </header>
+    <div id="body">
+        <div class="page-banner"><figure></figure><h2></h2></div>
+        <div class="container">
+            <div class="breadcrumbs">
+    <a href="/zh/ETFortune/index" title="首頁"><i class="font-icon font-icon-home" style="font-size:0.69rem"></i></a>
+    
+    
+    
+    
+    
+        <span>投資篩選器</span>
+    
+    
+    
+    
+    
+    
+    
+</div>
+            <main>
+                
+
+<form class="filter-form" name="filterForm" id="filterForm" method="post">
+    <input type="checkbox" title="手機版篩選" id="mob-filter">
+    <label for="mob-filter" class="filter-open" id="filter-toggle"><i class="font-icon font-icon-filter" style="font-size:0.94rem"></i> 篩選器</label>
+    <aside>
+        <div>
+            <h3><i class="font-icon font-icon-filter" style="font-size:0.94rem"></i> 篩選器</h3>
+            <ul class="filter-ul">
+                <li>
+                    <h4 class="filter-sub">主/被動式ETF</h4>
+                    <ul>
+                        <li>
+                            <input onclick="checkFilter(this)" type="checkbox" name="managerType" id="managerType_1" data-tagword="主/被動式ETF:主動式ETF" data-tagid="tag_Active" value="Active"> <label for="managerType_1">主動式ETF</label>  <br>
+                        </li>
+                        <li>
+                            <input onclick="checkFilter(this)" type="checkbox" name="managerType" id="managerType_2" data-tagword="主/被動式ETF:被動式ETF" data-tagid="tag_Passive" value="Passive"> <label for="managerType_2">被動式ETF</label>  <br>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <h4 class="filter-sub">資產類別</h4>
+                    <ul>
+                        
+                            <li>
+                                <input onclick="checkFilter(this)" type="checkbox" name="assetType" id="checkbox1" data-tagword="資產類別:股票型" data-tagid="tag_Stock" value="Stock"> <label for="checkbox1">股票型</label>  <br>
+                            </li>
+                        
+                            <li>
+                                <input onclick="checkFilter(this)" type="checkbox" name="assetType" id="checkbox2" data-tagword="資產類別:債券型" data-tagid="tag_Bond" value="Bond"> <label for="checkbox2">債券型</label>  <br>
+                            </li>
+                        
+                            <li>
+                                <input onclick="checkFilter(this)" type="checkbox" name="assetType" id="checkbox3" data-tagword="資產類別:多資產" data-tagid="tag_MultiAsset" value="MultiAsset"> <label for="checkbox3">多資產</label>  <br>
+                            </li>
+                        
+                            <li>
+                                <input onclick="checkFilter(this)" type="checkbox" name="assetType" id="checkbox4" data-tagword="資產類別:期貨型原物料" data-tagid="tag_RawMaterial" value="RawMaterial"> <label for="checkbox4">期貨型原物料</label>  <br>
+                            </li>
+                        
+                            <li>
+                                <input onclick="checkFilter(this)" type="checkbox" name="assetType" id="checkbox5" data-tagword="資產類別:貨幣型" data-tagid="tag_FX" value="FX"> <label for="checkbox5">貨幣型</label>  <br>
+                            </li>
+                        
+                            <li>
+                                <input onclick="checkFilter(this)" type="checkbox" name="assetType" id="checkbox6" data-tagword="資產類別:REITs" data-tagid="tag_REITs" value="REITs"> <label for="checkbox6">REITs</label>  <br>
+                            </li>
+                        
+                    </ul>
+                </li>
+                <li>
+                    <h4 class="filter-sub">報酬型態</h4>
+                    <ul>
+                        <li>
+                            
+                                <input onclick="checkFilter(this)" type="checkbox" name="rewardType" id="rewardType_Vanilla" data-tagword="報酬型態:原型" data-tagid="tag_Vanilla" value="Vanilla"> <label for="rewardType_Vanilla">原型</label><br/>
+                            
+                                <input onclick="checkFilter(this)" type="checkbox" name="rewardType" id="rewardType_L" data-tagword="報酬型態:槓桿型" data-tagid="tag_L" value="L"> <label for="rewardType_L">槓桿型</label><br/>
+                            
+                                <input onclick="checkFilter(this)" type="checkbox" name="rewardType" id="rewardType_I" data-tagword="報酬型態:反向型" data-tagid="tag_I" value="I"> <label for="rewardType_I">反向型</label><br/>
+                            
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <h4 class="filter-sub">資產規模 <small>(最近營業日)</small></h4>
+                    <ul>
+                        <li>
+                            <div class="range-number">
+                                <input class="min-num" name="rangeTotalAv" type="number" value="1" data-tagword="資產規模" data-unit="億元"> ~ <input class="max-num" name="rangeTotalAv" type="number" value="17454">
+                            </div>
+                            <input type="text" value="" data-slider-min="1" data-slider-max="17454" data-slider-step="5" data-slider-tooltip="hide">
+                            <span class="range-label"> 1 - 17,454 億元</span>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <h4 class="filter-sub">年初至今成交值</h4>
+                    <ul>
+                        <li>
+                            <div class="range-number">
+                                <input class="min-num" name="rangeValueYTD" type="number" value="0" data-tagword="年初至今成交值" data-unit="百萬元"> ~ <input class="max-num" name="rangeValueYTD" type="number" value="20290">
+                            </div>
+                            <input type="text" value="" data-slider-min="0" data-slider-max="20290" data-slider-step="5" data-slider-tooltip="hide">
+                            <span class="range-label"> 0 - 20,290 百萬元</span>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <h4 class="filter-sub">收盤價</h4>
+                    <ul>
+                        <li>
+                            <div class="range-number">
+                                <input class="min-num" name="rangeClose1" type="number" value="0" data-tagword="收盤價" data-unit="元"> ~ <input class="max-num" name="rangeClose1" type="number" value="275">
+                            </div>
+                            <input type="text" value="" data-slider-min="0" data-slider-max="275" data-slider-step="5" data-slider-tooltip="hide">
+                            <span class="range-label"> 0 - 275 元</span>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <h4 class="filter-sub">發行人</h4>
+                    <ul>
+                        <li>
+                            <div class="keyword"><input type="text" placeholder="輸入關鍵字"></div>
+                            
+                                <div data-keyword="元大">
+                                    <input onclick="checkFilter(this)" type="checkbox" name="issuer" id="issuer_0" data-tagword="發行人:元大" data-tagid="tag_元大" value="元大"> <label for="issuer_0">元大</label><br/>
+                                </div>
+                            
+                                <div data-keyword="富邦">
+                                    <input onclick="checkFilter(this)" type="checkbox" name="issuer" id="issuer_1" data-tagword="發行人:富邦" data-tagid="tag_富邦" value="富邦"> <label for="issuer_1">富邦</label><br/>
+                                </div>
+                            
+                                <div data-keyword="永豐">
+                                    <input onclick="checkFilter(this)" type="checkbox" name="issuer" id="issuer_2" data-tagword="發行人:永豐" data-tagid="tag_永豐" value="永豐"> <label for="issuer_2">永豐</label><br/>
+                                </div>
+                            
+                                <div data-keyword="兆豐">
+                                    <input onclick="checkFilter(this)" type="checkbox" name="issuer" id="issuer_3" data-tagword="發行人:兆豐" data-tagid="tag_兆豐" value="兆豐"> <label for="issuer_3">兆豐</label><br/>
+                                </div>
+                            
+                                <div data-keyword="國泰">
+                                    <input onclick="checkFilter(this)" type="checkbox" name="issuer" id="issuer_4" data-tagword="發行人:國泰" data-tagid="tag_國泰" value="國泰"> <label for="issuer_4">國泰</label><br/>
+                                </div>
+                            
+                                <div data-keyword="第一金">
+                                    <input onclick="checkFilter(this)" type="checkbox" name="issuer" id="issuer_5" data-tagword="發行人:第一金" data-tagid="tag_第一金" value="第一金"> <label for="issuer_5">第一金</label><br/>
+                                </div>
+                            
+                                <div data-keyword="復華">
+                                    <input onclick="checkFilter(this)" type="checkbox" name="issuer" id="issuer_6" data-tagword="發行人:復華" data-tagid="tag_復華" value="復華"> <label for="issuer_6">復華</label><br/>
+                                </div>
+                            
+                                <div data-keyword="群益">
+                                    <input onclick="checkFilter(this)" type="checkbox" name="issuer" id="issuer_7" data-tagword="發行人:群益" data-tagid="tag_群益" value="群益"> <label for="issuer_7">群益</label><br/>
+                                </div>
+                            
+                                <div data-keyword="台新">
+                                    <input onclick="checkFilter(this)" type="checkbox" name="issuer" id="issuer_8" data-tagword="發行人:台新" data-tagid="tag_台新" value="台新"> <label for="issuer_8">台新</label><br/>
+                                </div>
+                            
+                                <div data-keyword="中國信託">
+                                    <input onclick="checkFilter(this)" type="checkbox" name="issuer" id="issuer_9" data-tagword="發行人:中國信託" data-tagid="tag_中國信託" value="中國信託"> <label for="issuer_9">中國信託</label><br/>
+                                </div>
+                            
+                                <div data-keyword="統一">
+                                    <input onclick="checkFilter(this)" type="checkbox" name="issuer" id="issuer_10" data-tagword="發行人:統一" data-tagid="tag_統一" value="統一"> <label for="issuer_10">統一</label><br/>
+                                </div>
+                            
+                                <div data-keyword="街口">
+                                    <input onclick="checkFilter(this)" type="checkbox" name="issuer" id="issuer_11" data-tagword="發行人:街口" data-tagid="tag_街口" value="街口"> <label for="issuer_11">街口</label><br/>
+                                </div>
+                            
+                                <div data-keyword="富蘭克林">
+                                    <input onclick="checkFilter(this)" type="checkbox" name="issuer" id="issuer_12" data-tagword="發行人:富蘭克林" data-tagid="tag_富蘭克林" value="富蘭克林"> <label for="issuer_12">富蘭克林</label><br/>
+                                </div>
+                            
+                                <div data-keyword="凱基">
+                                    <input onclick="checkFilter(this)" type="checkbox" name="issuer" id="issuer_13" data-tagword="發行人:凱基" data-tagid="tag_凱基" value="凱基"> <label for="issuer_13">凱基</label><br/>
+                                </div>
+                            
+                                <div data-keyword="大華銀">
+                                    <input onclick="checkFilter(this)" type="checkbox" name="issuer" id="issuer_14" data-tagword="發行人:大華銀" data-tagid="tag_大華銀" value="大華銀"> <label for="issuer_14">大華銀</label><br/>
+                                </div>
+                            
+                                <div data-keyword="野村">
+                                    <input onclick="checkFilter(this)" type="checkbox" name="issuer" id="issuer_15" data-tagword="發行人:野村" data-tagid="tag_野村" value="野村"> <label for="issuer_15">野村</label><br/>
+                                </div>
+                            
+                                <div data-keyword="玉山">
+                                    <input onclick="checkFilter(this)" type="checkbox" name="issuer" id="issuer_16" data-tagword="發行人:玉山" data-tagid="tag_玉山" value="玉山"> <label for="issuer_16">玉山</label><br/>
+                                </div>
+                            
+                                <div data-keyword="聯邦">
+                                    <input onclick="checkFilter(this)" type="checkbox" name="issuer" id="issuer_17" data-tagword="發行人:聯邦" data-tagid="tag_聯邦" value="聯邦"> <label for="issuer_17">聯邦</label><br/>
+                                </div>
+                            
+                                <div data-keyword="華南永昌">
+                                    <input onclick="checkFilter(this)" type="checkbox" name="issuer" id="issuer_18" data-tagword="發行人:華南永昌" data-tagid="tag_華南永昌" value="華南永昌"> <label for="issuer_18">華南永昌</label><br/>
+                                </div>
+                            
+                                <div data-keyword="安聯">
+                                    <input onclick="checkFilter(this)" type="checkbox" name="issuer" id="issuer_19" data-tagword="發行人:安聯" data-tagid="tag_安聯" value="安聯"> <label for="issuer_19">安聯</label><br/>
+                                </div>
+                            
+                                <div data-keyword="貝萊德投信">
+                                    <input onclick="checkFilter(this)" type="checkbox" name="issuer" id="issuer_20" data-tagword="發行人:貝萊德投信" data-tagid="tag_貝萊德投信" value="貝萊德投信"> <label for="issuer_20">貝萊德投信</label><br/>
+                                </div>
+                            
+                                <div data-keyword="摩根">
+                                    <input onclick="checkFilter(this)" type="checkbox" name="issuer" id="issuer_21" data-tagword="發行人:摩根" data-tagid="tag_摩根" value="摩根"> <label for="issuer_21">摩根</label><br/>
+                                </div>
+                            
+                                <div data-keyword="聯博">
+                                    <input onclick="checkFilter(this)" type="checkbox" name="issuer" id="issuer_22" data-tagword="發行人:聯博" data-tagid="tag_聯博" value="聯博"> <label for="issuer_22">聯博</label><br/>
+                                </div>
+                            
+                        </li>
+                    </ul>
+                </li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                
+                    <li>
+                        <h4 class="filter-sub">主題因子</h4>
+                        <ul>
+                            <li>
+                                
+                                    <input onclick="checkFilter(this)" type="checkbox" name="hashtag" id="hashtag_高股息" data-tagword="主題因子:高股息" data-tagid="tag_ff808081899b8efc0189aa050440001c" value="ff808081899b8efc0189aa050440001c" > <label for="hashtag_高股息">高股息</label><br/>
+                                
+                                    <input onclick="checkFilter(this)" type="checkbox" name="hashtag" id="hashtag_高息低波動" data-tagword="主題因子:高息低波動" data-tagid="tag_ff808081899b8efc0189aa05af5c001d" value="ff808081899b8efc0189aa05af5c001d" > <label for="hashtag_高息低波動">高息低波動</label><br/>
+                                
+                                    <input onclick="checkFilter(this)" type="checkbox" name="hashtag" id="hashtag_因子投資" data-tagword="主題因子:因子投資" data-tagid="tag_ff808081899b8efc0189aa05ed24001e" value="ff808081899b8efc0189aa05ed24001e" > <label for="hashtag_因子投資">因子投資</label><br/>
+                                
+                                    <input onclick="checkFilter(this)" type="checkbox" name="hashtag" id="hashtag_等權重" data-tagword="主題因子:等權重" data-tagid="tag_ff808081899b8efc0189aa06281f001f" value="ff808081899b8efc0189aa06281f001f" > <label for="hashtag_等權重">等權重</label><br/>
+                                
+                                    <input onclick="checkFilter(this)" type="checkbox" name="hashtag" id="hashtag_全市場指數" data-tagword="主題因子:全市場指數" data-tagid="tag_ff808081899b8efc0189aa066a5a0020" value="ff808081899b8efc0189aa066a5a0020" > <label for="hashtag_全市場指數">全市場指數</label><br/>
+                                
+                                    <input onclick="checkFilter(this)" type="checkbox" name="hashtag" id="hashtag_大型權值" data-tagword="主題因子:大型權值" data-tagid="tag_ff808081899b8efc0189aa06d5ce0021" value="ff808081899b8efc0189aa06d5ce0021" > <label for="hashtag_大型權值">大型權值</label><br/>
+                                
+                                    <input onclick="checkFilter(this)" type="checkbox" name="hashtag" id="hashtag_中小型權值" data-tagword="主題因子:中小型權值" data-tagid="tag_ff808081899b8efc0189aa070e910022" value="ff808081899b8efc0189aa070e910022" > <label for="hashtag_中小型權值">中小型權值</label><br/>
+                                
+                                    <input onclick="checkFilter(this)" type="checkbox" name="hashtag" id="hashtag_科技主題型" data-tagword="主題因子:科技主題型" data-tagid="tag_ff808081899b8efc0189aa074b8d0023" value="ff808081899b8efc0189aa074b8d0023" > <label for="hashtag_科技主題型">科技主題型</label><br/>
+                                
+                                    <input onclick="checkFilter(this)" type="checkbox" name="hashtag" id="hashtag_金融" data-tagword="主題因子:金融" data-tagid="tag_ff808081899b8efc0189aa0786cb0024" value="ff808081899b8efc0189aa0786cb0024" > <label for="hashtag_金融">金融</label><br/>
+                                
+                                    <input onclick="checkFilter(this)" type="checkbox" name="hashtag" id="hashtag_綠能及電動車" data-tagword="主題因子:綠能及電動車" data-tagid="tag_ff808081899b8efc0189aa07ec700025" value="ff808081899b8efc0189aa07ec700025" > <label for="hashtag_綠能及電動車">綠能及電動車</label><br/>
+                                
+                                    <input onclick="checkFilter(this)" type="checkbox" name="hashtag" id="hashtag_生技" data-tagword="主題因子:生技" data-tagid="tag_ff808081899b8efc0189aa082e6d0026" value="ff808081899b8efc0189aa082e6d0026" > <label for="hashtag_生技">生技</label><br/>
+                                
+                                    <input onclick="checkFilter(this)" type="checkbox" name="hashtag" id="hashtag_公司治理及ESG" data-tagword="主題因子:公司治理及ESG" data-tagid="tag_ff808081899b8efc0189aa0864d40027" value="ff808081899b8efc0189aa0864d40027" > <label for="hashtag_公司治理及ESG">公司治理及ESG</label><br/>
+                                
+                            </li>
+                        </ul>
+                    </li>
+                
+            </ul>
+
+            <label for="mob-filter" class="filter-close" id="filter-toggle">關閉</label>
+        </div>
+    </aside>
+    <section class="filter-section">
+        <div class="search-stock">
+            <input type="text" name="stkNo" placeholder="請輸入股票代號或名稱搜尋" value=""/>
+            <button type="submit"></button>
+        </div>
+        
+        <div class="result-box">
+            <div class="text">篩選結果：</div>
+            
+
+
+
+        </div>
+
+       
+        <button type="button" class="btn-default" title="csv下載" onclick='produceExcel()'><i class="font-icon font-icon-download" style="font-size:1.25rem"></i>csv下載</button>
+
+        <input type="hidden" name="sort" value="">
+        <input type="hidden" name="orderBy" value="">
+        <div class="fix-table">
+            <div class="shadow-bg"><div class="shadow-scroll"><div></div></div></div>
+            <table class="stock-table" style="table-layout: fixed;">
+                <thead>
+                <tr>
+                    <th class="sort" width="100" data-sort="stockNo" data-orderBy="">股票代號</th>
+                    <th class="sort" width="125" data-sort="stockName" data-orderBy="">ETF名稱</th>
+                    <th class="sort" width="130" data-sort="listingDate" data-orderBy="">上市日期</th>
+                    <th class="sort" width="300" data-sort="indexName" data-orderBy="">標的指數</th>
+                    <th class="sort" width="150" data-sort="totalAv" data-orderBy="">資產規模(億元)</th>
+                    <th class="sort" width="150" data-sort="close1" data-orderBy="">收盤價</th>
+                    <th class="sort" width="150" data-sort="valueYTD" data-orderBy="">年初至今日均成交值(百萬元)</th>
+                    <th class="sort" width="150" data-sort="volumeYTD" data-orderBy="">年初至今日均成交量(股)</th>
+                    <th class="sort" width="150" data-sort="holdersNum" data-orderBy="">受益人次(人)</th>
+
+                    <th class="sort" width="200" data-sort="issuer" data-orderBy="">發行人</th>
+                </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td colspan="11"></td>
+                    </tr>
+                </tbody>
+            </table>
+            
+             <div class="loading"></div> 
+        </div>
+    </section>
+</form>
+<div id="tpl-tr" style="display:none;">
+    <table>
+    <tr class="etf">
+        <td></td>
+        <td style="text-align: left;"></td>
+        <td></td>
+        <td style="text-align: left;"></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+
+        <td style="text-align: left;"></td>
+    </tr>
+    </table>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<form id="form-etfinfo" method="post" action="/zh/ETFortune/etfInfo" target="_blank">
+    <input type="hidden" name="id" value="">
+</form>
+
+            </main>
+        </div>
+    </div>
+    <footer>
+        <div class="container">
+            <ul>
+                <li class="logo"><a href="#"></a></li>
+                <li class="info">
+                    <h2>臺灣證券交易所</h2>
+                    <p>110615 台北市信義路五段7號3樓、9至12樓、19樓 <br> 電話：(02)8101-3101 <br> 投資人服務中心專線：(02)2792-8188 <br>
+                        <a class="about-link">關於e添富</a><a class="use-link">使用條款</a><a class="privacy-link">隱私權保護政策</a><a target="_blank" href="https://suggestionbox.twse.com.tw/swsfront35/SWSF/SWSF01014.aspx">聯絡我們</a><a target="_blank" href="https://www.twse.com.tw/zh/index.html">證交所首頁</a>
+                    </p>
+                    
+                </li>
+                <li class="copy">Copyright &copy; <b>2023</b> TWSE. All rights reserved.</li>
+                <li class="social">
+                    <a target="_blank" href="//www.facebook.com/TaiwanStockExchangeCorp/" class="fb"></a>
+                    <a target="_blank" href="//www.youtube.com/channel/UCb_JzqaWz4Dw1OScrDpGxrg" class="yt"></a>
+                    <a target="_blank" href="https://www.twse.com.tw/zh/terms/rss.html" class="rss"></a>
+                </li>
+            </ul>
+        </div>
+    </footer>
+
+    <!-- 關於e添富 popup -->
+    <div id="about-popup" class="pop-overlay">
+        <div class="win">
+            <a class="close" href="#" title="關閉視窗">&times;</a>
+            <div class="content main-popup">
+                <div>
+                    <h3>關於e添富</h3>
+                    e添富係一ETF的整合投資資訊平台。為方便投資人掌握投資脈動及ETF最新資訊，本網站整合市場上ETF相關資訊，藉此強化植入理財投資觀念，提供ETF一站式服務。
+
+                    本站主要包含ETF投資的三大面向: <br><br>
+
+                    <ol>
+                        <li>市場統計資訊：運用視覺化分析工具彙整投資人關心或需要的統計資訊，如ETF檔數、資產規模、成交狀況、配息月份及各項排名等。</li>
+                        <li>投資趨勢及策略分享：邀請市場專家分享正確且不偏頗的投資趨勢及策略，破除投資誤解或迷思。</li>
+                        <li>ETF投資篩選器：根據投資人的需求，透過篩選器的量化或質化指標，快速篩選出符合條件的ETF，找出符合自己投資策略的ETF。</li>
+                    </ol>
+                
+                    本網站期以即時、優質、多元化之方向提昇對國內外投資大眾之服務，並做為您投資研究的參考，我們竭誠歡迎您的來訪，並請繼續給予支持與指教。
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 使用條款 popup -->
+    <div id="use-popup" class="pop-overlay">
+        <div class="win">
+            <a class="close" href="#" title="關閉視窗">&times;</a>
+            <div class="content main-popup">
+                <div>
+                    <h3>使用條款</h3>
+                    <ol>
+                        <li>認知與同意 <br>
+                            臺灣證券交易所係依據本使用條款提供臺灣證券交易所e添富網站服務（以下簡稱本網站）。當您使用臺灣證券交易所e添富網站時，即表示您已閱讀、瞭解並同意接受本使用條款之所有內容。臺灣證券交易所有權於任何時間修改或變更本使用條款之內容，建議您隨時注意該等修改或變更。您於任何修改或變更後繼續使用本網站，視為您已閱讀、瞭解並同意接受該等修改或變更。
+                        </li>
+
+                        <li>與第三人網站的連結 <br>本網站提供相關機構與資訊連結之服務，旨在便利您迅速獲得相關投資與研究資訊。您可能會因此連結至其他機構單位經營的網站，其他機構單位經營的網站均由各該機構單位自行負責，不屬臺灣證券交易所控制及負責範圍之內。</li>
+                        <li>隱私權政策 <br>關於您的個人資料以及其他特定資料依本網站「隱私權保護說明」受到保護與規範。</li>
+                        <li>系統中斷或故障 <br>本網站有時可能出現中斷或故障等現象，或許將造成您使用上的不便、資料喪失、錯誤或其他損失等情形。您於使用本網站時宜自行採取防護措施。臺灣證券交易所對於您因使用（或無法使用）本網站而造成的損害，不負任何賠償責任。</li>
+                        <li>服務變更及通知 <br>臺灣證券交易所有權於任何時間點，不經通知隨時修改、暫時或永久停止繼續提供本網站部分或全部之服務。臺灣證券交易所得以包括但不限於：張貼於本網站網頁、依照您帳戶資料發出電子郵件，或其他方式作本網站服務內容變更之通知。您繼續使用本網站即視為您同意本網站所為之任何通知均視為送達。</li>
+                        <li>下載軟體或資料 <br>非依臺灣證券交易所同意之方式或經臺灣證券交易所同意者，禁止透過包括但不限於自動化裝置、指令碼、自動程式、蜘蛛程式、爬蟲程式或擷取程式等方式下載本網站之軟體或資料。臺灣證券交易所對於您使用本網站或經由本網站連結之其他網站而下載的軟體或資料，不負任何擔保責任。您應於下載前自行斟酌與判斷前述軟體或資料之合適性、有效性、正確性、完整性、及是否侵害他人權利，以免遭受損失（例如：造成您電腦系統受損、或儲存資料流失等）；臺灣證券交易所對於該等損失不負任何賠償責任。</li>
+                        <li>資訊或建議 <br>臺灣證券交易所對於您使用本網站或經由本網站連結之其他網站而取得之資訊或建議，不擔保其為完全正確無誤。您在做任何相關規劃與決定之前，仍應請教專業人員針對您的情況提意見，以符合您的個別需求。</li>
+                        <li>智慧財產權的保護 <br>本網站所使用之軟體或程式、網站上所有內容，包括但不限於著作、圖片、檔案、資訊、資料、網站架構、網站畫面的安排、網頁設計，均由臺灣證券交易所或其他權利人依法擁有其智慧財產權。任何人除非事前取得臺灣證券交易所或其他權利人之書面同意，不得逕自使用、修改、重製、公開播送、改作、散布、發行、公開發表、進行還原工程、解編或反向組譯，但臺灣證券交易所已授權「政府資料開放平臺」提供公眾使用之本網站資料，不在此限。您如要引用或轉載本網站內容，請以適當方式清楚註明資料來源，並確保資料完整性，不得任意增刪。尊重智慧財產權是您應盡的義務。</li>
+                        <li>免責聲明 <br>本網站旨在為廣大投資人提供正確可靠之資訊及最好之服務，作為投資研究的參考依據，若因任何資料之不正確或疏漏所衍生之損害或損失，臺灣證券交易所將不負法律責任。是否經由本網站使用下載或取得任何資料，應由您自行考量且自負風險，因任何資料之下載而導致您電腦系統之任何損壞或資料流失，您應負完全責任。</li>
+                        <li>準據法及管轄 <br>本服務條款之解釋，適用中華民國法律。因使用本網站或與本服務條款相關之爭議，以臺灣台北地方法院為第一審管轄法院。</li>
+
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+
+     <!-- 隱私權 popup -->
+     <div id="privacy-popup" class="pop-overlay">
+        <div class="win">
+            <a class="close" href="#" title="關閉視窗">&times;</a>
+            <div class="content main-popup">
+                <div>
+                    <h3>隱私權保護政策</h3>
+                
+                <ol>
+                    <li>
+                        本聲明之適用範圍 <br>
+                        以下的隱私權保護政策適用於您在臺灣證券交易所e添富網站（以下簡稱本網站）活動時，所涉及的個人資料蒐集、運用與保護，但不適用於經由本網站連結至之其他網站。當您由本網站連結至其他網站進行活動時，這些網站有其個別的隱私權保護政策，其資料處裡措施不適用本隱私權保護說明，本網站不負任何連帶責任。
+                    </li>
+                    <li>
+                        本網站自動收集之資訊 <br>
+                        當使用者瀏覽或查詢使用本網站時，本網站可能自動記錄的資訊包括：使用者的作業系統、網際網路通訊協定(IP)位址、使用設備資訊、使用時間、瀏覽器類型與語言以及點選資料紀錄等，以及使用者在瀏覽本公司網站之前所瀏覽的網站。這些資料係供本網站管理機關內部作網站流量和網路行為調查的總量分析，以利於提昇本網站的服務品質，且本網站僅對全體使用者行為總和進行分析，並不會對個別使用者進行分析。
+                        <br>
+                        本網站可能使用Cookies及類似方法(定義如下)來記錄資訊，若使用者不希望本網站使用Cookies，則除非使用者先依照下面說明的方式停用Cookies，否則請不要使用本網站服務。本網站得自動將所收集到的任何資訊連結至個人資訊。
+
+                        <ul style="margin-top: 10px;">
+                            <li>
+                                網際網路通訊協定(IP)位址 <br>
+                                IP位址為由網際網路服務供應商自動分配給使用者電腦的網際網路地址，使用者到訪本網站時，會記錄使用者到訪時間與到訪頁面於伺服器日誌中，以瞭解使用者偏好。
+                            </li>
+                            <li>
+                                Cookies<br>
+                                Cookies係指網站儲存在使用者硬碟上的小型資料檔案。本網站將使用Cookies以協助改進網站使用經驗，通常透過瀏覽器設定即可移除並拒絕從網站傳送的Cookies。
+                            </li>
+                        </ul>
+
+                    </li>
+                    <li>
+                        Cookies 的運用與政策 <br>
+                        Cookie是從Web伺服器傳送到您的瀏覽器並保存在您的電腦硬碟中的簡短資料，本網站使用Cookie作為與您溝通與辨識的工具，目的在於隨時將您在網頁上所曾進行活動或輸入的字串資料儲存，記錄個人資料及喜好，利於提供個人化服務或遞送符合興趣及嗜好的廣告、了解網頁瀏覽的情況以改善服務品質以及提高本網站系統的安全性。大多數個人電腦或行動裝置的瀏覽器，均有設定自動接受網站之Cookie設定，如果您不希望接受本網站所運用的Cookie並且希望關閉Cookie，您可以透過所使用的瀏覽器更改Cookie設定。如您選擇不接受或阻擋本網站的Cookie，可能會導致完全無法使用或僅能使用本網站為您提供的部分服務功能。
+                    </li>
+                    <li>
+                        本網站與第三者共用個人資料之政策 <br>
+                        本網站絕對不會任意出售、交換、出租或以其他變相之方式，將使用者的個人資料揭露與其他團體或個人。惟有下列三種情形，本網站會與第三人共用使用者的個人資料：
+                        <ul style="margin-top: 10px;">
+                            <li>經過使用者的事前同意或授權允許時。</li>
+                            <li>司法單位或其他主管機關經合法正式的程序要求時。</li>
+                            <li>為了提供使用者其他服務或優惠權益，需要與提供該服務或優惠之第三人共用使用者的資料時，本網站會在活動時提供充分說明並告知，使用者可以自由選擇是否接受這項服務或優惠。</li>
+                        </ul>
+
+                    </li>
+                    <li>
+                        當事人行使權利 <br>
+                        除法令另有規定外，您得對本網站所蒐集、處理、利用與保存您的個人資料，要求：
+                        <ul style="margin-top: 10px;">
+                            <li>查詢或請求閱覽。</li>
+                            <li>請求製給複製本。</li>
+                            <li>請求補充或更正。</li>
+                            <li>請求停止蒐集、處理及利用。</li>
+                            <li>請求刪除。</li>
+                            <li>請求資料可攜權(限個人資料屬於歐盟一般資料保護規範之範圍)</li>
+                            <li>請求拒絕自動化分析(限個人資料屬於歐盟一般資料保護規範之範圍)惟因執行業務所必需、特定目的消失前或未逾法定保存年限者，得不予刪除。若您需透過電話聯繫，請撥本公司投資人服務中心專線︰(02)2792-8188</li>
+                        </ul>
+                    </li>
+                    <li>
+                        網站隱私權政策的修改 <br>
+                        本網站將會視需要隨時修改本網站所提供的隱私權保護聲明，以落實保障使用者的隱私權。當本隱私權保護政策修改時，將以醒目標示提醒使用者。建議使用者於再次來訪時，可重新瞭解我們新的隱私權策及其改變。
+                    </li>
+                    <li>
+                        未成年隱私保護 <br>
+                        由於本公司網站無法知悉所蒐集到的個人資料是否屬未成年人所有，或是有無得到其法定代理人的同意。如果您對本公司網站可能有未經法定代理人同意或未有其他法律依據而蒐集未成年人個人資料之疑慮，請您以本聲明所載之聯絡資訊聯繫本公司，我們將立刻採取妥善措施進行調查及改正。
+                    </li>
+                    <li>
+                        如針對上述有任何問題，歡迎向我們聯絡，聯絡電話（投資人服務中心專線）︰(02)2792-8188
+                    </li>
+                </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script nomodule src="/rsrc/sites/etfortune/js/ie.js"></script>
+<script src="/rsrc/sites/etfortune/lib/jquery-3.6.3.min.js" type="text/javascript"></script>
+<script src="/rsrc/sites/etfortune/js/main.js" type="text/javascript"></script>
+
+    <script src="/rsrc/sites/etfortune/lib/bootstrap.bundle.min.js" type="text/javascript"></script>
+    <script src="/rsrc/sites/etfortune/lib/bootstrap-slider.min.js" type="text/javascript"></script>
+    <script src="/rsrc/sites/etfortune/lib/purify.min.js" type="text/javascript"></script>
+    <script src="/rsrc/sites/etfortune/js/filter.js" type="text/javascript"></script>
+    <script src="/rsrc/sites/etfortune/js/products-filter.js" type="text/javascript"></script>
+    <script>
+        $('#body>.page-banner h2').text('投資篩選器');
+
+        let productsURL="/zh/ETFortune/ajaxProductsResult";
+        let produceExcelURL="/zh/ETFortune/etfExcel";
+
+        //https://seiyria.com/bootstrap-slider/
+        $('.range-number + input').each((idx,input)=>{
+            const $input = $(input);
+            const $nums = $input.prev().find('input');
+            const [$num1,$num2] = [...$nums].map(el=>$(el));
+            const [min,max] = [$input.data('slider-min'),$input.data('slider-max')];
+
+            $input.slider({
+                value: [min,max] //預設值
+            }).on("slide", (ev)=> { //滑動時更新文字框
+                let [n1,n2] = ev.value;
+                $num1.val(n1);
+                $num2.val(n2);
+            }).on('slideStop',(ev)=>{
+                $num1.trigger('change');
+            });
+
+            $nums.attr('min',min).attr('max',max).on('change',(ev)=>{
+                let [v1,v2] = [$num1.val(),$num2.val()];
+                v1 = isNaN(v1)||v1===''?min:parseInt(v1,10);
+                v2 = isNaN(v2)||v2===''?max:parseInt(v2,10);
+
+                if(v1<min) v1=min;
+                if(v1>max) v1=max;
+                if(v2<min) v2=min;
+                if(v2>max) v2=max;
+                $num1.val(v1);
+                $num2.val(v2);
+                $input.slider('setValue',[v1,v2]);
+            });
+
+        });
+
+
+
+    </script>
+
+<script>
+    $('.fix-table').each((idx, rwdT)=>{ //每個 .rwd-table
+        let $wp = $(rwdT);
+        
+        let $scroll = $wp.find('.shadow-scroll'); //上軸
+        let $shadowContent = $scroll.find('>div'); //填充寬
+        //上下雙軸同步捲動
+        $wp.on('scroll',()=>{ $scroll.scrollLeft($wp.scrollLeft()); });
+        $scroll.on('scroll',()=>{ $wp.scrollLeft($scroll.scrollLeft()); });
+        // console.log($shadowContent.length)
+  
+        //監視表格出現，複製表格寬
+        monitorTebleGenerated(rwdT,(el)=>{
+          let $table = $wp.find('>table:first');
+          // console.log($table.length);
+          if($table.length === 0) return;
+  
+          let changeValues = ()=>{
+            $shadowContent.css('width',$table.css('width')); //填充寬
+            //仿製下卷軸大小
+            $scroll[0].style.setProperty('--sw',($wp[0].offsetWidth - $wp[0].clientWidth)+'px'); //軸寬
+            $scroll[0].style.setProperty('--sh',($wp[0].offsetHeight - $wp[0].clientHeight) +'px'); //軸高
+          }
+          changeValues();
+          monitorTebleWidth($table[0],changeValues);
+          monitorWidth($wp[0],changeValues);
+        });
+  
+  
+      });
+  
+      //監視表格出現
+      function monitorTebleGenerated(outer,callback) {
+  /*      
+        new MutationObserver((mutationsList, observer) => {
+          for (const mutation of mutationsList) {
+            if (mutation.type === 'childList') callback(outer);
+          }
+        }).observe(outer, { childList: true });
+  */
+        callback(outer);
+        
+      }
+      //監視表格寬改變
+      function monitorTebleWidth(table,callback) {
+        new MutationObserver((mutationsList, observer) => {
+          for (const mutation of mutationsList) {
+            if (mutation.type === 'attributes' && mutation.attributeName === 'style') callback(table);
+          }
+        }).observe(table, { childList: true });
+      }
+      //監視寬度改變
+      function monitorWidth(el,callback) {
+        new ResizeObserver((entries) => {
+          for (const entry of entries) {
+            if (entry.borderBoxSize) callback(entry);
+          }
+        }).observe(el);
+      }
+
+  </script>
+  
+  <script>
+    // tooltip 文字   
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    })
+  </script>
+
+
+
+</body>
+</html>
