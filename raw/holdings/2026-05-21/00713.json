@@ -1,0 +1,72 @@
+{
+  "trade_date": "2026.05.21",
+  "etf_code": "00713",
+  "etf_name": "元大台灣高息低波",
+  "issuer": "元大投信",
+  "market": "TWSE",
+  "source": "issuer_pcf",
+  "source_url": "https://www.yuantaetfs.com/tradeInfo/pcf/00713",
+  "pcf_identity": {
+    "ok": true,
+    "method": "visible_context_match",
+    "target_etf_code": "00713",
+    "target_etf_name": "元大台灣高息低波",
+    "matched_context": "(00713)元大台灣高股息低波動ETF證券投資信託基金 - 元大申購買回清單 | 元大投信 YuantaETFs",
+    "reason": "Page title/header/selected option visibly matches target ETF."
+  },
+  "pcf_meta": {
+    "trade_date": "2026.05.21",
+    "fund_nav": 0.0,
+    "outstanding_units": 0.0,
+    "unit_diff": 0.0,
+    "nav_per_unit": 0.0,
+    "creation_unit": 0.0
+  },
+  "holdings": [
+    {
+      "stock_code": "1216",
+      "stock_name": "商品名稱",
+      "shares": 117738000.0,
+      "weight_pct": 8.14,
+      "close": 0.0,
+      "market_value": 0.0,
+      "source_table": "text_fallback"
+    },
+    {
+      "stock_code": "2880",
+      "stock_name": "商品名稱",
+      "shares": 221703000.0,
+      "weight_pct": 6.72,
+      "close": 0.0,
+      "market_value": 0.0,
+      "source_table": "text_fallback"
+    },
+    {
+      "stock_code": "2912",
+      "stock_name": "商品名稱",
+      "shares": 26029000.0,
+      "weight_pct": 5.44,
+      "close": 0.0,
+      "market_value": 0.0,
+      "source_table": "text_fallback"
+    },
+    {
+      "stock_code": "3045",
+      "stock_name": "商品名稱",
+      "shares": 84126000.0,
+      "weight_pct": 9.03,
+      "close": 0.0,
+      "market_value": 0.0,
+      "source_table": "text_fallback"
+    },
+    {
+      "stock_code": "4904",
+      "stock_name": "商品名稱",
+      "shares": 105450000.0,
+      "weight_pct": 9.54,
+      "close": 0.0,
+      "market_value": 0.0,
+      "source_table": "text_fallback"
+    }
+  ]
+}
